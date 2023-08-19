@@ -1,0 +1,73 @@
+<div  fxLayout="row wrap"  fxLayoutAlign="center center" style="height: 100%; ;background-color: rgb(241, 241, 241);">
+
+
+
+        
+    <!-- <form  fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 25px; width: 100vw;" (ngSubmit)="buscar()" autocomplete="off" >
+        <mat-form-field  appearance="outline" fxFlex="90" class="font fs-5" >
+            <input type="text" matInput  placeholder="¿Que necesitas?"  name="itemSearch"
+            class="form-control  me-2"    
+            [(ngModel)]="itemSearch">  
+            <mat-icon matSuffix style="transform:scale(1.7); color: red; margin-right: 20px;" (click)="Search( itemSearch)" >search</mat-icon>
+        </mat-form-field>
+    </form> -->
+    
+    
+
+        
+    <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="background-color: rgb(0, 30, 197); color: white;
+    height: 100px;">
+        <span class="font fs-4 t-center" fxFlex="50">CLIENTES</span>
+        <span class="font fs-4 t-center" fxFlex="50">PRODUCTOS</span>
+    </div>
+
+
+
+    <form  [formGroup]="myForm"  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  class="mt-130">     
+            
+          <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
+              <mat-label>Fecha</mat-label>
+              <input matInput type="text" required formControlName="date">
+          </mat-form-field> 
+
+          <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
+            <mat-label>Fecha</mat-label>
+            <input matInput type="text" required formControlName="date">
+        </mat-form-field> 
+
+        <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100">
+           
+            <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
+                <mat-label>Cliente</mat-label>
+                <input matInput type="text" formControlName="client" (click)="getClient()">
+            </mat-form-field> 
+      
+        </div>
+
+<!-- 
+          <mat-form-field appearance="outline" fxFlex="90" class="mt-10 font fs-5">		
+            <mat-label>Contraseña</mat-label>
+            <input matInput [type]="passwordVisible ? 'text' : 'password'"  required formControlName="password" >
+            <button mat-icon-button  (click)="togglePasswordVisibility('password')" >
+              <mat-icon>{{ passwordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
+            </button>
+          </mat-form-field> 
+
+          <mat-error *ngIf="validField('password')" fxLayoutAlign="start" fxFlex="85" class="font fs-4 mb-10">
+            Campo requerido
+          </mat-error>
+            
+          
+            <div fxLayout="row wrap" fxLayoutAlign="center"  fxFlex="90">
+                <div fxLayout="row wrap" fxLayoutAlign="start" fxFlex="100" >
+                    <mat-label  class="font fs-3" style="margin-right:0px;"> <b>Recordarme</b></mat-label> &nbsp;
+                    <mat-slide-toggle formControlName="toLStorage" [checked]="true" ></mat-slide-toggle>
+                </div>
+                <span type="button" class="font fs-3 mt-10" style="cursor: pointer; align-items: start; color: blue;" fxFlex="100"><b > ¿Olvidaste tu contraseña?</b> </span>
+            </div> -->
+            
+        </form>
+    
+    
+ 
+</div>

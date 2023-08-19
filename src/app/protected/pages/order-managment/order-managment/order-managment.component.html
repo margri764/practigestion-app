@@ -1,0 +1,198 @@
+
+<div  fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" *ngIf="isLoading; else divCartel">
+    
+<!-- choose order by -->
+<div  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="mt-40"> 
+
+  <span fxLayout="row wrap" fxLayoutAlign="start" fxFlex="100" class="font fs-7 ml-10 mb-30"> Ordenar pedidos </span>
+
+    <carousel [cellWidth]="'100%'" [cellsToShow]="2.5"  [height]= "80" [arrows]=false>
+
+       <div class="carousel-cell" (click)="changeOrder('HISTORICAS')"> 
+         <button mat-raised-button class="font" fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" (click)="menuClicked('POR FECHA')" [ngClass]="date ? 'btnMenuClicked':' btnMenu'" routerLink="/dashboard/historicals-orders" > <b> Historicas</b> </button>
+       </div>
+
+        <div class="carousel-cell" (click)="changeOrder('SIN PROCESAR')"> 
+           <button mat-raised-button class="font"  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" (click)="menuClicked('SIN PROCESAR')" [ngClass]="noProcess ? 'btnMenuClicked':' btnMenu'" > <b> Sin Procesar</b> </button>
+       </div>
+      
+        <div class="carousel-cell" (click)="changeOrder('EN PROCESO')"> 
+            <button mat-raised-button class="font"  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" (click)="menuClicked('EN PROCESO')" [ngClass]="inProcess ? 'btnMenuClicked':' btnMenu'"> <b> En proceso</b> </button>
+        </div>
+        
+        <div class="carousel-cell" (click)="changeOrder('ORDEN LISTA')"> 
+            <button  mat-raised-button  class="font" appearance="outline" fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  (click)="menuClicked('ORDEN LISTA')" [ngClass]=" ready ? 'btnMenuClicked':' btnMenu'"> <b> Orden Lista </b> </button>
+        </div>
+        
+        <div class="carousel-cell" (click)="changeOrder('ENTREGA DELIVERY')"> 
+            <button  mat-raised-button  class="font" appearance="outline" fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" (click)="menuClicked('ENTREGA DELIVERY')" [ngClass]="delivery ? 'btnMenuClicked':' btnMenu'"> <b> Delivery </b> </button>
+        </div>
+        
+        <div class="carousel-cell" (click)="changeOrder('ENTREGA EN LOCAL')"> 
+            <button  mat-raised-button  class="font" appearance="outline" fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  (click)="menuClicked('ENTREGA EN LOCAL')" [ngClass]="local ? 'btnMenuClicked':' btnMenu'" > <b> Local </b></button>
+        </div>
+    
+        <div class="carousel-cell" (click)="changeOrder('COMPLETADO')"> 
+          <button  mat-raised-button  class="font" appearance="outline" fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  (click)="menuClicked('COMPLETADO')" [ngClass]="complete ? 'btnMenuClicked':' btnMenu'" > <b> Completadas </b>  </button>
+      </div>
+
+      <div class="carousel-cell" (click)="changeOrder('ELIMINADO')"> 
+        <button  mat-raised-button  class="font" appearance="outline" fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" (click)="menuClicked('ELIMINADO')" [ngClass]="delete ? 'btnMenuClicked':' btnMenu'" > <b> Eliminadas </b>  </button>
+    </div>
+
+
+    </carousel>
+
+</div>
+<!-- end choose order by -->
+
+<span class="font fs-4 t-center fc-red border pd-5" fxFlex="100" *ngIf="showNoOrdersMessage" > Sin ordenes para mostrar</span>
+
+
+<!-- start empty order -->
+<div  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="mt-40" *ngIf="orders.length == 0"> 
+  <i class="material-symbols-outlined notranslate" style="font-size: 100px; color: rgb(204, 204, 204);">shopping_bag</i>
+  <span class="font fs-6 t-center" fxFlex="100"> Sin ordenes para mostrar</span>
+  <span class="font fs-3"> Accedé a las ordenes históricas desde  <b style="color:blue" routerLink="/dashboard/historicals-orders">acá</b>  </span>
+</div>
+  <!-- end empty order -->
+
+
+
+
+<div fxLayout="row wrap" fxLayoutAlign="center" fxFlex="95" class="whiteframe  mt-40 pd-10" *ngIf="labelOder24hs && orders.length !== 0">
+  <div fxLayout="row wrap" fxLayoutAlign="end" fxFlex="100" class="mt-20">
+    <mat-icon style="cursor: pointer; transform: scale(1.3); margin-right: 10px;" (click)="closeLabelOrders()" >close</mat-icon>
+  </div>
+  <span class="font fs-4 t-center mt-20" fxFlex="100"> En esta sección se muestran las ordenes de las ultimas 24hs</span>
+  <span class="font fs-3 mt-20"> Accedé a las ordenes históricas desde  <b style="color:blue" routerLink="/dashboard/historicals-orders">acá</b>  </span>      
+</div>
+  
+<!-- start order -->
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  >
+
+  <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="95" *ngFor="let order of orders | priority: orderBy" class="mt-40 mb-20" >
+        
+        <div fxLayout="row wrap" fxLayoutAlign="space-between space-between" fxFlex="100" class="shadow" >
+            
+            <div fxLayout="row wrap" fxLayoutAlign="space-between space-between" fxFlex="100" class="mt-20 font fs-4"  >
+                
+              <div fxLayout="row wrap"fxLayoutAlign="start" fxFlex="50"> 
+                      <span fxFlex="100"  ><b> {{order.user?.firstName}}</b> <b> {{order.user?.lastName}}</b></span>
+                      <span  class="fs-3" style="color: gray;"> {{order.createdAt | date:'medium'}}</span>
+                      <span  class="fs-3" style="color: gray;"> {{order.user?.phone}}</span>
+              </div>
+                  <div fxLayoutAlign="end" fxFlex="50"  > 
+                      <span *ngFor="let status of order.statusOrder, last as isLast"  (click)="statusManagment(order, $event)"> <b [ngStyle]="styleObject(status.status)" *ngIf="isLast"> {{status.status}} </b> </span> 
+                </div>
+            </div>    
+          
+        </div>
+    
+            <mat-accordion  fxFlex="100"  >
+              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState" (click)="toggleStatus(order._id)" style="
+              border-radius: 0px 0px 10px 10px;
+              -webkit-border-radius: 0px 0px 20px 20px;
+              -moz-border-radius: 0px 0px 20px 20px;;
+              
+              box-shadow: -1px 4px 14px -1px rgba(197, 196, 196, 0.45);
+             -webkit-box-shadow: -1px 4px 14px -1px rgba(197, 196, 196, 0.45);
+              -moz-box-shadow: -1px 4px 14px -1px rgba(197, 196, 196, 0.45);
+
+              " >
+                <mat-expansion-panel-header >
+                  
+                  <mat-panel-description fxLayoutAlign="end" style="color: gray;">
+                  
+                        <mat-icon class="material-symbols-outlined notranslate" >shopping_bag</mat-icon>
+                  </mat-panel-description>
+        
+                </mat-expansion-panel-header>
+                
+        
+                <div  fxLayout="row wrap"  fxLayoutAlign="center" fxFlex="100">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between space-between" fxFlex="100" class="mt-20"  *ngFor="let product of order.order"  >
+
+                    <div  fxLayout="row wrap"  fxLayoutAlign="start " fxFlex="60">
+                            <span fxFlex="90"  class="font fs-5 mt-10" *ngFor="let mainProduct of product.product" ><b> {{mainProduct._id.name}} </b> <br> {{mainProduct.quantity}} x ${{mainProduct._id.price | rounds}}</span>
+                            <span class="font mt-10" fxFlex="100" ><b>Bebidas:</b></span>
+                            <span  class="font" fxFlex="100" *ngFor="let drink of product.drink"> 
+                               {{drink._id.name}} {{drink.quantity}} x  ${{drink._id.price | rounds}} 
+                            </span> 
+      
+                            <span  class="font" fxFlex="100" *ngFor="let fries of product.fries"> 
+                              {{fries._id.name}} {{fries.quantity}} x  ${{fries._id.price | rounds}} 
+                           </span> 
+                    </div>
+
+                    <div  fxLayout="row wrap"  fxLayoutAlign="end start" fxFlex="40" *ngFor="let mainProduct of product.product">
+                        <img [src]="mainProduct._id.img" alt="item producto" fxFlex="70" >
+                    </div>
+                 </div>
+        
+        
+                 
+                      <span class="mt-45 font" fxFlex="100"> <b>Direccion de delivery: </b> {{order.addressDelivery}}</span><br>
+        
+                  <div  fxLayout="row wrap"  fxLayoutAlign="space-between" fxFlex="100"  class="font mt-25 mb-20" >
+                      <span  class="fs-5 bebasFont"  style="color: rgb(50, 50, 50);"><b>Total </b></span> 
+                      <span  class="fs-5 bebasFont"  style="color: rgb(50, 50, 50);"><b> $ {{order.total | rounds}} </b></span>
+                  </div>
+                </div>
+        
+              </mat-expansion-panel>
+            </mat-accordion>
+
+            <!-- status -->
+            <mat-accordion  fxFlex="100" *ngIf="order._id == toggle">
+              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState" style="
+              border-radius: 0px 0px 10px 10px;
+              -webkit-border-radius: 0px 0px 20px 20px;
+              -moz-border-radius: 0px 0px 20px 20px;;
+              
+              box-shadow: -1px 4px 14px -1px rgba(197, 196, 196, 0.45);
+             -webkit-box-shadow: -1px 4px 14px -1px rgba(197, 196, 196, 0.45);
+              -moz-box-shadow: -1px 4px 14px -1px rgba(197, 196, 196, 0.45);
+              transform: translateY(-15px);
+              " 
+              >
+                <mat-expansion-panel-header>
+        
+                  <mat-panel-description fxLayoutAlign="end" >
+                  
+                        <span class="font fs-3" style="color: rgb(203, 203, 203);"> estados </span>
+                  </mat-panel-description>
+        
+                </mat-expansion-panel-header>
+
+                      
+                <div fxLayout="row wrap" fxLayoutAlign="center" fxFlex="100"  class="font fs-3">
+                    <span  fxLayoutAlign="start" fxFlex="100" *ngFor="let status of order.statusOrder "> 
+                        {{status.status}} &nbsp; {{status.date | date:'medium'}} &nbsp; {{status.staff.fullName}} 
+                      </span> 
+                      
+                </div> 
+        
+                
+              </mat-expansion-panel>
+            </mat-accordion>
+            <!-- end status -->
+</div>          
+ <!-- end order -->
+        
+</div>          
+</div>          
+<!-- end order -->
+          
+
+<ng-template #divCartel>
+  <div  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" style="margin-bottom: 30px; margin-top: 40px;"> 
+    <span class="material-symbols-outlined notranslate fastFoodIcon" fxFlex="100" style="text-align: center;">
+        fastfood
+    </span>
+    <span class="loadingIcon">cargando...</span>
+</div>
+
+</ng-template>
+
+

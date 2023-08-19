@@ -1,0 +1,103 @@
+
+.backLogin{
+    background: url(/assets/background.png) no-repeat center center fixed ;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;    
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; 
+
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+        color: #61a7e900;
+        opacity: 0.75!important;
+        background-color: white;
+        border-radius: 8px;
+    
+
+        box-shadow: -1px 4px 14px -2px rgba(121, 121, 121, 0.55);
+        -webkit-box-shadow: -1px 4px 14px -2px rgba(121, 121, 121,0.55);
+        -moz-box-shadow: -1px 4px 14px -2px rgba(121, 121, 121,0.55);
+    }
+    
+    mat-form-field.mat-form-field{
+        font-size: 4vw;
+    }
+}
+
+.btnLogin{
+    background: red;
+    color: white;
+    border-radius: 7px;
+    line-height: 3em;
+    border: red;
+    cursor: pointer;
+
+    box-shadow: -1px 4px 14px -2px rgba(121, 121, 121, 0.75);
+    -webkit-box-shadow: -1px 4px 14px -2px rgba(121, 121, 121,0.75);
+    -moz-box-shadow: -1px 4px 14px -2px rgba(121, 121, 121,0.75);
+}
+
+.btnGoogle{
+    border: 2px solid red;
+    color: white;
+    border-radius: 7px;
+    line-height: 2.8em;
+
+
+    box-shadow: -1px 4px 14px -2px rgba(121, 121, 121, 0.75);
+    -webkit-box-shadow: -1px 4px 14px -2px rgba(121, 121, 121,0.75);
+    -moz-box-shadow: -1px 4px 14px -2px rgba(121, 121, 121,0.75);
+}
+
+.line{
+    border: 1px solid gray;
+}
+
+
+mat-form-field  {
+    font-size: 1.2em;
+    font-family: "poppins-light";
+    line-height: 1em;
+
+}
+
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: #f3b304;
+  }
+  
+  ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-label {
+    color: #f3b304;
+  }
+
+  ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    color: #f3b304!important;
+
+}
+
+::ng-deep .mat-slide-toggle.mat-disabled .mat-slide-toggle-bar {
+    color: #f3b304 !important;
+
+}
+
+::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    color: #f3b304 !important;
+
+  }
+
+  
+.mat-icon-button {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-65%);
+  }
+
+
+
+
+  
+
+
+

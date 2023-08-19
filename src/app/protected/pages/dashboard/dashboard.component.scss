@@ -1,0 +1,14 @@
+.custom-color {
+    background-color: #ff0000; /* Color personalizado, en este caso, rojo */
+    color: #ffffff; /* Color de texto para el botón */
+  }
+
+  .shadow{
+    padding:  10px;
+    background-color: white;
+
+    box-shadow: -1px 0px 14px -1px rgba(197, 196, 196, 0.45);
+    -webkit-box-shadow: -1px 0px 14px -1px rgba(197, 196, 196, 0.45);
+     -moz-box-shadow: -1px 0px 14px -1px rgba(197, 196, 196, 0.45);
+}
+

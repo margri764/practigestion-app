@@ -1,0 +1,95 @@
+<div style="align-items: center;" >
+  <mat-accordion  multi class="mt-20"  >
+    <mat-expansion-panel  style="
+    border-radius: 0px 0px 10px 10px;
+    padding: 0 !important;
+    -webkit-border-radius: 0px 0px 10px 10px;
+    -moz-border-radius: 0px 0px 10px 10px;;
+    
+    box-shadow: -1px 4px 14px -1px rgba(197, 196, 196, 0.45);
+    -webkit-box-shadow: -1px 4px 14px -1px rgba(197, 196, 196, 0.45);
+    -moz-box-shadow: -1px 4px 14px -1px rgba(197, 196, 196, 0.45);
+    
+    " >
+
+    
+<div  fxLayout="row wrap"  fxLayoutAlign="space-evenly center" fxFlex="100"> 
+
+
+        <div  fxLayout="row wrap"  fxLayoutAlign="center center"  class="font fs-6 mt-20" >
+
+            <div  fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" class="font fs-5">
+                <span  fxFlex="70">Edicion Masiva </span>
+                <span fxLayout="row wrap"  fxLayoutAlign="end start" fxFlex="30">
+                    <mat-icon   style="cursor: pointer; transform: scale(1.3);" (click)="resets()" style="margin-right: 10px" >close</mat-icon>
+                </span>
+            </div>    
+   
+            <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" class="mt-40">
+
+                <div fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="23">
+                    <button mat-mini-fab color="primary" aria-label="porcentaje" (click)="toggPrice('increase')" >
+                    <mat-icon>percent</mat-icon>
+                    </button>
+                    <span fxFlex="100" class="font fs-2" style="text-align: center;"> Subir </span>
+                </div>
+
+                <div fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="23" class="font fs-2">
+                    <button mat-mini-fab color="primary" aria-label="porcentaje" (click)="toggPrice('decrease')">
+                    <mat-icon>percent</mat-icon>
+                    </button>
+                    <span fxFlex="100" style="text-align: center;"> Bajar </span>
+                </div>
+
+                <div fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="23" class="font fs-2">
+                    <button mat-mini-fab color="primary" aria-label="porcentaje"  (click)="toggPrice('add')">
+                    <mat-icon>add</mat-icon>
+                    </button>
+                    <span fxFlex="100" style="text-align: center;"> Sumar </span>
+                </div>
+
+                <div fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="24" class="font fs-2">
+                    <button mat-mini-fab color="primary" aria-label="porcentaje" (click)="toggPrice('substract')">
+                    <mat-icon>remove</mat-icon>
+                    </button>
+                    <span fxFlex="100" style="text-align: center;"> Restar </span>
+                </div>
+            </div>
+
+        </div>   
+       
+        <form [formGroup]="myForm"  fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" autocomplete="off
+        "  class="mt-20">
+            <mat-form-field appearance="outline" floatLabel="always" fxFlex="100" class="font fs-5 mt-20">
+                <mat-label>Selecciona la categoria</mat-label>
+                <mat-select required formControlName="category" class="font fs-4">
+                            <mat-option>----------</mat-option>
+                            <mat-option *ngFor="let category of categories" [value]="category" class="font fs-4"> {{category}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-error  *ngIf ="validField ('category')" class="font fs-4">Elige una categoría</mat-error> 
+            
+            <mat-form-field appearance="outline" floatLabel="always" fxFlex="100" class="font fs-6 mt-20" >
+                <mat-label>Cantidad</mat-label>
+                <input matInput type="text" class="example-right-align" required   placeholder="0" formControlName="value" >
+            </mat-form-field>
+            <mat-error  *ngIf ="validField ('value')" class="font fs-4"> {{valueErrorMsg}} </mat-error> 
+    
+            <span class="font fs-3 mt-10 f-gray" fxFlex="100"> operación elegida: <b> {{operationSelected}}</b> </span>
+            
+            <div  fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" class="font fs-4 mt-20" *ngIf="select">
+                <mat-icon class="material-symbols-outlined notranslate" style="transform: scale(1.4); color: red;"> warning </mat-icon> &nbsp;
+                <span style="color: red;"> Elegí una operación </span>
+            </div>
+
+            <div  fxLayout="row wrap"  fxLayoutAlign="center" fxFlex="100" class="mt-20" #menu>
+                <button  mat-raised-button fxLayout="row wrap" fxLayoutAlign="center center" [ngClass]="save ? 'btnMenuClicked':' btnMenu'"  fxFlex="100" (click)="onSelect()" > 
+                    <mat-icon style=" transform: scale(1.8); cursor: pointer;">check_circle</mat-icon>
+                    <span class="font fs-5"> &nbsp; &nbsp; Guardar</span>
+                </button>
+            </div>
+        </form>
+</div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

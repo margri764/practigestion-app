@@ -1,0 +1,80 @@
+
+
+<div fxLayout="row wrap" fxLayoutAlign="center space-between" >
+  
+  <span fxLayout="row wrap" fxLayoutAlign="start center" class="font fs-7 mt-40"><b>Crear Staff</b> </span>   
+  
+<form  [formGroup]="myForm"  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" autocomplete="off" class="mt-60">     
+    
+        <mat-form-field appearance="outline" fxFlex="95" class="mt-10 font fs-5" >		
+            <mat-label>Nombre Completo</mat-label>
+            <input matInput type="text" required formControlName="fullName">
+          </mat-form-field> 
+        <mat-error  *ngIf ="validField ('fullName')" class="font fs-4" fxFlex="95">Campo requerido</mat-error> 
+
+        <mat-form-field appearance="outline" fxFlex="60" class="mt-10 font fs-5" >		
+          <mat-label>Email</mat-label>
+          <input matInput type="text" required formControlName="email">
+        </mat-form-field>
+        <mat-label class="font fs-5" fxFlex="38"> &nbsp; @shell.com</mat-label>
+        <mat-error  *ngIf ="validField ('email')" class="font fs-4" fxFlex="95"> {{emailErrorMsg}} </mat-error>  
+
+          
+        <mat-form-field appearance="outline" fxFlex="95" class="mt-10 font fs-5" >		
+            <mat-label>Phone</mat-label>
+            <input matInput type="text" required formControlName="phone">
+        </mat-form-field>
+        <mat-error  *ngIf ="validField ('phone')" class="font fs-4"> {{validateNumberCount}} </mat-error>  
+
+
+        <mat-form-field appearance="outline" fxFlex="95" class="mt-10 font fs-5" >		
+            <mat-label>Dirección</mat-label>
+            <input matInput type="text" required formControlName="address">
+          </mat-form-field> 
+          <mat-error  *ngIf ="validField ('address')" class="font fs-4" fxFlex="95">Campo requerido. Maximo de 50 caracteres</mat-error> 
+
+        <mat-form-field appearance="outline" fxFlex="95" class="mt-10 font fs-5" >		
+            <mat-label>Rol</mat-label>
+                <mat-select formControlName="role">
+                    <mat-option *ngFor="let rol of roles" [value]="rol" class="font fs-5" style="opacity: 0.85;"> {{rol}} </mat-option>
+                </mat-select>
+        </mat-form-field> 
+        <mat-error  *ngIf ="validField ('role')" class="font fs-4" fxFlex="95">Selecciona una opción</mat-error> 
+
+        <mat-form-field appearance="outline" fxFlex="95" class="mt-10 font fs-5">		
+            <mat-label>Contraseña</mat-label>
+            <input matInput [type]="passwordVisible ? 'text' : 'password'"  required formControlName="password">
+            <button mat-icon-button (click)="togglePasswordVisibility('password')">
+              <mat-icon>{{ passwordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
+            </button>
+        </mat-form-field> 
+        <mat-error  *ngIf ="validField ('password')" class="font fs-4" fxFlex="95">Minimo 6 caracteres</mat-error> 
+
+          <mat-form-field appearance="outline" fxFlex="95" class="mt-10 font fs-5">		
+            <mat-label>Confirmar Contraseña</mat-label>
+            <input matInput [type]="confirmVisible ? 'text' : 'password'"  required formControlName="confirm">
+            <button mat-icon-button (click)="togglePasswordVisibility('confirm')">
+              <mat-icon>{{ confirmVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
+            </button>
+        </mat-form-field> 
+        <mat-error  *ngIf ="validField ('confirm')" class="font fs-4" fxFlex="95"> Las contraseñas deben coincidir </mat-error> 
+
+ </form>
+
+  <!-- save button -->
+  <div  fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="95" class="mb-60" *ngIf="!isLoading">
+    <button mat-raised-button  [ngClass]="!save ? 'btnMenuClicked':'btnMenu'" fxFlex="48" (click)="closeComponent()" >
+        <i class="material-symbols-outlined notranslate"   style="transform: scale(1.3);">redo</i> 
+        &nbsp;Cancelar
+       </button>
+       <button mat-raised-button  [ngClass]="save ? 'btnMenuClicked':'btnMenu'" fxFlex="48" (click)="onSaveForm()">
+           <i class="material-symbols-outlined notranslate" style="transform: scale(1.3);">account_circle</i> 
+           <i class="fa fa-spin fa-sync" *ngIf="isLoading"></i>
+           &nbsp; Crear
+       </button>
+</div>
+<!-- end save button -->
+
+</div>
+  
+

@@ -1,0 +1,21 @@
+
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" *ngIf="arrArticles.length !== 0; else divLoading">
+
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="97" *ngFor="let art of arrArticles, index as i" style="margin-top: 10px;color: rgb(124, 124, 124) ;border: 1px solid; border-radius: 7px;" [routerLink]="['../articulo/', art.idArticulo]">
+
+
+        <span>id: {{art.idArticulo}}</span>
+        <span>Descripcion larga: {{art.descripcionLarga}}</span>
+        <span>Descripcion corta: {{art.descripcionCorta}}</span>
+        <span>Precio c/IVA: {{art.precioCostoConIva}}</span>
+    </div>
+</div>
+
+
+<ng-template #divLoading>
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" > 
+        <span class="font fs-7" style="margin-top: 50vh; text-align: center; width: 100%;">Loading...</span>
+    </div>  
+  </ng-template>
+  
+

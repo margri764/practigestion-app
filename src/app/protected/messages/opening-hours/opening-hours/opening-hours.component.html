@@ -1,0 +1,159 @@
+<div fxLayout="row wrap" fxLayoutAlign="center center" 
+class="animate__animated animate__fadeIn" style="background-color: white; height: 100%;">
+
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="whiteFrame" >
+
+        <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="mt-40 pd-10"  *ngIf="showTimeLabel && (this.timeOpenFrom == '' || this.timeTo == '')"  >
+  
+            <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="80" style="color: red; border: 1px solid red; padding: 15px; border-radius: 10px;" class="animate__animated animate__flash">
+                <span class="font fs-5" fxFlex="100">Seleccioná horario de apertura y cierre</span>
+                
+            </div>
+        </div> 
+      
+      <!-- start openFrom -->
+      <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" class="mt-20" *ngIf="showOpenFrom">
+         
+          <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="60" >
+               <span class="font fs-4 ml-10" fxFlex="100"> <b *ngIf="!openSelected"> Desde: &nbsp; {{ hour | addZero }} : {{ minute | addZero }}  hs</b> </span>
+              
+               <span class="font fs-4 ml-10" fxFlex="100"> <b *ngIf="openSelected"> Desde: &nbsp; {{ timeOpenFrom }} hs</b> </span>
+          </div>
+          
+          <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="40" >
+  
+              <div (click)="pickUpTime(hour, minute, 'openFrom')" *ngIf="timeOpenFrom == '' " class="mr-5">
+                  <div class="icon" >
+                      <span class="material-symbols-outlined notranslate" style="color: green;"> done </span>
+                  </div>
+              </div>
+  
+              <div (click)="deleteTime('openFrom')" class="mr-10">
+                  <div class="icon" >
+                      <span class="material-symbols-outlined notranslate" style="color: red;"> delete </span>
+                  </div>
+              </div>
+              
+          </div> 
+      </div>
+      <!-- end openFrom -->
+  
+      <!-- start to -->
+      <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" class="mt-20" *ngIf="showTo" >
+         
+          <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="50" >
+  
+               <span class="font fs-4 ml-10" fxFlex="100" ><b *ngIf="!toSelected"> Hasta:&nbsp; {{ hour | addZero }} : {{ minute | addZero }} hs</b> </span>
+               <span class="font fs-4 ml-10" fxFlex="100" ><b *ngIf="toSelected">  Hasta: &nbsp; {{ timeTo }} hs</b> </span>
+          </div>
+  
+          <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="40">
+           
+  
+              <div (click)="pickUpTime(hour, minute, 'to')" *ngIf="timeTo == '' " class="mr-5">
+                  <div class="icon" >
+                      <span class="material-symbols-outlined notranslate" style="color: green;"> done </span>
+                  </div>
+              </div>
+  
+              <div (click)="deleteTime('to')" class="mr-10">
+                  <div class="icon" >
+                      <span class="material-symbols-outlined notranslate" style="color: red;"> delete </span>
+                  </div>
+              </div>
+              
+          </div> 
+      </div>
+      <!-- end to -->
+  
+      <!-- start clock -->
+      <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="97" class="mt-40" style="color: gray; border-radius: 5px;" >
+  
+          <!-- start hora -->
+          <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="48">
+  
+              <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="10" class="pd-5" (click)="decrement()">
+                  <span style="opacity: 0.5; font-size: 3em; font-family: 'poppins-light'; " > {{ beforeH }} </span>         
+              </div>
+  
+              <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="pd-5">
+                  <span style="font-size: 3.5em; font-family: 'poppins-light'; color: black;"> {{ hour | addZero }} </span>         
+              </div>
+          
+              <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="pd-5" (click)="increment()">
+                  <span style="opacity: 0.5; font-size: 3em; font-family: 'poppins-light';" > {{ afterH }} </span>         
+              </div>
+          
+          </div>
+          <!-- end hora -->
+  
+             <span style="font-size: 2.8em; font-family: 'poppins-light'; color: black;" fxFlex="1">:</span>
+  
+          <!-- start min -->
+          <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="48">
+              <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="10" class="pd-5" (click)="decrementM()">
+                  <span style="opacity: 0.5; font-size: 3em; font-family: 'poppins-light'; " > {{ beforeM }} </span>         
+              </div>
+  
+              <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="pd-5">
+                  <span style="font-size: 3.5em; font-family: 'poppins-light'; color: black;"> {{ minute | addZero }} </span>         
+              </div>
+          
+              <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="pd-5" (click)="incrementM()">
+                  <span style="opacity: 0.5; font-size: 3em; font-family: 'poppins-light';" > {{ afterM }} </span>         
+              </div>
+          
+          </div>
+          <!-- end min -->
+  
+     </div>
+     <!-- end clock -->
+  
+    </div>
+  
+<!-- start select day  -->
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="whiteFrame mt-10" >
+  
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" class="days" >
+        <div [ngClass]="sunday ? 'itemSelected': ''" (click)="selectedDay('Dom')" > D </div>
+        <div [ngClass]="monday ? 'itemSelected': ''" (click)="selectedDay('Lun')" > L </div>
+        <div [ngClass]="tuesday ? 'itemSelected': ''" (click)="selectedDay('Mar')"> M </div>
+        <div [ngClass]="wednesday ? 'itemSelected': ''" (click)="selectedDay('Mie')"> M </div>
+        <div [ngClass]="thursday ? 'itemSelected': ''" (click)="selectedDay('Jue')" > J </div>
+        <div [ngClass]="friday ? 'itemSelected': ''" (click)="selectedDay('Vie')" > V </div>
+        <div [ngClass]="saturday ? 'itemSelected': ''" (click)="selectedDay('Sab')"  > S </div>
+    </div>
+</div>   
+
+<div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100" class="whiteFrame mt-40" *ngIf="day.length != 0" >
+    <span class="font fs-4 ml-10" fxFlex="100"><b> Todos: </b> </span>
+    <span class="font fs-4 ml-10 mt-20" *ngFor="let d of day"> {{ d | convertDay }}</span>
+</div>
+
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="80" style="color: red; border: 1px solid red; padding: 5px; border-radius: 10px; margin-top: 10px;" class="animate__animated animate__flash" *ngIf="noDays">
+        
+    <span class="font fs-4" fxFlex="70">Seleccionar días</span>
+    
+    <img src="assets/finger-point.png" alt="" fxFlex="20" >
+    
+</div>
+
+<!-- end select day  -->
+
+<!-- start save -->
+<div  fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="98" class="mb-20 mt-40">
+    <button mat-raised-button  [ngClass]="!confirm ? 'btnMenuClicked':'btnMenu'" fxFlex="48" (click)="closeComponent()" >
+        <i class="material-symbols-outlined notranslate"  >redo</i> 
+        &nbsp;Cancelar
+    </button>
+   <button mat-raised-button  [ngClass]="confirm ? 'btnMenuClicked':'btnMenu'" fxFlex="48" (click)="onSave()">
+      <i class="material-symbols-outlined notranslate">alarm_on</i> 
+      &nbsp; Guardar
+  </button>
+</div>
+
+
+
+  
+</div>
+  

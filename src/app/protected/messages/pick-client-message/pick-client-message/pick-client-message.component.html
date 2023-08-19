@@ -1,0 +1,32 @@
+<div  fxLayout="row wrap"  fxLayoutAlign="center center" style="height: 100%;">
+
+
+     <form  fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 25px; width: 100vw;" (ngSubmit)="buscar()" autocomplete="off" >
+        <mat-form-field  appearance="outline" fxFlex="90" class="font fs-5" >
+            <input type="text" matInput  placeholder="¿Que necesitas?"  name="itemSearch"
+            class="form-control  me-2"    
+            [(ngModel)]="itemSearch">  
+            <mat-icon matSuffix style="transform:scale(1.7); color: red; margin-right: 20px;" (click)="Search( itemSearch)" >search</mat-icon>
+        </mat-form-field>
+    </form> 
+
+
+    <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" *ngIf="spinner">
+        
+        <span  class="font fs-5" fxFlex="100"> Buscando.... </span>
+        
+    </div>
+
+    <div fxLayout="row wrap"  fxLayoutAlign="start center"  fxFlex="97" *ngFor="let client of arrClient">
+        
+        <span  class="font fs-5" fxFlex="100" (click)="selectClient(client)" style="cursor: pointer;"> {{client.apellido}} &nbsp;{{client.nombre}}</span>
+        
+    </div>
+    
+    
+    <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" *ngIf="!spinner">
+        
+        <!-- <span  class="font fs-5" fxFlex="100" *ngFor="let us of user"> {{us.apellido}} </span> -->
+        
+    </div>
+    </div>
