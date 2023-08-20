@@ -41,30 +41,24 @@
                 <mat-label>Cliente</mat-label>
                 <input matInput type="text" formControlName="client" (click)="getClient()">
             </mat-form-field> 
+
+            <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
+                <mat-label>Razon Social</mat-label>
+                <input matInput type="text" formControlName="comercialName">
+            </mat-form-field> 
+      
+
+            <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
+                <mat-label>% Dto</mat-label>
+                <input matInput type="text" formControlName="discount">
+            </mat-form-field> 
       
         </div>
 
-<!-- 
-          <mat-form-field appearance="outline" fxFlex="90" class="mt-10 font fs-5">		
-            <mat-label>Contraseña</mat-label>
-            <input matInput [type]="passwordVisible ? 'text' : 'password'"  required formControlName="password" >
-            <button mat-icon-button  (click)="togglePasswordVisibility('password')" >
-              <mat-icon>{{ passwordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
-            </button>
-          </mat-form-field> 
+        <div fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="100" style="margin-top: 30px;">
+            <button mat-raised-button class="font fs-5" (click)="createOrder()">Crear Pedido</button>
+        </div>
 
-          <mat-error *ngIf="validField('password')" fxLayoutAlign="start" fxFlex="85" class="font fs-4 mb-10">
-            Campo requerido
-          </mat-error>
-            
-          
-            <div fxLayout="row wrap" fxLayoutAlign="center"  fxFlex="90">
-                <div fxLayout="row wrap" fxLayoutAlign="start" fxFlex="100" >
-                    <mat-label  class="font fs-3" style="margin-right:0px;"> <b>Recordarme</b></mat-label> &nbsp;
-                    <mat-slide-toggle formControlName="toLStorage" [checked]="true" ></mat-slide-toggle>
-                </div>
-                <span type="button" class="font fs-3 mt-10" style="cursor: pointer; align-items: start; color: blue;" fxFlex="100"><b > ¿Olvidaste tu contraseña?</b> </span>
-            </div> -->
             
         </form>
     

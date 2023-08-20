@@ -4,9 +4,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Subject, Subscription, filter } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
+import { Order, DetalleItem } from 'src/app/protected/interfaces/order.interface';
 import { PickClientMessageComponent } from 'src/app/protected/messages/pick-client-message/pick-client-message/pick-client-message.component';
 import { User } from 'src/app/protected/models/user.models';
 import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
+import { OrderService } from 'src/app/protected/services/order/order.service';
 
 @Component({
   selector: 'app-order',
@@ -22,7 +24,7 @@ export class OrderComponent implements OnInit {
   date: Date = new Date();
   onlyDate: string = this.date.toLocaleDateString(); // Muestra solo la fecha
   authSuscription! : Subscription;
-  client : string = '';
+  client : any;
 
 
 
@@ -32,6 +34,7 @@ export class OrderComponent implements OnInit {
               private fb: FormBuilder,
               private dialog : MatDialog,
               private store : Store <AppState>,
+              private orderService : OrderService
   ) {
     
 
@@ -42,7 +45,8 @@ export class OrderComponent implements OnInit {
     this.myForm = this.fb.group({
       date:     [ this.onlyDate, [Validators.required] ],
       client:  [ this.client, [Validators.required]], 
-      toLStorage:  [ true ], 
+      discount:  [ ''], 
+      comercialName:  [ this.client], 
     });
     
 
@@ -53,7 +57,9 @@ export class OrderComponent implements OnInit {
       ({tempClient})=>{
           this.client = tempClient;
           const fullName = `${tempClient.nombre} ${tempClient.apellido}`
+          const comercialName = `${tempClient.razonSocial}`
           this.myForm.controls['client']?.setValue(fullName);
+          this.myForm.controls['comercialName']?.setValue(comercialName);
           console.log(this.client);
       })
       
@@ -68,6 +74,25 @@ export class OrderComponent implements OnInit {
     });
   }
  
+  createOrder(){
+
+    const detalleItem1: DetalleItem = {
+      codigoInterno: "ww",
+      cantidad: 1,
+      bonificacionPorciento: 0
+  };
+    const body : Order ={
+        idAgenda : this.client.id,
+        estado :  this.client.estado,
+        ptoVenta: this.client.ptoVenta,
+        descuentoPorcentaje: this.myForm.get('discount')?.value,
+        detalleItems : [detalleItem1]
+
+    }
+    console.log(body);
+
+    // this.orderService.createOrder(body).subscribe((res)=>{console.log(res);})
+  }
  
 
       
