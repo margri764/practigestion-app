@@ -28,11 +28,16 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './auth.effect';
 
+// pipes
+import { CapitalizeFirstLetterPipe } from './protected/pipes/CapitalizeFirstLetterPipe';
+import { ProductStatusPipe } from './protected/pipes/productStatus.pipe';
+
 //idioma de la app
 import localeEs from '@angular/common/locales/es-AR'; //nombre inventado el AR es por Argentina
 import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { PickClientMessageComponent } from './protected/messages/pick-client-message/pick-client-message/pick-client-message.component';
+import { SelectArticleMessageComponent } from './protected/messages/select-article-message/select-article-message/select-article-message.component';
 
 
 @NgModule({
@@ -45,6 +50,9 @@ import { PickClientMessageComponent } from './protected/messages/pick-client-mes
     ArticlesComponent,
     ViewMoreArticleComponent,
     PickClientMessageComponent,
+    CapitalizeFirstLetterPipe,
+    SelectArticleMessageComponent,
+    ProductStatusPipe
   ],
   imports: [
     BrowserModule,

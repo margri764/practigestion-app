@@ -214,6 +214,10 @@ body { margin: 0;
   padding: 30px;
 }
 
+.cursor{
+  cursor: pointer;
+}
+
 .btnMenuClicked, .btnMenu {
   font-size: min(1.1em, 5vw); /* tamaño de fuente máximo: 16px o 5% del ancho de la pantalla */
   padding: 8px 10px; /* espaciado interno del botón */

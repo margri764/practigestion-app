@@ -64,10 +64,19 @@ getAllClients( ){
   return this.http.get<any>(`${this.baseUrl}api/agenda`)
 .pipe(
   map( res =>{ 
-        console.log('desde service searchProducts', res)
+        console.log('desde service getAllClients', res)
           return res} )
   );
 }
 
+
+searchClient( query :  string ){
+  return this.http.get<any>(`${this.baseUrl}api/agenda/busqueda/${query}`)
+.pipe(
+  map( res =>{ 
+        console.log('desde service searchClient', res)
+          return res} )
+  );
+}
 
 }

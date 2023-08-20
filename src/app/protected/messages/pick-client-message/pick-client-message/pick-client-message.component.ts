@@ -32,6 +32,8 @@ export class PickClientMessageComponent implements OnInit {
     // search
 
     arrClient : any []=[];
+    arrClientFinded : any []=[];
+    labelNoFinded : boolean = false;
 
   constructor(
               private authService : AuthService,
@@ -42,8 +44,13 @@ export class PickClientMessageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    this.authService.getAllClients().subscribe(({contactos})=>{console.log(contactos); this.arrClient = contactos})
+    this.spinner = true;
+    this.authService.getAllClients().subscribe(
+      ({contactos})=>{
+        console.log(contactos);
+         this.arrClient = contactos;
+         this.spinner = false;
+      })
   }
 
   selectClient(client :any){
@@ -68,20 +75,23 @@ export class PickClientMessageComponent implements OnInit {
    
    Search( valueSearch : string ){
     
-     
      this.mostrarSugerencias = true;
      this.alert = false;
      this.spinner = true;
      this.fade = false;
-     this.itemSearch = valueSearch;
-    //  const value= valueSearch.toUpperCase();
-     this.authService.getAllClients( )
+     this.labelNoFinded = false;
+
+
+     this.authService.searchClient(valueSearch)
      .subscribe ( ({contactos} )=>{
       console.log(contactos);
-
+      
+      this.spinner = false;
       if(contactos.length !== 0){
-        this.spinner = false;
+        this.arrClientFinded = contactos
         // this.user = contactos;
+      }else{
+        this.labelNoFinded = true;
       }
    
     })

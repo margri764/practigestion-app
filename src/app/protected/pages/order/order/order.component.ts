@@ -4,8 +4,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Subject, Subscription, filter } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
+import { Articulo } from 'src/app/protected/interfaces/articulo.interface';
 import { Order, DetalleItem } from 'src/app/protected/interfaces/order.interface';
 import { PickClientMessageComponent } from 'src/app/protected/messages/pick-client-message/pick-client-message/pick-client-message.component';
+import { SelectArticleMessageComponent } from 'src/app/protected/messages/select-article-message/select-article-message/select-article-message.component';
 import { User } from 'src/app/protected/models/user.models';
 import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
 import { OrderService } from 'src/app/protected/services/order/order.service';
@@ -20,12 +22,17 @@ export class OrderComponent implements OnInit {
 
 
   user : User []=[];
+  arrArticles : Articulo []=[];
   myForm!: FormGroup;
   date: Date = new Date();
   onlyDate: string = this.date.toLocaleDateString(); // Muestra solo la fecha
   authSuscription! : Subscription;
   client : any;
+  showClient : boolean = true;
+  showProduct : boolean = false;
+  labelNoArticles : boolean = false;
 
+  saleOption : string[] =['Contado, Cuenta Corriente']
 
 
 
@@ -43,10 +50,13 @@ export class OrderComponent implements OnInit {
   ngOnInit(): void {
 
     this.myForm = this.fb.group({
-      date:     [ this.onlyDate, [Validators.required] ],
+      date:     [ this.onlyDate],
       client:  [ this.client, [Validators.required]], 
+      comercialName:  [''], 
+      phone:  [ ''], 
+      cuit:  [ ''], 
       discount:  [ ''], 
-      comercialName:  [ this.client], 
+      ptoVenta:  [ ''], 
     });
     
 
@@ -57,9 +67,13 @@ export class OrderComponent implements OnInit {
       ({tempClient})=>{
           this.client = tempClient;
           const fullName = `${tempClient.nombre} ${tempClient.apellido}`
+          const phone = `${tempClient.telefonoCodigoArea} ${tempClient.numeroLocal}`
           const comercialName = `${tempClient.razonSocial}`
           this.myForm.controls['client']?.setValue(fullName);
           this.myForm.controls['comercialName']?.setValue(comercialName);
+          this.myForm.controls['phone']?.setValue(phone);
+          this.myForm.controls['cuit']?.setValue(tempClient.cuit);
+          this.myForm.controls['ptoVenta']?.setValue(tempClient.ptoVenta);
           console.log(this.client);
       })
       
@@ -74,6 +88,27 @@ export class OrderComponent implements OnInit {
     });
   }
  
+  selectOption(option : string){
+    switch (option) {
+      case "client":
+                    this.showClient = true;
+                    this.showProduct = false;
+
+                    
+        break;
+
+      case "product":
+                    this.showProduct = true;
+                    this.showClient = false;
+                    this.getProducts();
+        
+        break;
+    
+      default:
+        break;
+    }
+  }
+
   createOrder(){
 
     const detalleItem1: DetalleItem = {
@@ -98,6 +133,36 @@ export class OrderComponent implements OnInit {
       
 validField( field: string ) {
   return this.myForm.controls[field].errors && this.myForm.controls[field].touched;
+}
+
+getProducts(){
+  this.labelNoArticles= false;
+  this.articleService.getAllArticles().subscribe(
+    ({articulos})=>{
+      console.log(articulos);
+      if(articulos.length !== 0){
+          this.arrArticles = articulos;
+      }else{
+        this.labelNoArticles = true;
+
+      }
+
+    }
+  )
+}
+
+selectArticle(article : any){
+
+}
+
+openDialogArticle(article : any){
+
+  this.dialog.open(SelectArticleMessageComponent, {
+    data: article,
+    // disableClose: true,
+    panelClass:"custom-modalbox-NoMoreComponent", 
+  });
+
 }
     
 

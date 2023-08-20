@@ -7,7 +7,7 @@ export interface Articulo {
     descripcionCorta: string;
     modelo: string;
     idFabricante: number;
-    codigoInterno: number;
+    codigoInterno: string; // devuelve un string pero la documentacion dice number
     codigoArticulo: string;
     idTipoAlicuota: number;
     idTipoConcepto: number;
