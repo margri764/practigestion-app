@@ -1,59 +1,32 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { setArticles, unSetArticles } from './article.actions';
+import { setArticles, setSelectedArticles, unSetArticles, unSetSelectedArticles } from './article.actions';
 import { Articulo } from './protected/interfaces/articulo.interface';
+import { DetalleItem } from './protected/interfaces/order.interface';
 
 
 
 export interface Article {
 
        articlesArray : Articulo [] ;
-    // staff: Staff | null; 
-    // verifyAccount : boolean,
-    // path : string,
-    // banner : boolean,
-    // userRegister: any | null,
-    // body : any,
-    // id : string | null,
-    // address : string | null,
-    // delivery : string | null,
-    // favorite : boolean;
-    // arrItems: [] | null,
-    // isLoading: boolean,
-    // appState : any
-
-
-    // el body tendria q ser de tipo user o register no se
-
+       arrSelectedArticles : DetalleItem [] ;
 }
 
 export const initialState: Article = {
     articlesArray : [],
-
-    //  staff: null,
-    //  verifyAccount: false,
-    //  banner : true,
-    //  path : '',
-    //  body: null,
-    //  userRegister: null,
-    //  id: null,
-    //  address : null,
-    //  delivery : null,
-    //  favorite : false,
-    //  arrItems : null,
-    //  isLoading: false,
-    //  appState : true
+    arrSelectedArticles : [] 
 
 }
 
 const _articleReducer = createReducer(initialState,
 
-    on( setArticles, (state, { arrArticles }) => ({ ...state, articlesArray: { ...arrArticles }  })),
-    on( unSetArticles, (state) => ({...state, articlesArray: []}),
+    on(setArticles, (state, { arrArticles }) => ({ ...state, articlesArray: arrArticles })),
+    on(unSetArticles, (state) => ({ ...state, articlesArray: [] })),
+    on(setSelectedArticles, (state, { arrSelectedArticles }) => ({ ...state, arrSelectedArticles: arrSelectedArticles })),
+    on(unSetSelectedArticles, (state) => ({ ...state, arrSelectedArticles: [] }))
     
-    )
     
 );
 
-export function authReducer(state: Article | undefined, action: Action) {
+export function articleReducer(state: Article | undefined, action: Action) {
     return _articleReducer(state, action);
 }

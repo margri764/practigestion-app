@@ -22,8 +22,10 @@
            
             <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
                 <mat-label>Cliente</mat-label>
-                <input matInput type="text" formControlName="client" (click)="getClient()">
+                <input matInput type="text" formControlName="client" (click)="getClient()" >
             </mat-form-field> 
+            <!-- <mat-error *ngIf ="validField ('client')" class="font fs-4"> Campo requerido</mat-error> -->
+
 
             <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
                 <mat-label>Razon Social</mat-label>
@@ -74,7 +76,7 @@
         <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="background-color: rgb(243, 243, 255); margin-bottom: 30px;  padding: 20px 0px 10px 20px; margin-top: 20px;" fxFlex="96" *ngFor="let article of arrArticles" class="whiteframe" >
         
             <span  class="font fs-5" fxFlex="49" > Código: {{article.codigoArticulo }} </span>
-            <span  class="font fs-5 mr-5" fxFlex="49" fxLayoutAlign="end"> Estado: {{article.activo }}</span>
+            <span  class="font fs-5 mr-5" fxFlex="49" fxLayoutAlign="end"> Estado: {{article.activo | productStatus }}</span>
 
             <span  class="font fs-5 mt-20" fxFlex="100" > {{article.descripcionLarga | capitalizeFirstLetter }}</span>
 

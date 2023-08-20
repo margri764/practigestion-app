@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
@@ -17,16 +17,18 @@ import { OrderService } from 'src/app/protected/services/order/order.service';
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.scss']
 })
-export class OrderComponent implements OnInit {
+export class OrderComponent implements OnInit, OnDestroy {
 
 
 
   user : User []=[];
   arrArticles : Articulo []=[];
+  arrItemSelected : DetalleItem []=[];
   myForm!: FormGroup;
   date: Date = new Date();
   onlyDate: string = this.date.toLocaleDateString(); // Muestra solo la fecha
   authSuscription! : Subscription;
+  articleSuscription! : Subscription;
   client : any;
   showClient : boolean = true;
   showProduct : boolean = false;
@@ -47,11 +49,20 @@ export class OrderComponent implements OnInit {
 
   }
 
+  ngOnDestroy(): void {
+     if (this.authSuscription) {
+      this.authSuscription.unsubscribe();
+    }
+    if (this.articleSuscription) {
+      this.articleSuscription.unsubscribe();
+    }
+  }
+
   ngOnInit(): void {
 
     this.myForm = this.fb.group({
       date:     [ this.onlyDate],
-      client:  [ this.client, [Validators.required]], 
+      client:  [ '', [Validators.required]], 
       comercialName:  [''], 
       phone:  [ ''], 
       cuit:  [ ''], 
@@ -77,6 +88,14 @@ export class OrderComponent implements OnInit {
           console.log(this.client);
       })
       
+      this.articleSuscription = this.store.select('article')
+      .pipe(
+
+      ).subscribe(({arrSelectedArticles})=>{
+        if(arrSelectedArticles.length !== 0){
+          this.arrItemSelected = arrSelectedArticles;
+        }
+      })
  
   }
 
@@ -93,15 +112,12 @@ export class OrderComponent implements OnInit {
       case "client":
                     this.showClient = true;
                     this.showProduct = false;
-
-                    
         break;
 
       case "product":
                     this.showProduct = true;
                     this.showClient = false;
                     this.getProducts();
-        
         break;
     
       default:
@@ -111,17 +127,22 @@ export class OrderComponent implements OnInit {
 
   createOrder(){
 
-    const detalleItem1: DetalleItem = {
-      codigoInterno: "ww",
-      cantidad: 1,
-      bonificacionPorciento: 0
-  };
+    if ( this.myForm.invalid ) {
+      this.myForm.markAllAsTouched();
+      return;
+    }
+
+  //   const detalleItem1: DetalleItem = {
+  //     codigoInterno: "ww",
+  //     cantidad: 1,
+  //     bonificacionPorciento: 0
+  // };
     const body : Order ={
         idAgenda : this.client.id,
         estado :  this.client.estado,
         ptoVenta: this.client.ptoVenta,
         descuentoPorcentaje: this.myForm.get('discount')?.value,
-        detalleItems : [detalleItem1]
+        detalleItems : this.arrItemSelected
 
     }
     console.log(body);

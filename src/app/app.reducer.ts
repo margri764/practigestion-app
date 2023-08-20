@@ -13,7 +13,7 @@ export interface AppState  {
 
 export const appReducers: ActionReducerMap<AppState> = {
    auth: auth.authReducer,
-   article: article.authReducer,
+   article: article.articleReducer,
 //    order: order.orderReducer,
 //    product: product.productReducer
 
