@@ -1,11 +1,13 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { Articulo } from 'src/app/protected/interfaces/articulo.interface';
 import { DetalleItem } from 'src/app/protected/interfaces/order.interface';
 import * as articleAction from 'src/app/article.actions'
 import { Subscription, take } from 'rxjs';
+import { GenericSuccessComponent } from '../../generic-success/generic-success/generic-success.component';
+import { getDataLS, saveDataLS } from 'src/app/protected/Storage';
 
 @Component({
   selector: 'app-select-article-message',
@@ -23,7 +25,8 @@ export class SelectArticleMessageComponent implements OnInit, OnDestroy {
   constructor(
                @Inject(MAT_DIALOG_DATA) public data: any,
                private store : Store <AppState>,
-               private dialogRef : MatDialogRef<SelectArticleMessageComponent>
+               private dialogRef : MatDialogRef<SelectArticleMessageComponent>,
+               private dialog : MatDialog,
   ) { }
 
   ngOnDestroy(): void {
@@ -35,6 +38,7 @@ export class SelectArticleMessageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.article = this.data;
+    console.log(this.article);
     this.totalPurchase();
 
   }
@@ -67,7 +71,6 @@ totalPurchase(){
 
 selectItem(){
 
-  const arrSelectedArticles = [];
   const detalleItemSelected: DetalleItem = {
     codigoInterno: this.article.codigoInterno,
     cantidad: this.productQuantity,
@@ -82,11 +85,43 @@ selectItem(){
   });
 
 
+  let articlesInLStorage = getDataLS("arrSelectedArticles");
+
+  const articleToLS = {
+                      descripcionLarga : this.article.descripcionLarga,
+                      precioCostoConIva: this.article.precioCostoConIva,
+                      cantidad: this.productQuantity,
+                      codigoInterno : this.article.codigoArticulo,
+                      id : this.article.idArticulo,
+                      bonificacionPorciento: this.inputValue || 0,
+                      ventaTotal: this.total 
+  }
+
+  if(articlesInLStorage == undefined){
+    articlesInLStorage = [];
+  }
+
+  articlesInLStorage.push(articleToLS);
+  saveDataLS("arrSelectedArticles", articlesInLStorage )
+
   setTimeout(()=>{
     this.dialogRef.close();
-  },1000)
+  },800)
+
+  setTimeout(()=>{
+    this.openGenericSuccess('Producto añadido con éxito');
+  },1800)
 
 }
 
+openGenericSuccess(msg : string){
+
+  this.dialog.open(GenericSuccessComponent, {
+    data: msg,
+    disableClose: true,
+    panelClass:"custom-modalbox-NoMoreComponent", 
+  });
+
+}
 
 }

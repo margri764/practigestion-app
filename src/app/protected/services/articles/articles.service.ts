@@ -59,6 +59,16 @@ searchProducts( value : string){
   );
 }
 
-  
+searchProductById( codigo_interno : string){
+  return this.http.get<any>(`${this.baseUrl}api/articulos/busqueda?f=codigo_interno&q=${codigo_interno}`)
+.pipe(
+  map( res =>{ 
+        console.log('desde service searchProductById', res)
+          return res} )
+  );
+}
+
+
+
 
 }

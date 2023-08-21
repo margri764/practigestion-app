@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component,  OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
@@ -8,9 +8,15 @@ import { Articulo } from 'src/app/protected/interfaces/articulo.interface';
 import { Order, DetalleItem } from 'src/app/protected/interfaces/order.interface';
 import { PickClientMessageComponent } from 'src/app/protected/messages/pick-client-message/pick-client-message/pick-client-message.component';
 import { SelectArticleMessageComponent } from 'src/app/protected/messages/select-article-message/select-article-message/select-article-message.component';
+import { WrongActionMessageComponent } from 'src/app/protected/messages/wrong-action-message/wrong-action-message/wrong-action-message.component';
 import { User } from 'src/app/protected/models/user.models';
 import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
 import { OrderService } from 'src/app/protected/services/order/order.service';
+import { NgZone } from '@angular/core';
+// import * as articleAction from 'src/app/article.actions'
+import { GenericSuccessComponent } from 'src/app/protected/messages/generic-success/generic-success/generic-success.component';
+import { getDataLS } from 'src/app/protected/Storage';
+
 
 @Component({
   selector: 'app-order',
@@ -20,10 +26,10 @@ import { OrderService } from 'src/app/protected/services/order/order.service';
 export class OrderComponent implements OnInit, OnDestroy {
 
 
-
   user : User []=[];
-  arrArticles : Articulo []=[];
+  arrArticles : any []=[];
   arrItemSelected : DetalleItem []=[];
+  private itemFastSelect! : DetalleItem;
   myForm!: FormGroup;
   date: Date = new Date();
   onlyDate: string = this.date.toLocaleDateString(); // Muestra solo la fecha
@@ -32,7 +38,9 @@ export class OrderComponent implements OnInit, OnDestroy {
   client : any;
   showClient : boolean = true;
   showProduct : boolean = false;
-  labelNoArticles : boolean = false;
+  // labelNoArticles : boolean = false;
+  // isLoading : boolean = false;
+  confirm : boolean = false;
 
   saleOption : string[] =['Contado, Cuenta Corriente']
 
@@ -43,7 +51,9 @@ export class OrderComponent implements OnInit, OnDestroy {
               private fb: FormBuilder,
               private dialog : MatDialog,
               private store : Store <AppState>,
-              private orderService : OrderService
+              private orderService : OrderService,
+              private cdRef: ChangeDetectorRef,
+              private ngZone: NgZone
   ) {
     
 
@@ -53,12 +63,28 @@ export class OrderComponent implements OnInit, OnDestroy {
      if (this.authSuscription) {
       this.authSuscription.unsubscribe();
     }
-    if (this.articleSuscription) {
-      this.articleSuscription.unsubscribe();
-    }
+    // if (this.articleSuscription) {
+    //   this.articleSuscription.unsubscribe();
+    // }
   }
 
   ngOnInit(): void {
+   
+
+    this.arrArticles = getDataLS("arrSelectedArticles");
+    this.getTotal();
+    console.log(this.arrArticles);
+
+    this.orderService.changeClientValue.subscribe(
+      (emitted) => {
+        if (emitted === true) {
+            this.showProduct = true;
+            this.showClient = false;
+            this.cdRef.detectChanges(); // Agrega esta línea
+        }
+      }
+    );
+  
 
     this.myForm = this.fb.group({
       date:     [ this.onlyDate],
@@ -94,11 +120,20 @@ export class OrderComponent implements OnInit, OnDestroy {
       ).subscribe(({arrSelectedArticles})=>{
         if(arrSelectedArticles.length !== 0){
           this.arrItemSelected = arrSelectedArticles;
+          // this.arrArticles = arrSelectedArticles;
         }
       })
  
   }
 
+  getTotal(): number {
+    if (!this.arrArticles || this.arrArticles.length === 0) {
+      return 0;
+    }
+    return this.arrArticles.reduce((total, article) => total + article.ventaTotal, 0);
+  
+  }
+  
   getClient(){
     this.dialog.open(PickClientMessageComponent, {
       // data: {msg: error},
@@ -110,14 +145,15 @@ export class OrderComponent implements OnInit, OnDestroy {
   selectOption(option : string){
     switch (option) {
       case "client":
-                    this.showClient = true;
-                    this.showProduct = false;
+        this.showClient = true;
+        this.showProduct = false;
         break;
-
-      case "product":
-                    this.showProduct = true;
-                    this.showClient = false;
-                    this.getProducts();
+        
+        case "product":
+          this.showProduct = true;
+          this.showClient = false;
+          console.log('e');
+                    // this.getProducts();
         break;
     
       default:
@@ -125,24 +161,39 @@ export class OrderComponent implements OnInit, OnDestroy {
     }
   }
 
-  createOrder(){
+  // fastSelect( article :  Articulo){
 
-    if ( this.myForm.invalid ) {
-      this.myForm.markAllAsTouched();
-      return;
-    }
-
-  //   const detalleItem1: DetalleItem = {
-  //     codigoInterno: "ww",
+  //   const fastSelect: DetalleItem = {
+  //     codigoInterno: article.codigoInterno,
   //     cantidad: 1,
   //     bonificacionPorciento: 0
-  // };
+  //   };
+
+  //   const updatedArr = [...this.arrItemSelected, fastSelect];
+  //   this.store.dispatch(articleAction.setSelectedArticles({ arrSelectedArticles: updatedArr }));
+  //   this.openGenericSuccess('1 Producto añadido con éxito')
+  // }
+
+  createOrder(){
+     this.confirm = true;
+    if ( this.myForm.invalid  ) {
+      this.myForm.markAllAsTouched();
+     this.confirm = false;
+
+      return;
+    }
+    if(this.arrItemSelected.length === 0 ){
+        this.openGenericMsgAlert('Elegí productos para generar el pedido');
+        this.confirm = false;
+        return;
+    }
+
     const body : Order ={
         idAgenda : this.client.id,
         estado :  this.client.estado,
         ptoVenta: this.client.ptoVenta,
         descuentoPorcentaje: this.myForm.get('discount')?.value,
-        detalleItems : this.arrItemSelected
+        detalleItems : this.arrItemSelected 
 
     }
     console.log(body);
@@ -156,35 +207,35 @@ validField( field: string ) {
   return this.myForm.controls[field].errors && this.myForm.controls[field].touched;
 }
 
-getProducts(){
-  this.labelNoArticles= false;
-  this.articleService.getAllArticles().subscribe(
-    ({articulos})=>{
-      console.log(articulos);
-      if(articulos.length !== 0){
-          this.arrArticles = articulos;
-      }else{
-        this.labelNoArticles = true;
 
-      }
-
-    }
-  )
-}
-
-selectArticle(article : any){
-
-}
-
-openDialogArticle(article : any){
-
-  this.dialog.open(SelectArticleMessageComponent, {
-    data: article,
+openGenericMsgAlert(msg : string){
+  this.dialog.open(WrongActionMessageComponent, {
+    data: msg,
     // disableClose: true,
     panelClass:"custom-modalbox-NoMoreComponent", 
   });
 
 }
+
+// openDialogArticle(article : any){
+
+//   this.dialog.open(SelectArticleMessageComponent, {
+//     data: article,
+//     // disableClose: true,
+//     panelClass:"custom-modalbox-NoMoreComponent", 
+//   });
+
+// }
+
+// openGenericSuccess(msg : string){
+
+//   this.dialog.open(GenericSuccessComponent, {
+//     data: msg,
+//     disableClose: true,
+//     panelClass:"custom-modalbox-NoMoreComponent", 
+//   });
+
+// }
     
 
 }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Order } from '../../interfaces/order.interface';
@@ -8,6 +8,8 @@ import { Order } from '../../interfaces/order.interface';
   providedIn: 'root'
 })
 export class OrderService {
+
+  changeClientValue : EventEmitter<boolean> = new EventEmitter<boolean>; // se dispara desde el back de buscar-articulos para q volver a "Productos"
 
   private baseUrl = environment.baseUrl;
 

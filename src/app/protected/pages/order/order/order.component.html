@@ -1,12 +1,17 @@
 <div  fxLayout="row wrap"  fxLayoutAlign="center start" style="height: 100%; ;background-color: rgb(241, 241, 241);">
 
-    <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="background-color: rgb(37, 150, 190); color: white;
-  height: 100px; ">
-      <span class="font fs-6 t-center" fxFlex="50" (click)="selectOption('client')" >Cliente</span>
-      <span class="font fs-6 t-center" fxFlex="50" (click)="selectOption('product')">Productos</span>
-    
-          <div fxLayout="row wrap"  fxLayoutAlign="center" fxFlex="30" [ngClass]="showClient ? 'selection':'none'" ></div>
-          <div fxLayout="row wrap"  fxLayoutAlign="center" fxFlex="30" [ngClass]="showProduct ? 'selection':'none'"></div>
+    <div  fxLayout="row wrap"  fxLayoutAlign="space-around space-between" fxFlex="100" style="background-color: rgb(37, 150, 190); color: white; height: 130px; padding: 10px;">
+       
+      <div fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" style="margin-top: 5px;" routerLink="/home">
+            <span class="material-symbols-outlined notranslate cursor" >arrow_back_ios</span>
+            <span class="font fs-5" fxFlex="90">Nuevo Pedido</span>
+      </div>
+      <div fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100">
+            <span class="font fs-6 t-center" fxFlex="50" (click)="selectOption('client')" >Cliente</span>
+            <span class="font fs-6 t-center" fxFlex="50" (click)="selectOption('product')">Productos</span>
+            <div fxLayout="row wrap"  fxLayoutAlign="center" fxFlex="40" [ngClass]="showClient ? 'selection':'none'" ></div>
+            <div fxLayout="row wrap"  fxLayoutAlign="center" fxFlex="40" [ngClass]="showProduct ? 'selection':'none'"></div>
+      </div>
     </div>
 
     
@@ -56,7 +61,7 @@
       
 
         <div fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="100" style="margin-top: 30px;">
-            <button mat-raised-button class="font fs-5" (click)="createOrder()">Crear Pedido</button>
+            <button mat-raised-button class="font fs-5" [ngClass]="confirm ? 'btnMenuClicked':'btnMenu'" (click)="createOrder()" fxFlex="97">Crear Pedido</button>
         </div>
 
             
@@ -66,33 +71,47 @@
     
     <ng-template #showProductTemplate>
 
-        <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" *ngIf="labelNoArticles">
-        
+        <!-- <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" *ngIf="labelNoArticles">
             <span  class="font fs-5" style="margin-left: 10px; margin-top: 30px;" fxFlex="100"> No se encontraron coincidencias... </span>
-            
-        </div>
-    
+        </div> -->
 
-        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="background-color: rgb(243, 243, 255); margin-bottom: 30px;  padding: 20px 0px 10px 20px; margin-top: 20px;" fxFlex="96" *ngFor="let article of arrArticles" class="whiteframe" >
-        
-            <span  class="font fs-5" fxFlex="49" > Código: {{article.codigoArticulo }} </span>
-            <span  class="font fs-5 mr-5" fxFlex="49" fxLayoutAlign="end"> Estado: {{article.activo | productStatus }}</span>
-
-            <span  class="font fs-5 mt-20" fxFlex="100" > {{article.descripcionLarga | capitalizeFirstLetter }}</span>
-
-            <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="97" style="margin-top: 20px;">
+        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="97" style="margin-top: 20px; margin-bottom: 30px;">
                       
-                    <button mat-raised-button class="font fs-5" style="line-height: 40px; background-color:rgb(188, 210, 202); color: white;"> Seleccionar 1 unidad</button>
-
-                   <div  style="width: 50px; height: 50px; border-radius: 50%; background-color: rgb(188, 210, 202);" class="whiteframe" (click)="openDialogArticle(article)">
-                     <i class="material-symbols-outlined notranslate" fxLayoutAlign="center center" fxFlex="100" style="transform: scale(1.3); color: white;">add</i>
-                   </div>
-
-                  
-            </div>
-            
+            <button mat-raised-button class="font fs-5" style="line-height: 40px; background-color:rgb(188, 210, 202); color: white;" fxFlex="50" routerLink="/buscar-articulos">Buscar</button>
         </div>
+
+
+        <div  fxLayout="row wrap"  fxLayoutAlign="center start" style="height: 100%; ;background-color: rgb(241, 241, 241);" *ngIf="arrArticles.length !== 0">
         
+                <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="background-color: rgb(243, 243, 255); margin-bottom: 30px;  padding: 10px" fxFlex="100" class="whiteframe" *ngFor="let article of arrArticles">
+
+                    <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="background-color: rgb(37, 150, 190); color: white; height: 30px;">
+                        <span  class="font fs-5" fxFlex="100" > Código: {{article.codigoInterno }} </span>
+                  
+                      </div>
+               
+                    <span  class="font fs-5 mt-20" fxFlex="100" > {{article.descripcionLarga | capitalizeFirstLetter }}</span>
+
+                    <div  fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" style="margin-top: 20px;">
+                        <span  class="font fs-5" fxFlex="50" >  {{article.cantidad }} x {{article.precioCostoConIva}}</span>
+                        <span  class="font fs-5" style="text-align: end;"  fxFlex="50" >  Bonificación: {{article.bonificacionPorciento }}</span>
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" class="font fs-5 mt-40" >
+                        <span fxFlex="50" fxLayoutAlign="start center" > <b>Sub Total</b> </span>
+                        <span fxFlex="50" fxLayoutAlign="end"><b>$ {{article.ventaTotal }}</b></span>
+                    </div>    
+        
+
+                </div>
+                
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="97" class="font fs-7 mt-40 whiteframe" style="height: 70px;" >
+                    <span fxFlex="50" fxLayoutAlign="start center" > <b>Total Pedido</b> </span>
+                    <span fxFlex="50" fxLayoutAlign="end"><b>{{getTotal()}} </b></span>
+                </div>    
+    
+        </div>
+         
     </ng-template>
 
 </div>

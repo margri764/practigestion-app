@@ -16,6 +16,8 @@ import { DashboardComponent } from './protected/pages/dashboard/dashboard.compon
 import { OrderComponent } from './protected/pages/order/order/order.component';
 import { ArticlesComponent } from './protected/pages/articles/articles/articles.component';
 import { ViewMoreArticleComponent } from './protected/pages/view-more-article/view-more-article/view-more-article.component';
+import { WrongActionMessageComponent } from './protected/messages/wrong-action-message/wrong-action-message/wrong-action-message.component';
+import { GenericSuccessComponent } from './protected/messages/generic-success/generic-success/generic-success.component';
 
 
 // services
@@ -38,6 +40,7 @@ import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { PickClientMessageComponent } from './protected/messages/pick-client-message/pick-client-message/pick-client-message.component';
 import { SelectArticleMessageComponent } from './protected/messages/select-article-message/select-article-message/select-article-message.component';
+import { SearchProductsComponent } from './protected/pages/searchProducts/search-products/search-products.component';
 
 
 @NgModule({
@@ -52,7 +55,10 @@ import { SelectArticleMessageComponent } from './protected/messages/select-artic
     PickClientMessageComponent,
     CapitalizeFirstLetterPipe,
     SelectArticleMessageComponent,
-    ProductStatusPipe
+    ProductStatusPipe,
+    WrongActionMessageComponent,
+    GenericSuccessComponent,
+    SearchProductsComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { ClientComponent } from './protected/pages/client/client/client.componen
 import { ArticlesComponent } from './protected/pages/articles/articles/articles.component';
 import { LoginComponent } from './protected/pages/login/login/login.component';
 import { ViewMoreArticleComponent } from './protected/pages/view-more-article/view-more-article/view-more-article.component';
+import { SearchProductsComponent } from './protected/pages/searchProducts/search-products/search-products.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,9 @@ const routes: Routes = [
   },
   {
     path: 'listado-articulos',  component: ArticlesComponent
+  },
+  {
+    path: 'buscar-articulos',  component: SearchProductsComponent
   },
   {
     path: 'articulo/:id',  component: ViewMoreArticleComponent

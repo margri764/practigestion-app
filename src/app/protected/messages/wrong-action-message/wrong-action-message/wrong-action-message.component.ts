@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-wrong-action-message',
@@ -7,11 +7,18 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./wrong-action-message.component.scss']
 })
 export class WrongActionMessageComponent implements OnInit {
-  confirm : boolean = false;
 
-  constructor( private dialogRef : MatDialogRef<WrongActionMessageComponent>) { }
+  confirm : boolean = false;
+  msg : string = 'Error en la acción'
+
+  constructor( 
+              private dialogRef : MatDialogRef<WrongActionMessageComponent>,
+              @Inject(MAT_DIALOG_DATA) private data: any,
+              )
+   { }
 
   ngOnInit(): void {
+    this.msg = this.data;
   }
 
   continue(){

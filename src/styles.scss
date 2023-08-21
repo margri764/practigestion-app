@@ -219,7 +219,7 @@ body { margin: 0;
 }
 
 .btnMenuClicked, .btnMenu {
-  font-size: min(1.1em, 5vw); /* tamaño de fuente máximo: 16px o 5% del ancho de la pantalla */
+  font-size: min(1.3em, 6vw); /* tamaño de fuente máximo: 16px o 5% del ancho de la pantalla */
   padding: 8px 10px; /* espaciado interno del botón */
   height: 60px !important;
   border-radius: 6px !important;
@@ -228,19 +228,19 @@ body { margin: 0;
 }
 
 .btnMenuClicked i, .btnMenu i {
-  font-size: min(1.1em, 6vw); /* tamaño del icono máximo: 20px o 6% del ancho de la pantalla */
+  font-size: min(1.3em, 6vw); /* tamaño del icono máximo: 20px o 6% del ancho de la pantalla */
 }
 
 .btnMenuClicked {
-  background-color: #f3b304;
-  color: white;
   border: 1px solid white;
+  background-color: rgb(37, 150, 190);
+  color: rgb(255, 255, 255);
 }
 
 .btnMenu {
-  border: 1px solid #f3b304;
+  border: 1px solid rgb(37, 150, 190) !important;
   background-color: white;
-  color: #f3b304;
+  color: rgb(37, 150, 190);
 }
 
 .icon{
