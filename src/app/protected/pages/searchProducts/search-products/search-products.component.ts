@@ -84,6 +84,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
 
     let articlesInLStorage = getDataLS("arrArticles");
 
+    // creo el objeto para guarda en ls y redux, tiene propiedades para mostrar en el front y otras para el BD
     const fastSelect = {
                         descripcionLarga : article.descripcionLarga,
                         precioCostoConIva: article.precioCostoConIva,
@@ -100,10 +101,11 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
 
     articlesInLStorage.push(fastSelect);
 
+    //hago el update en redux y LS 
     const updatedArr = [...this.arrItemSelected, fastSelect];
     this.store.dispatch(articleAction.setSelectedArticles({ arrSelectedArticles: updatedArr }));
-    this.localStorageService.saveStateToLocalStorage(articlesInLStorage, "arrArticles");
-    // saveDataLS("arrSelectedArticles", articlesInLStorage )
+    // this.localStorageService.saveStateToLocalStorage(articlesInLStorage, "arrArticles");
+    this.localStorageService.saveStateToSeesionStorage(articlesInLStorage, "arrArticles");
     this.openGenericSuccess('1 Producto añadido con éxito')
   }
 

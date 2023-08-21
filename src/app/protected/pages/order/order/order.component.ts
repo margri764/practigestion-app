@@ -30,7 +30,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   user : User []=[];
   arrArticles : any []=[];
   arrItemSelected : DetalleItem []=[];
-  private itemFastSelect! : DetalleItem;
+  tempOrder : any[]=[];
   myForm!: FormGroup;
   date: Date = new Date();
   onlyDate: string = this.date.toLocaleDateString(); // Muestra solo la fecha
@@ -117,10 +117,12 @@ export class OrderComponent implements OnInit, OnDestroy {
       this.articleSuscription = this.store.select('article')
       .pipe(
 
-      ).subscribe(({arrSelectedArticles})=>{
+      ).subscribe(({arrSelectedArticles, tempOrder})=>{
         this.arrItemSelected = arrSelectedArticles; //este es el pedido q se envia a BD
         this.arrArticles = arrSelectedArticles; // este se muestra en el front con otras propiedades
-      
+        if(tempOrder.length !== 0){
+          // this.tempOrder = tempOrder;
+        }
       })
  
   }
@@ -152,18 +154,45 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   deleteItem(id:any){
-
+    //elimino el item del array
       this.store.dispatch(articleAction.deleteArticle({ articleId: id}));
-      // let tempArray=getDataLS("arrArticles");
-      // if(tempArray){
-      //   let temp = tempArray.filter((item: { id: any; }) => item.id !== id)
-      //   console.log(temp);
-        this.localStorageService.saveStateToLocalStorage(this.arrItemSelected, "arrArticles");
-        // this.updateArticlesFromLS();
-      // }
+      //hago el update con el nuevo valor del array
+      this.localStorageService.saveStateToLocalStorage(this.arrItemSelected, "arrArticles");
     }
 
   saveTempOrder(){
+
+    this.confirm = true;
+    if ( this.myForm.invalid  ) {
+      this.myForm.markAllAsTouched();
+     this.confirm = false;
+
+      return;
+    }
+    if(this.arrItemSelected.length === 0 ){
+        this.openGenericMsgAlert('Elegí productos para generar el pedido');
+        this.confirm = false;
+        return;
+    }
+    const detalleItems = this.createItemsOrder();
+    
+    let tempOrderToPush : Order ={
+   
+        idAgenda : this.client.id,
+        estado :  this.client.estado || '',
+        ptoVenta: this.client.ptoVenta || 1,
+        descuentoPorcentaje: this.myForm.get('discount')?.value || 0,
+        detalleItems 
+    }
+
+    let tempOrderToSave : any[]= [];
+    tempOrderToSave.push(tempOrderToPush);
+    console.log(tempOrderToSave);
+
+
+    this.store.dispatch(articleAction.setTempOrder({tempOrder:  tempOrderToSave}));
+    this.localStorageService.saveStateToLocalStorage(tempOrderToSave, "tempOrder");
+
 
   }
  
@@ -188,12 +217,12 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   createItemsOrder(){
 
-    // armo el objeto q necesito para crear el pedido
-   const tempOrder: any  = [];
+    // armo el objeto q necesito para crear el pedido, arrItemSelected viene del redux y solo
+   const tempOrderItem: any  = [];
    this.arrItemSelected.forEach((item)=>{
-    tempOrder.push({codigoInterno: item.codigoInterno, cantidad: item.cantidad, bonificacionPorciento: item.bonificacionPorciento } )
+    tempOrderItem.push({codigoInterno: item.codigoInterno, cantidad: item.cantidad, bonificacionPorciento: item.bonificacionPorciento } )
    })
-   return tempOrder
+   return tempOrderItem
   }
 
   createOrder(){
@@ -219,7 +248,7 @@ export class OrderComponent implements OnInit, OnDestroy {
         detalleItems 
 
     }
-    console.log(body);
+    // this.tempOrder.push(body);
 
     // this.orderService.createOrder(body).subscribe((res)=>{console.log(res);})
   }
