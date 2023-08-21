@@ -104,8 +104,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     //hago el update en redux y LS 
     const updatedArr = [...this.arrItemSelected, fastSelect];
     this.store.dispatch(articleAction.setSelectedArticles({ arrSelectedArticles: updatedArr }));
-    // this.localStorageService.saveStateToLocalStorage(articlesInLStorage, "arrArticles");
-    this.localStorageService.saveStateToSeesionStorage(articlesInLStorage, "arrArticles");
+    this.localStorageService.saveStateToSessionStorage(articlesInLStorage, "arrArticles");
     this.openGenericSuccess('1 Producto añadido con éxito')
   }
 

@@ -16,6 +16,9 @@ const routes: Routes = [
     path: 'armar-pedido',  component: OrderComponent
   },
   {
+    path: 'listado-clientes',  component:ClientComponent
+  },
+  {
     path: 'listado-articulos',  component: ArticlesComponent
   },
   {

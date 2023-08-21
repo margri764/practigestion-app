@@ -43,6 +43,8 @@ import { ProductStatusPipe } from './protected/pipes/productStatus.pipe';
 import localeEs from '@angular/common/locales/es-AR'; //nombre inventado el AR es por Argentina
 import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
+import { EditClientComponent } from './protected/pages/edit-client/edit-client/edit-client.component';
+import { NewClientComponent } from './protected/pages/new-client/new-client/new-client.component';
 
 
 
@@ -62,7 +64,9 @@ import { environment } from 'src/environments/environment';
     WrongActionMessageComponent,
     GenericSuccessComponent,
     SearchProductsComponent,
-    TempOrderComponent
+    TempOrderComponent,
+    EditClientComponent,
+    NewClientComponent
   ],
   imports: [
     BrowserModule,

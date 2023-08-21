@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import * as authActions from 'src/app/auth.actions'
 import { saveDataLS } from '../../Storage';
 import { CookieService } from 'ngx-cookie-service';
+import { User } from '../../models/user.models';
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +70,57 @@ getAllClients( ){
   );
 }
 
+updateClientById( body : User, id:any){
+                                        
+  return this.http.put<any>(`${this.baseUrl}api/agenda/edit/${id}`, body)
+.pipe(
+  map( res =>{ 
+        console.log('desde service updateClientById', res)
+          return res} )
+  );
+}
+
+deleteClientById( id:any){
+                   id = "2737";                   
+  return this.http.delete<any>(`${this.baseUrl}api/delete/${id}`)
+.pipe(
+  map( res =>{ 
+        console.log('desde service deleteClientById', res)
+          return res} )
+  );
+}
+
+addNewClient( body : User){
+
+  //no cuales son obligatorias
+  const bodys = {
+    "archivarComo": "Ruloso Zarpaso",
+    "nombre": "Rulo",
+    "apellido": "Zarpaso",
+    "domicilio": "pehues 22",
+    "localidad": "carilo",
+    "codigoPostal": "8407",
+    "provincia": "buenos aires",
+    "pais": "argentina",
+    "telefonoCodigoPais": "54",
+    "telefonoCodigoArea": "294",
+    "esMovil": 1,
+    "numeroLocal": "4569787",
+    "email1": "mailejemplo@gmail.com",
+    "organizacion": "arcor",
+    "razonSocial": "arcor sa",
+    "cuit": "20206665085",
+    "esCliente": 1,
+    "esProveedor": 0
+  }
+  console.log(body);
+return this.http.post<any>(`${this.baseUrl}api/agenda`, bodys)
+.pipe(
+  map( res =>{ 
+         console.log('desde service addNewClient', res)
+  return res} )
+  );
+}
 
 searchClient( query :  string ){
   return this.http.get<any>(`${this.baseUrl}api/agenda/busqueda/${query}`)

@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { deleteArticle, editArticle, setArticles, setSelectedArticles, setTempOrder, unSetArticles, unSetSelectedArticles, unSetTempOrder } from './article.actions';
+import { deleteArticle, deleteTempOrder, editArticle, setArticles, setSelectedArticles, setTempOrder, unSetArticles, unSetSelectedArticles, unSetTempOrder } from './article.actions';
 import { Articulo } from './protected/interfaces/articulo.interface';
 import { Order } from './protected/interfaces/order.interface';
 
@@ -41,6 +41,11 @@ const _articleReducer = createReducer(initialState,
         let updatedArticles = state.arrSelectedArticles.filter(item => item.id !== articleId);
         return { ...state, arrSelectedArticles: updatedArticles };
     }),
+
+    on(deleteTempOrder, (state, { tempOrderId }) => {
+      let updatedArticles = state.tempOrder.filter(item => item.idTempOrder !== tempOrderId);
+      return { ...state, tempOrder: updatedArticles };
+  }),
 
 
     on(setSelectedArticles, (state, { arrSelectedArticles }) => ({ ...state, arrSelectedArticles: arrSelectedArticles })),

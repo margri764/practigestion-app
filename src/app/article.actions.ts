@@ -24,3 +24,8 @@ export const deleteArticle = createAction(
     '[Articles] Delete Article',
     props<{ articleId: number }>()
   );
+
+  export const deleteTempOrder = createAction(
+    '[Articles] deleteTempOrder',
+    props<{ tempOrderId: any }>()
+  );

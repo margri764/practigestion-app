@@ -2,21 +2,17 @@ import { ChangeDetectorRef, Component,  OnDestroy, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Subject, Subscription, filter } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
-import { Articulo } from 'src/app/protected/interfaces/articulo.interface';
 import { Order, DetalleItem } from 'src/app/protected/interfaces/order.interface';
 import { PickClientMessageComponent } from 'src/app/protected/messages/pick-client-message/pick-client-message/pick-client-message.component';
-import { SelectArticleMessageComponent } from 'src/app/protected/messages/select-article-message/select-article-message/select-article-message.component';
 import { WrongActionMessageComponent } from 'src/app/protected/messages/wrong-action-message/wrong-action-message/wrong-action-message.component';
 import { User } from 'src/app/protected/models/user.models';
-import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
 import { OrderService } from 'src/app/protected/services/order/order.service';
-import { NgZone } from '@angular/core';
 import * as articleAction from 'src/app/article.actions'
+import * as authAction from 'src/app/auth.actions'
 import { GenericSuccessComponent } from 'src/app/protected/messages/generic-success/generic-success/generic-success.component';
-import { getDataLS, saveDataLS } from 'src/app/protected/Storage';
 import { LocalStorageService } from 'src/app/protected/services/localStorage/local-storage.service';
+import { Subscription, filter } from 'rxjs';
 
 
 @Component({
@@ -127,16 +123,6 @@ export class OrderComponent implements OnInit, OnDestroy {
  
   }
 
-  // updateArticlesFromLS(){
-  //   const tempArrayLS = getDataLS("arrArticles");
-  //   if(tempArrayLS){
-  //     this.arrArticles = tempArrayLS;
-  //   }else{
-  //     // si no se guarda en LS por algo del telefono siempre voy a tener la opcion del refux
-  //     this.arrArticles = this.arrItemSelected;
-  //   }
-  // }
-
   getTotal(): number {
     if (!this.arrArticles || this.arrArticles.length === 0) {
       return 0;
@@ -160,6 +146,11 @@ export class OrderComponent implements OnInit, OnDestroy {
       this.localStorageService.saveStateToLocalStorage(this.arrItemSelected, "arrArticles");
     }
 
+    generateSimpleId() {
+      const timestamp = Date.now(); // Obtén el timestamp actual en milisegundos
+      return `id_${timestamp}`;
+    }
+
   saveTempOrder(){
 
     this.confirm = true;
@@ -176,10 +167,14 @@ export class OrderComponent implements OnInit, OnDestroy {
     }
     const detalleItems = this.createItemsOrder();
     
-    let tempOrderToPush : Order ={
-   
+    let tempOrderToPush  ={
+        idTempOrder : this.generateSimpleId(),
+        date: this.onlyDate,
+        fullName: this.client.archivarcomo || 'Fernando Griotti',
+        total: this.getTotal() || 0,
+        cuit: this.client.cuit || '30288907650',
         idAgenda : this.client.id,
-        estado :  this.client.estado || '',
+        estado :  this.client.estado || 'A',
         ptoVenta: this.client.ptoVenta || 1,
         descuentoPorcentaje: this.myForm.get('discount')?.value || 0,
         detalleItems 
@@ -187,12 +182,16 @@ export class OrderComponent implements OnInit, OnDestroy {
 
     let tempOrderToSave : any[]= [];
     tempOrderToSave.push(tempOrderToPush);
-    console.log(tempOrderToSave);
-
 
     this.store.dispatch(articleAction.setTempOrder({tempOrder:  tempOrderToSave}));
     this.localStorageService.saveStateToLocalStorage(tempOrderToSave, "tempOrder");
-
+    sessionStorage.removeItem("arrArticles");
+    this.client = {};
+    this.myForm.reset();
+    this.store.dispatch(articleAction.unSetSelectedArticles());
+    this.store.dispatch(authAction.unSetTempClient());
+   
+     this.openGenericSuccess('Pedido abierto Creado');
 
   }
  
@@ -279,15 +278,15 @@ openGenericMsgAlert(msg : string){
 
 // }
 
-// openGenericSuccess(msg : string){
+openGenericSuccess(msg : string){
 
-//   this.dialog.open(GenericSuccessComponent, {
-//     data: msg,
-//     disableClose: true,
-//     panelClass:"custom-modalbox-NoMoreComponent", 
-//   });
+  this.dialog.open(GenericSuccessComponent, {
+    data: msg,
+    disableClose: true,
+    panelClass:"custom-modalbox-NoMoreComponent", 
+  });
 
-// }
+}
     
 
 }

@@ -37,7 +37,7 @@
                 <span  class="font fs-5 ml-10">Ofertas</span>
             </a>
 
-            <a routerLink="./edit-customer"
+            <a routerLink="/listado-clientes"
             mat-list-item
             (click)="sidenav.toggle()" class="mt-10">
             <i class="material-symbols-outlined notranslate">account_circle</i>
@@ -71,7 +71,7 @@
 
     <mat-toolbar style="height: auto; padding: 10px;" >
 
-        <button mat-icon-button  (click)="sidenav.toggle(); showDashboard()">
+        <button mat-icon-button  (click)="sidenav.toggle(); ">
             <mat-icon style="transform: scale(1.2);">menu</mat-icon>
         </button>
 
@@ -102,8 +102,22 @@
     <mat-accordion class="example-headers-align" multi [ngStyle]="(toogle) ? {'visibility':'visible'}:{'visibility':'hidden'}  ">
         <mat-expansion-panel>
       
-          <!-- <span [ngStyle]="(toogle) ? {'display':'block'}:{'display':'none'}" style="margin-top: 40px;"> 
-          </span> -->
+            <div [ngStyle]="(toogle) ? {'display':'block'}:{'display':'none'}" style="margin-top: 40px;">
+
+
+            <div fxLayout="row wrap" *ngIf="!showLabelTempOrder" fxFlex="100" class="mt-5 whiteframe mt-40 mb-40">
+                    <span class="material-symbols-outlined no-translate fc-green">done</span> &nbsp;
+                    <span class="font fs-5 ml-20" fxFlex="80"> Sin notificaciones </span>
+                </div>  
+             
+    
+                <div fxLayout="row wrap" *ngIf="showLabelTempOrder" fxFlex="100" class="mt-5 whiteframe mt-40 mb-40">
+                    <span class="material-symbols-outlined no-translate fc-red">error</span> &nbsp;
+                    <span class="font fs-5" fxFlex="80"> Existen pedidos que no han sido enviados!</span>
+                    <span class="font fs-5 mt-5" style="color: blue; cursor: pointer; margin-left: 25px;" fxFlex="100" > <b (click)="accordion.openAll(); visibility()" routerLink="/pedidos-temporales" >Resolver</b></span>
+                </div>   
+            </div>
+       
 
         </mat-expansion-panel>
       
@@ -112,7 +126,7 @@
     <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" style="margin-top: 30px;">
         <span fxFlex="30" routerLink="/armar-pedido" class="font fs-5" style="cursor: pointer;">Armar Pedido</span>
         <span fxFlex="30" routerLink="/pedidos-temporales" class="font fs-5" style="cursor: pointer;">Pedidos Abiertos</span>
-        <span fxFlex="30" routerLink="/clientes" class="font fs-5" style="cursor: pointer;">Clientes</span>
+        <span fxFlex="30" routerLink="/listado-clientes" class="font fs-5" style="cursor: pointer;">Clientes</span>
         <span fxFlex="30" routerLink="/listado-articulos" class="font fs-5 mt-20" style="cursor: pointer;">Listado Articulos</span>
      </div>
       

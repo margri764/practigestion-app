@@ -94,8 +94,9 @@ selectItem(){
     const updatedArr = [...arrSelectedArticles, articleToSave]; //update
     this.store.dispatch(articleAction.setSelectedArticles({ arrSelectedArticles: updatedArr }));
      
-    // guardo en localstorage la data 
-    this.localStorageService.saveStateToLocalStorage(updatedArr, "arrArticles");
+    // guardo en sessin storage la data temporal, solo guardo en el LS los pedidos  
+    this.localStorageService.saveStateToSessionStorage(updatedArr, "arrArticles");
+
   });
 
 

@@ -29,7 +29,9 @@ export class LocalStorageService {
     saveDataLS(keyLStorage, dataToSave);
   }
 
-  saveStateToSeesionStorage(dataToSave: any, keyLStorage : string) {
+  saveStateToSessionStorage(dataToSave: any, keyLStorage : string) {
     saveDataSS(keyLStorage, dataToSave);
   }
+
+
 }

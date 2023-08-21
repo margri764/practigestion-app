@@ -23,11 +23,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 @ViewChild(MatAccordion)  accordion!: MatAccordion;
 
 userSubscription!:Subscription;
-// orderSubscription!:Subscription;
+articleSuscription!:Subscription;
 user: any | undefined;
+tempOrder : any []=[];
 toogle : boolean = false;
 hidden : boolean = false;
-// show : boolean = true;
+showLabelTempOrder : boolean = false;
 // orders : any [] = [];
 alert! : string | null;
 showNoProcessMessage : boolean = false;
@@ -37,9 +38,6 @@ notificationsDone! : boolean;
 constructor(
               private store : Store <AppState>,
               private cookieService : CookieService,
-              private router : Router,
-              private _bottomSheet: MatBottomSheet,
-              private authService : AuthService,
   ) { 
 
     
@@ -59,43 +57,23 @@ visibility(){
 ngOnInit(): void {
 
 
-//   const interval = setInterval(()=>{
-//     console.log(this.user);
-//     if(this.user !== undefined ){
-//       this.store.dispatch(orderActions.launchSetStaffOrder())
-//     }else{
-//       clearInterval(interval);
-//     }
-//   }, 50000)
-
-
-  this.userSubscription = this.store.select('auth')
+  this.articleSuscription = this.store.select('article')
   .pipe(
-    filter(({user}) => user != null)
-    )
-    .subscribe(
-      ({user})=>{ 
-                  this.user = user;
-                  // this.store.dispatch(orderActions.launchSetStaffOrder())
-                }
-          )
 
-// this.orderSubscription = this.store.select('order')
-// .pipe(
-//   filter(({staffOrders}) => staffOrders != null)
-//      )
-//      .subscribe(
-//       ({ staffOrders })=>{
-//         if(staffOrders != null){
-//           this.staffOrders = staffOrders;
-//          this.ordersToNotifications()
-//          }
-//        })
+  ).subscribe(({tempOrder})=>{
+
+    if(tempOrder.length !==0){
+        this.showLabelTempOrder = true;
+        this.alert= '!';
+    }else{
+      this.alert= '';
+
+    }
+  })
+
 }
 
-showDashboard(){
-  // this.show = false;
-}
+
 
 logout() {
 
@@ -129,27 +107,9 @@ logout() {
 }
 
 ngOnDestroy(): void {
-  // if(this.userSubscription != undefined){
-  //   this.userSubscription.unsubscribe();
-  // }
-  // if(this.orderSubscription != undefined){
-  //   this.orderSubscription.unsubscribe();
-  // }
+
 }
 
-ordersToNotifications(){
-  // const filteredOrders = this.staffOrders.filter((element) => element.statusOrder.length === 1);
-  // let count = filteredOrders.length;
-  // if( count !== 0){
-  //   this.showNoProcessMessage = true;
-  //   this.alert = "!";
-  //   this.notificationsDone = false;
-  // }else{
-  //   this.alert = null;
-  //   this.showNoProcessMessage = false;
-  //   this.notificationsDone = true;
-  // }                     
-}
 
 
 }
