@@ -18,10 +18,15 @@ import { ArticlesComponent } from './protected/pages/articles/articles/articles.
 import { ViewMoreArticleComponent } from './protected/pages/view-more-article/view-more-article/view-more-article.component';
 import { WrongActionMessageComponent } from './protected/messages/wrong-action-message/wrong-action-message/wrong-action-message.component';
 import { GenericSuccessComponent } from './protected/messages/generic-success/generic-success/generic-success.component';
-
+import { PickClientMessageComponent } from './protected/messages/pick-client-message/pick-client-message/pick-client-message.component';
+import { SelectArticleMessageComponent } from './protected/messages/select-article-message/select-article-message/select-article-message.component';
+import { SearchProductsComponent } from './protected/pages/searchProducts/search-products/search-products.component';
+import { TempOrderComponent } from './protected/pages/temp-order/temp-order/temp-order.component';
 
 // services
 import { InterceptorService } from './protected/services/interceptor/interceptor.service';
+import { LocalStorageService } from './protected/services/localStorage/local-storage.service';
+
 
 //ngrx
 import { StoreModule } from '@ngrx/store';
@@ -38,9 +43,7 @@ import { ProductStatusPipe } from './protected/pipes/productStatus.pipe';
 import localeEs from '@angular/common/locales/es-AR'; //nombre inventado el AR es por Argentina
 import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
-import { PickClientMessageComponent } from './protected/messages/pick-client-message/pick-client-message/pick-client-message.component';
-import { SelectArticleMessageComponent } from './protected/messages/select-article-message/select-article-message/select-article-message.component';
-import { SearchProductsComponent } from './protected/pages/searchProducts/search-products/search-products.component';
+
 
 
 @NgModule({
@@ -58,7 +61,8 @@ import { SearchProductsComponent } from './protected/pages/searchProducts/search
     ProductStatusPipe,
     WrongActionMessageComponent,
     GenericSuccessComponent,
-    SearchProductsComponent
+    SearchProductsComponent,
+    TempOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -86,6 +90,7 @@ import { SearchProductsComponent } from './protected/pages/searchProducts/search
       multi: true
   
       },
+      LocalStorageService
   ],
   bootstrap: [AppComponent]
 })

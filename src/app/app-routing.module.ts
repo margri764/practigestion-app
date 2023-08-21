@@ -7,6 +7,7 @@ import { ArticlesComponent } from './protected/pages/articles/articles/articles.
 import { LoginComponent } from './protected/pages/login/login/login.component';
 import { ViewMoreArticleComponent } from './protected/pages/view-more-article/view-more-article/view-more-article.component';
 import { SearchProductsComponent } from './protected/pages/searchProducts/search-products/search-products.component';
+import { TempOrderComponent } from './protected/pages/temp-order/temp-order/temp-order.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,9 @@ const routes: Routes = [
   },
   {
     path: 'listado-articulos',  component: ArticlesComponent
+  },
+  {
+    path: 'pedidos-temporales',  component: TempOrderComponent
   },
   {
     path: 'buscar-articulos',  component: SearchProductsComponent

@@ -12,6 +12,7 @@ import { GenericSuccessComponent } from 'src/app/protected/messages/generic-succ
 import { SelectArticleMessageComponent } from 'src/app/protected/messages/select-article-message/select-article-message/select-article-message.component';
 import { Router } from '@angular/router';
 import { getDataLS, saveDataLS } from 'src/app/protected/Storage';
+import { LocalStorageService } from 'src/app/protected/services/localStorage/local-storage.service';
 
 
 @Component({
@@ -50,7 +51,9 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
             private dialog : MatDialog,
             private store : Store <AppState>,
             private orderService : OrderService,
-            private router : Router
+            private router : Router,
+            private localStorageService: LocalStorageService
+
   ) { }
 
   ngOnDestroy() {
@@ -79,16 +82,9 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
 
   fastSelect( article :  Articulo){
 
-    const fastSelect: DetalleItem = {
-      codigoInterno: article.codigoInterno,
-      cantidad: 1,
-      bonificacionPorciento: 0
-    };
+    let articlesInLStorage = getDataLS("arrArticles");
 
-    let articlesInLStorage = getDataLS("arrSelectedArticles");
-    console.log(articlesInLStorage);
-
-    const articleToLS = {
+    const fastSelect = {
                         descripcionLarga : article.descripcionLarga,
                         precioCostoConIva: article.precioCostoConIva,
                         cantidad: 1,
@@ -102,11 +98,12 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
       articlesInLStorage = [];
     }
 
-    articlesInLStorage.push(articleToLS);
+    articlesInLStorage.push(fastSelect);
 
     const updatedArr = [...this.arrItemSelected, fastSelect];
     this.store.dispatch(articleAction.setSelectedArticles({ arrSelectedArticles: updatedArr }));
-    saveDataLS("arrSelectedArticles", articlesInLStorage )
+    this.localStorageService.saveStateToLocalStorage(articlesInLStorage, "arrArticles");
+    // saveDataLS("arrSelectedArticles", articlesInLStorage )
     this.openGenericSuccess('1 Producto añadido con éxito')
   }
 

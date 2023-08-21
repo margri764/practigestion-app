@@ -13,9 +13,10 @@ import { User } from 'src/app/protected/models/user.models';
 import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
 import { OrderService } from 'src/app/protected/services/order/order.service';
 import { NgZone } from '@angular/core';
-// import * as articleAction from 'src/app/article.actions'
+import * as articleAction from 'src/app/article.actions'
 import { GenericSuccessComponent } from 'src/app/protected/messages/generic-success/generic-success/generic-success.component';
-import { getDataLS } from 'src/app/protected/Storage';
+import { getDataLS, saveDataLS } from 'src/app/protected/Storage';
+import { LocalStorageService } from 'src/app/protected/services/localStorage/local-storage.service';
 
 
 @Component({
@@ -47,13 +48,13 @@ export class OrderComponent implements OnInit, OnDestroy {
 
 
   constructor(
-              private articleService :ArticlesService,
               private fb: FormBuilder,
               private dialog : MatDialog,
               private store : Store <AppState>,
               private orderService : OrderService,
               private cdRef: ChangeDetectorRef,
-              private ngZone: NgZone
+              private localStorageService: LocalStorageService
+
   ) {
     
 
@@ -71,9 +72,8 @@ export class OrderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
    
 
-    this.arrArticles = getDataLS("arrSelectedArticles");
+    // this.updateArticlesFromLS()
     this.getTotal();
-    console.log(this.arrArticles);
 
     this.orderService.changeClientValue.subscribe(
       (emitted) => {
@@ -118,13 +118,22 @@ export class OrderComponent implements OnInit, OnDestroy {
       .pipe(
 
       ).subscribe(({arrSelectedArticles})=>{
-        if(arrSelectedArticles.length !== 0){
-          this.arrItemSelected = arrSelectedArticles;
-          // this.arrArticles = arrSelectedArticles;
-        }
+        this.arrItemSelected = arrSelectedArticles; //este es el pedido q se envia a BD
+        this.arrArticles = arrSelectedArticles; // este se muestra en el front con otras propiedades
+      
       })
  
   }
+
+  // updateArticlesFromLS(){
+  //   const tempArrayLS = getDataLS("arrArticles");
+  //   if(tempArrayLS){
+  //     this.arrArticles = tempArrayLS;
+  //   }else{
+  //     // si no se guarda en LS por algo del telefono siempre voy a tener la opcion del refux
+  //     this.arrArticles = this.arrItemSelected;
+  //   }
+  // }
 
   getTotal(): number {
     if (!this.arrArticles || this.arrArticles.length === 0) {
@@ -133,13 +142,29 @@ export class OrderComponent implements OnInit, OnDestroy {
     return this.arrArticles.reduce((total, article) => total + article.ventaTotal, 0);
   
   }
-  
+
   getClient(){
     this.dialog.open(PickClientMessageComponent, {
       // data: {msg: error},
       // disableClose: true,
       panelClass:"custom-modalbox-NoMoreComponent", 
     });
+  }
+
+  deleteItem(id:any){
+
+      this.store.dispatch(articleAction.deleteArticle({ articleId: id}));
+      // let tempArray=getDataLS("arrArticles");
+      // if(tempArray){
+      //   let temp = tempArray.filter((item: { id: any; }) => item.id !== id)
+      //   console.log(temp);
+        this.localStorageService.saveStateToLocalStorage(this.arrItemSelected, "arrArticles");
+        // this.updateArticlesFromLS();
+      // }
+    }
+
+  saveTempOrder(){
+
   }
  
   selectOption(option : string){
@@ -161,18 +186,15 @@ export class OrderComponent implements OnInit, OnDestroy {
     }
   }
 
-  // fastSelect( article :  Articulo){
+  createItemsOrder(){
 
-  //   const fastSelect: DetalleItem = {
-  //     codigoInterno: article.codigoInterno,
-  //     cantidad: 1,
-  //     bonificacionPorciento: 0
-  //   };
-
-  //   const updatedArr = [...this.arrItemSelected, fastSelect];
-  //   this.store.dispatch(articleAction.setSelectedArticles({ arrSelectedArticles: updatedArr }));
-  //   this.openGenericSuccess('1 Producto añadido con éxito')
-  // }
+    // armo el objeto q necesito para crear el pedido
+   const tempOrder: any  = [];
+   this.arrItemSelected.forEach((item)=>{
+    tempOrder.push({codigoInterno: item.codigoInterno, cantidad: item.cantidad, bonificacionPorciento: item.bonificacionPorciento } )
+   })
+   return tempOrder
+  }
 
   createOrder(){
      this.confirm = true;
@@ -188,12 +210,13 @@ export class OrderComponent implements OnInit, OnDestroy {
         return;
     }
 
+    const detalleItems = this.createItemsOrder();
     const body : Order ={
         idAgenda : this.client.id,
         estado :  this.client.estado,
         ptoVenta: this.client.ptoVenta,
         descuentoPorcentaje: this.myForm.get('discount')?.value,
-        detalleItems : this.arrItemSelected 
+        detalleItems 
 
     }
     console.log(body);

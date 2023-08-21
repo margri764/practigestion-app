@@ -8,6 +8,8 @@ import * as articleAction from 'src/app/article.actions'
 import { Subscription, take } from 'rxjs';
 import { GenericSuccessComponent } from '../../generic-success/generic-success/generic-success.component';
 import { getDataLS, saveDataLS } from 'src/app/protected/Storage';
+import { LocalStorageService } from 'src/app/protected/services/localStorage/local-storage.service';
+import { updateLocale } from 'moment';
 
 @Component({
   selector: 'app-select-article-message',
@@ -27,6 +29,7 @@ export class SelectArticleMessageComponent implements OnInit, OnDestroy {
                private store : Store <AppState>,
                private dialogRef : MatDialogRef<SelectArticleMessageComponent>,
                private dialog : MatDialog,
+               private localStorageService: LocalStorageService
   ) { }
 
   ngOnDestroy(): void {
@@ -71,23 +74,9 @@ totalPurchase(){
 
 selectItem(){
 
-  const detalleItemSelected: DetalleItem = {
-    codigoInterno: this.article.codigoInterno,
-    cantidad: this.productQuantity,
-    bonificacionPorciento: this.inputValue || 0
-  };
-
-  this.articleSuscription = this.store.select('article')
-  .pipe( take(1))
-  .subscribe(({arrSelectedArticles}) => {
-    const updatedArr = [...arrSelectedArticles, detalleItemSelected];
-    this.store.dispatch(articleAction.setSelectedArticles({ arrSelectedArticles: updatedArr }));
-  });
-
-
-  let articlesInLStorage = getDataLS("arrSelectedArticles");
-
-  const articleToLS = {
+  
+// saco los datos siempre del redux, el localstorage es para poder recuperare el redux en los reloads
+  const articleToSave = {
                       descripcionLarga : this.article.descripcionLarga,
                       precioCostoConIva: this.article.precioCostoConIva,
                       cantidad: this.productQuantity,
@@ -97,22 +86,30 @@ selectItem(){
                       ventaTotal: this.total 
   }
 
-  if(articlesInLStorage == undefined){
-    articlesInLStorage = [];
-  }
 
-  articlesInLStorage.push(articleToLS);
-  saveDataLS("arrSelectedArticles", articlesInLStorage )
+  // obtengo el arrSelectedArticles y hago el update con el nuevo producto
+  this.articleSuscription = this.store.select('article')
+  .pipe( take(1))
+  .subscribe(({arrSelectedArticles}) => {
+    const updatedArr = [...arrSelectedArticles, articleToSave]; //update
+    this.store.dispatch(articleAction.setSelectedArticles({ arrSelectedArticles: updatedArr }));
+     
+    // guardo en localstorage la data 
+    this.localStorageService.saveStateToLocalStorage(updatedArr, "arrArticles");
+  });
+
 
   setTimeout(()=>{
     this.dialogRef.close();
-  },800)
+  },400)
 
   setTimeout(()=>{
     this.openGenericSuccess('Producto añadido con éxito');
-  },1800)
+  },800)
 
 }
+
+
 
 openGenericSuccess(msg : string){
 
