@@ -1,0 +1,70 @@
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  >
+    
+<h1 class="font fs-7 mt-40"> Lista de ofertas</h1>
+    
+<div class="example-container mat-elevation-z8 font mt-40" *ngIf="!isLoading && !showLabel">
+    
+
+    <table mat-table [dataSource]="dataTable" >
+
+        <!-- img Column -->
+        <ng-container matColumnDef="img" sticky  >
+            <th mat-header-cell *matHeaderCellDef > <span style="margin-right: 20px;"> Imagen</span> </th>
+            <td mat-cell *matCellDef="let element" (click)="editItem(element)" > <img   [src]="element.img" [ngClass]="{ 'grayLayer': !element.stock || !element.category.state || element.paused }" style=" margin-right: 20px;"  > </td>
+        </ng-container>
+            
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef > Nombre </th>
+            <td mat-cell *matCellDef="let element" (click)="editItem(element)" > {{element.name}} </td>
+        </ng-container>
+    
+        <!-- Stock Column -->
+        <ng-container matColumnDef="stock" >
+            <th mat-header-cell *matHeaderCellDef> Stock </th>
+            <td mat-cell *matCellDef="let element" (click)="editItem(element)" > {{element.stockQuantity}} </td>
+        </ng-container>
+    
+        <!-- Price Column -->
+        <ng-container matColumnDef="price" >
+            <th mat-header-cell *matHeaderCellDef> Precio </th>
+            <td mat-cell *matCellDef="let element" (click)="editItem(element)" > {{element.price | rounds}} </td>
+        </ng-container>
+
+        <!-- Comment Column -->
+        <ng-container matColumnDef="comment">
+            <th mat-header-cell *matHeaderCellDef> Comentarios </th>
+            <td mat-cell *matCellDef="let element" (click)="editItem(element)" style="font-size: 0.6em;"> <span style="text-align: start;"> {{element.comment}} </span> </td>
+        </ng-container>
+
+        <!-- Ingredients Column -->
+        <ng-container matColumnDef="ingredients" >
+            <th mat-header-cell *matHeaderCellDef > Ingredientes </th>
+            <td mat-cell *matCellDef="let element" (click)="editItem(element)" style="font-size: 0.6em;" > <span style="text-align: start;">  {{element.ingredients}} </span> </td>
+        </ng-container>
+        
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+</div>
+<!-- start products Active -->
+
+<!-- start no-offers -->
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="mt-60" *ngIf="showLabel" >
+    <span class="font fs-7"> Sin Ofertas activas</span>
+    <span class="font fs-4 mt-20" fxFlex="98" > Si no hay ofertas en esta sección podes crearlas desde la  <b style="color: blue; cursor: pointer;">gestion de productos y ofertas</b> </span>
+</div>
+<!-- end no-offers -->
+
+<!-- start loading -->
+ <div  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" style="margin-bottom: 30px; margin-top: 40px;" *ngIf="isLoading"> 
+    <span class="material-symbols-outlined notranslate fastFoodIcon" fxFlex="100" style="text-align: center;">
+        fastfood
+    </span>    
+    <span class="loadingIcon">cargando...</span>
+</div>
+<!-- end loading -->
+
+</div>

@@ -1,0 +1,120 @@
+<mat-sidenav-container fullscreen style="margin-top: 10px">
+    
+    <mat-sidenav #sidenav mode="push" >
+        
+        <mat-toolbar style="background-color: red; color: white; text-align: end;" (click)="sidenav.toggle()" >
+            <i class="material-symbols-outlined notranslate" style="margin-left:80px; cursor: pointer; transform: scale(1.8);">reply</i>
+        </mat-toolbar>
+
+        <mat-nav-list>
+            <a 
+               mat-list-item
+               (click)="sidenav.toggle()">
+               <i class="material-symbols-outlined notranslate">edit</i>
+                <span class="font fs-5 ml-10">Estado y Edición</span>
+            </a>
+
+
+            <a routerLink="/armar-pedido"
+            mat-list-item
+            (click)="sidenav.toggle()" class="mt-30">
+             <i class="material-symbols-outlined notranslate">shopping_bag</i>
+             <span class="font fs-5 ml-10">Pedidos</span>
+         </a>
+
+
+            <a routerLink="/listado-articulos"
+               mat-list-item
+               (click)="sidenav.toggle()" class="mt-10">
+                <i class="material-symbols-outlined notranslate">settings</i>
+                <span class="font fs-5 ml-10">Articulos</span>
+            </a>
+
+            <a routerLink="./edit-offers"
+               mat-list-item
+               (click)="sidenav.toggle()" class="mt-10">
+               <i class="material-symbols-outlined notranslate">local_offer</i>
+                <span  class="font fs-5 ml-10">Ofertas</span>
+            </a>
+
+            <a routerLink="./edit-customer"
+            mat-list-item
+            (click)="sidenav.toggle()" class="mt-10">
+            <i class="material-symbols-outlined notranslate">account_circle</i>
+             <span  class="font fs-5 ml-10">Clientes</span>
+            </a>
+
+            <a routerLink="./edit-employees"
+            mat-list-item
+            (click)="sidenav.toggle()" class="mt-10">
+            <i class="material-symbols-outlined notranslate">account_circle</i>
+             <span  class="font fs-5 ml-10">Empleados</span>
+            </a>
+
+            <a 
+            mat-list-item
+           (click)="sidenav.toggle();" class="mt-10" routerLink="home">
+           <i class="material-symbols-outlined notranslate">home</i>
+            <span  class="font fs-5 ml-10">Ir al inicio</span>
+           </a>
+            
+            <a 
+             mat-list-item
+            (click)="sidenav.toggle(); logout()" class="mt-10">
+            <i class="material-symbols-outlined notranslate">logout</i>
+             <span  class="font fs-5 ml-10">Cerrar Sesion</span>
+            </a>
+            
+        </mat-nav-list>
+        
+    </mat-sidenav>
+
+    <mat-toolbar style="height: auto; padding: 10px;" >
+
+        <button mat-icon-button  (click)="sidenav.toggle(); showDashboard()">
+            <mat-icon style="transform: scale(1.2);">menu</mat-icon>
+        </button>
+
+        <div fxLayout="row wrap"  fxLayoutAlign="space-between center"  fxFlex="100" >
+
+            <div fxLayout="row wrap"  fxLayoutAlign="center"  fxFlex="25" >
+            </div>
+
+            <!-- margen derecho -->
+            <div fxLayout="row wrap"  fxLayoutAlign="end center"  fxFlex="75"  >
+
+                <div fxLayout="row wrap"  fxLayoutAlign="space-between center"  fxFlex="100" >
+
+                    <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" (click)="accordion.openAll(); visibility()">
+                        <mat-icon class="material-symbols-outlined notranslate" [matBadge]="alert" matBadgeColor="warn" [matBadgeHidden]="hidden">notifications</mat-icon>
+                    </button>
+
+                    <!-- <span  fxLayout="row wrap"  fxLayoutAlign="end"  class="font fs-3"> {{user?.fullName }}</span> -->
+                    <span  fxLayout="row wrap"  fxLayoutAlign="end"  class="font fs-3"> {{user?.username}}</span>
+                </div>
+            </div>
+            <!--end  margen derecho -->
+        </div>
+
+    </mat-toolbar>
+
+    
+    <mat-accordion class="example-headers-align" multi [ngStyle]="(toogle) ? {'visibility':'visible'}:{'visibility':'hidden'}  ">
+        <mat-expansion-panel>
+      
+          <!-- <span [ngStyle]="(toogle) ? {'display':'block'}:{'display':'none'}" style="margin-top: 40px;"> 
+          </span> -->
+
+        </mat-expansion-panel>
+      
+    </mat-accordion>
+
+    <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" style="margin-top: 30px;">
+        <span fxFlex="30" routerLink="/armar-pedido" class="font fs-5" style="cursor: pointer;">Armar Pedido</span>
+        <span fxFlex="30" routerLink="/clientes" class="font fs-5" style="cursor: pointer;">Clientes</span>
+        <span fxFlex="30" routerLink="/listado-articulos" class="font fs-5" style="cursor: pointer;">Listado Articulos</span>
+     </div>
+      
+      
+</mat-sidenav-container>
+    

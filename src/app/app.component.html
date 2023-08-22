@@ -1,0 +1,30 @@
+<!-- <app-start *ngIf="!disabled"></app-start> -->
+
+    <!-- <div class="page-wrapper" *ngIf="disabled"> -->
+      <div class="page-wrapper">
+
+        <!-- <div class="sticky-header">
+      
+          <app-header *ngIf="!(router.url === '/home' || router.url === '/start' || router.url === '/cart' || router.url === '/profile'
+          || router.url === '/register' || router.url === '/login')"></app-header>
+        
+        </div> -->
+        <!-- <div class="content-wrapper" [ngStyle]="(scroll) ? {'overflow-y': 'auto'} : {'overflow-y': 'hidden'} " > -->
+        <div class="content-wrapper">
+        
+            <div class="content">
+       
+              <router-outlet> </router-outlet> 
+             
+            </div>
+            
+          </div> 
+
+          <div class="sticky-header">
+
+            <!-- <app-footer *ngIf="!(router.url === '/start' || router.url === '/register'|| router.url === '/dashboard' || router.url === '/dashboard/order-managment' || router.url === '/login' || id )">
+            </app-footer> -->
+
+          </div> 
+        </div>
+  

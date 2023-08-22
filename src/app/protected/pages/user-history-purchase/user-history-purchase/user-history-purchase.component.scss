@@ -1,0 +1,47 @@
+
+
+.shadow{
+    padding:  10px;
+    background-color: white;
+
+    border-radius: 10px 10px 0px 0px;
+    -webkit-border-radius: 20px 20px 0px 0px;
+    -moz-border-radius: 20px 20px 0px 0px;
+
+    box-shadow: -1px 4px 14px -1px rgba(197, 196, 196, 0.45);
+    -webkit-box-shadow: -1px 4px 14px -1px rgba(197, 196, 196, 0.45);
+     -moz-box-shadow: -1px 4px 14px -1px rgba(197, 196, 196, 0.45);
+}
+
+
+
+.fastFoodIcon, .loadingIcon {
+    animation: opaco 1.2s ease-in-out forwards;
+    animation-iteration-count: 20; 
+    color: rgb(176, 176, 176);
+}
+
+.fastFoodIcon {
+    font-size: 250px;
+}
+
+@keyframes opaco {
+    0% {
+    opacity:1;
+    }
+    45% {
+    opacity:0.9;
+    }
+    55% {
+    opacity:0.8;
+    }
+    100% {
+    opacity: 0.1;
+   }
+
+}
+
+.loadingIcon{
+    font-size: 1.3em;
+    font-family: 'poppins-light';
+}

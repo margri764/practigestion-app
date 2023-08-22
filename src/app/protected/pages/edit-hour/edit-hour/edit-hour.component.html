@@ -1,0 +1,72 @@
+
+    <mat-accordion  multi>
+        <mat-expansion-panel  style="
+        border-radius: 0px 0px 10px 10px;
+        -webkit-border-radius: 0px 0px 10px 10px;
+        -moz-border-radius: 0px 0px 10px 10px;
+        padding: 0px !important;
+            
+        box-shadow: -1px 4px 14px -1px rgba(197, 196, 196, 0.45);
+        -webkit-box-shadow: -1px 4px 14px -1px rgba(197, 196, 196, 0.45);
+        -moz-box-shadow: -1px 4px 14px -1px rgba(197, 196, 196, 0.45);
+        " >
+
+        <div  fxLayout="row wrap"  fxLayoutAlign="space-evenly center" fxFlex="100" class="mb-40"  > 
+ 
+
+            <div  fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="100" class="font fs-6 mt-40"  >
+
+                    <div  fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100">
+                        <span  fxFlex="65" >Horario actual </span>
+
+                        <div fxLayout="row wrap"  fxLayoutAlign="end start" fxFlex="35" >
+                            <div class="icon mr-10" *ngIf="rate.length != 0 " >
+                                <span class="material-symbols-outlined notranslate" style="cursor: pointer; color: red;" (click)="editRate()" >delete</span>
+                            </div>
+
+                            <div class="icon">
+                                <span class="material-symbols-outlined notranslate"  style="cursor: pointer;" (click)="resets()" >close </span>
+                            </div>
+                        </div>
+
+                    </div>    
+
+                    <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="whiteFrame mt-40 font fs-4" *ngIf="rate.length == 0" >
+                        <span  fxFlex="100" style="line-height: 1.2em; opacity: 0.8;"> Sin horario de atencion </span>
+                    </div>
+
+        
+                    <div fxLayout="row wrap" fxLayoutAlign=" center" fxFlex="100" *ngFor="let hour of rate"  >
+
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" class="whiteFrame mt-40" style="padding: 30px 20px;" 
+                        matRipple
+                        [matRippleCentered]="centered"
+                        [matRippleDisabled]="disabled"
+                        [matRippleUnbounded]="unbounded"
+                        [matRippleRadius]="radius"
+                        [matRippleColor]="color"  >
+                    
+                            <i fxLayout="row wrap" fxLayoutAlign=" center" fxFlex="70" class="fa fa-spin fa-sync" style="color: red; " *ngIf="isLoading && hour.isSelected "></i>
+
+                            <div class="icon mr-10" *ngIf="rButton">
+                                <span class="material-symbols-outlined notranslate" style="cursor: pointer; color: red;" (click)="deleteRate(hour._id)">delete</span>
+                            </div>
+
+                            <span fxLayout="row wrap"  fxLayoutAlign="start" fxFlex="70" (click)="editHour(hour)" [ngClass]=" hour.status ? 'hour' : 'notHour' " *ngIf="!isLoading || !hour.isSelected"> {{hour.hour}} </span>
+
+                            <mat-slide-toggle [color]="color" [checked]="hour.status" (change)="selectCheckHour(hour)" *ngIf="!rButton"> </mat-slide-toggle>
+                    
+                        </div>   
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="center center"  fxFlex="100" class="mt-20" *ngIf="noonHour == '' || nightHour == '' " >
+                        <button  mat-raised-button color="warn" type="button" class="add" (click)="addHourly()" >
+                        <mat-icon class="material-symbols-outlined notranslate">add</mat-icon>
+                        </button>
+                    </div>
+            </div>   
+            
+        </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+

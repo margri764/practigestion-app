@@ -1,0 +1,98 @@
+<div  fxLayout="row wrap"  fxLayoutAlign="center start" style="height: 100%; ;background-color: rgb(241, 241, 241);">
+
+    <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="background-color: rgb(37, 150, 190); color: white;
+  height: 100px; ">
+      <span class="font fs-6 t-center" fxFlex="50" (click)="selectOption('client')" >Cliente</span>
+      <span class="font fs-6 t-center" fxFlex="50" (click)="selectOption('product')">Productos</span>
+    
+          <div fxLayout="row wrap"  fxLayoutAlign="center" fxFlex="30" [ngClass]="showClient ? 'selection':'none'" ></div>
+          <div fxLayout="row wrap"  fxLayoutAlign="center" fxFlex="30" [ngClass]="showProduct ? 'selection':'none'"></div>
+    </div>
+
+    
+    <ng-container *ngIf="showClient; else showProductTemplate">
+        
+      <form  [formGroup]="myForm"  fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100"  class="mt-60 pd-10" >     
+            
+          <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
+              <mat-label>Fecha</mat-label>
+              <input matInput type="text" required formControlName="date" readonly>
+          </mat-form-field> 
+
+           
+            <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
+                <mat-label>Cliente</mat-label>
+                <input matInput type="text" formControlName="client" (click)="getClient()" >
+            </mat-form-field> 
+            <!-- <mat-error *ngIf ="validField ('client')" class="font fs-4"> Campo requerido</mat-error> -->
+
+
+            <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
+                <mat-label>Razon Social</mat-label>
+                <input matInput type="text" formControlName="comercialName" readonly>
+            </mat-form-field> 
+      
+
+            <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
+                <mat-label>Telefono</mat-label>
+                <input matInput type="text" formControlName="phone" readonly>
+            </mat-form-field> 
+
+            
+            <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
+                <mat-label>Cuit</mat-label>
+                <input matInput type="text" formControlName="cuit" readonly>
+            </mat-form-field> 
+
+            <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
+                <mat-label>% Dto</mat-label>
+                <input matInput type="text" formControlName="discount">
+            </mat-form-field> 
+
+            <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
+                <mat-label>Pto Venta</mat-label>
+                <input matInput type="text" formControlName="ptoVenta" readonly>
+            </mat-form-field> 
+      
+
+        <div fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="100" style="margin-top: 30px;">
+            <button mat-raised-button class="font fs-5" (click)="createOrder()">Crear Pedido</button>
+        </div>
+
+            
+      </form>
+
+    </ng-container>
+    
+    <ng-template #showProductTemplate>
+
+        <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" *ngIf="labelNoArticles">
+        
+            <span  class="font fs-5" style="margin-left: 10px; margin-top: 30px;" fxFlex="100"> No se encontraron coincidencias... </span>
+            
+        </div>
+    
+
+        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="background-color: rgb(243, 243, 255); margin-bottom: 30px;  padding: 20px 0px 10px 20px; margin-top: 20px;" fxFlex="96" *ngFor="let article of arrArticles" class="whiteframe" >
+        
+            <span  class="font fs-5" fxFlex="49" > Código: {{article.codigoArticulo }} </span>
+            <span  class="font fs-5 mr-5" fxFlex="49" fxLayoutAlign="end"> Estado: {{article.activo | productStatus }}</span>
+
+            <span  class="font fs-5 mt-20" fxFlex="100" > {{article.descripcionLarga | capitalizeFirstLetter }}</span>
+
+            <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="97" style="margin-top: 20px;">
+                      
+                    <button mat-raised-button class="font fs-5" style="line-height: 40px; background-color:rgb(188, 210, 202); color: white;"> Seleccionar 1 unidad</button>
+
+                   <div  style="width: 50px; height: 50px; border-radius: 50%; background-color: rgb(188, 210, 202);" class="whiteframe" (click)="openDialogArticle(article)">
+                     <i class="material-symbols-outlined notranslate" fxLayoutAlign="center center" fxFlex="100" style="transform: scale(1.3); color: white;">add</i>
+                   </div>
+
+                  
+            </div>
+            
+        </div>
+        
+    </ng-template>
+
+</div>

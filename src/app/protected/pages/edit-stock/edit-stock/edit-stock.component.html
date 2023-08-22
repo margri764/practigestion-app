@@ -1,0 +1,57 @@
+<div  fxLayout="row wrap"  fxLayoutAlign="space-between" fxFlex="100" class="font fs-7 mt-20 pd-10"  *ngIf="show">
+    <span  fxFlex="60"> Editar Categoria </span>
+    <span fxLayout="row wrap"  fxLayoutAlign="end start" fxFlex="30">
+        <mat-icon   style="cursor: pointer; transform: scale(1.3);" (click)="reset()" style="margin-right: 10px" >close</mat-icon>
+    </span>
+</div>    
+
+<!-- start products -->
+<div  class="example-container mat-elevation-z8"  *ngIf="show">
+
+    <div fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="100" class="font fs-5 mt-60 pd-10"  *ngIf="showLabel" >
+    
+        <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" style="color: red; border: 1px solid red; padding: 15px; border-radius: 10px;" class="animate__animated animate__flash">
+            <span  fxFlex="100"> No existen categorias creadas. </span>
+        </div>
+    </div>   
+
+    <table mat-table [dataSource]="dataSource" *ngIf="!showLabel" >
+
+       <!-- img Column -->
+        <ng-container matColumnDef="categoria" >
+            <th mat-header-cell *matHeaderCellDef> Categoría </th>
+            <td mat-cell *matCellDef="let element"> 
+                    {{element.name}} 
+            </td>
+        </ng-container>
+           
+        <!-- Name Column -->
+        <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let element" > 
+                <div class="icon-container">
+                    <div class="icon" *ngIf="!element.paused && !isLoading"  (click)="pausePlayItem(element, 'true')">
+                        <span class="material-symbols-outlined notranslate" style="color: green;"> done </span>
+                    </div>
+
+                    <i class="fa fa-spin fa-sync" *ngIf="isLoading"></i>
+
+                    <div class="icon" *ngIf="element.paused && !isLoading"  (click)="pausePlayItem(element, 'false')">
+                        <span class="material-symbols-outlined notranslate" style="color: rgb(255, 183, 0);"> pause </span>
+                    </div>
+               </div>
+            </td>
+        </ng-container>
+ 
+        <!-- Weight Column -->
+        <ng-container matColumnDef="stock" >
+            <th mat-header-cell *matHeaderCellDef> Stock </th>
+            <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+</div>
+<!-- start products -->

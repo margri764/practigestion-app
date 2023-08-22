@@ -1,0 +1,48 @@
+
+
+ .example-container {
+    width: 99%;
+    height: 300px;
+    overflow: auto; // esto hace el scroll vertical q necesito (en las demas tablas manejo la altura, el "sticky")
+ }
+
+table{
+    font-size: 1em;
+    font-family: 'poppins-light'; 
+}
+
+  
+.mat-column-categoria {
+    width: 50vw;
+    cursor: pointer;
+    text-align: flex-start;
+}
+
+.mat-column-estado {
+    width: 40vw;
+    cursor: pointer;
+    text-align: flex-start;
+}
+
+.mat-column-stock {
+    width: 10vw;
+    cursor: pointer;
+    text-align: flex-start;
+}
+
+.icon{
+    width: 35px;
+    height: 35px;
+}
+
+.icon-container {
+    display: flex;
+    align-items: flex-start;
+}
+  
+
+
+
+
+
+
