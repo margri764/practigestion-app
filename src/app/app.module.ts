@@ -51,6 +51,7 @@ import { ProductStatusPipe } from './protected/pipes/productStatus.pipe';
 import localeEs from '@angular/common/locales/es-AR'; //nombre inventado el AR es por Argentina
 import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
+import { ListByIdComponent } from './protected/pages/list-by-id/list-by-id/list-by-id.component';
 
 
 @NgModule({
@@ -76,7 +77,8 @@ import { environment } from 'src/environments/environment';
     ListPriceHomeComponent,
     GeneralListComponent,
     LoginMessageComponent,
-    LoadingComponent
+    LoadingComponent,
+    ListByIdComponent
   ],
   imports: [
     BrowserModule,

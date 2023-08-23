@@ -9,3 +9,17 @@ export interface PriceList {
     utilidadDefault: number;
   }
   
+
+  export interface articlePrice {
+    cantidadStock: number;
+    codigoInterno: string;
+    descLarga: string;
+    fechaAlta: string;
+    fechaModificacion: string;
+    fechaVerificacion: string | null;
+    idListaPrecio: number;
+    iva: number;
+    precioBrutoFinal: number;
+    precioNetoFinal: number;
+  }
+  

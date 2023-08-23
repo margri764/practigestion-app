@@ -1,0 +1,53 @@
+<div  fxLayout="row wrap"  fxLayoutAlign="center start" style="height: 100vh; background-color: rgb(241, 241, 241);">
+
+    <div  fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" style="height: 80px;background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
+    -moz-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);" >
+       
+        <div fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="80" style="margin-top: 5px;" routerLink="/lista-precios/listado">
+                <span class="material-symbols-outlined notranslate cursor" >arrow_back_ios</span>
+                <span class="font fs-5" fxFlex="90">
+                    articulos
+                </span>
+        </div>
+
+        <span class="material-symbols-outlined notranslate cursor" fxFlex="20" style="align-items: end;" (click)="close()">close</span>
+   
+    </div>
+
+    <!-- <div fxLayout="row wrap"  fxLayoutAlign="start center" style="margin-top: 30px; background-color: white; height: 60px;" fxFlex="97" class="whiteframe">
+        <span class="font fs-5">Selecciona la lista de precios. </span>
+    </div>
+     -->
+     
+
+    <div  fxLayout="row wrap"  fxLayoutAlign="space-between start" FxFlex="100" style="background-color: rgb(241, 241, 241); margin-top: 40px;" *ngIf="arrArticles.length !== 0" >
+        
+        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 20px;  padding: 10px; background-color: white;" fxFlex="97" class="whiteframe" *ngFor="let art of arrArticles">
+    
+            <div  fxLayout="row wrap"  fxLayoutAlign="end center" fxFlex="100" style="background-color: rgb(37, 150, 190); color: white; height: 30px; padding: 5px;">
+                <span  class="font fs-5" fxFlex="50" > Código: {{art.codigoInterno }} </span>
+                <span  class="font fs-5" fxFlex="50" style="text-align: end;"  > Stock: <b [ngStyle]="styleObject(art.cantidadStock )">{{art.cantidadStock }}</b>  </span>
+                
+          
+              </div>
+       
+            <span  class="font fs-5 mt-20" fxFlex="80" > {{art.descLarga| capitalizeFirstLetter }}</span>
+       
+            <span  class="font fs-5 mt-10" fxFlex="80" > Precio s/IVA: ${{art.precioBrutoFinal}}</span>
+            <span  class="font fs-5 mt-10" fxFlex="80" > Precio final: ${{art.precioNetoFinal}}</span>
+
+            
+            
+            
+            
+        </div>
+    </div>
+
+    <div fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="100"  *ngIf="isLoading" style="margin-top: 50%;">
+        <mat-spinner></mat-spinner>
+    
+    </div>
+    
+ </div>
+
+

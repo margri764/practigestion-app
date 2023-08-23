@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { PriceList } from 'src/app/protected/interfaces/list.interface';
 import { LoadingComponent } from 'src/app/protected/messages/loading/loading/loading.component';
 import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
 import { ErrorService } from 'src/app/protected/services/error/error.service';
+import { ListByIdComponent } from '../../list-by-id/list-by-id/list-by-id.component';
 
 @Component({
   selector: 'app-general-list',
@@ -18,6 +20,7 @@ export class GeneralListComponent implements OnInit {
               private articleService : ArticlesService,
               private errorService : ErrorService,
               private dialog : MatDialog,
+              private _bottomSheet : MatBottomSheet
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +42,15 @@ export class GeneralListComponent implements OnInit {
         
       })
   }
+
+  selectList( id: any) {
+
+    this._bottomSheet.open(ListByIdComponent,{
+      data: id,
+      disableClose: true,
+      })
+  }
+
 openDialogLoading(){
   this.dialog.open(LoadingComponent,{
     disableClose: true,

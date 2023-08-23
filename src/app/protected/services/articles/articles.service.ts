@@ -85,6 +85,14 @@ getAllTruePriceList( ){
           return res} )
   );
 }
+getPriceListById( id:any ){
+  return this.http.get<any>(`${this.baseUrl}api/precios/${id}`)
+.pipe(
+  map( res =>{ 
+        console.log('desde service getPriceListById', res)
+          return res} )
+  );
+}
 
 
 }

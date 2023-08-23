@@ -10,11 +10,14 @@
    
     </div>
 
-    a partir de las listas de precios pono bottom shett para poder acceder por id?
+    <div fxLayout="row wrap"  fxLayoutAlign="start center" style="margin-top: 30px; background-color: white; height: 60px;" fxFlex="97" class="whiteframe">
+        <span class="font fs-5">Selecciona la lista de precios. </span>
+    </div>
+    
 
-    <div  fxLayout="row wrap"  fxLayoutAlign="center start" FxFlex="100" style="background-color: rgb(241, 241, 241); margin-top: 40px;" *ngIf="arrList.length !== 0">
+    <div  fxLayout="row wrap"  fxLayoutAlign="center start" FxFlex="100" style="background-color: rgb(241, 241, 241); margin-top: 40px;" *ngIf="arrList.length !== 0" >
         
-        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 10px; background-color: white;" fxFlex="97" class="whiteframe" *ngFor="let list of arrList">
+        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 10px; background-color: white;" fxFlex="97" class="whiteframe" *ngFor="let list of arrList" (click)="selectList(list.id)">
     
             <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="background-color: rgb(37, 150, 190); color: white; height: 30px; padding: 5px;">
                 <span  class="font fs-5" fxFlex="50" > Código: {{list.id }} </span>
@@ -22,7 +25,13 @@
           
               </div>
        
-            <span  class="font fs-5 mt-20" fxFlex="100" > {{list.nombreLista| capitalizeFirstLetter }}</span>
+            <span  class="font fs-5 mt-20" fxFlex="80" > {{list.nombreLista| capitalizeFirstLetter }}</span>
+            <div class="icon mt-20" >
+                <span class="material-symbols-outlined notranslate fc-green" *ngIf="list.activa ==1" >done</span> 
+                <span class="material-symbols-outlined notranslate fc-red" *ngIf="list.activa == 0">close</span> 
+
+            </div>
+
             
             
             
