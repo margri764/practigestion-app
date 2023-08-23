@@ -68,7 +68,23 @@ searchProductById( codigo_interno : string){
   );
 }
 
+editProductById( body: any, codigo_interno : string){
+  return this.http.get<any>(`${this.baseUrl}api/articulos/${codigo_interno}`, body)
+.pipe(
+  map( res =>{ 
+        console.log('desde service searchProductById', res)
+          return res} )
+  );
+}
 
+getAllTruePriceList( ){
+  return this.http.get<any>(`${this.baseUrl}api/precios`)
+.pipe(
+  map( res =>{ 
+        console.log('desde service getAllTruePriceList', res)
+          return res} )
+  );
+}
 
 
 }

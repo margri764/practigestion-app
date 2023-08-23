@@ -1,25 +1,32 @@
 
+
 <div  fxLayout="row wrap"  fxLayoutAlign="center start" style="height: 100%; background-color: rgb(241, 241, 241);">
 
-    <div  fxLayout="row wrap"  fxLayoutAlign="space-around space-between" fxFlex="100" style="height: 130px;background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
+    <div  fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" style="height: 80px;background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
     -moz-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);" >
        
         <div fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" style="margin-top: 5px;" routerLink="/home">
                 <span class="material-symbols-outlined notranslate cursor" >arrow_back_ios</span>
-                <span class="font fs-5" fxFlex="90">Listado de clientes</span>
+                <span class="font fs-5" fxFlex="90">Listas de precios</span>
         </div>
    
     </div>
 
+    <span class="font fs-5 mt-20" routerLink="/lista-precios/listado"> Ver listas habilitadas</span>
+    
+    <!-- <app-general-list fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="100"></app-general-list> -->
+    <!-- <router-outlet></router-outlet> -->
+</div>
+<!-- 
     <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="mt-40">
         <button  mat-raised-button color="warn" type="button" class="add" (click)="addClient()" >
             <mat-icon class="material-symbols-outlined notranslate">add</mat-icon>
         </button>
         <span class="font fs-5 mt-10" fxFlex="100" style="text-align: center;">Agregar Cliente</span>
-    </div>
+    </div> -->
 
 
-<div  fxLayout="row wrap"  fxLayoutAlign="center start" FxFlex="100" style="background-color: rgb(241, 241, 241); margin-top: 40px;" *ngIf="contactos.length !== 0">
+<!-- <div  fxLayout="row wrap"  fxLayoutAlign="center start" FxFlex="100" style="background-color: rgb(241, 241, 241); margin-top: 40px;" *ngIf="contactos.length !== 0">
         
     <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 10px; background-color: white;" fxFlex="97" class="whiteframe" *ngFor="let client of contactos">
 
@@ -46,9 +53,9 @@
         </div>
         
     </div>
-</div>
+</div> -->
 
-
+<!-- 
 <div  fxLayout="row wrap"  fxLayoutAlign="center center" FxFlex="90" style="margin-top: 50%; height: 60px;" class="whiteframe" *ngIf="contactos.length === 0">
     <span class="font fs-5">Cargando....</span>
-</div>
+</div> -->

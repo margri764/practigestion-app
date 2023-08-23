@@ -8,6 +8,8 @@ import { LoginComponent } from './protected/pages/login/login/login.component';
 import { ViewMoreArticleComponent } from './protected/pages/view-more-article/view-more-article/view-more-article.component';
 import { SearchProductsComponent } from './protected/pages/searchProducts/search-products/search-products.component';
 import { TempOrderComponent } from './protected/pages/temp-order/temp-order/temp-order.component';
+import { ListPriceHomeComponent } from './protected/pages/list-price-home/list-price-home/list-price-home.component';
+import { GeneralListComponent } from './protected/pages/general-list/general-list/general-list.component';
 
 
 const routes: Routes = [
@@ -16,7 +18,13 @@ const routes: Routes = [
     path: 'armar-pedido',  component: OrderComponent
   },
   {
-    path: 'listado-clientes',  component:ClientComponent
+    path: 'listado-clientes',  component: ClientComponent
+  },
+  {
+    path: 'lista-precios/listado',  component: GeneralListComponent
+  },
+  {
+    path: 'lista-precios',  component : ListPriceHomeComponent
   },
   {
     path: 'listado-articulos',  component: ArticlesComponent

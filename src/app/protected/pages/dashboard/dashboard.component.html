@@ -1,8 +1,9 @@
 <mat-sidenav-container fullscreen style="margin-top: 10px">
     
-    <mat-sidenav #sidenav mode="push" >
+    <mat-sidenav #sidenav mode="push" style="background-color: rgb(254, 254, 254);" >
+
         
-        <mat-toolbar style="background-color: red; color: white; text-align: end;" (click)="sidenav.toggle()" >
+        <mat-toolbar style="background-color: rgb(37, 150, 190); color: white; text-align: center;" (click)="sidenav.toggle()" >
             <i class="material-symbols-outlined notranslate" style="margin-left:80px; cursor: pointer; transform: scale(1.8);">reply</i>
         </mat-toolbar>
 
@@ -10,52 +11,62 @@
             <a 
                mat-list-item
                (click)="sidenav.toggle()">
-               <i class="material-symbols-outlined notranslate">edit</i>
-                <span class="font fs-5 ml-10">Estado y Edición</span>
+               <img src="assets/logo.png" alt="logo menu" fxFlex="60" style="margin-top: 20px;">
+            </a>
+
+            <a  mat-list-item style="margin-top: 70px;">
+                <div class="menuIcon"  >
+                    <span class="material-icons notranslate" style=" transform: scale(1.3);color: rgb(135, 135, 135);"> shopping_bag </span>
+                </div>
+                <span  class="font fs-5 ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Pedidos realizados</span>
+               
             </a>
 
 
+         <a  mat-list-item style="margin-top: 20px;">
+            <div class="menuIcon"  >
+                <span class="material-symbols-outlined notranslate" style=" transform: scale(1.3);color: rgb(135, 135, 135);"> category </span>
+            </div>
+            <span  class="font fs-5 ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Articulos</span>
+           
+        </a>
+
+        <!-- 
             <a routerLink="/armar-pedido"
             mat-list-item
-            (click)="sidenav.toggle()" class="mt-30">
-             <i class="material-symbols-outlined notranslate">shopping_bag</i>
+            (click)="sidenav.toggle()" class="mt-60">
+             <i class="material-icons notranslate">shopping_bag</i>
              <span class="font fs-5 ml-10">Pedidos</span>
-         </a>
+         </a> -->
 
 
-            <a routerLink="/listado-articulos"
+            <!-- <a routerLink="/listado-articulos"
                mat-list-item
                (click)="sidenav.toggle()" class="mt-10">
-                <i class="material-symbols-outlined notranslate">settings</i>
+                <i class="material-symbols-outlined notranslate">category</i>
                 <span class="font fs-5 ml-10">Articulos</span>
+            </a> -->
+
+            <a  mat-list-item (click)="sidenav.toggle()" class="mt-10">
+               <i class="material-symbols-outlined notranslate">shopping_bag</i>
+                <span  class="font fs-5 ml-10">Pedidos abiertos</span>
             </a>
 
-            <a routerLink="./edit-offers"
-               mat-list-item
-               (click)="sidenav.toggle()" class="mt-10">
-               <i class="material-symbols-outlined notranslate">local_offer</i>
-                <span  class="font fs-5 ml-10">Ofertas</span>
-            </a>
-
-            <a routerLink="/listado-clientes"
-            mat-list-item
-            (click)="sidenav.toggle()" class="mt-10">
+            <a routerLink="/listado-clientes" mat-list-item (click)="sidenav.toggle()" class="mt-10">
             <i class="material-symbols-outlined notranslate">account_circle</i>
              <span  class="font fs-5 ml-10">Clientes</span>
             </a>
 
-            <a routerLink="./edit-employees"
-            mat-list-item
-            (click)="sidenav.toggle()" class="mt-10">
-            <i class="material-symbols-outlined notranslate">account_circle</i>
-             <span  class="font fs-5 ml-10">Empleados</span>
-            </a>
+            <a routerLink="/lista-precios" mat-list-item (click)="sidenav.toggle();" class="mt-10" >
+           <i class="material-symbols-outlined notranslate" style="transform: scale(1.3);">description</i>
+            <span  class="font fs-5 ml-10">Lista de precios</span>
+           </a>
 
             <a 
             mat-list-item
            (click)="sidenav.toggle();" class="mt-10" routerLink="home">
-           <i class="material-symbols-outlined notranslate">home</i>
-            <span  class="font fs-5 ml-10">Ir al inicio</span>
+           <i class="material-symbols-outlined notranslate">settings</i>
+            <span  class="font fs-5 ml-10">Configuraciones</span>
            </a>
             
             <a 
@@ -69,7 +80,8 @@
         
     </mat-sidenav>
 
-    <mat-toolbar style="height: auto; padding: 10px;" >
+    <mat-toolbar style="height: auto; padding: 10px; background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
+    -moz-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);" >
 
         <button mat-icon-button  (click)="sidenav.toggle(); ">
             <mat-icon style="transform: scale(1.2);">menu</mat-icon>
@@ -83,14 +95,20 @@
             <!-- margen derecho -->
             <div fxLayout="row wrap"  fxLayoutAlign="end center"  fxFlex="75"  >
 
-                <div fxLayout="row wrap"  fxLayoutAlign="space-between center"  fxFlex="100" >
+                <div fxLayout="row wrap"  fxLayoutAlign="end center"  fxFlex="100" >
 
-                    <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" (click)="accordion.openAll(); visibility()">
+                    <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" (click)="accordion.openAll(); visibility()" style="margin-right: 10px;">
                         <mat-icon class="material-symbols-outlined notranslate" [matBadge]="alert" matBadgeColor="warn" [matBadgeHidden]="hidden">notifications</mat-icon>
                     </button>
 
+                    <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon">
+                            <span class="material-icons" style="transform: scale(1.2);">account_circle</span>
+                    </button>
+
+                  
+
                     <!-- <span  fxLayout="row wrap"  fxLayoutAlign="end"  class="font fs-3"> {{user?.fullName }}</span> -->
-                    <span  fxLayout="row wrap"  fxLayoutAlign="end"  class="font fs-3"> {{user?.username}}</span>
+                    <!-- <span  fxLayout="row wrap"  fxLayoutAlign="end"  class="font fs-3"> {{user?.username}}</span> -->
                 </div>
             </div>
             <!--end  margen derecho -->
@@ -108,7 +126,7 @@
             <div fxLayout="row wrap" *ngIf="!showLabelTempOrder" fxFlex="100" class="mt-5 whiteframe mt-40 mb-40">
                     <span class="material-symbols-outlined no-translate fc-green">done</span> &nbsp;
                     <span class="font fs-5 ml-20" fxFlex="80"> Sin notificaciones </span>
-                </div>  
+            </div>  
              
     
                 <div fxLayout="row wrap" *ngIf="showLabelTempOrder" fxFlex="100" class="mt-5 whiteframe mt-40 mb-40">
@@ -123,13 +141,46 @@
       
     </mat-accordion>
 
-    <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" style="margin-top: 30px;">
-        <span fxFlex="30" routerLink="/armar-pedido" class="font fs-5" style="cursor: pointer;">Armar Pedido</span>
-        <span fxFlex="30" routerLink="/pedidos-temporales" class="font fs-5" style="cursor: pointer;">Pedidos Abiertos</span>
-        <span fxFlex="30" routerLink="/listado-clientes" class="font fs-5" style="cursor: pointer;">Clientes</span>
-        <span fxFlex="30" routerLink="/listado-articulos" class="font fs-5 mt-20" style="cursor: pointer;">Listado Articulos</span>
+    <div fxLayout="row wrap"  fxLayoutAlign="space-between space-between"  fxFlex="100" style="margin-top: 30px;padding: 10px; height: 100%;">
+
+     <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" style="">
+
+       <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="46" style="margin-top: 30px;" routerLink="/armar-pedido" >
+        <div class="mainIcon" >
+            <span class="material-icons notranslate" style=" transform: scale(1.7);color: rgb(68, 169, 0);"> shopping_bag </span>
+        </div>
+        <span fxFlex="100"  class="font fs-5" style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Iniciar Pedido</span>
+       </div>  
+
+       <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="46" style="margin-top: 30px;" routerLink="/pedidos-temporales" >
+        <div class="mainIcon" >
+            <span class="material-symbols-outlined notranslate" style=" transform: scale(1.7);color: rgb(68, 169, 0);"> shopping_bag </span>
+        </div>
+        <span fxFlex="100"  class="font fs-5" style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Pedidos Abiertos</span>
+       </div>  
+       
+       <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="46" style="margin-top: 30px;" routerLink="/listado-articulos" >
+        <div class="mainIcon" >
+            <span class="material-symbols-outlined notranslate" style=" transform: scale(1.7);color: rgb(68, 169, 0);"> category </span>
+        </div>
+        <span fxFlex="100"  class="font fs-5" style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Lista Artículos</span>
+       </div>  
+
+       <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="46" style="margin-top: 30px;" (click)="sidenav.toggle()">
+        <div class="mainIcon" >
+            <span class="material-symbols-outlined notranslate" style=" transform: scale(1.7);color: rgb(68, 169, 0);"> add </span>
+        </div>
+        <span fxFlex="100"  class="font fs-5" style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">mas...</span>
+       </div>  
      </div>
-      
+
+     <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" style="margin-bottom: 20px;">
+       
+       <img src="assets/logo.png" alt="logo pricipal" fxFlex="80" >
+     </div> 
+    
+    </div>   
+
       
 </mat-sidenav-container>
     

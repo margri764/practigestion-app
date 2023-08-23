@@ -11,4 +11,37 @@
     -webkit-box-shadow: -1px 0px 14px -1px rgba(197, 196, 196, 0.45);
      -moz-box-shadow: -1px 0px 14px -1px rgba(197, 196, 196, 0.45);
 }
+.mainIcon{
+  width: 85px;
+  height: 85px;
+  border-radius:50%;
+  // border: 2px solid rgb(217, 217, 217);
+  border: 6px double rgb(188, 210, 202);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  
+  box-shadow: -1px 0px 14px -1px rgba(197, 196, 196, 0.45);
+  -webkit-box-shadow: -1px 0px 14px -1px rgba(197, 196, 196, 0.45);
+   -moz-box-shadow: -1px 0px 14px -1px rgba(197, 196, 196, 0.45);
+}
+
+.menuIcon{
+  width: 45px;
+  height: 45px;
+  border-radius:50%;
+  // border: 2px solid rgb(217, 217, 217);
+  border: 2px solid rgb(217, 217, 217);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  
+  box-shadow: -1px 0px 14px -1px rgba(197, 196, 196, 0.45);
+  -webkit-box-shadow: -1px 0px 14px -1px rgba(197, 196, 196, 0.45);
+   -moz-box-shadow: -1px 0px 14px -1px rgba(197, 196, 196, 0.45);
+}
 

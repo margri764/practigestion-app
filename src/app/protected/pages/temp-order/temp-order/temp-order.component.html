@@ -47,8 +47,11 @@
   
    </div>
 
-   <div fxLayout="row wrap"  fxLayoutAlign="center center" FxFlex="100" style="margin-top: 50%;" *ngIf="tempOrder.length === 0">
-    <span class="font fs-5" fxFlex="100">Sin pedidos abiertos...</span>
-    <span routerLink="./home" class="font fs-5 mt-10" style="color: blue; text-decoration: underline;" fxFlex="100">Ir al inicio</span>
-   </div>
+   <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="97" class="mt-5 whiteframe" *ngIf="tempOrder.length === 0" style="margin-top: 50%;">
+    <span class="material-symbols-outlined no-translate fc-green">done</span> &nbsp;
+    <span class="font fs-5 ml-20" fxFlex="80"> Sin pedidos abiertos... </span>
+    <span routerLink="./home" class="font fs-5 mt-10" style="color: blue; text-decoration: underline; text-align: start; margin-left: 60px;" fxFlex="100">Ir al inicio</span>
+</div>  
+
+
 </div>

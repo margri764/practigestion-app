@@ -22,6 +22,11 @@ import { PickClientMessageComponent } from './protected/messages/pick-client-mes
 import { SelectArticleMessageComponent } from './protected/messages/select-article-message/select-article-message/select-article-message.component';
 import { SearchProductsComponent } from './protected/pages/searchProducts/search-products/search-products.component';
 import { TempOrderComponent } from './protected/pages/temp-order/temp-order/temp-order.component';
+import { EditClientComponent } from './protected/pages/edit-client/edit-client/edit-client.component';
+import { NewClientComponent } from './protected/pages/new-client/new-client/new-client.component';
+import { EditArticleComponent } from './protected/pages/edit-article/edit-article/edit-article.component';
+import { ListPriceHomeComponent } from './protected/pages/list-price-home/list-price-home/list-price-home.component';
+
 
 // services
 import { InterceptorService } from './protected/services/interceptor/interceptor.service';
@@ -43,9 +48,7 @@ import { ProductStatusPipe } from './protected/pipes/productStatus.pipe';
 import localeEs from '@angular/common/locales/es-AR'; //nombre inventado el AR es por Argentina
 import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
-import { EditClientComponent } from './protected/pages/edit-client/edit-client/edit-client.component';
-import { NewClientComponent } from './protected/pages/new-client/new-client/new-client.component';
-
+import { GeneralListComponent } from './protected/pages/general-list/general-list/general-list.component';
 
 
 @NgModule({
@@ -66,7 +69,10 @@ import { NewClientComponent } from './protected/pages/new-client/new-client/new-
     SearchProductsComponent,
     TempOrderComponent,
     EditClientComponent,
-    NewClientComponent
+    NewClientComponent,
+    EditArticleComponent,
+    ListPriceHomeComponent,
+    GeneralListComponent
   ],
   imports: [
     BrowserModule,
