@@ -52,6 +52,7 @@ import localeEs from '@angular/common/locales/es-AR'; //nombre inventado el AR e
 import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { ListByIdComponent } from './protected/pages/list-by-id/list-by-id/list-by-id.component';
+import { AskTempOrderComponent } from './protected/messages/ask-temp-order/ask-temp-order/ask-temp-order.component';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import { ListByIdComponent } from './protected/pages/list-by-id/list-by-id/list-
     GeneralListComponent,
     LoginMessageComponent,
     LoadingComponent,
-    ListByIdComponent
+    ListByIdComponent,
+    AskTempOrderComponent
   ],
   imports: [
     BrowserModule,

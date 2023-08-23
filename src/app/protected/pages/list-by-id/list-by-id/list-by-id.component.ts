@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
-import { log } from 'console';
+
 import { articlePrice } from 'src/app/protected/interfaces/list.interface';
 import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
+import { ErrorService } from 'src/app/protected/services/error/error.service';
+
 
 @Component({
   selector: 'app-list-by-id',
@@ -17,6 +19,7 @@ export class ListByIdComponent implements OnInit {
   constructor(
              @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
              private artcicleService : ArticlesService,
+             private errorService : ErrorService
              
   ) { }
 
@@ -49,9 +52,8 @@ export class ListByIdComponent implements OnInit {
     }
     
 }
-como cerrar este _bottomSheet
 close(){
-  this.artcicleService.closeBottom
+  this.errorService.close$.next(true);
+  this.errorService.close$.next(false);
 }
-
 }

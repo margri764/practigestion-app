@@ -33,6 +33,7 @@ showLabelTempOrder : boolean = false;
 alert! : string | null;
 showNoProcessMessage : boolean = false;
 notificationsDone! : boolean;
+login : boolean = false;
 // staffOrders : any []= [];
 
 constructor(
@@ -43,6 +44,7 @@ constructor(
     
   if(getDataSS("logged") === true || getDataLS("logged") == true){
     this.cookieService.get('token');
+    this.login = true;
      
   }
   }

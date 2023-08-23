@@ -1,25 +1,22 @@
 
 
-<div fxLayout="row wrap" fxLayoutAlign="center space-between" fxFlex="100" class="backLogin" style="overflow-y: auto; height: 100vh;">
+<div fxLayout="row wrap" fxLayoutAlign="center space-between" fxFlex="100" class="backLogin" style="overflow-y: auto; height: 100%; background-color: rgb(252, 252, 252);">
 
-    <!-- start header -->
-    <div fxLayout="row wrap"  fxLayoutAlign="space-between center" class="header" #top >
-      
-        <div fxLayout="row wrap"  fxLayoutAlign="start"  fxFlex="10" >
-           <button mat-mini-fab  alabel="Example icon button with a delete icon"  style="background-color: #f3b304;" (click)="goBack()" >
-            <mat-icon style="transform: scale(0.9); color: white;">arrow_back_ios_new</mat-icon>
-          </button>
+  <!-- <span class="material-symbols-outlined notranslate cursor" >arrow_back_ios</span> -->
+
+  <div  fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" style="height: 60px;background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
+    -moz-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);" >
+       
+        <div fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" style="margin-top: 5px;" routerLink="/home">
+                <span class="material-symbols-outlined notranslate cursor" >arrow_back_ios</span>
+                <span class="font fs-5" fxFlex="90">Inicio</span>
         </div>
-        
-        <span class="fs-5" fxLayoutAlign="center center"  fxFlex="80">Ingresa</span>
-        
-        <div fxFlex="5"></div>
-    </div>  
-    <!-- end header -->
+   
+    </div>
 
         <!-- <img src="assets/logo-header.png" alt="" fxFlex="40" class="mt-20"> -->
         
-        <form  [formGroup]="myForm"  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  class="mt-130">     
+        <form  [formGroup]="myForm"  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  class="mt-50">     
             
           <mat-form-field appearance="outline"  fxFlex="90" class="mt-10 font fs-5" >		
               <mat-label>Usuario</mat-label>
@@ -51,7 +48,7 @@
             
         </form>
 
-        <button type="button" fxLayout="row wrap" fxLayoutAlign="center center" class="btnLogin font fs-4 mt-40" fxFlex="90"  (click)="onSaveForm()">  Ingresar</button>
+        <button type="button" fxLayout="row wrap" fxLayoutAlign="center center" class="btnLogin font fs-5 mt-40" fxFlex="90"  (click)="onSaveForm()">  Ingresar</button>
         
    
 
@@ -59,11 +56,12 @@
     <div fxLayout="row wrap" fxLayoutAlign="center center"  fxFlex="90" style="margin-bottom: 60px;">
     
         <div  fxLayout="row wrap"  fxLayoutAlign="start" fxFlex="95"  style="margin-top: 15px" >
-        <p class="font fs-4"> ¿No tenes una cuenta?<b style="color: red; cursor: pointer;" routerLink="../register" > &nbsp; Ingresa acá</b></p>
+        <p class="font fs-4"> ¿No tenes una cuenta?<b style="color: rgb(255, 0, 85); cursor: pointer;" routerLink="../register" > &nbsp; Ingresa acá</b></p>
         </div>    
     
   </div>
   <!-- end save button -->
+  <img src="assets/logo.jpg" alt="" fxFlex="90" style="margin-bottom: 30px;">
 
 </div>
   

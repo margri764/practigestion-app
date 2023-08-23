@@ -101,9 +101,13 @@
                         <mat-icon class="material-symbols-outlined notranslate" [matBadge]="alert" matBadgeColor="warn" [matBadgeHidden]="hidden">notifications</mat-icon>
                     </button>
 
-                    <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon">
+                    <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" *ngIf="login">
                             <span class="material-icons" style="transform: scale(1.2);">account_circle</span>
                     </button>
+
+                    <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" routerLink="/login" *ngIf="!login">
+                        <span class="material-icons" style="transform: scale(1.2);">login</span>
+                </button>
 
                   
 

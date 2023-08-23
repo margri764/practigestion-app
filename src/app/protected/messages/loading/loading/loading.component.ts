@@ -31,6 +31,8 @@ export class LoadingComponent implements OnInit {
     // se cierra cuando el componente obtiene la data
     this.errorService.isLoading$.subscribe((emitted) => {
       if (emitted) {
+        console.log("desde loading");
+        
         this.dialogRef.close();
         this.errorService.isLoading$.next(false);
         this.noData = true;
