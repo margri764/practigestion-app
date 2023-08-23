@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/protected/services/auth/auth.service';
 import * as authActions from 'src/app/auth.actions'
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ErrorService } from 'src/app/protected/services/error/error.service';
 
 
 @Component({
@@ -39,12 +40,18 @@ export class PickClientMessageComponent implements OnInit {
               private authService : AuthService,
               private store : Store <AppState>,
               private dialogRef: MatDialogRef<PickClientMessageComponent>,
-              private router : Router
+              private router : Router,
+              private errorService : ErrorService
+
 
   ) { }
 
   ngOnInit(): void {
+
+    this.errorService.close$.subscribe((emited)=>{if(emited)this.dialogRef.close()})
+
     this.spinner = true;
+
     this.authService.getAllClients().subscribe(
       ({contactos})=>{
         console.log(contactos);

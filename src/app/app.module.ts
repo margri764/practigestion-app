@@ -26,6 +26,9 @@ import { EditClientComponent } from './protected/pages/edit-client/edit-client/e
 import { NewClientComponent } from './protected/pages/new-client/new-client/new-client.component';
 import { EditArticleComponent } from './protected/pages/edit-article/edit-article/edit-article.component';
 import { ListPriceHomeComponent } from './protected/pages/list-price-home/list-price-home/list-price-home.component';
+import { GeneralListComponent } from './protected/pages/general-list/general-list/general-list.component';
+import { LoginMessageComponent } from './protected/messages/login-message/login-message/login-message.component';
+import { LoadingComponent } from './protected/messages/loading/loading/loading.component';
 
 
 // services
@@ -48,7 +51,6 @@ import { ProductStatusPipe } from './protected/pipes/productStatus.pipe';
 import localeEs from '@angular/common/locales/es-AR'; //nombre inventado el AR es por Argentina
 import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
-import { GeneralListComponent } from './protected/pages/general-list/general-list/general-list.component';
 
 
 @NgModule({
@@ -72,7 +74,9 @@ import { GeneralListComponent } from './protected/pages/general-list/general-lis
     NewClientComponent,
     EditArticleComponent,
     ListPriceHomeComponent,
-    GeneralListComponent
+    GeneralListComponent,
+    LoginMessageComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

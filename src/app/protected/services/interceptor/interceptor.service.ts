@@ -5,6 +5,7 @@ import { AuthService } from '../auth/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 import { getDataLS } from '../../Storage';
+import { ErrorService } from '../error/error.service';
 
 
 @Injectable({
@@ -19,6 +20,7 @@ token : any;
 
   constructor(
               private authService : AuthService,
+              private errorService : ErrorService
               // private dialog : MatDialog
             )
 { }
@@ -56,10 +58,10 @@ errorHandle( error: HttpErrorResponse ) {
   
   
 
-  // const errorMessage = this.errorService.getError(error)
+  const errorMessage = this.errorService.getError(error)
 
-  // return throwError( () => errorMessage)
-  return throwError( () => error)
+  return throwError( () => errorMessage)
+  // return throwError( () => error)
 }
 
 }
