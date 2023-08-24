@@ -89,7 +89,7 @@ export class PickClientMessageComponent implements OnInit {
      this.labelNoFinded = false;
 
 
-     this.authService.searchClient(valueSearch)
+     this.authService.searchClientByName(valueSearch)
      .subscribe ( ({contactos} )=>{
       console.log(contactos);
       

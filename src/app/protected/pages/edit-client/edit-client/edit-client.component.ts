@@ -26,12 +26,14 @@ export class EditClientComponent implements OnInit {
                 @Inject(MAT_DIALOG_DATA) public data: any,
   ) { 
     this.myForm = this.fb.group({
-      fullName:  [ '' ],
-      email:     [ '' ],
-      phone:     [    ],
-      address:   [ '' ],
-      role:      [ '' ],
-    });   
+      id: [''], 
+      firstName: [''],
+      lastName: [ ''],
+      email: [''],
+      area:[''],
+      phone:[''],
+      address:[''],
+    })
 
   }
 

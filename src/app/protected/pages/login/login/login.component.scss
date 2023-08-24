@@ -1,29 +1,4 @@
 
-.backLogin{
-    background: url(/assets/background.png) no-repeat center center fixed ;
-    background-size: cover;
-    height: 100vh;
-    width: 100vw;    
-    display: flex;
-    flex-direction: column;
-    overflow: hidden; 
-
-    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-        color: #61a7e900;
-        opacity: 0.75!important;
-        background-color: white;
-        border-radius: 8px;
-    
-
-        box-shadow: -1px 4px 14px -2px rgba(121, 121, 121, 0.55);
-        -webkit-box-shadow: -1px 4px 14px -2px rgba(121, 121, 121,0.55);
-        -moz-box-shadow: -1px 4px 14px -2px rgba(121, 121, 121,0.55);
-    }
-    
-    mat-form-field.mat-form-field{
-        font-size: 4vw;
-    }
-}
 
 .btnLogin{
     background-color: rgb(37, 150, 190);
@@ -55,36 +30,6 @@
 }
 
 
-mat-form-field  {
-    font-size: 1.2em;
-    font-family: "poppins-light";
-    line-height: 1em;
-
-}
-
-
-::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-    color: rgb(37, 150, 190);
-  }
-  
-  ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-label {
-    color: rgb(37, 150, 190);
-  }
-
-  ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
-    color: rgb(37, 150, 190)!important;
-
-}
-
-::ng-deep .mat-slide-toggle.mat-disabled .mat-slide-toggle-bar {
-    color: rgb(37, 150, 190) !important;
-
-}
-
-::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
-    color: rgb(37, 150, 190) !important;
-
-  }
 
   
 .mat-icon-button {
@@ -95,7 +40,28 @@ mat-form-field  {
   }
 
 
-
+  ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: rgb(37, 150, 190);
+  }
+  
+  ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-label {
+    color: rgb(37, 150, 190);
+  }
+  
+  ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    color: rgb(37, 150, 190)!important;
+  
+  }
+  
+  ::ng-deep .mat-slide-toggle.mat-disabled .mat-slide-toggle-bar {
+    color: rgb(37, 150, 190) !important;
+  
+  }
+  
+  ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    color: rgb(37, 150, 190) !important;
+  
+  }
 
   
 

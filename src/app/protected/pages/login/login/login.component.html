@@ -1,10 +1,9 @@
 
 
-<div fxLayout="row wrap" fxLayoutAlign="center space-between" fxFlex="100" class="backLogin" style="overflow-y: auto; height: 100%; background-color: rgb(252, 252, 252);">
+<div fxLayout="row wrap" fxLayoutAlign="center space-between" fxFlex="100" class="backLogin" style="overflow-y: auto; height: 100%;">
 
-  <!-- <span class="material-symbols-outlined notranslate cursor" >arrow_back_ios</span> -->
 
-  <div  fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" style="height: 60px;background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
+  <div  fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" style="height: 60px; background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
     -moz-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);" >
        
         <div fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" style="margin-top: 5px;" routerLink="/home">
@@ -13,10 +12,8 @@
         </div>
    
     </div>
-
-        <!-- <img src="assets/logo-header.png" alt="" fxFlex="40" class="mt-20"> -->
         
-        <form  [formGroup]="myForm"  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  class="mt-50">     
+        <form  [formGroup]="myForm"  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" style="margin-top: 80px;">     
             
           <mat-form-field appearance="outline"  fxFlex="90" class="mt-10 font fs-5" >		
               <mat-label>Usuario</mat-label>
@@ -43,25 +40,20 @@
                     <mat-label  class="font fs-3" style="margin-right:0px;"> <b>Recordarme</b></mat-label> &nbsp;
                     <mat-slide-toggle formControlName="toLStorage" [checked]="true" ></mat-slide-toggle>
                 </div>
-                <span type="button" class="font fs-3 mt-10" style="cursor: pointer; align-items: start; color: blue;" fxFlex="100"><b > ¿Olvidaste tu contraseña?</b> </span>
+            
             </div>
             
         </form>
 
         <button type="button" fxLayout="row wrap" fxLayoutAlign="center center" class="btnLogin font fs-5 mt-40" fxFlex="90"  (click)="onSaveForm()">  Ingresar</button>
         
+        <div *ngIf="isLoading" class="loading-overlay">
+          <mat-spinner diameter="80"></mat-spinner>
+        </div>
+      
    
+  <img src="assets/logo.jpg" alt="" fxFlex="90" style="margin-top: 120px;">
 
-    <!-- save button -->
-    <div fxLayout="row wrap" fxLayoutAlign="center center"  fxFlex="90" style="margin-bottom: 60px;">
-    
-        <div  fxLayout="row wrap"  fxLayoutAlign="start" fxFlex="95"  style="margin-top: 15px" >
-        <p class="font fs-4"> ¿No tenes una cuenta?<b style="color: rgb(255, 0, 85); cursor: pointer;" routerLink="../register" > &nbsp; Ingresa acá</b></p>
-        </div>    
-    
-  </div>
-  <!-- end save button -->
-  <img src="assets/logo.jpg" alt="" fxFlex="90" style="margin-bottom: 30px;">
 
 </div>
   

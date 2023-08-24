@@ -1,7 +1,7 @@
 
-<div  fxLayout="row wrap"  fxLayoutAlign="center start" style="height: 100%; background-color: rgb(241, 241, 241);">
+<div  fxLayout="row wrap"  fxLayoutAlign="center start" style="height: 100%; background-color: rgb(241, 241, 241); position: relative;">
 
-    <div  fxLayout="row wrap"  fxLayoutAlign="space-around space-between" fxFlex="100" style="height: 130px;background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
+    <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="height: 80px; background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
     -moz-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);" >
        
         <div fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" style="margin-top: 5px;" routerLink="/home">
@@ -11,44 +11,132 @@
    
     </div>
 
-    <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="mt-40">
-        <button  mat-raised-button color="warn" type="button" class="add" (click)="addClient()" >
-            <mat-icon class="material-symbols-outlined notranslate">add</mat-icon>
-        </button>
-        <span class="font fs-5 mt-10" fxFlex="100" style="text-align: center;">Agregar Cliente</span>
+    <form  fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 25px; width: 100vw;"  autocomplete="off" >
+        <mat-form-field  appearance="outline" fxFlex="90" class="font fs-5" >
+            <input type="text" matInput  placeholder="Buscar cliente"  name="itemSearch"
+            class="form-control  me-2"    
+            [(ngModel)]="itemSearch"
+            (input)="teclaPresionada( )" 
+            (onDebounce)="sugerencias( itemSearch )" 
+            (keyup.enter)="Search( itemSearch )" >
+            <mat-icon matSuffix style="transform:scale(1.7); color: rgb(37, 150, 190); margin-right: 20px;" (click)="Search( itemSearch)" >search</mat-icon>
+        </mat-form-field>
+    </form> 
+
+
+
+
+    <!-- start suggested    -->
+
+    <div fxLayout="row wrap"  fxLayoutAlign="start center"  fxFlex="100" *ngIf="mostrarSugerencias" style="padding: 20px;"  >
+
+        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" class="font fs-5" style="margin-left: 0px;" >
+            <a > Buscar:   {{ itemSearch }}</a>
+            <mat-icon (click)="close()" style="cursor: pointer; margin-right: 10px; transform: scale(1.2);" > close</mat-icon>
+        </div>
+            
+        <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" *ngIf="spinner" style="margin-top: 30px;">
+            <mat-spinner diameter="48"></mat-spinner>
+        </div>
+                    
+        <div fxLayout="row wrap"  fxLayoutAlign="start  center" fxFlex="100" class="font fs-5" *ngFor="let item of suggested , index as i">
+            <a  style="cursor: pointer; margin-top: 10px;" (click)="searchSuggested( item.id )" fxFlex="100">
+            {{ item.archivarComo | capitalizeFirstLetter}}
+            </a>
+        </div>
     </div>
+    <!-- end suggested    -->
 
 
-<div  fxLayout="row wrap"  fxLayoutAlign="center start" FxFlex="100" style="background-color: rgb(241, 241, 241); margin-top: 40px;" *ngIf="contactos.length !== 0">
+
+    <!-- start select buttons -->
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="mt-40">
+    
+        <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="48">
+            <button  mat-raised-button color="warn" type="button" class="add" (click)="getAllClients()" >
+                <mat-icon class="material-symbols-outlined notranslate">refresh</mat-icon>
+            </button>
+            <span class="font fs-5 mt-10" fxFlex="100" style="text-align: center;">Obtener Clientes</span>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="48">
+            <button  mat-raised-button color="warn" type="button" class="add" (click)="addClient()" >
+                <mat-icon class="material-symbols-outlined notranslate">add</mat-icon>
+            </button>
+            <span class="font fs-5 mt-10" fxFlex="100" style="text-align: center;">Agregar Cliente</span>
+        </div>
+    </div>
+    <!-- end slect buttons -->
+
+    <!-- start result search cards -->
+    <div  fxLayout="row wrap"  fxLayoutAlign="center start" FxFlex="100" style="background-color: rgb(241, 241, 241); margin-top: 40px;" *ngIf="isClientFounded">
+                
+        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 10px; background-color: white;" fxFlex="97" class="whiteframe" >
+
+            <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="background-color: rgb(37, 150, 190); color: white; height: 30px; padding: 5px;">
+                <span  class="font fs-5" fxFlex="50" > Código: {{clientFounded.idAgenda }} </span>
+                <span  class="font fs-5" fxLayout="row wrap"  fxLayoutAlign="end center" fxFlex="50" > Estado: {{clientFounded.esCliente}} </span>
         
-    <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 10px; background-color: white;" fxFlex="97" class="whiteframe" *ngFor="let client of contactos">
+            </div>
+    
+            <span  class="font fs-5 mt-20" fxFlex="100" > {{clientFounded.archivarComo| capitalizeFirstLetter }}</span>
+            <span  class="font fs-5 mt-20" fxFlex="50" > Cuit: {{clientFounded.cuit || 'sin definir' }}</span>
+            <span  class="font fs-5 mt-20" style="text-align: end;" fxFlex="50" > Tel: {{clientFounded.telefonoCodigoArea}} {{clientFounded.numeroLocal || 'sin definir' }}</span>
 
-        <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="background-color: rgb(37, 150, 190); color: white; height: 30px; padding: 5px;">
-            <span  class="font fs-5" fxFlex="50" > Código: {{client.idAgenda }} </span>
-            <span  class="font fs-5" fxLayout="row wrap"  fxLayoutAlign="end center" fxFlex="50" > Estado: {{client.esCliente}} </span>
-      
-          </div>
-   
-        <span  class="font fs-5 mt-20" fxFlex="100" > {{client.archivarComo| capitalizeFirstLetter }}</span>
-        <span  class="font fs-5 mt-20" fxFlex="50" > Cuit: {{client.cuit || 'sin definir' }}</span>
-        <span  class="font fs-5 mt-20" style="text-align: end;" fxFlex="50" > Tel: {{client.telefonoCodigoArea}} {{client.numeroLocal || 'sin definir' }}</span>
-
-        <span  class="font fs-5 mt-20 " fxFlex="100" > Localidad: {{client.localidad || 'sin definir' }}</span>
-        
-        <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="100">
-            <div class="icon mr-10" (click)="deleteClient(client.id)" >
-                <span class="material-symbols-outlined notranslate" style="color: red;"> delete </span>
+            <span  class="font fs-5 mt-20 " fxFlex="100" > Localidad: {{clientFounded.localidad || 'sin definir' }}</span>
+            
+            <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="100">
+                <div class="icon mr-10" (click)="deleteClient(clientFounded.id)" >
+                    <span class="material-symbols-outlined notranslate" style="color: red;"> delete </span>
+                </div>
+                
+                <div class="icon"  (click)="editClient(clientFounded)">
+                    <span class="material-symbols-outlined notranslate" style="color: rgb(255, 176, 57);"> edit </span>
+                </div>
             </div>
             
-            <div class="icon"  (click)="editClient(client)">
-                <span class="material-symbols-outlined notranslate" style="color: rgb(255, 176, 57);"> edit </span>
-            </div>
         </div>
+
+    
+    </div>
+    <!-- end result search cards -->
+
+
+    <!-- start cards -->
+    <div  fxLayout="row wrap"  fxLayoutAlign="center start" FxFlex="100" style="background-color: rgb(241, 241, 241); margin-top: 40px;" *ngIf="contactos.length !== 0">
+                
+            <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 10px; background-color: white;" fxFlex="97" class="whiteframe" *ngFor="let client of contactos">
+
+                <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="background-color: rgb(37, 150, 190); color: white; height: 30px; padding: 5px;">
+                    <span  class="font fs-5" fxFlex="50" > Código: {{client.idAgenda }} </span>
+                    <span  class="font fs-5" fxLayout="row wrap"  fxLayoutAlign="end center" fxFlex="50" > Estado: {{client.esCliente}} </span>
+            
+                </div>
+        
+                <span  class="font fs-5 mt-20" fxFlex="100" > {{client.archivarComo| capitalizeFirstLetter }}</span>
+                <span  class="font fs-5 mt-20" fxFlex="50" > Cuit: {{client.cuit || 'sin definir' }}</span>
+                <span  class="font fs-5 mt-20" style="text-align: end;" fxFlex="50" > Tel: {{client.telefonoCodigoArea}} {{client.numeroLocal || 'sin definir' }}</span>
+
+                <span  class="font fs-5 mt-20 " fxFlex="100" > Localidad: {{client.localidad || 'sin definir' }}</span>
+                
+                <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="100">
+                    <div class="icon mr-10" (click)="deleteClient(client.id)" >
+                        <span class="material-symbols-outlined notranslate" style="color: red;"> delete </span>
+                    </div>
+                    
+                    <div class="icon"  (click)="editClient(client)">
+                        <span class="material-symbols-outlined notranslate" style="color: rgb(255, 176, 57);"> edit </span>
+                    </div>
+                </div>
+                
+            </div>
+
         
     </div>
-</div>
-
-
-<div  fxLayout="row wrap"  fxLayoutAlign="center center" FxFlex="90" style="margin-top: 50%; height: 60px;" class="whiteframe" *ngIf="contactos.length === 0">
-    <span class="font fs-5">Cargando....</span>
+    <!-- end cards     -->
+</div> 
+    
+  
+ <div *ngIf="isLoading" class="loading-overlay">
+    <mat-spinner diameter="80"></mat-spinner>
 </div>

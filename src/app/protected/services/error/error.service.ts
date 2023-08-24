@@ -15,6 +15,8 @@ export class ErrorService {
 
   isLoading$ = new BehaviorSubject<boolean>(false) //quiero a ce cierren todos los modals cuando se produce un error de servidor 
   authDelTempOrder$ : EventEmitter<boolean> = new EventEmitter<boolean>; 
+  authDelClient$ : EventEmitter<boolean> = new EventEmitter<boolean>; 
+  
   constructor(
               private router : Router,
               private _bottomSheet : MatBottomSheet,
@@ -35,8 +37,6 @@ export class ErrorService {
       this.logout();
       
     }
-     
-
      
   }
 

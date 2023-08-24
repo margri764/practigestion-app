@@ -55,14 +55,8 @@ export class TempOrderComponent implements OnInit {
           this.localStorageService.saveStateToLocalStorage( this.tempOrder, "tempOrder");
           console.log(this.tempOrder);
         },500);
-    
-
       }
-    
     })
-
-   
-
   }
 
 }

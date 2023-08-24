@@ -53,6 +53,8 @@ import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { ListByIdComponent } from './protected/pages/list-by-id/list-by-id/list-by-id.component';
 import { AskTempOrderComponent } from './protected/messages/ask-temp-order/ask-temp-order/ask-temp-order.component';
+import { FooterComponent } from './protected/pages/footer/footer/footer.component';
+import { AskDelClientComponent } from './protected/messages/ask-del-client/ask-del-client/ask-del-client.component';
 
 
 @NgModule({
@@ -80,7 +82,9 @@ import { AskTempOrderComponent } from './protected/messages/ask-temp-order/ask-t
     LoginMessageComponent,
     LoadingComponent,
     ListByIdComponent,
-    AskTempOrderComponent
+    AskTempOrderComponent,
+    FooterComponent,
+    AskDelClientComponent
   ],
   imports: [
     BrowserModule,

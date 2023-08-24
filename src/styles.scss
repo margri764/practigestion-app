@@ -5,11 +5,9 @@ body { margin: 0;
        font-family: "Helvetica Neue", sans-serif;
        overflow-x: hidden;
        overflow-y: auto;
-       background-color: white
+       background-color: rgb(252, 252, 252);
        
-       ;
-  }
-
+}
 
 @font-face {
     font-family:'awesome';
@@ -217,6 +215,29 @@ body { margin: 0;
 .cursor{
   cursor: pointer;
 }
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+mat-form-field  {
+  font-size: 1.2em;
+  font-family: "poppins-light";
+  line-height: 1em;
+
+}
+
+
+
 
 .btnMenuClicked, .btnMenu {
   font-size: min(1.3em, 6vw); /* tamaño de fuente máximo: 16px o 5% del ancho de la pantalla */

@@ -6,10 +6,12 @@ import { filter, Subscription } from 'rxjs';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import * as authActions from 'src/app/auth.actions';
+import * as articleActions from 'src/app/article.actions';
 import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../models/user.models';
 import { getDataLS, getDataSS } from '../../Storage';
 import { CookieService } from 'ngx-cookie-service';
+import { ErrorService } from '../../services/error/error.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -39,17 +41,16 @@ login : boolean = false;
 constructor(
               private store : Store <AppState>,
               private cookieService : CookieService,
+              private errorService : ErrorService,
+              private router : Router
   ) { 
 
     
   if(getDataSS("logged") === true || getDataLS("logged") == true){
     this.cookieService.get('token');
     this.login = true;
-     
   }
   }
-
-
 
 visibility(){
     this.toogle = !this.toogle
@@ -79,34 +80,20 @@ ngOnInit(): void {
 
 logout() {
 
-  // this.authService.logout().subscribe(
-  //   ( {ok} )=>{
-  //       if(ok){
-
-  //         sessionStorage.clear();
-  //           localStorage.clear();
-  //           this._bottomSheet.dismiss();
-  //           this.authService.closeBanner.emit(true);
-  //           this.store.dispatch( authActions.setBanner());
-  //           this.store.dispatch( authActions.unSetUser());
-  //           this.store.dispatch( orderActions.unSetStaffOrder());
-  //           this.store.dispatch( orderActions.unSetArrayNoProcessOrder());
-  //           this.store.dispatch( productActions.unsetArrayProduct());
-  //           this.authService.token = "";
-  //           this.authService.user = undefined;
-  //           this.user = undefined;
-            
-  //           setTimeout(()=>{
-  //             console.log('logout desde el STAFF dashboard')
-  //             this.router.navigateByUrl('start')
-  //           },1000)
-            
-  //         }
-  //       }
-
-  // )
-  
-}
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("logged");
+    localStorage.removeItem("logged");
+    this.cookieService.delete('token')
+    this.login = false;
+    this.errorService.close$.next(true);
+    this.errorService.close$.next(false);
+    this.store.dispatch(articleActions.unSetArticles());
+    this.store.dispatch(articleActions.unSetSelectedArticles());
+    this.store.dispatch(articleActions.unSetTempOrder());
+    this.store.dispatch(authActions.unSetTempClient());
+    this.store.dispatch(authActions.unSetUser());
+    this.router.navigateByUrl('/login')
+  }
 
 ngOnDestroy(): void {
 

@@ -122,11 +122,20 @@ return this.http.post<any>(`${this.baseUrl}api/agenda`, bodys)
   );
 }
 
-searchClient( query :  string ){
+searchClientByName( query :  string ){
   return this.http.get<any>(`${this.baseUrl}api/agenda/busqueda/${query}`)
 .pipe(
   map( res =>{ 
-        console.log('desde service searchClient', res)
+        console.log('desde service searchClientByName', res)
+          return res} )
+  );
+}
+
+getClientById( id : any ){
+  return this.http.get<any>(`${this.baseUrl}api/agenda/${id}`)
+.pipe(
+  map( res =>{ 
+        console.log('desde service getClientById', res)
           return res} )
   );
 }
