@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -29,6 +29,11 @@ import { ListPriceHomeComponent } from './protected/pages/list-price-home/list-p
 import { GeneralListComponent } from './protected/pages/general-list/general-list/general-list.component';
 import { LoginMessageComponent } from './protected/messages/login-message/login-message/login-message.component';
 import { LoadingComponent } from './protected/messages/loading/loading/loading.component';
+import { ListByIdComponent } from './protected/pages/list-by-id/list-by-id/list-by-id.component';
+import { AskTempOrderComponent } from './protected/messages/ask-temp-order/ask-temp-order/ask-temp-order.component';
+import { FooterComponent } from './protected/pages/footer/footer/footer.component';
+import { AskDelClientComponent } from './protected/messages/ask-del-client/ask-del-client/ask-del-client.component';
+import { ListOrdersComponent } from './protected/pages/list-orders/list-orders/list-orders.component';
 
 
 // services
@@ -46,15 +51,16 @@ import { AuthEffects } from './auth.effect';
 // pipes
 import { CapitalizeFirstLetterPipe } from './protected/pipes/CapitalizeFirstLetterPipe';
 import { ProductStatusPipe } from './protected/pipes/productStatus.pipe';
+import { PriceRound } from './protected/pipes/priceRound';
+import { GetTotalItems } from './protected/pipes/getTotalItems.pipe';
+import { TwoDecimalPipe } from './protected/pipes/twoDecimal.pipe';
 
 //idioma de la app
 import localeEs from '@angular/common/locales/es-AR'; //nombre inventado el AR es por Argentina
 import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
-import { ListByIdComponent } from './protected/pages/list-by-id/list-by-id/list-by-id.component';
-import { AskTempOrderComponent } from './protected/messages/ask-temp-order/ask-temp-order/ask-temp-order.component';
-import { FooterComponent } from './protected/pages/footer/footer/footer.component';
-import { AskDelClientComponent } from './protected/messages/ask-del-client/ask-del-client/ask-del-client.component';
+registerLocaleData( localeEs );
+
 
 
 @NgModule({
@@ -84,7 +90,11 @@ import { AskDelClientComponent } from './protected/messages/ask-del-client/ask-d
     ListByIdComponent,
     AskTempOrderComponent,
     FooterComponent,
-    AskDelClientComponent
+    AskDelClientComponent,
+    ListOrdersComponent,
+    PriceRound,
+    GetTotalItems,
+    TwoDecimalPipe
   ],
   imports: [
     BrowserModule,
@@ -112,7 +122,9 @@ import { AskDelClientComponent } from './protected/messages/ask-del-client/ask-d
       multi: true
   
       },
-      LocalStorageService
+      LocalStorageService,
+    { provide: LOCALE_ID, useValue: 'es-AR' }
+
   ],
   bootstrap: [AppComponent]
 })

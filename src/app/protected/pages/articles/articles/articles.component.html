@@ -63,7 +63,7 @@
     <!-- end slect buttons -->
 
     <!-- start result search cards -->
-    <div  fxLayout="row wrap"  fxLayoutAlign="center start" FxFlex="100" style="background-color: rgb(241, 241, 241); margin-top: 40px;" *ngIf="isArticleFounded">
+    <div  fxLayout="row wrap"  fxLayoutAlign="center start" FxFlex="100" style=" margin-top: 80px;" *ngIf="isArticleFounded">
         
         <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 10px; background-color: white;" fxFlex="97" class="whiteframe" *ngIf="isArticleFounded">
     
@@ -91,8 +91,8 @@
     <!-- end result search cards -->
 
 
-
-  <div  fxLayout="row wrap"  fxLayoutAlign="center start" FxFlex="100" style="background-color: rgb(241, 241, 241); margin-top: 40px;" *ngIf="arrArticles.length !== 0">
+    <!-- start cards -->
+  <div  fxLayout="row wrap"  fxLayoutAlign="center start" FxFlex="100" style="margin-top: 60px;" *ngIf="arrArticles.length !== 0">
         
     <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 10px; background-color: white;" fxFlex="97" class="whiteframe" *ngFor="let art of arrArticles">
 
@@ -117,6 +117,8 @@
         </div>
     </div>
   </div>
+    <!-- end cards -->
+
 
   <div *ngIf="isLoading" style="margin-top: 30px;">
     <mat-spinner diameter="80"></mat-spinner>

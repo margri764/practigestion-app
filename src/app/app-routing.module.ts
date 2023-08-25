@@ -10,6 +10,7 @@ import { SearchProductsComponent } from './protected/pages/searchProducts/search
 import { TempOrderComponent } from './protected/pages/temp-order/temp-order/temp-order.component';
 import { ListPriceHomeComponent } from './protected/pages/list-price-home/list-price-home/list-price-home.component';
 import { GeneralListComponent } from './protected/pages/general-list/general-list/general-list.component';
+import { ListOrdersComponent } from './protected/pages/list-orders/list-orders/list-orders.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,9 @@ const routes: Routes = [
   },
   {
     path: 'listado-articulos',  component: ArticlesComponent
+  },
+  {
+    path: 'listado-pedidos',  component: ListOrdersComponent
   },
   {
     path: 'pedidos-temporales',  component: TempOrderComponent

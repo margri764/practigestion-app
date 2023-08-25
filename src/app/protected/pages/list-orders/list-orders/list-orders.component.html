@@ -1,0 +1,84 @@
+<div  fxLayout="row wrap"  fxLayoutAlign="center" fxFlex="100" (scroll)="onScroll($event)" class="scroll" >
+
+    <div  fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" style="height: 70px; background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
+  -moz-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);" >
+     
+      <div fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" style="margin-top: 5px;" routerLink="/home">
+              <span class="material-symbols-outlined notranslate cursor" >arrow_back_ios</span>
+              <span class="font fs-5" fxFlex="90"> Lista de Pedidos
+              </span>
+      </div>
+  </div>
+  
+  <!-- start order -->
+  <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" *ngFor="let order of arrOrders" class="mt-30 whiteFrame"  >
+
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="pd-10">
+
+        <div  fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" style="background-color: rgb(37, 150, 190); height: 30px; padding: 5px; color: white;">
+            <span class="font fs-4">id pedido: {{order.idPedido}}</span>
+            <span class="font fs-4">Estado: <label [ngStyle]="styleObject(order.estado)"> &nbsp; {{order.estado }}</label></span>
+      
+        </div> 
+
+        <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="" >
+
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100" class="mt-20" >
+                    <span fxFlex="100" class="font fs-4"><b>{{order.razonSocial}}</b></span>
+                    <span fxFlex="100" class="font fs-4 mt-5"><b>{{order.localidad}}</b></span>
+                    <span fxFlex="100" class="font fs-4 mt-5"><b>{{order.fecha | date }}</b></span>
+               
+                    &nbsp;&nbsp;  &nbsp;&nbsp;
+
+                      <!-- <div class="icon" >
+                          <span class="material-symbols-outlined notranslate " style="color: red;"  (click)="delTempOrder(order._id)" *ngIf="order._id !== isDeletingOrderId"> delete </span>
+                            <i class="fa fa-spin fa-sync" style="color: #f3b304;" *ngIf="isLoading && order._id === isDeletingOrderId"></i>
+                      </div> -->
+                    
+                </div>
+        </div>
+            <!-- <div fxLayout="row wrap" fxLayoutAlign="center center"  fxFlex="40" *ngFor="let mainProduct of order.product">
+
+                    <img [src]="mainProduct._id.img" alt="" fxFlex="70" >
+            </div> -->
+    </div>
+
+    <mat-accordion  style="width: 100vw;" >
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState" style="background-color: white;"  >
+        <mat-expansion-panel-header>
+
+          <mat-panel-title fxLayoutAlign="space-between center" class="font">
+          
+            <span style="color: gray;">Detalle del pedido...</span>
+                          
+          </mat-panel-title>
+    
+        </mat-expansion-panel-header>
+
+                <div  fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100">
+
+                <div  fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" *ngFor="let description of order.detalleItems" class="mt-20">
+                    <div  fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" >
+                        <span class="font fs-4">  {{description.cantidad}} &nbsp; x &nbsp;{{description.descripcion | capitalizeFirstLetter}}</span>
+                        <span class="font fs-4"> <b>Cod.</b> {{description.codigoInterno}} </span>
+                    </div>    
+                    <span class="font fs-4 mt-10"> <b>Sub-Total:</b> $ {{description.importeNetoTotal | decimalRound}}</span>
+                </div>   
+                    <span class="font fs-4 mt-10" style="text-align: end;" fxFlex="100"> <b>Total:</b> $ {{ calculateTotal(order.detalleItems) | decimalRound }} </span>
+                </div>    
+
+              
+
+      </mat-expansion-panel>
+    </mat-accordion>
+</div>         
+<!-- end order -->
+
+  
+    <div *ngIf="isLoading" style="margin-top: 30px;">
+      <mat-spinner diameter="80"></mat-spinner>
+    </div>
+  
+  
+  
+  </div>
