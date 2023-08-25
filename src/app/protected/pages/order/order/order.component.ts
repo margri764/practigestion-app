@@ -191,7 +191,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     this.store.dispatch(articleAction.unSetSelectedArticles());
     this.store.dispatch(authAction.unSetTempClient());
    
-     this.openGenericSuccess('Pedido abierto Creado');
+     this.openGenericSuccess('Pedido temporal creado');
 
   }
  

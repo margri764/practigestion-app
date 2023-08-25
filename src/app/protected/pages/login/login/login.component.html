@@ -8,7 +8,7 @@
        
         <div fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" style="margin-top: 5px;" routerLink="/home">
                 <span class="material-symbols-outlined notranslate cursor" >arrow_back_ios</span>
-                <span class="font fs-5" fxFlex="90">Inicio</span>
+                <span class="font fs-6" fxFlex="90">Inicio</span>
         </div>
    
     </div>
@@ -22,7 +22,7 @@
           <mat-error *ngIf ="validField ('user')" fxLayoutAlign="start" fxFlex="85" class="font fs-4 mb-10"> Campo requerido </mat-error> 
 
 
-          <mat-form-field appearance="outline" fxFlex="90" class="mt-10 font fs-5">		
+          <mat-form-field appearance="outline" fxFlex="90" class="mt-20 font fs-5">		
             <mat-label>Contraseña</mat-label>
             <input matInput [type]="passwordVisible ? 'text' : 'password'"  required formControlName="password" >
             <button mat-icon-button  (click)="togglePasswordVisibility('password')" >
@@ -37,7 +37,7 @@
           
             <div fxLayout="row wrap" fxLayoutAlign="center"  fxFlex="90">
                 <div fxLayout="row wrap" fxLayoutAlign="start" fxFlex="100" >
-                    <mat-label  class="font fs-3" style="margin-right:0px;"> <b>Recordarme</b></mat-label> &nbsp;
+                    <mat-label  class="font fs-4" style="margin-right:0px;"> <b>Recordarme</b></mat-label> &nbsp;
                     <mat-slide-toggle formControlName="toLStorage" [checked]="true" ></mat-slide-toggle>
                 </div>
             
@@ -45,7 +45,8 @@
             
         </form>
 
-        <button type="button" fxLayout="row wrap" fxLayoutAlign="center center" class="btnLogin font fs-5 mt-40" fxFlex="90"  (click)="onSaveForm()">  Ingresar</button>
+        <button type="button" fxLayout="row wrap" fxLayoutAlign="center center" class="btnLogin font fs-5" style="margin-top: 80px;" fxFlex="90"  (click)="onSaveForm()">  Ingresar</button>
+
         
         <div *ngIf="isLoading" class="loading-overlay">
           <mat-spinner diameter="80"></mat-spinner>

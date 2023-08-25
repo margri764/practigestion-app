@@ -42,7 +42,7 @@ export class TempOrderComponent implements OnInit {
   deleteItem(id:any){
 
     this.dialog.open(AskTempOrderComponent, {
-      panelClass:"custom-modalbox-edit",
+      panelClass:"custom-modalbox-messsage",
     });
 
     this.errorService.authDelTempOrder$.pipe(

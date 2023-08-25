@@ -110,6 +110,15 @@ selectItem(){
 
 }
 
+styleObject(status : boolean) : object {
+ 
+  if(!status){
+    return {'color':'red'};
+  }else{
+    return {'color':'blue'};
+  }
+}
+
 
 
 openGenericSuccess(msg : string){

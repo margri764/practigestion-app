@@ -30,9 +30,11 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   articleSuscription! : Subscription;
   arrArticles : Articulo []=[];
   arrItemSelected : DetalleItem []=[];
-  arrArticlesSugested : Articulo []=[];
+  
   labelNoArticles : boolean = false;
   isLoading : boolean = false;
+  isArticleFounded : boolean = false;
+  articleFounded : any = {};
 
       // search
       itemSearch : string = '';
@@ -127,97 +129,98 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   }
 
   // search
-  close(){
-    this.mostrarSugerencias = false;
-    this.itemSearch="";
-  }
 
-  teclaPresionada(){
-
-    console.log(this.mostrarSugerencias);
-     
-     this.debouncer.next( this.itemSearch );  
-     this.sugerencias(this.itemSearch)
-     if(this.itemSearch == ''){
-       this.suggested=[];
-       this.mostrarSugerencias = false  
-     }
-     if(this.suggested.length === 0) {
-       this.spinner= true;
-     }
- 
-   };
-
-   sugerencias(value : string){
-
-    this.itemSearch = value;
-    this.mostrarSugerencias = true;  
-    const valueSearch = value.toUpperCase();
-    this.articleService.searchProductById(valueSearch).subscribe(
-      ({articulos})=>{
-        console.log(articulos);
-        if(articulos.length !== 0){
-          // this.arrArticlesSugested = articulos;
-          this.suggested = articulos.splice(0,10);
-          this.spinner = false;
-        }else{
-          this.labelNoArticles = true;
-        }
+       // search
+       close(){
+        this.mostrarSugerencias = false;
+        this.itemSearch = '';
+        this.suggested = [];
+        this.spinner= false;
       }
-     )
-    }
- 
-  buscar(){
-   this.onEnter.emit( this.itemSearch );
- 
-  }
-
-   
-   Search( valueSearch : string ){
     
-     this.mostrarSugerencias = true;
-     this.alert = false;
-     this.spinner = true;
-     this.fade = false;
-
-     this.articleService.searchProductById(valueSearch).subscribe(
-      ({articulos})=>{
-        console.log(articulos);
-        if(articulos.length !== 0){
-          this.arrArticlesSugested = articulos;
-        }else{
-          this.labelNoArticles = true;
+      teclaPresionada(){
+    
+        console.log(this.mostrarSugerencias);
+         
+         this.debouncer.next( this.itemSearch );  
+         this.sugerencias(this.itemSearch)
+         if(this.itemSearch == ''){
+           this.suggested=[];
+           this.mostrarSugerencias = false  
+         }
+         if(this.suggested.length === 0) {
+           this.spinner= true;
+         }
+     
+       };
+    
+       sugerencias(value : string){
+          this.spinner = true;
+          this.itemSearch = value;
+          this.mostrarSugerencias = true;  
+          const valueSearch = value.toUpperCase();
+          this.articleService.searchProducts(valueSearch)
+          .subscribe ( ({articulos} )=>{
+            if(articulos.length !== 0){
+              // this.arrArticlesSugested = articulos;
+              this.suggested = articulos.splice(0,10);
+              console.log(this.suggested);
+                this.spinner = false;
+              }else{
+                // this.labelNoArticles = true;
+              }
+            }
+          )
         }
+     
+      buscar(){
+       this.onEnter.emit( this.itemSearch );
+     
       }
-     )
-    //  this.labelNoFinded = false;
-
-
-    //  this.authService.searchClient(valueSearch)
-    //  .subscribe ( ({contactos} )=>{
-    //   console.log(contactos);
-      
-    //   this.spinner = false;
-    //   if(contactos.length !== 0){
-    //     this.arrClientFinded = contactos
-    //     // this.user = contactos;
-    //   }else{
-    //     this.labelNoFinded = true;
-    //   }
-   
-    // })
-  }
-
-  searchSuggested( termino: string ) {
-    this.Search( termino );
-  }
-  // search
+    
+       
+       Search( id : any ){
+        
+         this.mostrarSugerencias = true;
+         this.alert = false;
+         this.spinner = true;
+         this.fade = false;
+         this.articleService.searchProductById(id)
+         .subscribe ( ({articulos} )=>{
+            console.log(articulos);
+            if(articulos){
+              this.articleFounded = articulos;
+              this.spinner = false;
+              this.close();
+              this.isArticleFounded = true;
+            }else{
+              // this.labelNoArticles = true;
+            }
+          }
+         )
+    
+      }
+    
+      searchSuggested( id: any ) {
+        console.log(id);
+        this.Search( id );
+      }
+      // search
 
   goBack(){
     this.router.navigateByUrl('/armar-pedido')
     setTimeout(()=>{
       this.orderService.changeClientValue.emit(true);
     },0)
+  }
+
+  styleObject(status : boolean) : object {
+ 
+    if(!status){
+      return {'color':'red'};
+    }else{
+      return {'color':'blue'};
+    }
   }
 
   openGenericSuccess(msg : string){

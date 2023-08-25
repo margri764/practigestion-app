@@ -30,8 +30,7 @@ export class GeneralListComponent implements OnInit {
   }
 
   getAllTruePriceList(){
-    // this.isLoading = true;
-    this.openDialogLoading();
+    this.isLoading = true;
     this.articleService.getAllTruePriceList().subscribe(
       ({listas})=>{
         console.log(listas);
@@ -51,11 +50,6 @@ export class GeneralListComponent implements OnInit {
       })
   }
 
-openDialogLoading(){
-  this.dialog.open(LoadingComponent,{
-    disableClose: true,
-    panelClass:"custom-modalbox-transparent",
-    })
-}
+
 
 }

@@ -31,19 +31,28 @@ token : any;
 intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
 
-let authToken;
+let token;
 
+
+if(req.url.includes("api/login")){
+  console.log('se trata del login');
+  return next.handle( req )
+  .pipe(
+    catchError((error : HttpErrorResponse ) => this.errorHandle(error) )
+  );
+
+}
 
   if(this.authService.getToken()) {
-   authToken = this.authService.getToken();
+   token = this.authService.getToken();
  }else{
-  authToken = this.authService.getCookieToken()
+   token = this.authService.getCookieToken()
  }
 
- console.log(authToken);
+ console.log(token);
 
-  const authRequest = !authToken ? req : req.clone({
-    setHeaders: { Authorization: `Bearer ${authToken}` }
+  const authRequest = !token ? req : req.clone({
+    setHeaders: { Authorization: `Bearer ${token}` }
     
   });
   return next.handle( authRequest )

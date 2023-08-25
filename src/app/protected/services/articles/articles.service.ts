@@ -52,7 +52,9 @@ getArticleById(id : string){
 }
 
 searchProducts( value : string){
-  return this.http.get<any>(`${this.baseUrl}api/agenda/busqueda/${value}`)
+  return this.http.get<any>(`${this.baseUrl}api/articulos/busqueda?f=codigo_interno&q=${value}`)
+
+  // return this.http.get<any>(`${this.baseUrl}api/agenda/busqueda/${value}`)
 .pipe(
   map( res =>{ 
         console.log('desde service searchProducts', res)
@@ -60,8 +62,10 @@ searchProducts( value : string){
   );
 }
 
-searchProductById( codigo_interno : string){
-  return this.http.get<any>(`${this.baseUrl}api/articulos/busqueda?f=codigo_interno&q=${codigo_interno}`)
+searchProductById( id : any){
+  return this.http.get<any>(`${this.baseUrl}api/articulos/${id}`)
+
+  // return this.http.get<any>(`${this.baseUrl}api/articulos/busqueda?f=codigo_interno&q=${codigo_interno}`)
 .pipe(
   map( res =>{ 
         console.log('desde service searchProductById', res)
