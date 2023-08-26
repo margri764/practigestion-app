@@ -52,12 +52,12 @@ export class PickClientMessageComponent implements OnInit {
 
     this.spinner = true;
 
-    this.authService.getAllClients().subscribe(
-      ({contactos})=>{
-        console.log(contactos);
-         this.arrClient = contactos;
-         this.spinner = false;
-      })
+    // this.authService.getAllClients().subscribe(
+    //   ({contactos})=>{
+    //     console.log(contactos);
+    //      this.arrClient = contactos;
+    //      this.spinner = false;
+    //   })
   }
 
   selectClient(client :any){

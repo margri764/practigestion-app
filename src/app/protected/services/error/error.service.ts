@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { AppState } from 'src/app/app.reducer';
 import { CookieService } from 'ngx-cookie-service';
 import { Store } from '@ngrx/store';
+import { ErrorBackendDownComponent } from '../../messages/error-backend-down/error-backend-down/error-backend-down.component';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,11 @@ import { Store } from '@ngrx/store';
 export class ErrorService {
 
   private baseUrl = environment.baseUrl;
+  phone : boolean = false;
+  
   close$ = new BehaviorSubject<boolean>(false) //quiero a ce cierren todos los modals cuando se produce un error de servidor 
-
+   height : string = '';
+   width : string = '';
   isLoading$ = new BehaviorSubject<boolean>(false) //quiero a ce cierren todos los modals cuando se produce un error de servidor 
   authDelTempOrder$ : EventEmitter<boolean> = new EventEmitter<boolean>; 
   authDelClient$ : EventEmitter<boolean> = new EventEmitter<boolean>; 
@@ -29,7 +33,9 @@ export class ErrorService {
               private store : Store <AppState>,
               private cookieService: CookieService,
 
-  ) { }
+  ) { 
+    this.checkDisplaysizes()
+  }
 
   getError(error : any){
     // si se cae el back
@@ -40,6 +46,12 @@ export class ErrorService {
 
     if (error.status === 401) {
       this.openDialogLogin();
+      // this.logout().subscribe();
+    }
+
+    
+    if (error.status === 500) {
+      this.openDialogBackendDown();
       // this.logout().subscribe();
     }
   }
@@ -69,9 +81,33 @@ export class ErrorService {
     )
   }
   
+  checkDisplaysizes(){
 
-  openDialogLogin() {
-    this.dialog.open(LoginMessageComponent);
+    if(screen.width >= 800) {
+      this.width = "400px";
+      this.height ="550px";
+    }
+
   }
 
-}
+
+  openDialogLogin() {
+
+
+    this.dialog.open(LoginMessageComponent,{
+      width: `${this.width}`|| "",
+      height:`${this.height}`|| "",
+      panelClass:"custom-modalbox-message",
+    });
+  }
+
+  openDialogBackendDown(){
+
+    this.dialog.open(ErrorBackendDownComponent,{
+      width: `${this.width}`|| "",
+      height:`${this.height}`|| "",
+      panelClass:"custom-modalbox-message",
+    });
+  }
+
+ }

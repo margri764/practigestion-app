@@ -59,6 +59,7 @@ import { TwoDecimalPipe } from './protected/pipes/twoDecimal.pipe';
 import localeEs from '@angular/common/locales/es-AR'; //nombre inventado el AR es por Argentina
 import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
+import { ErrorBackendDownComponent } from './protected/messages/error-backend-down/error-backend-down/error-backend-down.component';
 registerLocaleData( localeEs );
 
 
@@ -94,7 +95,8 @@ registerLocaleData( localeEs );
     ListOrdersComponent,
     PriceRound,
     GetTotalItems,
-    TwoDecimalPipe
+    TwoDecimalPipe,
+    ErrorBackendDownComponent
   ],
   imports: [
     BrowserModule,

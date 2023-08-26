@@ -1,18 +1,18 @@
 
-<div  fxLayout="row wrap"  fxLayoutAlign="center start" style="height: 100%; background-color: rgb(241, 241, 241); position: relative;">
+<div  fxLayout="row wrap"  fxLayoutAlign="center start" style="height: 100%; position: relative;">
 
     <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="height: 80px; background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
     -moz-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);" >
        
         <div fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" style="margin-top: 5px;" routerLink="/home">
                 <span class="material-symbols-outlined notranslate cursor" >arrow_back_ios</span>
-                <span class="font fs-5" fxFlex="90">Listado de clientes</span>
+                <span class="font" fxFlex="90">Listado de clientes</span>
         </div>
    
     </div>
 
-    <form  fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 25px; width: 100vw;"  autocomplete="off" >
-        <mat-form-field  appearance="outline" fxFlex="90" class="font fs-5" >
+    <form  fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 25px;" fxFlex.xs="100" fxFlex="40"  autocomplete="off" >
+        <mat-form-field  appearance="outline" fxFlex="90" class="font" >
             <input type="text" matInput  placeholder="Buscar cliente"  name="itemSearch"
             class="form-control  me-2"    
             [(ngModel)]="itemSearch"
@@ -26,7 +26,7 @@
     <!-- start suggested    -->
     <div fxLayout="row wrap"  fxLayoutAlign="start center"  fxFlex="100" *ngIf="mostrarSugerencias" style="padding: 20px;"  >
 
-        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" class="font fs-5" style="margin-left: 0px;" >
+        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" class="font" style="margin-left: 0px;" >
             <a > Buscar:   {{ itemSearch }}</a>
             <mat-icon (click)="close()" style="cursor: pointer; margin-right: 10px; transform: scale(1.2);" > close</mat-icon>
         </div>
@@ -35,7 +35,7 @@
             <mat-spinner diameter="48"></mat-spinner>
         </div>
                     
-        <div fxLayout="row wrap"  fxLayoutAlign="start  center" fxFlex="100" class="font fs-5" *ngFor="let item of suggested , index as i">
+        <div fxLayout="row wrap"  fxLayoutAlign="start  center" fxFlex="100" class="font" *ngFor="let item of suggested , index as i">
             <a  style="cursor: pointer; margin-top: 10px;" (click)="searchSuggested( item.id )" fxFlex="100">
             {{ item.archivarComo | capitalizeFirstLetter}}
             </a>
@@ -45,20 +45,20 @@
 
 
     <!-- start select buttons -->
-    <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="mt-40">
+    <div fxLayout="row wrap"   fxLayoutAlign="end center" fxFlex="100" class="mt-20">
     
         <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="48">
             <button  mat-raised-button color="warn" type="button" class="add" (click)="getAllClients()" >
                 <mat-icon class="material-symbols-outlined notranslate">refresh</mat-icon>
             </button>
-            <span class="font fs-5 mt-10" fxFlex="100" style="text-align: center;">Obtener Clientes</span>
+            <span class="font mt-10" fxFlex="100" style="text-align: center;">Obtener Clientes</span>
         </div>
 
         <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="48">
             <button  mat-raised-button color="warn" type="button" class="add" (click)="addClient()" >
                 <mat-icon class="material-symbols-outlined notranslate">add</mat-icon>
             </button>
-            <span class="font fs-5 mt-10" fxFlex="100" style="text-align: center;">Agregar Cliente</span>
+            <span class="font mt-10" fxFlex="100" style="text-align: center;">Agregar Cliente</span>
         </div>
     </div>
     <!-- end slect buttons -->
@@ -69,16 +69,16 @@
         <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 10px; background-color: white;" fxFlex="97" class="whiteframe" >
 
             <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="background-color: rgb(37, 150, 190); color: white; height: 30px; padding: 5px;">
-                <span  class="font fs-5" fxFlex="50" > Código: {{clientFounded.idAgenda }} </span>
-                <span  class="font fs-5" fxLayout="row wrap"  fxLayoutAlign="end center" fxFlex="50" > Estado: {{clientFounded.esCliente}} </span>
+                <span  class="font" fxFlex="50" > Código: {{clientFounded.idAgenda }} </span>
+                <span  class="font" fxLayout="row wrap"  fxLayoutAlign="end center" fxFlex="50" > Estado: {{clientFounded.esCliente}} </span>
         
             </div>
     
-            <span  class="font fs-5 mt-20" fxFlex="100" > {{clientFounded.archivarComo| capitalizeFirstLetter }}</span>
-            <span  class="font fs-5 mt-20" fxFlex="50" > Cuit: {{clientFounded.cuit || 'sin definir' }}</span>
-            <span  class="font fs-5 mt-20" style="text-align: end;" fxFlex="50" > Tel: {{clientFounded.telefonoCodigoArea}} {{clientFounded.numeroLocal || 'sin definir' }}</span>
+            <span  class="font mt-20" fxFlex="100" > {{clientFounded.archivarComo| capitalizeFirstLetter }}</span>
+            <span  class="font mt-20" fxFlex="50" > Cuit: {{clientFounded.cuit || 'sin definir' }}</span>
+            <span  class="font mt-20" style="text-align: end;" fxFlex="50" > Tel: {{clientFounded.telefonoCodigoArea}} {{clientFounded.numeroLocal || 'sin definir' }}</span>
 
-            <span  class="font fs-5 mt-20 " fxFlex="100" > Localidad: {{clientFounded.localidad || 'sin definir' }}</span>
+            <span  class="font mt-20 " fxFlex="100" > Localidad: {{clientFounded.localidad || 'sin definir' }}</span>
             
             <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="100">
                 <div class="icon mr-10" (click)="deleteClient(clientFounded.id)" >
@@ -96,39 +96,120 @@
     </div>
     <!-- end result search cards -->
 
+    <ng-container *ngIf="phone">
+        <!-- start cards -->
+        <div  fxLayout="row wrap"  fxLayoutAlign="center start" FxFlex="100" style="background-color: rgb(241, 241, 241); margin-top: 40px;" *ngIf="contactos.length !== 0">
+                    
+                <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 10px; background-color: white;" fxFlex="97" class="whiteframe" *ngFor="let client of contactos">
 
-    <!-- start cards -->
-    <div  fxLayout="row wrap"  fxLayoutAlign="center start" FxFlex="100" style="background-color: rgb(241, 241, 241); margin-top: 40px;" *ngIf="contactos.length !== 0">
+                    <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="background-color: rgb(37, 150, 190); color: white; height: 30px; padding: 5px;">
+                        <span  class="font" fxFlex="50" > Código: {{client.idAgenda }} </span>
+                        <span  class="font" fxLayout="row wrap"  fxLayoutAlign="end center" fxFlex="50" > Estado: {{client.esCliente}} </span>
                 
-            <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 10px; background-color: white;" fxFlex="97" class="whiteframe" *ngFor="let client of contactos">
-
-                <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="background-color: rgb(37, 150, 190); color: white; height: 30px; padding: 5px;">
-                    <span  class="font fs-5" fxFlex="50" > Código: {{client.idAgenda }} </span>
-                    <span  class="font fs-5" fxLayout="row wrap"  fxLayoutAlign="end center" fxFlex="50" > Estado: {{client.esCliente}} </span>
+                    </div>
             
-                </div>
-        
-                <span  class="font fs-5 mt-20" fxFlex="100" > {{client.archivarComo| capitalizeFirstLetter }}</span>
-                <span  class="font fs-5 mt-20" fxFlex="50" > Cuit: {{client.cuit || 'sin definir' }}</span>
-                <span  class="font fs-5 mt-20" style="text-align: end;" fxFlex="50" > Tel: {{client.telefonoCodigoArea}} {{client.numeroLocal || 'sin definir' }}</span>
+                    <span  class="font mt-20" fxFlex="100" > {{client.archivarComo| capitalizeFirstLetter }}</span>
+                    <span  class="font mt-20" fxFlex="50" > Cuit: {{client.cuit || 'sin definir' }}</span>
+                    <span  class="font mt-20" style="text-align: end;" fxFlex="50" > Tel: {{client.telefonoCodigoArea}} {{client.numeroLocal || 'sin definir' }}</span>
 
-                <span  class="font fs-5 mt-20 " fxFlex="100" > Localidad: {{client.localidad || 'sin definir' }}</span>
-                
-                <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="100">
-                    <div class="icon mr-10" (click)="deleteClient(client.id)" >
-                        <span class="material-symbols-outlined notranslate" style="color: red;"> delete </span>
+                    <span  class="font mt-20 " fxFlex="100" > Localidad: {{client.localidad || 'sin definir' }}</span>
+                    
+                    <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="100">
+                        <div class="icon mr-10" (click)="deleteClient(client.id)" >
+                            <span class="material-symbols-outlined notranslate" style="color: red;"> delete </span>
+                        </div>
+                        
+                        <div class="icon"  (click)="editClient(client)">
+                            <span class="material-symbols-outlined notranslate" style="color: rgb(255, 176, 57);"> edit </span>
+                        </div>
                     </div>
                     
-                    <div class="icon"  (click)="editClient(client)">
-                        <span class="material-symbols-outlined notranslate" style="color: rgb(255, 176, 57);"> edit </span>
-                    </div>
                 </div>
-                
-            </div>
 
+            
+        </div>
+        <!-- end cards     -->
+    </ng-container>
+
+<ng-container *ngIf="!phone">
+   
+    <div class="example-container mat-elevation-z8 font mt-30" fxFlex="100">
+    
+        <table mat-table [dataSource]="dataTableActive">
+    
+            <!-- img Column -->
+            <ng-container matColumnDef="img" sticky  >
+                <th mat-header-cell *matHeaderCellDef > <span style="margin-right: 20px;"> Imagen</span> </th>
+                <td mat-cell *matCellDef="let element" (click)="editClient(element)" > <img [src]="element.img" [ngClass]="{ 'grayLayer': !element.stock || !element.category.state || element.paused }" style=" margin-right: 20px;"> </td>
+            </ng-container>
+                
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef > Nombre completo </th>
+                <td mat-cell *matCellDef="let element" (click)="editClient(element)" > {{element.archivarComo}} </td>
+            </ng-container>
         
+            <!-- Stock Column -->
+            <ng-container matColumnDef="socialName" >
+                <th mat-header-cell *matHeaderCellDef> Razon social </th>
+                <td mat-cell *matCellDef="let element" (click)="editClient(element)" > {{element.razonSocial}} </td>
+            </ng-container>
+        
+            <!-- Price Column -->
+            <ng-container matColumnDef="address" >
+                <th mat-header-cell *matHeaderCellDef> Dirección </th>
+                <td mat-cell *matCellDef="let element" (click)="editClient(element)" > {{element.domicilio}} </td>
+            </ng-container>
+    
+            <!-- Comment Column -->
+            <ng-container matColumnDef="location">
+                <th mat-header-cell *matHeaderCellDef> Localidad </th>
+                <td mat-cell *matCellDef="let element" (click)="editClient(element)" style="font-size: 0.6em;"> <span style="text-align: start;"> {{element.localidad}} </span> </td>
+            </ng-container>
+            
+            
+            <!-- Comment Column -->
+            <ng-container matColumnDef="province">
+                <th mat-header-cell *matHeaderCellDef> Provincia </th>
+                <td mat-cell *matCellDef="let element" (click)="editClient(element)" style="font-size: 0.6em;"> <span style="text-align: start;"> {{element.provincia}} </span> </td>
+            </ng-container>
+
+            <!-- Ingredients Column -->
+            <ng-container matColumnDef="phone" >
+                <th mat-header-cell *matHeaderCellDef > Teléfono </th>
+                <td mat-cell *matCellDef="let element" (click)="editClient(element)" style="font-size: 0.6em;" > <span style="text-align: start;">  {{element.extensionTelefono}}{{element.numeroLocal}} </span> </td>
+            </ng-container>
+
+            <!-- Ingredients Column -->
+            <ng-container matColumnDef="user" >
+                <th mat-header-cell *matHeaderCellDef > Usuario </th>
+                <td mat-cell *matCellDef="let element" (click)="editClient(element)" style="font-size: 0.6em;" > <span style="text-align: start;">  Cliente </span> </td>
+            </ng-container>
+
+            <!-- Ingredients Column -->
+            <ng-container matColumnDef="email" >
+                <th mat-header-cell *matHeaderCellDef > Email </th>
+                <td mat-cell *matCellDef="let element" (click)="editClient(element)" style="font-size: 0.6em;" > <span style="text-align: start;">  {{element.email1}} </span> </td>
+            </ng-container>
+
+            
+            <!-- Ingredients Column -->
+            <ng-container matColumnDef="cuit" >
+                <th mat-header-cell *matHeaderCellDef > CUIT </th>
+                <td mat-cell *matCellDef="let element" (click)="editClient(element)" style="font-size: 0.6em;" > <span style="text-align: start;">  {{element.cuit}} </span> </td>
+            </ng-container>
+                    
+                    
+                    
+            
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    
     </div>
-    <!-- end cards     -->
+</ng-container>
+
 </div> 
     
   

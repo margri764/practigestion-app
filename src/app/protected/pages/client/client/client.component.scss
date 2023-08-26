@@ -1,14 +1,27 @@
+
 .add{
-    color: white;
-    width: 80px;
-    height: 80px;
-    border-radius: 100px;
-  }
-  .add mat-icon{
-    transform: scale(2);
-  }
-  
-  
+  width: 80px;
+  height: 80px;
+  color: white;
+  border-radius: 100px;
+}
+.add mat-icon{
+  transform: scale(2);
+}
+
+.add:hover{
+  transform: scale(1.02);
+  transition: all 0.3s ease 0s;
+
+  box-shadow: 0px 0px 8px 1px rgba(82,82,82,0.75);
+  -webkit-box-shadow: 0px 0px 8px 1px rgba(82,82,82,0.75);
+  -moz-box-shadow: 0px 0px 8px 1px rgba(82,82,82,0.75);
+
+    mat-icon{
+      transform: scale(2.01);
+    }
+}
+
 
 ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
   color: rgb(37, 150, 190);
@@ -31,4 +44,92 @@
 ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
   color: rgb(37, 150, 190) !important;
 
+}
+
+
+.example-container {
+  width: 100%;
+  height: calc(100vh - 400px);
+  overflow: auto;
+  font-size: 1.8em;
+  font-family: 'poppins-light'; 
+}
+
+
+table {
+  font-size: 0.8em;
+  font-family: 'poppins-light'; 
+}
+
+
+.mat-column-img {
+  width: 5%;
+  cursor: pointer;
+  text-align: center;
+
+}
+
+//  este es la segunda columna es de donde se mueve es la "position"
+th.mat-column-name, td.mat-column-name {
+  padding-left: 8px;
+  width: 15%;
+  cursor: pointer;
+  text-align: start;
+}
+
+.mat-column-socialName {
+  width: 10%;
+  cursor: pointer;
+  text-align: start;
+}
+
+.mat-column-address {
+  width: 10%;
+  cursor: pointer;
+  text-align: start start;
+  padding: 3px;
+
+}
+// este es el "end o "star" de ejemplo
+.mat-column-location {
+  width: 10%;
+  cursor: pointer;
+  text-align: start start;
+}
+
+.mat-column-phone {
+  width: 10%;
+  cursor: pointer;
+  text-align: start start;
+}
+
+.mat-column-province {
+  width: 10%;
+  cursor: pointer;
+  text-align: start start;
+}
+
+.mat-column-email {
+  width: 10%;
+  cursor: pointer;
+  text-align: start start;
+}
+
+.mat-column-cuit {
+  width: 10%;
+  cursor: pointer;
+  text-align: start start;
+}
+
+
+
+
+
+img{
+  width: 70px;
+  cursor: pointer;
+}
+
+.non-class{
+opacity: 0;
 }

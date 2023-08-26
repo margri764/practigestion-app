@@ -48,7 +48,7 @@
     text-align: center;
     border: 0px solid rgb(188, 210, 202);
     background-color: rgb(235, 235, 235);
-    transition: all 0.2s ease 0s;
+    transition: all 0.3s ease 0s;
 
     box-shadow: 0px 0px 0px 0px rgba(82,82,82,0.75);
     -webkit-box-shadow: 0px 0px 0px 0px rgba(82,82,82,0.75);
@@ -57,13 +57,13 @@
       .material-icons{
         transform: scale(1.7);
         color: rgb(37, 150, 190);
-        transition: all 0.2s ease 0s;
+        transition: all 0.3s ease 0s;
 
       }
       .material-symbols-outlined {
         transform: scale(1.7);
         color: rgb(37, 150, 190);
-        transition: all 0.2s ease 0s;
+        transition: all 0.3s ease 0s;
 
       }
   
@@ -75,9 +75,6 @@
       transition: all 0.2s ease 0s;
       background-color: white;
 
-      box-shadow: 0px 0px 8px 1px rgba(82,82,82,0.75);
-      -webkit-box-shadow: 0px 0px 8px 1px rgba(82,82,82,0.75);
-      -moz-box-shadow: 0px 0px 8px 1px rgba(82,82,82,0.75);
 
         .material-icons{
           transform: scale(1.9);

@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   passwordVisible = false;
   snapshot : boolean = false;
   isLoading : boolean = false;
+  confirm : boolean = false;
 
     constructor( 
                  private fb: FormBuilder,
@@ -61,6 +62,7 @@ ngOnInit() {
           return;
         }
         this.isLoading = true;
+        this.confirm = true;
         const username = this.myForm.get('user')?.value;
         const password = this.myForm.get('password')?.value;
         console.log(username, password);

@@ -6,6 +6,7 @@ import { NewClientComponent } from '../../new-client/new-client/new-client.compo
 import { Subject, take } from 'rxjs';
 import { ErrorService } from 'src/app/protected/services/error/error.service';
 import { AskDelClientComponent } from 'src/app/protected/messages/ask-del-client/ask-del-client/ask-del-client.component';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-client',
@@ -18,6 +19,10 @@ export class ClientComponent implements OnInit {
   @Output() onDebounce: EventEmitter<string> = new EventEmitter();
   @Output() onEnter   : EventEmitter<string> = new EventEmitter();
   debouncer: Subject<string> = new Subject();
+
+  displayedColumns: string[] = ['img','name','socialName','address','location','phone', 'province', 'user', 'email', 'cuit'];
+  dataTableActive : any = new MatTableDataSource<any>();
+  
 
   itemSearch : string = '';
   mostrarSugerencias: boolean = false;
@@ -36,24 +41,28 @@ export class ClientComponent implements OnInit {
   clientFounded : any = {};
   isClientFounded : boolean = false;
   labelNoFinded : boolean = false;
-
+  phone : boolean = false;
   constructor(
               private authService : AuthService,
               private dialog : MatDialog,
               private errorService : ErrorService
-  ) { }
+  ) { 
+    (screen.width <= 800) ? this.phone = true : this.phone = false;
+  }
 
   ngOnInit(): void {
    
   }
 
 getAllClients(){
-  this.isLoading = true;
-  this.authService.getAllClients().subscribe(
-    ({contactos})=>{
-      this.contactos = contactos;
-      this.isLoading = false
-    })
+  // this.isLoading = true;
+  this.dataTableActive = this.authService.getAllClients()
+  // this.authService.getAllClients().subscribe(
+  //   ({contactos})=>{
+  //     this.contactos = contactos;
+  //     this.dataTableActive = contactos;
+  //     this.isLoading = false
+  //   })
 }
 
   deleteClient(id : any){
