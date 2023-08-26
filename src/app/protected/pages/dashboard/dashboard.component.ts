@@ -36,13 +36,13 @@ alert! : string | null;
 showNoProcessMessage : boolean = false;
 notificationsDone! : boolean;
 login : boolean = false;
-// staffOrders : any []= [];
-
+phone : boolean = false;
 constructor(
               private store : Store <AppState>,
               private cookieService : CookieService,
               private errorService : ErrorService,
-              private router : Router
+              private router : Router,
+              private authService : AuthService
   ) { 
 
     
@@ -50,6 +50,8 @@ constructor(
     this.cookieService.get('token');
     this.login = true;
   }
+  (screen.width <= 600) ? this.phone = true : this.phone = false;
+
   }
 
 visibility(){
@@ -69,8 +71,7 @@ ngOnInit(): void {
         this.showLabelTempOrder = true;
         this.alert= '!';
     }else{
-      this.alert= '';
-
+        this.alert= '';
     }
   })
 
@@ -80,19 +81,8 @@ ngOnInit(): void {
 
 logout() {
 
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("logged");
-    localStorage.removeItem("logged");
-    this.cookieService.delete('token')
-    this.login = false;
-    this.errorService.close$.next(true);
-    this.errorService.close$.next(false);
-    this.store.dispatch(articleActions.unSetArticles());
-    this.store.dispatch(articleActions.unSetSelectedArticles());
-    this.store.dispatch(articleActions.unSetTempOrder());
-    this.store.dispatch(authActions.unSetTempClient());
-    this.store.dispatch(authActions.unSetUser());
-    this.router.navigateByUrl('/login')
+  this.errorService.logout().subscribe(
+     (res)=>{if(res)this.login = false;});
   }
 
 ngOnDestroy(): void {

@@ -20,11 +20,14 @@ export class AppComponent implements OnInit {
               private localStorageService: LocalStorageService
   ){
 
+
   }
 
   ngOnInit(): void {
-    this.localStorageService.loadInitialState()
+    this.localStorageService.loadInitialState();
+
   }
+
 
 
 }

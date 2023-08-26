@@ -1,6 +1,6 @@
 
 
-<div fxLayout="row wrap" fxLayoutAlign="center space-between" fxFlex="100" class="backLogin" style="overflow-y: auto; height: 100%;">
+<div fxLayout="row wrap" fxLayoutAlign="center space-between" fxFlex="100" class="backLogin">
 
 
   <div  fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" style="height: 60px; background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
@@ -13,16 +13,16 @@
    
     </div>
         
-        <form  [formGroup]="myForm"  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" style="margin-top: 80px;">     
+        <form  [formGroup]="myForm"  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex.xs="100" fxFlex="30" style="margin-top: 80px">     
             
-          <mat-form-field appearance="outline"  fxFlex="90" class="mt-10 font fs-5" >		
+          <mat-form-field appearance="outline"  fxFlex="90" class="mt-10 font " >		
               <mat-label>Usuario</mat-label>
               <input matInput type="email" required formControlName="user">
           </mat-form-field> 
           <mat-error *ngIf ="validField ('user')" fxLayoutAlign="start" fxFlex="85" class="font fs-4 mb-10"> Campo requerido </mat-error> 
 
 
-          <mat-form-field appearance="outline" fxFlex="90" class="mt-20 font fs-5">		
+          <mat-form-field appearance="outline" fxFlex="90" class="mt-20 font ">		
             <mat-label>Contraseña</mat-label>
             <input matInput [type]="passwordVisible ? 'text' : 'password'"  required formControlName="password" >
             <button mat-icon-button  (click)="togglePasswordVisibility('password')" >
@@ -43,9 +43,9 @@
             
             </div>
             
+            <button type="button" fxLayout="row wrap" fxLayoutAlign="center center" class="btnLogin font " style="margin-top: 80px; margin-bottom: 40px;" fxFlex="90"  (click)="onSaveForm()">  Ingresar</button>
         </form>
 
-        <button type="button" fxLayout="row wrap" fxLayoutAlign="center center" class="btnLogin font fs-5" style="margin-top: 80px;" fxFlex="90"  (click)="onSaveForm()">  Ingresar</button>
 
         
         <div *ngIf="isLoading" class="loading-overlay">

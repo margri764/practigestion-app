@@ -1,8 +1,8 @@
-<div  fxLayout="row wrap"  fxLayoutAlign="center center" style="height: 100vh; width: 100vw;background-color: rgb(254, 254, 254);">
+<div  fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="100">
 
-  <mat-sidenav-container fullscreen style="height: 100vh;">
+  <mat-sidenav-container  fullscreen style="height: 100%;">
     
-    <mat-sidenav #sidenav mode="push" style="background-color: rgb(254, 254, 254);" >
+    <mat-sidenav #sidenav mode="push"  [ngStyle]="(phone) ? {'width': '100%'} : {'width': '300px'} "  >
 
         <mat-toolbar style="background-color: rgb(37, 150, 190); color: white; " (click)="sidenav.toggle()" >
             <span class="example-spacer"></span>
@@ -16,49 +16,49 @@
                 <div class="menuIcon"  >
                     <span class="material-icons notranslate" style=" transform: scale(1.3);color: rgb(135, 135, 135);"> shopping_bag </span>
                 </div>
-                <span  class="font fs-5 ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Pedidos realizados</span>
+                <span  class="font  ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Pedidos realizados</span>
             </a>
 
             <a  mat-list-item style="margin-top: 20px;" (click)="sidenav.toggle() "routerLink="/listado-articulos">
                 <div class="menuIcon"  >
                     <span class="material-symbols-outlined notranslate" style=" transform: scale(1.3);color: rgb(135, 135, 135);"> category </span>
                 </div>
-                <span  class="font fs-5 ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Articulos</span>
+                <span  class="font  ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Articulos</span>
             </a>
             
             <a  mat-list-item style="margin-top: 20px;" (click)="sidenav.toggle()"routerLink="/pedidos-temporales">
                 <div class="menuIcon"  >
                     <span class="material-symbols-outlined notranslate" style=" transform: scale(1.3);color: rgb(135, 135, 135);"> shopping_bag </span>
                 </div>
-                <span  class="font fs-5 ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Pedidos abiertos</span>
+                <span  class="font  ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Pedidos abiertos</span>
             </a>
 
             <a  mat-list-item style="margin-top: 20px;" (click)="sidenav.toggle()"routerLink="/listado-clientes">
                 <div class="menuIcon"  >
                     <span class="material-symbols-outlined notranslate" style=" transform: scale(1.3);color: rgb(135, 135, 135);"> account_circle </span>
                 </div>
-                <span  class="font fs-5 ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Clientes</span>
+                <span  class="font  ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Clientes</span>
             </a>
 
             <a  mat-list-item style="margin-top: 20px;" (click)="sidenav.toggle()"routerLink="/lista-precios">
                 <div class="menuIcon"  >
                     <span class="material-symbols-outlined notranslate" style=" transform: scale(1.3);color: rgb(135, 135, 135);"> description</span>
                 </div>
-                <span  class="font fs-5 ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Lista de precios</span>
+                <span  class="font  ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Lista de precios</span>
             </a>
 
             <a  mat-list-item style="margin-top: 20px;" (click)="sidenav.toggle()">
                 <div class="menuIcon"  >
                     <span class="material-symbols-outlined notranslate" style=" transform: scale(1.3);color: rgb(135, 135, 135);"> settings</span>
                 </div>
-                <span  class="font fs-5 ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Configuraciones</span>
+                <span  class="font  ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Configuraciones</span>
             </a>
 
             <a  mat-list-item style="margin-top: 20px;" (click)="sidenav.toggle(); logout()">
                 <div class="menuIcon"  >
                     <span class="material-symbols-outlined notranslate" style=" transform: scale(1.3);color: rgb(135, 135, 135);"> logout</span>
                 </div>
-                <span  class="font fs-5 ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Cerrar Sesion</span>
+                <span  class="font  ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Cerrar Sesion</span>
             </a>
 
             <a  mat-list-item style="margin-top: 100px;">
@@ -118,14 +118,14 @@
 
             <div fxLayout="row wrap" *ngIf="!showLabelTempOrder" fxFlex="100" class="mt-5 whiteframe mt-40 mb-40 background-white">
                     <span class="material-icons no-translate fc-green">done</span> &nbsp;
-                    <span class="font fs-5 ml-20" fxFlex="80"> Sin notificaciones </span>
+                    <span class="font  ml-20" fxFlex="80"> Sin notificaciones </span>
             </div>  
              
     
                 <div fxLayout="row wrap" *ngIf="showLabelTempOrder" fxFlex="100" class="mt-5 whiteframe mt-40 mb-40">
                     <i class="material-symbols-outlined notranslate fc-red" style="font-size: 38px;">error</i> &nbsp;
-                    <span class="font fs-5 ml-10" fxFlex="80" style="line-height: 25px;"> Existen pedidos que no han sido enviados!</span>
-                    <span class="font fs-5 mt-5" style="color: blue; cursor: pointer; margin-left: 51px;" fxFlex="100" > <b (click)="accordion.openAll(); visibility()" routerLink="/pedidos-temporales" >Resolver</b></span>
+                    <span class="font  ml-10" fxFlex="80" style="line-height: 25px;"> Existen pedidos que no han sido enviados!</span>
+                    <span class="font  mt-5" style="color: blue; cursor: pointer; margin-left: 51px;" fxFlex="100" > <b (click)="accordion.openAll(); visibility()" routerLink="/pedidos-temporales" >Resolver</b></span>
                 </div>   
             </div>
        
@@ -134,45 +134,48 @@
       
     </mat-accordion>
 
-    <div fxLayout="row wrap"  fxLayoutAlign="space-between space-between"  fxFlex="100" style="margin-top: 30px; padding: 10px;">
+    <div fxLayout="row wrap"  fxLayoutAlign="center space-between" fxFlex="100" style="margin-top: 30px; padding: 10px;">
 
-     <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" style="">
+        <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex.xs="100" fxFlex="80" class="container-main-icons">
 
-       <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="46" style="margin-top: 30px;" routerLink="/armar-pedido" >
-        <div class="mainIcon" >
-            <span class="material-icons notranslate" style=" transform: scale(1.7);color: rgb(68, 169, 0);"> shopping_bag </span>
-        </div>
-        <span fxFlex="100"  class="font fs-5" style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Iniciar Pedido</span>
-       </div>  
+            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" style="margin-top: 30px;" routerLink="/armar-pedido" >
+                <div class="mainIcon" >
+                    <span class="material-icons notranslate" > shopping_bag </span>
+                </div>
+                <span fxFlex="100"  class="font " style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Iniciar Pedido</span>
+            </div>  
 
-       <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="46" style="margin-top: 30px;" routerLink="/pedidos-temporales" >
-        <div class="mainIcon" >
-            <span class="material-symbols-outlined notranslate" style=" transform: scale(1.7);color: rgb(68, 169, 0);"> shopping_bag </span>
-        </div>
-        <span fxFlex="100"  class="font fs-5" style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Pedidos Abiertos</span>
-       </div>  
-       
-       <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="46" style="margin-top: 30px;" routerLink="/listado-articulos" >
-        <div class="mainIcon" >
-            <span class="material-symbols-outlined notranslate" style=" transform: scale(1.7);color: rgb(68, 169, 0);"> category </span>
-        </div>
-        <span fxFlex="100"  class="font fs-5" style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Lista Artículos</span>
-       </div>  
+            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" style="margin-top: 30px;" routerLink="/pedidos-temporales" >
+                <div class="mainIcon" >
+                    <span class="material-symbols-outlined notranslate"> shopping_bag </span>
+                </div>
+                <span fxFlex="100"  class="font " style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Pedidos Abiertos</span>
+            </div>  
+            
+            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" style="margin-top: 30px;" routerLink="/listado-articulos" >
+                <div class="mainIcon" >
+                    <span class="material-symbols-outlined notranslate"> category </span>
+                </div>
+                <span fxFlex="100"  class="font " style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Lista Artículos</span>
+            </div>  
 
-       <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="46" style="margin-top: 30px;" (click)="sidenav.toggle()">
-        <div class="mainIcon" >
-            <span class="material-symbols-outlined notranslate" style=" transform: scale(1.7);color: rgb(68, 169, 0);"> add </span>
+            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" style="margin-top: 30px;" (click)="sidenav.toggle()">
+                <div class="mainIcon" >
+                    <span class="material-symbols-outlined notranslate" > add </span>
+                </div>
+                <span fxFlex="100"  class="font " style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">mas...</span>
+            </div>  
         </div>
-        <span fxFlex="100"  class="font fs-5" style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">mas...</span>
-       </div>  
-     </div>
     
     </div>  
-<!-- logo -->
-    <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" style="margin-top: 300px;">
+
+<!-- start logo -->
+    <div fxLayout="row wrap"  fxLayoutAlign="end center"  fxFlex="95" style="margin-top: calc(70vh - 10%)">
        
-        <img src="assets/logo.png" alt="logo principal" fxFlex="60" >
+        <img src="assets/logo.png" alt="logo principal" fxFlex="60" fxFlex="20" >
     </div> 
+<!--end  logo -->
+
       
   </mat-sidenav-container>
     

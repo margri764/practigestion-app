@@ -1,9 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Articulo } from '../../../interfaces/articulo.interface'
 import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
 import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { EditArticleComponent } from '../../edit-article/edit-article/edit-article.component';
+import { MatAccordion } from '@angular/material/expansion';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-articles',
@@ -15,6 +17,14 @@ export class ArticlesComponent implements OnInit {
   @Output() onDebounce: EventEmitter<string> = new EventEmitter();
   @Output() onEnter   : EventEmitter<string> = new EventEmitter();
   debouncer: Subject<string> = new Subject();
+
+  
+@ViewChild(MatAccordion) accordion!: MatAccordion;
+@ViewChild ('top', {static: false} ) top! : ElementRef;
+@ViewChild ('menu', {static: false} ) menu! : ElementRef;
+
+displayedColumns: string[] = ['img','name','price','stock','comment','ingredients'];
+dataTableActive : any = new MatTableDataSource<any>();
   
   arrArticles : Articulo[]=[]
 
@@ -34,15 +44,17 @@ export class ArticlesComponent implements OnInit {
   isLoading : boolean = false;
   articleFounded : any = {};
   isArticleFounded : boolean = false;
+  phone : boolean = false;
 
   constructor(
               private articleService : ArticlesService,
               private dialog : MatDialog
-  ) { }
+  ) { 
+    (screen.width <= 600) ? this.phone = true : this.phone = false;
+
+  }
 
   ngOnInit(): void {
-
-   
 
   }
 
@@ -51,9 +63,10 @@ export class ArticlesComponent implements OnInit {
     this.articleService.getAllArticles().subscribe(
       ({articulos})=>{
 
+            console.log(articulos);
             if(articulos.length !== 0){
               this.arrArticles = articulos;
-              console.log(articulos);
+              this.dataTableActive = articulos;
               this.isLoading = false;
             }
       }
@@ -68,7 +81,6 @@ export class ArticlesComponent implements OnInit {
       return {'color':'blue'};
     }
   }
-
 
 
   addArticles(){

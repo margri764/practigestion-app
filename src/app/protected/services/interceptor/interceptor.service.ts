@@ -1,4 +1,4 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, throwError } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
@@ -21,7 +21,6 @@ token : any;
   constructor(
               private authService : AuthService,
               private errorService : ErrorService
-              // private dialog : MatDialog
             )
 { }
 
@@ -49,12 +48,13 @@ if(req.url.includes("api/login")){
    token = this.authService.getCookieToken()
  }
 
- console.log(token);
-
-  const authRequest = !token ? req : req.clone({
-    setHeaders: { Authorization: `Bearer ${token}` }
-    
+  console.log(token);
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
   });
+
+  const authRequest = !token ? req : req.clone({headers});
+
   return next.handle( authRequest )
   .pipe(
     catchError((error : HttpErrorResponse ) => this.errorHandle(error) )
@@ -64,10 +64,14 @@ if(req.url.includes("api/login")){
 errorHandle( error: HttpErrorResponse ) {
 
   console.log(error);
-  
-  
 
-  const errorMessage = this.errorService.getError(error)
+  const errorMessage = this.errorService.getError(error);
+
+  if (error.status === 200 && error.error && error.error.text === "Sesion finalizada") {
+    // Realiza el cierre de sesión
+     this.errorService.logout();
+    // Puedes redirigir aquí si es necesario
+  }
 
   return throwError( () => errorMessage)
   // return throwError( () => error)

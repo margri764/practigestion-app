@@ -5,9 +5,11 @@ import { map, tap } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
 import { environment } from 'src/environments/environment';
 import * as authActions from 'src/app/auth.actions'
-import { saveDataLS } from '../../Storage';
+import * as articleActions from 'src/app/article.actions'
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../../models/user.models';
+import { ErrorService } from '../error/error.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +20,12 @@ export class AuthService {
   // user : User | undefined;
   private baseUrl = environment.baseUrl;
 
-  constructor(  private http : HttpClient,
+  constructor(  
+                private http : HttpClient,
                 private store : Store <AppState>,
-                private cookieService: CookieService
+                private cookieService: CookieService,
+                private errorService : ErrorService,
+                private router : Router
                 // private dialog : MatDialog
               )
 { }
@@ -51,6 +56,8 @@ const base64Credentials = btoa(`${username}:${password}`);
     map( res => res )
   )
 }
+
+
 
 getToken(){
   return this.token
