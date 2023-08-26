@@ -20,7 +20,7 @@ export class ClientComponent implements OnInit {
   @Output() onEnter   : EventEmitter<string> = new EventEmitter();
   debouncer: Subject<string> = new Subject();
 
-  displayedColumns: string[] = ['img','name','socialName','address','location','phone', 'province', 'user', 'email', 'cuit'];
+  displayedColumns: string[] = ['action','name','socialName','address','location','phone', 'province', 'user', 'email', 'cuit'];
   dataTableActive : any = new MatTableDataSource<any>();
   
 
@@ -51,6 +51,7 @@ export class ClientComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAllClients();
    
   }
 

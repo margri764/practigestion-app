@@ -87,7 +87,6 @@ export class ErrorService {
       this.width = "400px";
       this.height ="550px";
     }
-
   }
 
 
