@@ -16,6 +16,7 @@ export class EditClientComponent implements OnInit {
   myForm! : FormGroup;
   save : boolean = false;
   client! : User;
+
   
   constructor(
                 private fb : FormBuilder,
@@ -33,7 +34,8 @@ export class EditClientComponent implements OnInit {
       area:[''],
       phone:[''],
       address:[''],
-    })
+    });
+
 
   }
 
@@ -69,9 +71,6 @@ export class EditClientComponent implements OnInit {
 
   closeComponent(){
     this.dialogRef.close();
-
   }
-
-
 
 }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map, tap } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
@@ -15,6 +15,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
+
+  showLabelTempOrder$ : EventEmitter<boolean> = new EventEmitter<boolean>; 
 
   token : string = '';
   // user : User | undefined;
@@ -466,6 +468,18 @@ return contactos;
 //   );
 }
 
+getClientsPaginator(from : any, to : any){
+
+  console.log(from,to);
+
+    return this.http.get<any>(`${this.baseUrl}api/agenda?p=${from}&r=${to}`)
+.pipe(
+  map( res =>{ 
+        console.log('desde service getClientsPaginator', res)
+          return res} )
+  );
+
+}
 updateClientById( body : User, id:any){
                                         
   return this.http.put<any>(`${this.baseUrl}api/agenda/edit/${id}`, body)

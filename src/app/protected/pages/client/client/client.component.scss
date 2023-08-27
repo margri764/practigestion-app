@@ -65,10 +65,8 @@ table {
 
 
 .mat-column-action {
-  width: 10%;
-  cursor: pointer;
-  text-align: start;
-
+  width: 11%;
+  text-align: center;
 }
 
 //  este es la segunda columna es de donde se mueve es la "position"
@@ -88,7 +86,7 @@ th.mat-column-name, td.mat-column-name {
 .mat-column-address {
   width: 10%;
   cursor: pointer;
-  text-align: start start;
+  text-align: start ;
   padding: 3px;
 
 }
@@ -96,13 +94,13 @@ th.mat-column-name, td.mat-column-name {
 .mat-column-location {
   width: 10%;
   cursor: pointer;
-  text-align: start start;
+  text-align: start ;
 }
 
 .mat-column-phone {
   width: 10%;
   cursor: pointer;
-  text-align: start start;
+  text-align: start ;
 }
 
 .mat-column-province {
@@ -114,17 +112,15 @@ th.mat-column-name, td.mat-column-name {
 .mat-column-email {
   width: 10%;
   cursor: pointer;
-  text-align: start start;
+  text-align: start ;
 }
 
 .mat-column-cuit {
   width: 10%;
 
   cursor: pointer;
-  text-align: start start;
+  text-align: start ;
 }
-
-
 
 
 

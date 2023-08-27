@@ -6,7 +6,7 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
 export const environment = {
   production: false,
-  baseUrl: "https://api.qosinformatica.com.ar/",
+  baseUrl: "https://api.qosinformatica.com.ar:3443/",
   imports: [
     StoreDevtoolsModule.instrument({ maxAge: 25 })
 ],

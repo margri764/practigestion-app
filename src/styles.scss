@@ -430,13 +430,11 @@ mat-form-field  {
 .custom-modalbox-edit {
   
   max-width: 99vw!important;  /*max-width para el ancho del dialog*/
-  max-height: 100%!important;
-  overflow-y: scroll;
-  
+  max-height: 90vh!important;
 
   .mat-dialog-container{
     padding: 0px!important;
-    // border-radius: 10px !important;
+    border-radius: 10px !important;
     margin: 0 auto;
     }
 }
@@ -524,6 +522,14 @@ mat-form-field  {
   }
 }
 
+//Extra small devices (phones, 600px and down) */
+@media only screen and (min-width: 800px) {
+  .btnMenuClicked, .btnMenu {
+    font-size: min(1.1em, 6vw); /* tamaño de fuente máximo: 16px o 5% del ancho de la pantalla */
+  }
+  
+  .btnMenuClicked i, .btnMenu i {
+    font-size: min(1.1em, 6vw); /* tamaño del icono máximo: 20px o 6% del ancho de la pantalla */
+  }
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

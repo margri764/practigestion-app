@@ -1,19 +1,26 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/protected/services/auth/auth.service';
 import { EditClientComponent } from '../../edit-client/edit-client/edit-client.component';
 import { NewClientComponent } from '../../new-client/new-client/new-client.component';
-import { Subject, take } from 'rxjs';
+import { Subject, Subscription, take } from 'rxjs';
 import { ErrorService } from 'src/app/protected/services/error/error.service';
 import { AskDelClientComponent } from 'src/app/protected/messages/ask-del-client/ask-del-client/ask-del-client.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { PageEvent } from '@angular/material/paginator';
+import { AppState } from 'src/app/app.reducer';
+import { Store } from '@ngrx/store';
+import { MatAccordion } from '@angular/material/expansion';
+import { getDataLS, getDataSS } from 'src/app/protected/Storage';
+import { CookieService } from 'ngx-cookie-service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.scss']
 })
-export class ClientComponent implements OnInit {
+export class ClientComponent implements OnInit, OnDestroy {
   
 // start search
   @Output() onDebounce: EventEmitter<string> = new EventEmitter();
@@ -29,7 +36,6 @@ export class ClientComponent implements OnInit {
   sugested : string= "";
   suggested : any[] = [];
   spinner : boolean = false;
-  alert:boolean = false;
   fade : boolean = false;
   search : boolean = true;
   product  : any[] = [];
@@ -42,34 +48,122 @@ export class ClientComponent implements OnInit {
   isClientFounded : boolean = false;
   labelNoFinded : boolean = false;
   phone : boolean = false;
+
+  // paginator
+  length = 50;
+  pageSize = 10;
+  pageIndex = 1;
+  pageSizeOptions = [5, 10, 25];
+  hidePageSize = false;
+  showPageSizeOptions = true;
+  showFirstLastButtons = true;
+  disabled = false;
+  pageEvent!: PageEvent;
+  // paginator
+
+  // accordion
+  panelOpenState = false;
+  showLabelTempOrder : boolean = false;
+  articleSuscription!: Subscription;
+  alert : string = '';
+  toogle : boolean = false;
+  @ViewChild(MatAccordion)  accordion!: MatAccordion;
+  hidden : boolean = false;
+  login : boolean = false;
+  // accordion
+
+  height : string = '';
+  width : string = '';
+
+  toppings = new FormControl('');
+
+  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+
   constructor(
               private authService : AuthService,
               private dialog : MatDialog,
-              private errorService : ErrorService
+              private errorService : ErrorService,
+              private store : Store <AppState>,
+              private cookieService : CookieService
+
   ) { 
+        
+  if(getDataSS("logged") === true || getDataLS("logged") == true){
+    this.cookieService.get('token');
+    this.login = true;
+  }
     (screen.width <= 800) ? this.phone = true : this.phone = false;
   }
 
   ngOnInit(): void {
-    this.getAllClients();
+    this.getInitialClients();
+
+    this.articleSuscription = this.store.select('article')
+    .pipe(
+  
+    ).subscribe(({tempOrder})=>{
+  
+      if(tempOrder.length !==0){
+          this.showLabelTempOrder = true;
+          this.alert= '!';
+      }else{
+          this.alert= '';
+      }
+    })
+    
+  // console.log(this.pageEvent,
+  //   this.length,
+  //   this.pageIndex,
+  //   this.pageSize, 
+  //   );
    
   }
 
-getAllClients(){
-  // this.isLoading = true;
-  this.dataTableActive = this.authService.getAllClients()
-  // this.authService.getAllClients().subscribe(
-  //   ({contactos})=>{
-  //     this.contactos = contactos;
-  //     this.dataTableActive = contactos;
-  //     this.isLoading = false
-  //   })
+ getInitialClients(){
+  this.isLoading = true;
+  // this.pageIndex = 1;
+  // this.pageSize = 10;
+  this.authService.getClientsPaginator(this.pageIndex, this.pageSize).subscribe(
+    ({contactos})=>{
+      this.contactos = contactos;
+      this.dataTableActive = contactos;
+      this.isLoading = false
+    })
 }
 
-  deleteClient(id : any){
+handlePageEvent(e: PageEvent) {
+  this.pageEvent = e;
+  this.length = e.length;
+  this.pageSize = e.pageSize;
+  this.pageIndex = e.pageIndex;
+
+  console.log(this.pageEvent,
+    this.length,
+    this.pageSize, 
+    this.pageIndex);
+    this.isLoading= true;
+    this.authService.getClientsPaginator(this.pageIndex, this.pageSize,).subscribe(
+      ({contactos})=>{
+        this.contactos = contactos;
+        this.dataTableActive = contactos;
+        this.isLoading = false
+      })
+}
+
+
+
+  deleteClient(client : any){
+
+    if(screen.width >= 800) {
+      this.width = "600px";
+      this.height = "510px";
+    }
+    console.log(this.clientFounded.archivarComo, client.archivarComo);
 
       this.dialog.open(AskDelClientComponent, {
-        data: this.clientFounded.archivarComo,
+        data:  client.archivarComo,
+        width: `${this.width}`|| "",
+        height:`${this.height}`|| "",
         panelClass:"custom-modalbox-edit",
       });
   
@@ -78,7 +172,7 @@ getAllClients(){
       ).subscribe( (auth)=> { // el ask-edit dispara ui boolean si se elige CONTINUAR con la acción
         
         if(auth){
-          this.authService.deleteClientById(id).subscribe( 
+          this.authService.deleteClientById(client.id).subscribe( 
             ()=>{})
         }
       })
@@ -87,19 +181,29 @@ getAllClients(){
 
   editClient(client: any){
 
-
-  this.dialog.open(EditClientComponent, {
-    data: client,
-    // disableClose: client,
-    panelClass:"custom-modalbox-NoMoreComponent", 
-  });
+    if(screen.width >= 800) {
+      this.width = "600px";
+      this.height ="720px";
+    }
+    this.dialog.open(EditClientComponent, {
+      data: client,
+      width: `${this.width}`|| "",
+      height:`${this.height}`|| "",
+      panelClass:"custom-modalbox-NoMoreComponent", 
+    });
 
   }
 
   addClient(){
+
+    if(screen.width >= 800) {
+      this.width = "600px";
+      this.height ="770px";
+    }
+
     this.dialog.open(NewClientComponent, {
-      // data: client,
-      // disableClose: client,
+      width: `${this.width}`|| "",
+      height:`${this.height}`|| "",
       panelClass:"custom-modalbox-NoMoreComponent", 
     });
   }
@@ -110,6 +214,8 @@ getAllClients(){
       this.itemSearch = '';
       this.suggested = [];
       this.spinner= false;
+      this.isClientFounded = false;
+      // this.clientFounded = {};
     }
   
     teclaPresionada(){
@@ -152,33 +258,48 @@ getAllClients(){
    
     }
   
-     
-     Search( id : any ){
-      
-       this.mostrarSugerencias = true;
-       this.alert = false;
-       this.spinner = true;
-       this.fade = false;
-       this.authService.getClientById(id)
-       .subscribe ( ({contacto} )=>{
-          console.log(contacto);
-          if(contacto){
-            this.clientFounded = contacto;
-            this.spinner = false;
-            this.close();
-            this.isClientFounded = true;
-          }else{
-            // this.labelNoArticles = true;
-          }
+    
+  Search( id : any ){
+    
+      this.mostrarSugerencias = true;
+      this.spinner = true;
+      this.fade = false;
+      this.authService.getClientById(id)
+      .subscribe ( ({contacto} )=>{
+        console.log(contacto);
+        if(contacto){
+          this.clientFounded = contacto;
+          this.spinner = false;
+          this.close();
+          this.isClientFounded = true;
+        }else{
+          // this.labelNoArticles = true;
         }
-       )
-  
-    }
-  
+      }
+      )
+
+  }
+
     searchSuggested( id: any ) {
       this.Search( id );
     }
     // search
-  
+
+    
+visibility(){
+  this.toogle = !this.toogle;
+}
+
+logout(){
+  alert("solucionar el logout desde el back")
+  this.errorService.logout().subscribe()
+}
+
+ngOnDestroy(): void {
+  if (this.articleSuscription) {
+    this.articleSuscription.unsubscribe();
+  }
+}
+
 
 }
