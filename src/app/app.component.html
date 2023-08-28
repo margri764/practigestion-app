@@ -3,12 +3,13 @@
     <!-- <div class="page-wrapper" *ngIf="disabled"> -->
       <div class="page-wrapper">
 
-        <!-- <div class="sticky-header">
+        <div class="sticky-header"> 
+
+          
       
-          <app-header *ngIf="!(router.url === '/home' || router.url === '/start' || router.url === '/cart' || router.url === '/profile'
-          || router.url === '/register' || router.url === '/login')"></app-header>
+          <app-header *ngIf="!(router.url === '/home' || router.url === '/start' || router.url === '/register' || router.url === '/login')" [url] = "currentUrl"></app-header>
         
-        </div> -->
+        </div> 
         <!-- <div class="content-wrapper" [ngStyle]="(scroll) ? {'overflow-y': 'auto'} : {'overflow-y': 'hidden'} " > -->
         <div class="content-wrapper">
         

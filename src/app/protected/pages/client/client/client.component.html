@@ -1,49 +1,6 @@
 
 <div  fxLayout="row wrap"  fxLayoutAlign="center start" style="height: 100%; position: relative;">
 
-    <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="height: 60px; background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
-    -moz-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);" >
-       
-        <div fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="50" style="margin-top: 5px;" routerLink="/home">
-                <span class="material-symbols-outlined notranslate cursor" >arrow_back_ios</span>
-                <span class="font" fxFlex="90">Listado de clientes</span>
-        </div>
-
-        <div fxLayout="row wrap"  fxLayoutAlign="end center"  fxFlex="50">
-
-                <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" (click)="accordion.openAll(); visibility()" style="margin-right: 15px;">
-                    <mat-icon class="material-symbols-outlined notranslate" [matBadge]="alert" matBadgeColor="warn" [matBadgeHidden]="hidden">notifications</mat-icon>
-                </button>
-
-                <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" *ngIf="login" [matMenuTriggerFor]="menu" style="margin-right: 15px;">
-                        <span class="material-icons" style="transform: scale(1.2);">account_circle</span>
-                </button>
-
-                <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" routerLink="/login" *ngIf="!login" style="margin-right: 15px;">
-                    <span class="material-icons" style="transform: scale(1.2);">login</span>
-            </button>
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item>
-                  <mat-icon>logout</mat-icon>
-                  <span class="font" (click)="logout()" style="cursor: pointer;">Logout</span>
-                </button>
-                <button mat-menu-item>
-                    <mat-icon>person</mat-icon>
-                    <span class="font">Cuenta</span>
-                  </button>
-              </mat-menu>
-
-                
-
-             
-       </div>
-   
-    </div>
-
     <!-- start accordion -->
     <div fxLayout="row wrap"  fxLayoutAlign="end center"  fxFlex="100"  >
         <mat-accordion class="example-headers-align" multi [ngStyle]="(toogle) ? {'visibility':'visible'}:{'visibility':'hidden'}" >
@@ -80,8 +37,9 @@
     </div>
     <!-- end accordion -->
 
+    <!-- start form -->
     <form  fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 25px;" fxFlex.xs="100" fxFlex="40"  autocomplete="off" >
-        <mat-form-field  appearance="outline" fxFlex="90" class="font" >
+        <mat-form-field  appearance="outline" fxFlex="90" class="textMainIcon">
             <input type="text" matInput  placeholder="Buscar Cliente"  name="itemSearch"
             class="form-control  me-2"    
             [(ngModel)]="itemSearch"
@@ -91,6 +49,7 @@
             <mat-icon matSuffix style="transform:scale(1.7); color: rgb(37, 150, 190); margin-right: 20px;" (click)="Search( itemSearch)" >search</mat-icon>
         </mat-form-field>
     </form> 
+    <!-- end form -->
 
     <!-- start suggested    -->
     <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="center center"  fxFlex="100" *ngIf="mostrarSugerencias" style="padding: 20px;" >
@@ -121,27 +80,29 @@
     <!-- start select buttons -->
     <div fxLayout="row wrap" fxLayoutAlign.xs="center center"  fxLayoutAlign="end center" fxFlex="100" >
 
-        <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex.xs="48" fxFlex="10" >
-            <div class="mainIcon"  >
-                <span class="material-symbols-outlined notranslate"> refresh </span>
-            </div>
-            <span class="font mt-10" fxFlex="100" style="text-align: center;">Pto de Venta </span>
-        </div>  
+        <div class="iconContainer" >
 
-        <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex.xs="48" fxFlex="10" >
-            <div class="mainIcon"  >
-                <span class="material-symbols-outlined notranslate"> edit </span>
-            </div>
-            <span class="font mt-10" fxFlex="100" style="text-align: center;">Otra busqueda</span>
-        </div>  
+            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex.xs="48" fxFlex="30" >
+                <div class="mainIcon" style="display: flex;"  >
+                    <span class="material-symbols-outlined notranslate"> refresh </span>
+                </div>
+                <span class="textMainIcon"  style="text-align: center;">Pto de Venta </span>
+            </div>  
 
-        <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex.xs="48" fxFlex="10" >
-            <div class="mainIcon" (click)="addClient()" >
-                <span class="material-symbols-outlined notranslate"> add </span>
-            </div>
-            <span class="font mt-10" fxFlex="100" style="text-align: center;">Agregar </span>
-        </div>  
-      
+            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex.xs="48" fxFlex="30"  >
+                <div class="mainIcon"  >
+                    <span class="material-symbols-outlined notranslate"> edit </span>
+                </div>
+                <span class="textMainIcon" fxFlex="100" style="text-align: center;">busqueda</span>
+            </div>  
+
+            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex.xs="48" fxFlex="30"  >
+                <div class="mainIcon" (click)="addClient()" >
+                    <span class="material-symbols-outlined notranslate"> add </span>
+                </div>
+                <span class="textMainIcon" fxFlex="100" style="text-align: center;">Agregar </span>
+            </div>  
+        </div>
     </div>
     <!-- end select buttons -->
 
@@ -199,12 +160,12 @@
                     <span  class="font mt-20 " fxFlex="100" > Localidad: {{client.localidad || 'sin definir' }}</span>
                     
                     <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="100">
-                        <div class="icon mr-10" (click)="deleteClient(client.id)" >
-                            <span class="material-symbols-outlined notranslate" style="color: red;"> delete </span>
+                        <div class="icon mr-10" (click)="deleteClient(client)" >
+                            <span class="material-symbols-outlined notranslate cursor" style="color: red;"> delete </span>
                         </div>
                         
                         <div class="icon"  (click)="editClient(client)">
-                            <span class="material-symbols-outlined notranslate" style="color: rgb(255, 176, 57);"> edit </span>
+                            <span class="material-symbols-outlined notranslate cursor" style="color: rgb(255, 176, 57);"> edit </span>
                         </div>
                     </div>
                     

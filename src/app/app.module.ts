@@ -60,6 +60,7 @@ import localeEs from '@angular/common/locales/es-AR'; //nombre inventado el AR e
 import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { ErrorBackendDownComponent } from './protected/messages/error-backend-down/error-backend-down/error-backend-down.component';
+import { HeaderComponent } from './protected/pages/header/header/header.component';
 registerLocaleData( localeEs );
 
 
@@ -96,7 +97,8 @@ registerLocaleData( localeEs );
     PriceRound,
     GetTotalItems,
     TwoDecimalPipe,
-    ErrorBackendDownComponent
+    ErrorBackendDownComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

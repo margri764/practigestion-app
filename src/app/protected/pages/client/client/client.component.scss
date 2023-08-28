@@ -21,6 +21,12 @@
     transition: all 0.3s ease 0s;
   }
 
+
+}
+.textMainIcon{
+  font-size: 1.3em;
+  margin-top: 10px;
+  font-family: 'poppins-light'; 
 }
 
 
@@ -138,10 +144,9 @@ opacity: 0;
 //Extra small devices (phones, 600px and down) */
 @media only screen and (min-width: 800px) {
 
-  
-  .mainIcon{
-    width: 60px;
-    height: 60px;
+.mainIcon{
+    width: 55px;
+    height: 55px;
     border-radius:50%;
     border: 0px solid rgb(188, 210, 202);
     background-color: red;
@@ -152,9 +157,9 @@ opacity: 0;
         color: white;
         transition: all 0.3s ease 0s;
       }
-  }
+}
     
-  .mainIcon:hover{
+.mainIcon:hover{
       transform: scale(1.01);
       transition: all 0.2s ease 0s;
       // background-color: white;
@@ -164,23 +169,29 @@ opacity: 0;
         color: white;
         transition: all 0.3s ease 0s;
       }
-       }
+}
 
-  .icon{
+.icon{
       width: 35px;
       height: 35px;
 
       .material-symbols-outlined{
         transform: scale(1);
-
       }
-    // border-radius: 200px;
-    // border: 1px solid rgb(217, 217, 217);
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
-  }
+}
       
+.iconContainer{
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+}
+
+.textMainIcon{
+  font-size: 1em;
+  margin-top: 10px;
+  font-family: 'poppins-light'; 
+}
+
 
 
 }

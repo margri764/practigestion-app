@@ -21,20 +21,12 @@ export class ArticlesService {
 
 getAllArticles(){
 
-  
     return this.http.get<any>(`${this.baseUrl}api/articulos`) 
-    
     .pipe(
-      tap( res =>{
-                      // if(token){
-                      //     this.token = token
-                      // }           
-                    // console.log("desde login Service: ",res);
-                }  
-      ),            
       map( res => res )
     )
-  }
+}
+
 
 getArticleById(id : string){
   return this.http.get<any>(`${this.baseUrl}api/articulos/${id}`) 
@@ -53,24 +45,20 @@ getArticleById(id : string){
 
 searchProducts( value : string){
   return this.http.get<any>(`${this.baseUrl}api/articulos/busqueda?f=codigo_interno&q=${value}`)
-
-  // return this.http.get<any>(`${this.baseUrl}api/agenda/busqueda/${value}`)
-.pipe(
-  map( res =>{ 
-        console.log('desde service searchProducts', res)
-          return res} )
-  );
+  .pipe(
+    map( res =>{ 
+          console.log('desde service searchProducts', res)
+            return res} )
+    );
 }
 
 searchProductById( id : any){
   return this.http.get<any>(`${this.baseUrl}api/articulos/${id}`)
-
-  // return this.http.get<any>(`${this.baseUrl}api/articulos/busqueda?f=codigo_interno&q=${codigo_interno}`)
-.pipe(
-  map( res =>{ 
-        console.log('desde service searchProductById', res)
-          return res} )
-  );
+  .pipe(
+    map( res =>{ 
+          console.log('desde service searchProductById', res)
+            return res} )
+    );
 }
 
 editProductById( body: any, codigo_interno : string){
@@ -84,11 +72,11 @@ editProductById( body: any, codigo_interno : string){
 
 getAllTruePriceList( ){
   return this.http.get<any>(`${this.baseUrl}api/precios`)
-.pipe(
-  map( res =>{ 
-        console.log('desde service getAllTruePriceList', res)
-          return res} )
-  );
+  .pipe(
+    map( res =>{ 
+          console.log('desde service getAllTruePriceList', res)
+            return res} )
+    );
 }
 
 getPriceListById( id:any ){
@@ -105,6 +93,59 @@ getAllOrders( ){
 .pipe(
   map( res =>{ 
         console.log('desde service getAllOrders', res)
+          return res} )
+  );
+}
+
+
+getOrdersPaginator(from : any, to : any ){
+
+  const Pedidos =  [
+    {
+        "idPedido": 62208,
+        "estado": "E",
+        "idAgenda": 2739,
+        "razonSocial": "Ricardo Montereal",
+        "domicilio": "Pehuenches 850",
+        "localidad": "Villa La Angostura",
+        "provincia": "Neuquén",
+        "cp": "8407",
+        "pais": "Argentina",
+        "cuit": 0,
+        "docNro": "27176396305",
+        "ptoVenta": 1,
+        "cbteNro": 1,
+        "fecha": "2023-04-24T14:18:37.000-03:00",
+        "impSubtotal": 15000,
+        "descuentoPorcentaje": 0,
+        "impDescuento": 0,
+        "impTotIva": 2603.30579,
+        "impTotal": 15000,
+        "detalleItems": [
+            {
+                "descripcion": "BOLSA DE PAPAS",
+                "codigoInterno": "50100",
+                "cantidad": 1,
+                "alicIvaPorciento": 21,
+                "impNetoUnidad": 12396.69421,
+                "impSubtotal": 15000,
+                "bonificacionPorciento": 0,
+                "bonificacionImpNetoUni": 0,
+                "bonificacionImpNetoTot": 0,
+                "importeNetoTotal": 12396.69421,
+                "importeIva": 2603.30579,
+                "impTotal": 15000
+            }
+        ]
+    },
+  ]
+
+  // return Pedidos;
+
+  return this.http.get<any>(`${this.baseUrl}api/pedidos?p=${from}&r=${to}`)
+.pipe(
+  map( res =>{ 
+        console.log('desde service getOrdersPaginator', res)
           return res} )
   );
 }

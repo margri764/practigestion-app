@@ -95,6 +95,7 @@ export class ClientComponent implements OnInit, OnDestroy {
     (screen.width <= 800) ? this.phone = true : this.phone = false;
   }
 
+
   ngOnInit(): void {
     this.getInitialClients();
 
@@ -110,19 +111,10 @@ export class ClientComponent implements OnInit, OnDestroy {
           this.alert= '';
       }
     })
-    
-  // console.log(this.pageEvent,
-  //   this.length,
-  //   this.pageIndex,
-  //   this.pageSize, 
-  //   );
-   
   }
 
  getInitialClients(){
   this.isLoading = true;
-  // this.pageIndex = 1;
-  // this.pageSize = 10;
   this.authService.getClientsPaginator(this.pageIndex, this.pageSize).subscribe(
     ({contactos})=>{
       this.contactos = contactos;
@@ -158,7 +150,6 @@ handlePageEvent(e: PageEvent) {
       this.width = "600px";
       this.height = "510px";
     }
-    console.log(this.clientFounded.archivarComo, client.archivarComo);
 
       this.dialog.open(AskDelClientComponent, {
         data:  client.archivarComo,
@@ -185,6 +176,7 @@ handlePageEvent(e: PageEvent) {
       this.width = "600px";
       this.height ="720px";
     }
+
     this.dialog.open(EditClientComponent, {
       data: client,
       width: `${this.width}`|| "",

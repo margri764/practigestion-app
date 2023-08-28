@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, tap } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
 import { environment } from 'src/environments/environment';
 import * as authActions from 'src/app/auth.actions'
@@ -17,6 +17,12 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   showLabelTempOrder$ : EventEmitter<boolean> = new EventEmitter<boolean>; 
+  private labelSubject = new BehaviorSubject<string>(''); // Valor inicial vacío
+  label$ = this.labelSubject.asObservable();
+
+  updateLabel(newLabel: string) {
+    this.labelSubject.next(newLabel);
+  }
 
   token : string = '';
   // user : User | undefined;

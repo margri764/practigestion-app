@@ -61,19 +61,19 @@ export class ErrorService {
     .pipe(
       tap( (res)=>{
                  console.log("desde logout",res); 
-                //  sessionStorage.removeItem("token");
-                //  this.close$.next(true);
-                //  this.close$.next(false);
-                //  localStorage.removeItem("logged");
-                //  sessionStorage.removeItem("token");
-                //  sessionStorage.removeItem("logged");
-                //  localStorage.removeItem("logged");
-                //  this.cookieService.delete('token')
-                //  this.store.dispatch(articleActions.unSetArticles());
-                //  this.store.dispatch(articleActions.unSetSelectedArticles());
-                //  this.store.dispatch(articleActions.unSetTempOrder());
-                //  this.store.dispatch(authActions.unSetTempClient());
-                //  this.store.dispatch(authActions.unSetUser());
+                 sessionStorage.removeItem("token");
+                 this.close$.next(true);
+                 this.close$.next(false);
+                 localStorage.removeItem("logged");
+                 sessionStorage.removeItem("token");
+                 sessionStorage.removeItem("logged");
+                 localStorage.removeItem("logged");
+                 this.cookieService.delete('token')
+                 this.store.dispatch(articleActions.unSetArticles());
+                 this.store.dispatch(articleActions.unSetSelectedArticles());
+                 this.store.dispatch(articleActions.unSetTempOrder());
+                 this.store.dispatch(authActions.unSetTempClient());
+                 this.store.dispatch(authActions.unSetUser());
                 //  this.router.navigateByUrl('/login');
                }
       ),

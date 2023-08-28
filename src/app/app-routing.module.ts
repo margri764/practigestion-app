@@ -22,10 +22,10 @@ const routes: Routes = [
     path: 'listado-clientes',  component: ClientComponent
   },
   {
-    path: 'lista-precios/listado',  component: GeneralListComponent
+    path: 'listado-precios/listado',  component: GeneralListComponent
   },
   {
-    path: 'lista-precios',  component : ListPriceHomeComponent
+    path: 'listado-precios',  component : ListPriceHomeComponent
   },
   {
     path: 'listado-articulos',  component: ArticlesComponent

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { AuthService } from './protected/services/auth/auth.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AppState } from './app.reducer';
 import { OrderService } from './protected/services/order/order.service';
 import { Store } from '@ngrx/store';
@@ -15,9 +15,11 @@ import { LocalStorageService } from './protected/services/localStorage/local-sto
 export class AppComponent implements OnInit {
 
   title = 'practigestion-app';
+  @Output () currentUrl : any = '';
 
   constructor(
-              private localStorageService: LocalStorageService
+              private localStorageService: LocalStorageService,
+              public router : Router
   ){
 
 
@@ -26,7 +28,15 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.localStorageService.loadInitialState();
 
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentUrl = event.url;
+   
+      }
+    });
+
   }
+
 
 
 
