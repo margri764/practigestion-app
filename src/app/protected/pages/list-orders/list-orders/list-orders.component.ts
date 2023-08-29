@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatAccordion } from '@angular/material/expansion';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -52,13 +53,20 @@ export class ListOrdersComponent implements OnInit {
     showFirstLastButtons = true;
     disabled = false;
     pageEvent!: PageEvent;
-
     // paginator
     
+    myForm! : FormGroup;
+    ptoVenta: string[] = ['1', '2'];
+    send :  boolean = false;
+    order : any;
+
+
 
   constructor(
+              private fb : FormBuilder,
               private articleService : ArticlesService,
-              private workerService: WorkerService
+              private workerService: WorkerService,
+
   ) { 
     (screen.width <= 800) ? this.phone = true : this.phone = false;
 
@@ -66,16 +74,12 @@ export class ListOrdersComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getInitialOrders();
-    // this.isLoading = true;
-    // this.articleService.getAllOrders().subscribe(
-    //   ({Pedidos})=>{
-    //     if(Pedidos.length !== 0){
-    //       console.log(Pedidos);
-    //       this.arrOrders = Pedidos;
-    //       this.isLoading = false;
-    //     }
-    //   })
+
+      this.myForm = this.fb.group({
+        type:  [ ''],
+        nroOrder:  [ ''],
+        ptoVenta:  [ ''],
+      });   
   }
 
   getInitialOrders(){
@@ -90,17 +94,50 @@ export class ListOrdersComponent implements OnInit {
       })
   }
 
-  // loadOrders() {
-  //   console.log('Cargando más pedidos...');
-  //   this.isLoading = true;
-  //   this.articleService.getAllOrders().subscribe(({ Pedidos }) => {
-  //     if (Pedidos.length !== 0) {
-  //       this.arrOrders = [...this.arrOrders, ...Pedidos];
-  //       this.isLoading = false;
-  //       this.currentPage++;
-  //     }
-  //   });
-  // }
+  salePoint : any;
+
+  selectSalePoint(value : any){
+      this.isLoading = true;
+      this.arrOrders = [];
+      this.articleService.getOrdersByPtoVenta(value).subscribe(
+        ({Pedidos})=>{
+          if(Pedidos.length !== 0){
+            this.arrOrders = Pedidos;
+            this.isLoading = false;
+            // this.myForm.get('type')?.setValue('');
+            // this.myForm.get('pointAndNum')?.setValue('');
+          }
+        })
+   }
+
+   getSalePointByNumOrder(){
+
+    this.isLoading = true;
+    this.arrOrders = [];
+    const nroOrder = this.myForm.get('nroOrder')?.value;
+    const ptoVenta = this.myForm.get('ptoVenta')?.value;
+
+    this.articleService.getSalePointByNumOrder(ptoVenta, nroOrder).subscribe(
+      ({Pedido})=>{
+        if(Pedido){
+          this.isLoading = false;
+          this.order = Pedido;
+  ;
+        }
+      })
+
+   }
+ 
+
+  loadOrders() {
+    this.isLoading= true;
+    this.articleService.getOrdersPaginator(this.pageIndex, this.pageSize,).subscribe(
+    ({Pedidos})=>{
+      this.arrOrders = Pedidos;
+      this.dataTableActive = Pedidos;
+      this.isLoading = false
+    })
+  }
 
   handlePageEvent(e: PageEvent) {
     this.pageEvent = e;

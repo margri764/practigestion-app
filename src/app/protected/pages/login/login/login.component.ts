@@ -71,7 +71,6 @@ ngOnInit() {
                 console.log(res);
 
               if(res){
-                      this.goBack();
                       saveDataSS('logged', true);
                       
                       if(this.myForm.get('toLStorage')?.value === true){
@@ -85,11 +84,7 @@ ngOnInit() {
 
     }  
 
-goBack() {
 
-
-}
-  
 validField( field: string ) {
     return this.myForm.controls[field].errors && this.myForm.controls[field].touched;
 }

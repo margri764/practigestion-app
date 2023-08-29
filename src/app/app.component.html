@@ -7,7 +7,7 @@
 
           
       
-          <app-header *ngIf="!(router.url === '/home' || router.url === '/start' || router.url === '/register' || router.url === '/login')" [url] = "currentUrl"></app-header>
+          <app-header *ngIf="!(router.url === '/home' || router.url === '/start' || router.url === '/register' || router.url === '/login')" [url] = "currentUrl" [logeado]="login"></app-header>
         
         </div> 
         <!-- <div class="content-wrapper" [ngStyle]="(scroll) ? {'overflow-y': 'auto'} : {'overflow-y': 'hidden'} " > -->

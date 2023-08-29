@@ -1,43 +1,7 @@
 
 <div  fxLayout="row wrap"  fxLayoutAlign="center start" style="height: 100%; position: relative;">
 
-    <!-- start accordion -->
-    <div fxLayout="row wrap"  fxLayoutAlign="end center"  fxFlex="100"  >
-        <mat-accordion class="example-headers-align" multi [ngStyle]="(toogle) ? {'visibility':'visible'}:{'visibility':'hidden'}" >
-            <mat-expansion-panel >
-        
-                <div [ngStyle]="(toogle) ? {'display':'block'}:{'display':'none'}" style="margin-top: 40px;" >
-                    <div fxLayout="row wrap" *ngIf="!showLabelTempOrder" fxFlex="100" class="mt-5 whiteframe mt-40 mb-40 background-white">
-                            <span class="material-icons no-translate fc-green">done</span> &nbsp;
-                            <span class="font  ml-20" fxFlex="80"> Sin notificaciones </span>
-                            <mat-form-field>
-                                <mat-label>Toppings</mat-label>
-                                <mat-select [formControl]="toppings" multiple>
-                                <mat-select-trigger>
-                                    {{toppings.value?.[0] || ''}}
-                                    <span *ngIf="(toppings.value?.length || 0) > 1" class="example-additional-selection">
-                                    (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
-                                    </span>
-                                </mat-select-trigger>
-                                <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                    </div>  
-                    
-                    <div fxLayout="row wrap" *ngIf="showLabelTempOrder" fxFlex="100" class="mt-5 whiteframe mt-40 mb-40" >
-                            <i class="material-symbols-outlined notranslate fc-red" style="font-size: 38px;">error</i> &nbsp;
-                            <span class="font  ml-10" fxFlex="80" style="line-height: 25px;"> Existen pedidos que no han sido enviados!</span>
-                            <span class="font  mt-5" style="color: blue; cursor: pointer; margin-left: 51px;" fxFlex="100" > <b (click)="accordion.openAll(); visibility()" routerLink="/pedidos-temporales" >Resolver</b></span>
-                    </div>   
-                </div>
-
-            </mat-expansion-panel>
-        
-        </mat-accordion>
-    </div>
-    <!-- end accordion -->
-
-    <!-- start form -->
+     <!-- start form -->
     <form  fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 25px;" fxFlex.xs="100" fxFlex="40"  autocomplete="off" >
         <mat-form-field  appearance="outline" fxFlex="90" class="textMainIcon">
             <input type="text" matInput  placeholder="Buscar Cliente"  name="itemSearch"

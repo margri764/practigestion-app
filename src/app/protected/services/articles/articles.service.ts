@@ -97,6 +97,26 @@ getAllOrders( ){
   );
 }
 
+getOrdersByPtoVenta( id :  any ){
+  return this.http.get<any>(`${this.baseUrl}api/pedidos/${id}`)
+.pipe(
+  map( res =>{ 
+        console.log('desde service getOrdersByPtoVenta', res)
+          return res} )
+  );
+}
+
+
+getSalePointByNumOrder( salePoint :  any, nroOrder : any ){
+  return this.http.get<any>(`${this.baseUrl}api/pedidos/${salePoint}/${nroOrder}`)
+.pipe(
+  map( res =>{ 
+        console.log('desde service getSalePointByNumOrder', res)
+          return res} )
+  );
+}
+
+
 
 getOrdersPaginator(from : any, to : any ){
 

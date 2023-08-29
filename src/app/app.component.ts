@@ -6,6 +6,7 @@ import { OrderService } from './protected/services/order/order.service';
 import { Store } from '@ngrx/store';
 import * as articleActions from './article.actions';
 import { LocalStorageService } from './protected/services/localStorage/local-storage.service';
+import { getDataLS, getDataSS } from './protected/Storage';
 
 @Component({
   selector: 'app-root',
@@ -16,12 +17,14 @@ export class AppComponent implements OnInit {
 
   title = 'practigestion-app';
   @Output () currentUrl : any = '';
+  @Output () login : boolean = false;
 
   constructor(
               private localStorageService: LocalStorageService,
               public router : Router
   ){
 
+        
 
   }
 

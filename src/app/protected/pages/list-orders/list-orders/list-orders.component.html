@@ -1,75 +1,114 @@
 <div  fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="100" (scroll)="onScroll($event)" class="scroll" >
 
-  <div fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="90" class="whiteframe" style="height: 100vh; background-color: white; margin-top: 10px;">
+  <div fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="90" class="whiteframe" style="height: 100%; background-color: white; margin-top: 10px;">
 
 
       <!-- start select buttons -->
-      <div fxLayout="row wrap" fxLayoutAlign.xs="center center"  fxLayoutAlign="center center" fxFlex="100" class="mt-60">
+      <!-- <div fxLayout="row wrap" fxLayoutAlign.xs="center center"  fxLayoutAlign="center center" fxFlex="100" class="mt-60">
         <div class="iconContainer" > 
 
-            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex.xs="48" fxFlex="48" [matMenuTriggerFor]="menu" style="border: 1px solid;">
+            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex.xs="48" fxFlex="48" [matMenuTriggerFor]="menu">
                 <div class="mainIcon" style="display: flex;"  >
                     <span class="material-symbols-outlined notranslate"> refresh </span>
                 </div>
                 <span class="textMainIcon"  style="text-align: center;">Pto de Venta </span>
             </div>  
+       
 
             <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex.xs="48" fxFlex="48"  >
                 <div class="mainIcon"  >
                     <span class="material-symbols-outlined notranslate"> edit </span>
                 </div>
-                <span class="textMainIcon" fxFlex="100" style="text-align: center;">busqueda</span>
+                <span class="textMainIcon" fxFlex="100" style="text-align: center;">Pto Venta y N°</span>
             </div>  
 
-            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex.xs="48" fxFlex="48"> 
+            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex.xs="48" fxFlex="48" (click)="loadOrders()"> 
                 <div class="mainIcon"  >
                     <span class="material-symbols-outlined notranslate"> add </span>
                 </div>
-                <span class="textMainIcon" fxFlex="100" style="text-align: center;">Agregar </span>
+                <span class="textMainIcon" fxFlex="100" style="text-align: center;">Listado General </span>
             </div>  
         </div>
-      </div>
+      </div> -->
       <!-- end select buttons -->
 
-          <mat-menu #menu="matMenu">
-              <button mat-menu-item>
-                <mat-icon>logout</mat-icon>
-                <!-- <span class="font" (click)="logout()" style="cursor: pointer;">Logout</span> -->
-              </button>
-              <button mat-menu-item>
-                  <mat-icon>person</mat-icon>
-                  <span class="font">Cuenta</span>
-                </button>
-            </mat-menu>
+        <div fxLayout="row wrap" fxLayoutAlign.xs="center center"  fxLayoutAlign="space-between center" style="margin-top: 60px; height: 150px; border: 2px solid green;" >
+            <!-- PRIMERO -->
+            <div fxLayout="row wrap" fxLayoutAlign="center start"   fxFlex="27" class="font" style=" margin-top: 3px;" >
+                    <span style="font-size: 1.2em;"> Selección Pto Venta</span>
+                    <form  [formGroup]="myForm" style=" width: 450px; display: flex; justify-content: space-between;"   > 
+                        <mat-form-field  class="font" style="margin-top: 4px;">
+                            <mat-label> Pto Venta</mat-label>
+                            <mat-select  formControlName="type" (selectionChange)="selectSalePoint($event.value)" >
+                                        <mat-option>------</mat-option>
+                                        <mat-option *ngFor="let pto of ptoVenta" [value]="pto">{{pto}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </form>
+                </div>    
 
+            <!-- medio -->
+            <div fxLayout="row wrap" fxLayoutAlign="center start"  fxFlex="45" class="font" >
+                    <!-- titulo medio -->
+                    <span style="font-size: 1.2em; text-align: center;" fxFlex="100"> Pto Venta y N° </span>
+                    
+                        <form  [formGroup]="myForm"  style=" width: 450px; display: flex; justify-content: space-between;" > 
 
+                            <mat-form-field class="font" appearance="outline" style="width: 95px;">
+                                <mat-label>Pto venta</mat-label>
+                                <input matInput type="text" formControlName="ptoVenta">
+                            </mat-form-field>
+
+                            <mat-form-field class="font" appearance="outline" style="width: 95px;">
+                                <mat-label>N° pedido</mat-label>
+                                <input matInput type="text" formControlName="nroOrder">
+                            </mat-form-field>
+
+                            <button mat-raised-button  [ngClass]="!send ? 'btnMenuClicked':'btnMenu'" (click)="getSalePointByNumOrder()"  style="height: 50px !important; width: 100px; margin-top: 4px;">
+                                <i class="material-symbols-outlined notranslate">redo</i> 
+                                &nbsp;Buscar
+                            </button>
+                        </form>
+            </div>    
+                            
+            <!-- icono -->
+            <div fxLayout="row wrap"  fxLayoutAlign="center start"  fxFlex="27" (click)="loadOrders()"> 
+                <div class="mainIcon"  >
+                    <span class="material-symbols-outlined notranslate"> add </span>
+                </div>
+                <span class="textMainIcon" fxFlex="100" style="text-align: center;">Listado General </span>
+            </div>  
+        </div>
+            
+        <mat-paginator #paginator
+        class="demo-paginator"
+        (page)="handlePageEvent($event)"
+        [length]="length"
+        [pageSize]="pageSize"
+        [disabled]="disabled"
+        [showFirstLastButtons]="showFirstLastButtons"
+        [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+        [hidePageSize]="hidePageSize"
+        [pageIndex]="pageIndex"
+        aria-label="Select page" style="margin-top: 30px;">
+        </mat-paginator>
     
     <!-- start order -->
-    <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex.xs="100"  fxFlex="80"*ngFor="let order of arrOrders" class="mt-30 whiteFrame"  >
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex.xs="100"  fxFlex="80"*ngFor="let order of arrOrders" class="mt-30 whiteframe"   >
 
       <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="pd-10">
 
           <div  fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" style="background-color: rgb(37, 150, 190); height: 30px; padding: 5px; color: white;">
-              <span class="font fs-4">id pedido: {{order.idPedido}}</span>
-              <span class="font fs-4">Estado: <label [ngStyle]="styleObject(order.estado)"> &nbsp; {{order.estado }}</label></span>
+              <span class="font ">id pedido: {{order.idPedido}}</span>
+              <span class="font ">Estado: <label [ngStyle]="styleObject(order.estado)"> &nbsp; {{order.estado }}</label></span>
         
           </div> 
 
-          <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="" >
+          <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" class="mt-20" >
 
-                  <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100" class="mt-20" >
-                      <span fxFlex="100" class="font fs-4"><b>{{order.razonSocial}}</b></span>
-                      <span fxFlex="100" class="font fs-4 mt-5"><b>{{order.localidad}}</b></span>
-                      <span fxFlex="100" class="font fs-4 mt-5"><b>{{order.fecha | date }}</b></span>
-                
-                      &nbsp;&nbsp;  &nbsp;&nbsp;
-
-                        <!-- <div class="icon" >
-                            <span class="material-symbols-outlined notranslate " style="color: red;"  (click)="delTempOrder(order._id)" *ngIf="order._id !== isDeletingOrderId"> delete </span>
-                              <i class="fa fa-spin fa-sync" style="color: #f3b304;" *ngIf="isLoading && order._id === isDeletingOrderId"></i>
-                        </div> -->
-                      
-                  </div>
+                    <span fxFlex="45" fxFlex.xs="100" class="font " style="text-align: start;"><b>{{order.razonSocial}}</b></span>
+                    <!-- <span fxFlex="50" fxFlex.xs="100" class="font  mt-5"><b>{{order.localidad}}</b></span> -->
+                    <span fxFlex="45" fxFlex.xs="100" class="font " style="text-align: end; margin-right: 10px;"><b>{{order.fecha | date }}</b></span>
           </div>
               <!-- <div fxLayout="row wrap" fxLayoutAlign="center center"  fxFlex="40" *ngFor="let mainProduct of order.product">
 
@@ -77,13 +116,13 @@
               </div> -->
       </div>
 
-      <mat-accordion  style="width: 100vw;" >
+      <mat-accordion style="width: 97%;" >
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState" style="background-color: white;"  >
           <mat-expansion-panel-header>
 
             <mat-panel-title fxLayoutAlign="space-between center" class="font">
             
-              <span style="color: gray;">Detalle del pedido...</span>
+              <span style="color: rgb(164, 164, 164); font-size: 0.9em;">Detalle del pedido...</span>
                             
             </mat-panel-title>
       
@@ -93,12 +132,12 @@
 
                   <div  fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" *ngFor="let description of order.detalleItems" class="mt-20">
                       <div  fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" >
-                          <span class="font fs-4">  {{description.cantidad}} &nbsp; x &nbsp;{{description.descripcion | capitalizeFirstLetter}}</span>
-                          <span class="font fs-4"> <b>Cod.</b> {{description.codigoInterno}} </span>
+                          <span class="font ">  {{description.cantidad}} &nbsp; x &nbsp;{{description.descripcion | capitalizeFirstLetter}}</span>
+                          <span class="font "> <b>Cod.</b> {{description.codigoInterno}} </span>
                       </div>    
-                      <span class="font fs-4 mt-10"> <b>Sub-Total:</b> $ {{description.importeNetoTotal | decimalRound}}</span>
+                      <span class="font  mt-10"> <b>Sub-Total:</b> $ {{description.importeNetoTotal | decimalRound}}</span>
                   </div>   
-                      <span class="font fs-4 mt-10" style="text-align: end;" fxFlex="100"> <b>Total:</b> $ {{ calculateTotal(order.detalleItems) | decimalRound }} </span>
+                      <span class="font  mt-10" style="text-align: end;" fxFlex="100"> <b>Total:</b> $ {{ calculateTotal(order.detalleItems) | decimalRound }} </span>
                   </div>    
 
                 
@@ -168,14 +207,12 @@
   </mat-paginator>
 
 </ng-container>
-
-
   
-<div *ngIf="isLoading" style="margin-top: 30px;">
+<div *ngIf="isLoading" style="margin-top: 30px;" class="loading-overlay">
   <mat-spinner diameter="80"></mat-spinner>
 </div>
 
   
   
-   </div>
+</div>
 </div>

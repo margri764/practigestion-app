@@ -88,29 +88,16 @@ export class ClientComponent implements OnInit, OnDestroy {
 
   ) { 
         
-  if(getDataSS("logged") === true || getDataLS("logged") == true){
-    this.cookieService.get('token');
-    this.login = true;
-  }
+  // if(getDataSS("logged") === true || getDataLS("logged") == true){
+  //   this.cookieService.get('token');
+  //   this.login = true;
+  // }
     (screen.width <= 800) ? this.phone = true : this.phone = false;
   }
 
 
   ngOnInit(): void {
     this.getInitialClients();
-
-    this.articleSuscription = this.store.select('article')
-    .pipe(
-  
-    ).subscribe(({tempOrder})=>{
-  
-      if(tempOrder.length !==0){
-          this.showLabelTempOrder = true;
-          this.alert= '!';
-      }else{
-          this.alert= '';
-      }
-    })
   }
 
  getInitialClients(){
@@ -252,7 +239,6 @@ handlePageEvent(e: PageEvent) {
   
     
   Search( id : any ){
-    
       this.mostrarSugerencias = true;
       this.spinner = true;
       this.fade = false;
@@ -277,15 +263,6 @@ handlePageEvent(e: PageEvent) {
     }
     // search
 
-    
-visibility(){
-  this.toogle = !this.toogle;
-}
-
-logout(){
-  alert("solucionar el logout desde el back")
-  this.errorService.logout().subscribe()
-}
 
 ngOnDestroy(): void {
   if (this.articleSuscription) {

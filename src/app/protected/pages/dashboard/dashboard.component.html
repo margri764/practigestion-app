@@ -1,6 +1,6 @@
 <div  fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="100">
 
-  <mat-sidenav-container  fullscreen style="height: 100%;">
+  <mat-sidenav-container  fullscreen style="height: 100vh;">
     
     <mat-sidenav #sidenav mode="push"  [ngStyle]="(phone) ? {'width': '100%'} : {'width': '300px'} "  >
 
@@ -110,10 +110,10 @@
     </mat-toolbar>
 
     
-    <mat-accordion class="example-headers-align" multi [ngStyle]="(toogle) ? {'visibility':'visible'}:{'visibility':'hidden'}  ">
-        <mat-expansion-panel>
+    <!-- <mat-accordion class="example-headers-align" multi [ngStyle]="(toogle) ? {'visibility':'visible'}:{'visibility':'hidden'}" style="z-index: 999;">
+        <mat-expansion-panel style="z-index: 999;">
       
-            <div [ngStyle]="(toogle) ? {'display':'block'}:{'display':'none'}" style="margin-top: 40px;">
+            <div [ngStyle]="(toogle) ? {'display':'block'}:{'display':'none'}" style="margin-top: 40px; z-index: 999;" >
 
 
             <div fxLayout="row wrap" *ngIf="!showLabelTempOrder" fxFlex="100" class="mt-5 whiteframe mt-40 mb-40 background-white">
@@ -132,7 +132,7 @@
 
         </mat-expansion-panel>
       
-    </mat-accordion>
+    </mat-accordion> -->
 
     <div fxLayout="row wrap"  fxLayoutAlign="center space-between" fxFlex="100" style="margin-top: 30px; padding: 10px;">
 

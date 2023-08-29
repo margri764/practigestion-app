@@ -11,6 +11,8 @@ import { AppState } from 'src/app/app.reducer';
 import { CookieService } from 'ngx-cookie-service';
 import { Store } from '@ngrx/store';
 import { ErrorBackendDownComponent } from '../../messages/error-backend-down/error-backend-down/error-backend-down.component';
+import { Router } from '@angular/router';
+import { getDataLS, getDataSS } from '../../Storage';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +34,7 @@ export class ErrorService {
               private http : HttpClient,
               private store : Store <AppState>,
               private cookieService: CookieService,
+              private router : Router
 
   ) { 
     this.checkDisplaysizes()
@@ -60,7 +63,6 @@ export class ErrorService {
     return this.http.get<any>(`${this.baseUrl}api/logout`) 
     .pipe(
       tap( (res)=>{
-                 console.log("desde logout",res); 
                  sessionStorage.removeItem("token");
                  this.close$.next(true);
                  this.close$.next(false);
@@ -74,7 +76,10 @@ export class ErrorService {
                  this.store.dispatch(articleActions.unSetTempOrder());
                  this.store.dispatch(authActions.unSetTempClient());
                  this.store.dispatch(authActions.unSetUser());
-                //  this.router.navigateByUrl('/login');
+                 this.router.navigateByUrl('login'); 
+                 setTimeout(()=>{location.reload();},100)
+            
+                 
                }
       ),
       map( res => res )

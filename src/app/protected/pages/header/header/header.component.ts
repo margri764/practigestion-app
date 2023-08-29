@@ -14,8 +14,8 @@ import { ErrorService } from 'src/app/protected/services/error/error.service';
 })
 export class HeaderComponent implements OnInit, AfterViewChecked{
 
-
 @Input() url : string =''
+@Input() logeado : boolean = false;
 
   // accordion
   panelOpenState = false;
@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
  labelHeader : string = '';
  path : string = '/home';
 
+
   constructor(
                private store : Store <AppState>,
                private errorService : ErrorService,
@@ -45,7 +46,9 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
   }
 
   ngAfterViewChecked() {
-    this.updateLabelHeader(this.url)
+    this.updateLabelHeader(this.url);
+    this.login = this.logeado;
+    console.log(this.logeado);
     this.cdRef.detectChanges();
   }
 
@@ -57,6 +60,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
   
     ).subscribe(({tempOrder})=>{
   
+      console.log(tempOrder);
       if(tempOrder.length !==0){
           this.showLabelTempOrder = true;
           this.alert= '!';
@@ -93,7 +97,6 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
     case '/listado-precios/listado':
             this.labelHeader = "Precios";
             this.path = '/listado-precios'
-            console.log(this.path);
     break;  
 
 
@@ -120,7 +123,6 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
 }
 
 logout(){
-  alert("solucionar el logout desde el back")
   this.errorService.logout().subscribe()
 }
 

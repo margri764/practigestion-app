@@ -1,4 +1,4 @@
-    <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100"  class="header" >
+    <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" class="header">
        
         <div fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="50" style="margin-top: 5px;" (click)="navigate()">
                 <span class="material-symbols-outlined notranslate cursor" >arrow_back_ios</span>
@@ -8,7 +8,7 @@
         <div fxLayout="row wrap"  fxLayoutAlign="end center"  fxFlex="50">
 
                 <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" (click)="accordion.openAll(); visibility()" style="margin-right: 15px;">
-                    <mat-icon class="material-symbols-outlined notranslate" [matBadge]="alert" matBadgeColor="warn" [matBadgeHidden]="hidden">notifications</mat-icon>
+                    <mat-icon class="material-symbols-outlined notranslate" [matBadge]="alert" matBadgeColor="warn" [matBadgeHidden]="hidden"  >notifications</mat-icon>
                 </button>
 
                 <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" *ngIf="login" [matMenuTriggerFor]="menu" style="margin-right: 15px;">
@@ -22,7 +22,7 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
               
-            <mat-menu #menu="matMenu">
+             <mat-menu #menu="matMenu">
                 <button mat-menu-item>
                   <mat-icon>logout</mat-icon>
                   <span class="font" (click)="logout()" style="cursor: pointer;">Logout</span>
@@ -31,8 +31,34 @@
                     <mat-icon>person</mat-icon>
                     <span class="font">Cuenta</span>
                   </button>
-              </mat-menu>
-             
+              </mat-menu> 
+           
        </div>
+
+
+       <!-- <mat-accordion class="example-headers-align" multi [ngStyle]="(toogle) ? {'visibility':'visible'}:{'visibility':'hidden'}" style="z-index: 999;" >
+        <mat-expansion-panel style="z-index: 999;">
+      
+            <div [ngStyle]="(toogle) ? {'display':'block'}:{'display':'none'}" style="margin-top: 40px; z-index: 999;">
+
+
+            <div fxLayout="row wrap" *ngIf="!showLabelTempOrder" fxFlex="100" class="mt-5 whiteframe mt-40 mb-40 background-white">
+                    <span class="material-icons no-translate fc-green">done</span> &nbsp;
+                    <span class="font  ml-20" fxFlex="80"> Sin notificaciones </span>
+            </div>  
+             
+    
+                <div fxLayout="row wrap" *ngIf="showLabelTempOrder" fxFlex="100" class="mt-5 whiteframe mt-40 mb-40">
+                    <i class="material-symbols-outlined notranslate fc-red" style="font-size: 38px;">error</i> &nbsp;
+                    <span class="font  ml-10" fxFlex="80" style="line-height: 25px;"> Existen pedidos que no han sido enviados!</span>
+                    <span class="font  mt-5" style="color: blue; cursor: pointer; margin-left: 51px;" fxFlex="100" > <b (click)="accordion.openAll(); visibility()" routerLink="/pedidos-temporales" >Resolver</b></span>
+                </div>   
+            </div>
+       
+
+        </mat-expansion-panel>
+      
+    </mat-accordion>  -->
+
    
     </div>
