@@ -34,6 +34,9 @@ import { AskTempOrderComponent } from './protected/messages/ask-temp-order/ask-t
 import { FooterComponent } from './protected/pages/footer/footer/footer.component';
 import { AskDelClientComponent } from './protected/messages/ask-del-client/ask-del-client/ask-del-client.component';
 import { ListOrdersComponent } from './protected/pages/list-orders/list-orders/list-orders.component';
+import { ErrorBackendDownComponent } from './protected/messages/error-backend-down/error-backend-down/error-backend-down.component';
+import { HeaderComponent } from './protected/pages/header/header/header.component';
+import { EditOrderComponent } from './protected/messages/edit-order/edit-order/edit-order.component';
 
 
 // services
@@ -59,8 +62,7 @@ import { TwoDecimalPipe } from './protected/pipes/twoDecimal.pipe';
 import localeEs from '@angular/common/locales/es-AR'; //nombre inventado el AR es por Argentina
 import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
-import { ErrorBackendDownComponent } from './protected/messages/error-backend-down/error-backend-down/error-backend-down.component';
-import { HeaderComponent } from './protected/pages/header/header/header.component';
+
 registerLocaleData( localeEs );
 
 
@@ -98,7 +100,8 @@ registerLocaleData( localeEs );
     GetTotalItems,
     TwoDecimalPipe,
     ErrorBackendDownComponent,
-    HeaderComponent
+    HeaderComponent,
+    EditOrderComponent
   ],
   imports: [
     BrowserModule,

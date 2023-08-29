@@ -27,7 +27,7 @@ export class ClientComponent implements OnInit, OnDestroy {
   @Output() onEnter   : EventEmitter<string> = new EventEmitter();
   debouncer: Subject<string> = new Subject();
 
-  displayedColumns: string[] = ['action','name','socialName','address','location','phone', 'province', 'user', 'email', 'cuit'];
+  displayedColumns: string[] = ['action','name','location','province','phone', 'email'];
   dataTableActive : any = new MatTableDataSource<any>();
   
 

@@ -2,7 +2,7 @@
 
   <div fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="90" class="whiteframe" style="height: 100%; background-color: white; margin-top: 10px;">
 
-
+    <!-- start menu search -->
         <div style="display: flex; justify-content: space-between; flex-wrap: wrap; width:100%; margin-top:60px;" >
 
             <!-- PRIMERO -->
@@ -58,6 +58,7 @@
                 
             </div>  
         </div>
+    <!-- end menu search -->
             
         <mat-paginator #paginator
         class="demo-paginator"
@@ -89,10 +90,16 @@
                       <!-- <span fxFlex="50" fxFlex.xs="100" class="font  mt-5"><b>{{order.localidad}}</b></span> -->
                       <span fxFlex="45" fxFlex.xs="100" class="font " style="text-align: end; margin-right: 10px;"><b>{{order.fecha | date }}</b></span>
             </div>
-                <!-- <div fxLayout="row wrap" fxLayoutAlign="center center"  fxFlex="40" *ngFor="let mainProduct of order.product">
-  
-                        <img [src]="mainProduct._id.img" alt="" fxFlex="70" >
-                </div> -->
+            <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="100" style="margin-top: 30px;">
+                <div class="icon mr-10"  >
+                    <span class="material-symbols-outlined notranslate cursor" style="color: red;"> delete </span>
+                </div>
+                
+                <div class="icon mr-10"  >
+                    <span class="material-symbols-outlined notranslate cursor" style="color: rgb(255, 176, 57);" (click)="editOrder(order)"> edit </span>
+                </div>
+            
+            </div>
         </div>
   
         <mat-accordion style="width: 97%;" >
@@ -143,10 +150,16 @@
                     <!-- <span fxFlex="50" fxFlex.xs="100" class="font  mt-5"><b>{{order.localidad}}</b></span> -->
                     <span fxFlex="45" fxFlex.xs="100" class="font " style="text-align: end; margin-right: 10px;"><b>{{order.fecha | date }}</b></span>
           </div>
-              <!-- <div fxLayout="row wrap" fxLayoutAlign="center center"  fxFlex="40" *ngFor="let mainProduct of order.product">
-
-                      <img [src]="mainProduct._id.img" alt="" fxFlex="70" >
-              </div> -->
+          <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="100" style="margin-top: 30px;">
+            <div class="icon mr-10"  >
+                <span class="material-symbols-outlined notranslate cursor" style="color: red;"> delete </span>
+            </div>
+            
+            <div class="icon mr-10"  >
+                <span class="material-symbols-outlined notranslate cursor" style="color: rgb(255, 176, 57);" (click)="editOrder(order)"> edit </span>
+            </div>
+        
+        </div>
       </div>
 
       <mat-accordion style="width: 97%;" >
@@ -180,67 +193,6 @@
     </div>         
     <!-- end order -->
 
-<ng-container *ngIf="phone">
-    
-  <div class="example-container mat-elevation-z8 font mt-30" fxFlex="97">
-  
-      <table mat-table [dataSource]="dataTableActive">
-  
-          <!-- img Column -->
-          <ng-container matColumnDef="action"   >
-              <th mat-header-cell *matHeaderCellDef style="padding: 0px;">Accion</th>
-              <td mat-cell *matCellDef="let element" > 
-
-                  <div style="width: 80%; display: flex;  justify-content: space-around;" >
-                          <div class="icon" (click)="editOrder(element)">
-                              <span class="material-symbols-outlined notranslate cursor" style="color: rgb(255, 176, 57);"> edit </span>
-                          </div>
-                          <div class="icon" (click)="deleteOrder(element)">
-                              <span class="material-symbols-outlined notranslate cursor" style="color: red"> delete </span>
-                          </div>
-                  </div>
-
-              </td>
-          </ng-container>
-              
-          <!-- Name Column -->
-          <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef > Id Pedido </th>
-              <td mat-cell *matCellDef="let element" (click)="editOrder(element)"  > {{element.idPedido}} </td>
-          </ng-container>
-      
-          <!-- Stock Column -->
-          <ng-container matColumnDef="socialName" >
-              <th mat-header-cell *matHeaderCellDef> Razon social </th>
-              <td mat-cell *matCellDef="let element" (click)="editOrder(element)" > {{element.razonSocial}} </td>
-          </ng-container>
-      
-          <!-- Price Column -->
-          <ng-container matColumnDef="items" >
-              <th mat-header-cell *matHeaderCellDef> Detalle </th>
-              <td mat-cell *matCellDef="let element" (click)="editOrder(element)" > {{element.detalleItems.razonSocial}} </td>
-          </ng-container>
-      
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-  </div>
-
-  <mat-paginator #paginator
-  class="demo-paginator"
-  (page)="handlePageEvent($event)"
-  [length]="length"
-  [pageSize]="pageSize"
-  [disabled]="disabled"
-  [showFirstLastButtons]="showFirstLastButtons"
-  [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
-  [hidePageSize]="hidePageSize"
-  [pageIndex]="pageIndex"
-  aria-label="Select page" style="margin-top: 30px;">
-  </mat-paginator>
-
-</ng-container>
-  
 <div *ngIf="isLoading" style="margin-top: 30px;" class="loading-overlay">
   <mat-spinner diameter="80"></mat-spinner>
 </div>

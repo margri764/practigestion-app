@@ -2,7 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 
 import { LoginMessageComponent } from '../../messages/login-message/login-message/login-message.component';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject, map, tap } from 'rxjs';
+import { BehaviorSubject, map, of, tap, throwError } from 'rxjs';
 import * as authActions from 'src/app/auth.actions'
 import * as articleActions from 'src/app/article.actions'
 import { HttpClient } from '@angular/common/http';
@@ -28,6 +28,7 @@ export class ErrorService {
   isLoading$ = new BehaviorSubject<boolean>(false) //quiero a ce cierren todos los modals cuando se produce un error de servidor 
   authDelTempOrder$ : EventEmitter<boolean> = new EventEmitter<boolean>; 
   authDelClient$ : EventEmitter<boolean> = new EventEmitter<boolean>; 
+  closeIsLoading$ : EventEmitter<boolean> = new EventEmitter<boolean>; 
   
   constructor(
               private dialog : MatDialog,
@@ -40,23 +41,35 @@ export class ErrorService {
     this.checkDisplaysizes()
   }
 
-  getError(error : any){
-    // si se cae el back
-    if (error.error instanceof ProgressEvent) {
-      // this.logout();
-      // this.launchMaintenance();
-    }
+  getError(error : any) {
+
+    // // si se cae el back
+    // if (error.error instanceof ProgressEvent) {
+    //   // this.logout();
+    //   // this.launchMaintenance();
+    // }
 
     if (error.status === 401) {
       this.openDialogLogin();
+      return of(null);
       // this.logout().subscribe();
     }
 
+    if (error.status === 500 && error.error.message === "El pedido no puede ser editado, se encuentra emitido o cancelado.") {
+      alert("El pedido no puede ser editado, se encuentra emitido o cancelado.");
+      this.closeIsLoading$.emit(true);
+      return of(null);
+      // this.logout().subscribe();
+    }
     
     if (error.status === 500) {
       this.openDialogBackendDown();
-      // this.logout().subscribe();
+      return of(null);
     }
+
+        // Devuelve un observable que emite el error original
+  return throwError(() => error);
+
   }
 
   logout(){

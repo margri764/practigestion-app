@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -7,6 +7,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ArticlesService {
+
+  initialStateAfterEditOrder$ : EventEmitter<boolean> = new EventEmitter<boolean>; 
 
 
   token : string = '';
@@ -112,6 +114,17 @@ getSalePointByNumOrder( salePoint :  any, nroOrder : any ){
 .pipe(
   map( res =>{ 
         console.log('desde service getSalePointByNumOrder', res)
+          return res} )
+  );
+}
+
+editOrderBySalePointAndNumOrder( body:any, salePoint : any, nroOrder : any){
+console.log(body);
+  return this.http.put<any>(`${this.baseUrl}api/pedidos/${salePoint}/${nroOrder}`, body)
+.pipe(
+  map( res =>{ 
+              
+        console.log('desde service editOrderBySalePointAndNumOrder', res)
           return res} )
   );
 }

@@ -1,9 +1,11 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatAccordion } from '@angular/material/expansion';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Pedido } from 'src/app/protected/interfaces/orders-posted';
+import { EditOrderComponent } from 'src/app/protected/messages/edit-order/edit-order/edit-order.component';
 import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
 import { WorkerService } from 'src/app/protected/services/worker/worker.service';
 
@@ -68,6 +70,7 @@ export class ListOrdersComponent implements OnInit {
   constructor(
               private fb : FormBuilder,
               private articleService : ArticlesService,
+              private dialog : MatDialog,
               private workerService: WorkerService,
 
   ) { 
@@ -76,7 +79,17 @@ export class ListOrdersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+   
+    // despues de editar el pedido balaqueo todo 
+      this.articleService.initialStateAfterEditOrder$.subscribe((emitted)=>{
+          if(emitted){
+                this.arrOrders = [];
+                // this.isLoading = false;
+                this.myForm.reset();
+                this.myForm2.reset();
+                this.showOrderFounded = false;
+                this.order = {};
+        }});
 
       this.myForm = this.fb.group({
         ptoVenta1:  [ '',[Validators.required]],
@@ -91,14 +104,15 @@ export class ListOrdersComponent implements OnInit {
   getInitialOrders(){
     this.isLoading = true;
     this.showOrderFounded = false;
-
+    this.arrOrders = [];
     // this.dataTableActive = this.articleService.getOrdersPaginator(this.pageIndex, this.pageSize,)
 
     this.articleService.getOrdersPaginator(this.pageIndex, this.pageSize).subscribe(
       ({Pedidos})=>{
         this.arrOrders = Pedidos;
-        this.dataTableActive = Pedidos;
-        this.isLoading = false
+        this.isLoading = false;
+        this.myForm.reset();
+        this.myForm2.reset();
       })
   }
 
@@ -115,9 +129,9 @@ export class ListOrdersComponent implements OnInit {
       const ptoVenta = this.myForm.get('ptoVenta1')?.value;
 
       this.articleService.getOrdersByPtoVenta(ptoVenta).subscribe(
-        ({Pedidos})=>{
-          if(Pedidos.length !== 0){
-            this.arrOrders = Pedidos;
+        ({pedidos})=>{
+          if(pedidos.length !== 0){
+            this.arrOrders = pedidos;
             this.isLoading = false;
             this.myForm.reset();
           }
@@ -135,7 +149,6 @@ export class ListOrdersComponent implements OnInit {
     this.arrOrders = [];
     const ptoVenta2 = this.myForm2.get('ptoVenta2')?.value;
     const nroOrder = this.myForm2.get('nroOrder')?.value;
-    console.log(ptoVenta2, nroOrder);
 
     this.articleService.getSalePointByNumOrder(ptoVenta2, nroOrder).subscribe(
       ({Pedido})=>{
@@ -144,7 +157,6 @@ export class ListOrdersComponent implements OnInit {
           this.order = Pedido;
           this.myForm2.reset();
           this.showOrderFounded = true;
-          console.log(this.order);
         }
       })
 
@@ -154,9 +166,8 @@ export class ListOrdersComponent implements OnInit {
   loadOrders() {
     this.isLoading= true;
     this.articleService.getOrdersPaginator(this.pageIndex, this.pageSize,).subscribe(
-    ({Pedidos})=>{
-      this.arrOrders = Pedidos;
-      this.dataTableActive = Pedidos;
+    ({pedidos})=>{
+      this.arrOrders = pedidos;
       this.isLoading = false
     })
   }
@@ -174,16 +185,31 @@ export class ListOrdersComponent implements OnInit {
       // this.dataTableActive = this.articleService.getOrdersPaginator(this.pageIndex, this.pageSize,)
       
       this.articleService.getOrdersPaginator(this.pageIndex, this.pageSize,).subscribe(
-        ({Pedidos})=>{
-          this.arrOrders = Pedidos;
-          this.dataTableActive = Pedidos;
+        ({pedidos})=>{
+          this.arrOrders = pedidos;
           this.isLoading = false
         })
   }
   
   
 
-  editOrder(order:any){
+  editOrder(order: any){
+
+    console.log(order);
+    let width : string = '';
+    let height : string = '';
+
+    if(screen.width >= 800) {
+      width = "900px"
+      height ="500px";
+    }
+
+    this.dialog.open(EditOrderComponent, {
+      data: order,
+      width: `${width}`|| "",
+      height:`${height}`|| "",
+      panelClass:"custom-modalbox-edit", 
+    });
 
   }
 
@@ -208,4 +234,7 @@ export class ListOrdersComponent implements OnInit {
       return {'color':'black'};
   }
   
+  close(){
+
+  }
 }

@@ -56,7 +56,6 @@
 
 
 .example-container {
-  width: 100%;
   height: calc(100vh - 450px);
   overflow: auto;
   font-size: 1.8em;
@@ -71,62 +70,49 @@ table {
 
 
 .mat-column-action {
-  width: 11%;
+  width: 14%;
   text-align: center;
 }
 
 //  este es la segunda columna es de donde se mueve es la "position"
 th.mat-column-name, td.mat-column-name {
+  width: 14%;
   padding-left: 8px;
-  width: 15%;
   cursor: pointer;
   text-align: start;
 }
 
 .mat-column-socialName {
-  width: 10%;
+  width: 15%;
   cursor: pointer;
   text-align: start;
 }
 
-.mat-column-address {
-  width: 10%;
-  cursor: pointer;
-  text-align: start ;
-  padding: 3px;
 
-}
-// este es el "end o "star" de ejemplo
 .mat-column-location {
-  width: 10%;
+  width: 14%;
   cursor: pointer;
   text-align: start ;
 }
 
 .mat-column-phone {
-  width: 10%;
+  width: 15%;
   cursor: pointer;
   text-align: start ;
 }
 
 .mat-column-province {
-  width: 10%;
+  width: 15%;
   cursor: pointer;
   text-align: start start;
 }
 
 .mat-column-email {
-  width: 10%;
+  width: 14%;
   cursor: pointer;
   text-align: start ;
 }
 
-.mat-column-cuit {
-  width: 10%;
-
-  cursor: pointer;
-  text-align: start ;
-}
 
 
 

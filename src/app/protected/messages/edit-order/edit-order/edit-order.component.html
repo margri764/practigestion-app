@@ -1,0 +1,131 @@
+<!-- <div fxLayout="row wrap" fxLayoutAlign="center space-between" style="padding: 10px;" >
+
+    <div  fxLayout="row wrap"  fxLayoutAlign=" center" fxFlex="95" style="height: 60px; background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
+    -moz-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);" class="mt-20 pd-10">
+        <span fxLayout="row wrap" fxLayoutAlign="start center" class="font fs-6" fxFlex="55">Editar Pedido</span>
+    </div>
+            
+    <form  [formGroup]="myForm"  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="95"  style="margin-top: 15px;">     
+    
+        <mat-form-field appearance="outline" fxFlex="97" class="mt-10 font " >		
+            <mat-label>idAgenda </mat-label>
+            <input matInput type="text" required formControlName="idAgenda" >
+        </mat-form-field> 
+     
+    
+         <mat-form-field appearance="outline" fxFlex="97" class="mt-10 font " >		
+             <mat-label>Estado </mat-label>
+             <input matInput type="text" required formControlName="estado">
+         </mat-form-field> 
+         
+         <mat-form-field appearance="outline" fxFlex="97" class="mt-10 font " >		
+            <mat-label>Descuento % </mat-label>
+            <input matInput type="text" required formControlName="descuentoPorcentaje" >
+        </mat-form-field> 
+
+        <div fxLayout="row wrap" fxLayoutAlign="space-between" fxFlex="100" style="padding: 10px;" >
+
+            <mat-form-field appearance="outline" fxFlex="48" class="mt-10 font " >		
+                <mat-label>Cod. Area</mat-label>
+                <input matInput type="text"  formControlName="area">
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="48" class="mt-10 font " >		
+                <mat-label>Numero</mat-label>
+                <input matInput type="text"  formControlName="phone">
+            </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline" fxFlex="97" class="mt-10 font " >		
+            <mat-label>Dirección</mat-label>
+            <input matInput type="text" formControlName="address">
+        </mat-form-field> 
+
+        <mat-form-field appearance="outline" fxFlex="97" class="mt-10 font " >		
+            <mat-label>Otro campo</mat-label>
+            <input matInput type="text" formControlName="address">
+        </mat-form-field> 
+       
+   </form>
+
+
+    <div  fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="95" >
+        <button mat-raised-button  [ngClass]="!save ? 'btnMenuClicked':'btnMenu'" fxFlex="48" (click)="closeComponent()" >
+            <i class="material-symbols-outlined notranslate"  >redo</i> 
+            &nbsp;Cancelar
+        </button>
+        <button mat-raised-button  [ngClass]="save ? 'btnMenuClicked':'btnMenu'" fxFlex="48" (click)="onSaveForm()">
+            <i class="material-symbols-outlined notranslate">login</i> 
+            &nbsp; Editar
+        </button>
+    </div>
+
+</div>
+   -->
+
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  style=" padding: 10px;"> 
+
+    <div  fxLayout="row wrap"  fxLayoutAlign=" center" fxFlex="95" style="height: 50px; background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
+    -moz-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);" class="mt-20 pd-10">
+        <span fxLayout="row wrap" fxLayoutAlign="start center" class="font fs-6" fxFlex="55">Editar Pedido</span>
+    </div>
+
+    <form [formGroup]="orderForm" fxLayout="row wrap" fxLayoutAlign="centercenter" fxFlex="95" style="margin-top: 30px;" >
+
+        <div  fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" >
+
+              <span class="font" style="margin-top: 20px; margin-bottom: 10px; text-align: start; font-size: 1.5em;" fxFlex="100"> <b>Datos Pedido</b></span>
+                <mat-form-field appearance="outline" fxFlex="25" class="mt-10 font " >		
+                    <mat-label>idAgenda </mat-label>
+                    <input matInput type="text" required formControlName="idAgenda" >
+                </mat-form-field> 
+            
+                <mat-form-field appearance="outline" fxFlex="25" class="mt-10 font " >		
+                    <mat-label>Descuento % </mat-label>
+                    <input matInput type="text" required formControlName="descuentoPorcentaje" >
+                </mat-form-field> 
+
+                <mat-form-field appearance="outline" fxFlex="25" class="mt-10 font " >		
+                    <mat-label>Estado del pedido</mat-label>
+                    <input matInput type="text" required formControlName="estado">
+                </mat-form-field> 
+        </div>
+        <span class="font" style="margin-top: 20px; margin-bottom: 10px; text-align: start; font-size: 1.5em;" fxFlex="100"> <b>Items</b></span>
+
+        <div formArrayName="detalleItems" fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" >
+            <div *ngFor="let detalleItem of getDetalleItemsControls(); let i = index" xLayout="row wrap" fxLayoutAlign="center center" fxFlex="95">
+                <div [formGroupName]="i" fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="95" >
+
+                    <mat-form-field appearance="outline" fxFlex="25" class="mt-10 font " >		
+                        <mat-label>Código Interno: </mat-label>
+                        <input matInput type="number" required formControlName="codigoInterno" >
+                    </mat-form-field> 
+
+                    <mat-form-field appearance="outline" fxFlex="25" class="mt-10 font " >		
+                        <mat-label>Cantidad: </mat-label>
+                        <input matInput type="number" required formControlName="cantidad" >
+                    </mat-form-field> 
+
+                    <mat-form-field appearance="outline" fxFlex="25" class="mt-10 font " >		
+                        <mat-label>Bonificación (%): </mat-label>
+                        <input matInput type="number" required formControlName="bonificacionPorciento" >
+                    </mat-form-field> 
+            
+                </div>
+            </div>
+
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="mt-20">
+                <button mat-raised-button  [ngClass]="isLoading? 'btnMenuClicked':'btnMenu'" fxFlex="60" (click)="onSaveForm()">
+                    <i class="material-symbols-outlined notranslate" style="transform: scale(1.3);">edit</i> 
+                    &nbsp; Editar Orden
+                </button>
+        </div>
+    </form>
+    
+</div>
+
+<div *ngIf="isLoading" style="margin-top: 30px;" class="loading-overlay">
+    <mat-spinner diameter="80"></mat-spinner>
+  </div>
+  
+    
