@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
   ngAfterViewChecked() {
     this.updateLabelHeader(this.url);
     this.login = this.logeado;
-    console.log(this.logeado);
+    // console.log(this.logeado);
     this.cdRef.detectChanges();
   }
 

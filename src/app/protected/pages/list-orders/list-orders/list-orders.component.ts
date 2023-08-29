@@ -56,9 +56,12 @@ export class ListOrdersComponent implements OnInit {
     // paginator
     
     myForm! : FormGroup;
-    ptoVenta: string[] = ['1', '2'];
+    myForm2! : FormGroup;
     send :  boolean = false;
     order : any;
+    salePoint : any;
+    showOrderFounded : boolean = false;
+
 
 
 
@@ -76,14 +79,19 @@ export class ListOrdersComponent implements OnInit {
 
 
       this.myForm = this.fb.group({
-        type:  [ ''],
-        nroOrder:  [ ''],
-        ptoVenta:  [ ''],
+        ptoVenta1:  [ '',[Validators.required]],
+      });   
+
+      this.myForm2 = this.fb.group({
+        ptoVenta2:  [ '',[Validators.required]],
+        nroOrder:  [ '',[Validators.required]],
       });   
   }
 
   getInitialOrders(){
     this.isLoading = true;
+    this.showOrderFounded = false;
+
     // this.dataTableActive = this.articleService.getOrdersPaginator(this.pageIndex, this.pageSize,)
 
     this.articleService.getOrdersPaginator(this.pageIndex, this.pageSize).subscribe(
@@ -94,35 +102,49 @@ export class ListOrdersComponent implements OnInit {
       })
   }
 
-  salePoint : any;
+  selectSalePoint(){
 
-  selectSalePoint(value : any){
+    if ( this.myForm.invalid ) {
+      this.myForm.markAllAsTouched();
+      return;
+    }
       this.isLoading = true;
       this.arrOrders = [];
-      this.articleService.getOrdersByPtoVenta(value).subscribe(
+      this.showOrderFounded = false;
+
+      const ptoVenta = this.myForm.get('ptoVenta1')?.value;
+
+      this.articleService.getOrdersByPtoVenta(ptoVenta).subscribe(
         ({Pedidos})=>{
           if(Pedidos.length !== 0){
             this.arrOrders = Pedidos;
             this.isLoading = false;
-            // this.myForm.get('type')?.setValue('');
-            // this.myForm.get('pointAndNum')?.setValue('');
+            this.myForm.reset();
           }
         })
    }
 
    getSalePointByNumOrder(){
 
+    if ( this.myForm2.invalid ) {
+      this.myForm2.markAllAsTouched();
+      return;
+    }
+    this.showOrderFounded = false;
     this.isLoading = true;
     this.arrOrders = [];
-    const nroOrder = this.myForm.get('nroOrder')?.value;
-    const ptoVenta = this.myForm.get('ptoVenta')?.value;
+    const ptoVenta2 = this.myForm2.get('ptoVenta2')?.value;
+    const nroOrder = this.myForm2.get('nroOrder')?.value;
+    console.log(ptoVenta2, nroOrder);
 
-    this.articleService.getSalePointByNumOrder(ptoVenta, nroOrder).subscribe(
+    this.articleService.getSalePointByNumOrder(ptoVenta2, nroOrder).subscribe(
       ({Pedido})=>{
         if(Pedido){
           this.isLoading = false;
           this.order = Pedido;
-  ;
+          this.myForm2.reset();
+          this.showOrderFounded = true;
+          console.log(this.order);
         }
       })
 
