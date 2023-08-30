@@ -76,7 +76,7 @@
             <mat-icon style="transform: scale(1.2);">menu</mat-icon>
         </button>
 
-        <div fxLayout="row wrap"  fxLayoutAlign="space-between center"  fxFlex="100" >
+        <div fxLayout="row wrap"  fxLayoutAlign="space-between center"  fxFlex="100">
 
             <div fxLayout="row wrap"  fxLayoutAlign="center"  fxFlex="25" >
             </div>
@@ -110,7 +110,7 @@
     </mat-toolbar>
 
     
-    <!-- <mat-accordion class="example-headers-align" multi [ngStyle]="(toogle) ? {'visibility':'visible'}:{'visibility':'hidden'}" style="z-index: 999;">
+    <mat-accordion class="example-headers-align" multi [ngStyle]="(toogle) ? {'visibility':'visible'}:{'visibility':'hidden'}" style="z-index: 999;">
         <mat-expansion-panel style="z-index: 999;">
       
             <div [ngStyle]="(toogle) ? {'display':'block'}:{'display':'none'}" style="margin-top: 40px; z-index: 999;" >
@@ -132,34 +132,34 @@
 
         </mat-expansion-panel>
       
-    </mat-accordion> -->
+    </mat-accordion>
 
     <div fxLayout="row wrap"  fxLayoutAlign="center space-between" fxFlex="100" style="margin-top: 30px; padding: 10px;">
 
-        <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex.xs="100" fxFlex="80" class="container-main-icons">
+        <div fxLayout="row wrap"  fxLayoutAlign="center center" fxLayoutAlign.xs="space-between center" fxFlex.xs="100" fxFlex="80">
 
-            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" style="margin-top: 30px;" routerLink="/armar-pedido" >
+            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" fxFlex.xs="48" style="margin-top: 30px;" routerLink="/armar-pedido" >
                 <div class="mainIcon" >
                     <span class="material-icons notranslate" > shopping_bag </span>
                 </div>
                 <span fxFlex="100"  class="font " style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Iniciar Pedido</span>
             </div>  
 
-            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" style="margin-top: 30px;" routerLink="/pedidos-temporales" >
+            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" fxFlex.xs="48" style="margin-top: 30px;" routerLink="/pedidos-temporales" >
                 <div class="mainIcon" >
                     <span class="material-symbols-outlined notranslate"> shopping_bag </span>
                 </div>
                 <span fxFlex="100"  class="font " style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Pedidos Abiertos</span>
             </div>  
             
-            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" style="margin-top: 30px;" routerLink="/listado-articulos" >
+            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" fxFlex.xs="48" style="margin-top: 30px;" routerLink="/listado-articulos" >
                 <div class="mainIcon" >
                     <span class="material-symbols-outlined notranslate"> category </span>
                 </div>
                 <span fxFlex="100"  class="font " style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Lista Artículos</span>
             </div>  
 
-            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" style="margin-top: 30px;" (click)="sidenav.toggle()">
+            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" fxFlex.xs="48" style="margin-top: 30px;" (click)="sidenav.toggle()">
                 <div class="mainIcon" >
                     <span class="material-symbols-outlined notranslate" > add </span>
                 </div>

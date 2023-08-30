@@ -55,19 +55,19 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
 
   ngOnInit(): void {
 
-    this.articleSuscription = this.store.select('article')
-    .pipe(
+    // this.articleSuscription = this.store.select('article')
+    // .pipe(
   
-    ).subscribe(({tempOrder})=>{
+    // ).subscribe(({tempOrder})=>{
   
-      console.log(tempOrder);
-      if(tempOrder.length !==0){
-          this.showLabelTempOrder = true;
-          this.alert= '!';
-      }else{
-          this.alert= '';
-      }
-    })
+    //   console.log(tempOrder);
+    //   if(tempOrder.length !==0){
+    //       this.showLabelTempOrder = true;
+    //       this.alert= '!';
+    //   }else{
+    //       this.alert= '';
+    //   }
+    // })
 
     
  }
@@ -83,7 +83,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
     break;  
 
     case '/pedidos-temporales':
-         this.labelHeader = "Pedidos Temporales";
+         this.labelHeader = "Pedidos abiertos";
     break;  
 
     case '/listado-clientes':
@@ -98,6 +98,15 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
             this.labelHeader = "Precios";
             this.path = '/listado-precios'
     break;  
+ 
+    case '/buscar-articulos':
+          this.labelHeader = "Buscar";
+          this.path = '/buscar-articulos';
+    break;  
+
+    case '/armar-pedido':
+          this.labelHeader = "Pedido";
+    break; 
 
 
   
@@ -111,11 +120,24 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
 
  navigate(){
 
-   if(this.path === '/listado-precios/listado'){
-     this.router.navigateByUrl('/listado-precios')
-    }else{
-      this.router.navigateByUrl('/home')
-    }
+        switch (this.path) {
+          case '/listado-precios/listado':  
+                 this.router.navigateByUrl('/listado-precios');
+            break;
+          case '/buscar-articulos':
+              this.router.navigateByUrl('/armar-pedido');
+          break;
+                 
+          default: this.router.navigateByUrl('/home');
+            break;
+        }
+
+  //  if(this.path === '/listado-precios/listado'){
+  //    this.router.navigateByUrl('/listado-precios')
+  //   }else{
+  //     this.router.navigateByUrl('/home')
+  //   }
+
  }
 
  visibility(){

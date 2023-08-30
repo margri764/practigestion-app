@@ -16,13 +16,16 @@ export class LocalStorageService {
    loadInitialState() {
     // const storedState = getDataLS("arrArticles");
     const storedState = getDataSS("arrArticles");
-    const tempOrder = getDataLS("tempOrder");
+    const openOrders = getDataSS("openOrders");
     if (storedState) {
       this.store.dispatch(articleAction.setSelectedArticles({ arrSelectedArticles: storedState }));
     }
-    if (tempOrder) {
-      this.store.dispatch(articleAction.setTempOrder({ tempOrder: tempOrder }));
+    if(openOrders){
+      this.store.dispatch(articleAction.setTempOrder({ tempOrder: openOrders }));
     }
+    // if (tempOrder) {
+    //   this.store.dispatch(articleAction.setTempOrder({ tempOrder: tempOrder }));
+    // }
   }
 
   saveStateToLocalStorage(dataToSave: any, keyLStorage : string) {

@@ -87,7 +87,7 @@ export class ErrorService {
                  this.cookieService.delete('token')
                  this.store.dispatch(articleActions.unSetArticles());
                  this.store.dispatch(articleActions.unSetSelectedArticles());
-                 this.store.dispatch(articleActions.unSetTempOrder());
+                //  this.store.dispatch(articleActions.unSetTempOrder());
                  this.store.dispatch(authActions.unSetTempClient());
                  this.store.dispatch(authActions.unSetUser());
                  this.router.navigateByUrl('login'); 

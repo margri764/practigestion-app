@@ -159,7 +159,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
           this.itemSearch = value;
           this.mostrarSugerencias = true;  
           const valueSearch = value.toUpperCase();
-          this.articleService.searchProducts(valueSearch)
+          this.articleService.searchArticleByDescription(valueSearch)
           .subscribe ( ({articulos} )=>{
             if(articulos.length !== 0){
               // this.arrArticlesSugested = articulos;

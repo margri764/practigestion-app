@@ -4,31 +4,30 @@
 
    <div  fxLayout="row wrap"  fxLayoutAlign="center start" FxFlex="100" style="margin-top: 40px;" *ngIf="tempOrder.length !== 0">
         
-    <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="background-color: rgb(243, 243, 255); margin-bottom: 30px;  padding: 10px" fxFlex="97" class="whiteframe" *ngFor="let article of tempOrder">
+    <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="background-color: rgb(243, 243, 255); margin-bottom: 30px;  padding: 10px" fxFlex="97" class="whiteframe" *ngFor="let order of tempOrder">
 
         <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="background-color: rgb(37, 150, 190); color: white; height: 30px; padding: 5px;">
-            <span  class="font fs-5" fxFlex="40" > Código: {{article.idAgenda }} </span>
-            <span  class="font fs-4" fxFlex="60" style="text-align: end;"> Pendiente de envio </span>
+            <span  class="font fs-5" fxFlex="60" >Comp. Nro: {{order.cbteNro  }} </span>
+            <span  class="font fs-4" fxFlex="40" style="text-align: end;"> Abierto </span>
       
           </div>
    
-        <span  class="font fs-5 mt-20" fxFlex="100" > {{article.fullName| capitalizeFirstLetter }}</span>
-        <span  class="font fs-5 mt-20" fxFlex="100" > Cuit: {{article.cuit }}</span>
-        <span  class="font fs-5 mt-20" fxFlex="100" > Fecha: {{article.date }}</span>
-        <span  class="font fs-5 mt-20" fxFlex="100" > <b>Total:</b> ${{article.total }}</span>
+        <span  class="font fs-5 mt-20" fxFlex="100" > {{order.archivarComo| capitalizeFirstLetter }}</span>
+        <span  class="font fs-5 mt-20" fxFlex="100" > Fecha: {{order.fecha | date }}</span>
+        <span  class="font fs-5 mt-20" fxFlex="100" > <b>Total:</b> $ {{order.impTotal | decimalRound }}</span>
 
             
         <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="100" class="mt-20">
-            <div class="icon mr-10" (click)="deleteItem(article.idTempOrder)" >
-                <span class="material-symbols-outlined notranslate" style="color: red;"> delete </span>
+            <div class="icon mr-10" (click)="deleteOrder(order)" >
+                <span class="material-symbols-outlined notranslate cursor" style="color: red;"> delete </span>
             </div>
 
             <div class="icon mr-10" >
-                <span class="material-symbols-outlined notranslate" style="color: rgb(255, 176, 57);"> edit </span>
+                <span class="material-symbols-outlined notranslate cursor" style="color: rgb(255, 176, 57);" (click)="editOrder(order)"> edit </span>
             </div>
 
             <div class="icon" >
-                <span class="material-symbols-outlined notranslate" style="color: rgb(23, 178, 2);"> send </span>
+                <span class="material-symbols-outlined notranslate cursor" style="color: rgb(23, 178, 2);" (click)="sendOrder(order)"> send </span>
             </div>
         </div>
 
@@ -44,3 +43,9 @@
 
 
 </div>
+
+<div *ngIf="isLoading" style="margin-top: 30px;" class="loading-overlay">
+    <mat-spinner diameter="80"></mat-spinner>
+  </div>
+  
+    

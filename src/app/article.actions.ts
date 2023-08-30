@@ -9,6 +9,8 @@ export const setArticles = createAction('[Articles] setArticles',
 export const setSelectedArticles = createAction('[Articles] setSelectedArticles',
 props<{ arrSelectedArticles : DetalleItem [] }>());
 
+
+
 export const setTempOrder= createAction('[Articles] setTempOrder',
 props<{ tempOrder : any [] }>());
 

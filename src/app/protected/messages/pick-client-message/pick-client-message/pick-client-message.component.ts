@@ -8,6 +8,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ErrorService } from 'src/app/protected/services/error/error.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { saveDataSS } from 'src/app/protected/Storage';
 
 
 @Component({
@@ -68,8 +69,9 @@ phone : boolean = false;
     this.store.dispatch(authActions.setTempClient({client}));
     setTimeout(()=>{
       this.dialogRef.close();
+      saveDataSS('tempClient', client);
       this.router.navigateByUrl('/armar-pedido')
-    },1000)
+    },100)
   }
 
    // search

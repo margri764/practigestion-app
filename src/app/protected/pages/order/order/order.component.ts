@@ -14,6 +14,8 @@ import { GenericSuccessComponent } from 'src/app/protected/messages/generic-succ
 import { LocalStorageService } from 'src/app/protected/services/localStorage/local-storage.service';
 import { Subscription, filter } from 'rxjs';
 import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
+import { getDataSS } from 'src/app/protected/Storage';
+import { GenericMessageComponent } from 'src/app/protected/messages/generic-message/generic-message/generic-message.component';
 
 
 @Component({
@@ -38,10 +40,10 @@ export class OrderComponent implements OnInit, OnDestroy {
   showProduct : boolean = false;
   // labelNoArticles : boolean = false;
   // isLoading : boolean = false;
+
   confirm : boolean = false;
-
   saleOption : string[] =['Contado, Cuenta Corriente']
-
+  salePoint : any [] =[]
 
 
   constructor(
@@ -51,9 +53,7 @@ export class OrderComponent implements OnInit, OnDestroy {
               private orderService : OrderService,
               private cdRef: ChangeDetectorRef,
               private localStorageService: LocalStorageService,
-
   ) {
-    
 
   }
 
@@ -67,10 +67,10 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-   
 
-    // this.updateArticlesFromLS()
-    this.getTotal();
+   this.getSalePoint();
+   this.getTotal();
+   this.checkSessionStorage();
 
     this.orderService.changeClientValue.subscribe(
       (emitted) => {
@@ -81,7 +81,6 @@ export class OrderComponent implements OnInit, OnDestroy {
         }
       }
     );
-  
 
     this.myForm = this.fb.group({
       date:     [ this.onlyDate],
@@ -90,7 +89,7 @@ export class OrderComponent implements OnInit, OnDestroy {
       phone:  [ ''], 
       cuit:  [ ''], 
       discount:  [ 0], 
-      ptoVenta:  [ 0], 
+      ptoVenta:  [ '' ,[Validators.required]], 
     });
     
 
@@ -110,18 +109,28 @@ export class OrderComponent implements OnInit, OnDestroy {
           this.myForm.controls['ptoVenta']?.setValue(tempClient.ptoVenta);
           console.log(this.client);
       })
+
       
       this.articleSuscription = this.store.select('article')
       .pipe(
 
-      ).subscribe(({arrSelectedArticles, tempOrder})=>{
+      ).subscribe(({arrSelectedArticles})=>{
         this.arrItemSelected = arrSelectedArticles; //este es el pedido q se envia a BD
         this.arrArticles = arrSelectedArticles; // este se muestra en el front con otras propiedades
-        if(tempOrder.length !== 0){
-          // this.tempOrder = tempOrder;
-        }
+       
       })
  
+  }
+
+  getSalePoint(){
+
+    this.orderService.getSalePoint().subscribe(
+      ({pos})=>{
+          if(pos.length !== 0){
+              this.salePoint = pos
+          }
+      })
+
   }
 
   getTotal(): number {
@@ -152,50 +161,6 @@ export class OrderComponent implements OnInit, OnDestroy {
     return `id_${timestamp}`;
   }
 
-  saveTempOrder(){
-
-    this.confirm = true;
-    if ( this.myForm.invalid  ) {
-      this.myForm.markAllAsTouched();
-     this.confirm = false;
-
-      return;
-    }
-    if(this.arrItemSelected.length === 0 ){
-        this.openGenericMsgAlert('Elegí productos para generar el pedido');
-        this.confirm = false;
-        return;
-    }
-    const detalleItems = this.createItemsOrder();
-    
-    let tempOrderToPush  ={
-        idTempOrder : this.generateSimpleId(),
-        date: this.onlyDate,
-        fullName: this.client.archivarcomo || 'Fernando Griotti',
-        total: this.getTotal() || 0,
-        cuit: this.client.cuit || '30288907650',
-        idAgenda : this.client.id,
-        estado :  this.client.estado || 'A',
-        ptoVenta: this.client.ptoVenta || 1,
-        descuentoPorcentaje: this.myForm.get('discount')?.value || 0,
-        detalleItems 
-    }
-
-    let tempOrderToSave : any[]= [];
-    tempOrderToSave.push(tempOrderToPush);
-
-    this.store.dispatch(articleAction.setTempOrder({tempOrder:  tempOrderToSave}));
-    this.localStorageService.saveStateToLocalStorage(tempOrderToSave, "tempOrder");
-    sessionStorage.removeItem("arrArticles");
-    this.client = {};
-    this.myForm.reset();
-    this.store.dispatch(articleAction.unSetSelectedArticles());
-    this.store.dispatch(authAction.unSetTempClient());
-   
-     this.openGenericSuccess('Pedido temporal creado');
-
-  }
- 
   selectOption(option : string){
     switch (option) {
       case "client":
@@ -225,7 +190,7 @@ export class OrderComponent implements OnInit, OnDestroy {
    return tempOrderItem
   }
 
-  createOrder(){
+  createOrder(saveOrSend : string){
      this.confirm = true;
     if ( this.myForm.invalid  ) {
       this.myForm.markAllAsTouched();
@@ -242,16 +207,42 @@ export class OrderComponent implements OnInit, OnDestroy {
     const detalleItems = this.createItemsOrder();
     const body : Order ={
         idAgenda : this.client.id,
-        estado :  "A",
-        ptoVenta: 1,
+        estado :  saveOrSend,
+        ptoVenta: this.myForm.get('ptoVenta')?.value,
         descuentoPorcentaje: this.myForm.get('discount')?.value,
         detalleItems 
 
     }
-    // this.tempOrder.push(body);
     
 console.log(body);
-    this.orderService.createOrder(body).subscribe((res)=>{console.log(res);})
+    this.orderService.createOrder(body).subscribe((res)=>{
+      if(res.msg){
+        this.openGenericMessage('Pedido generado con éxito!!');
+        this.resetOrder();
+      }
+    })
+  }
+
+  resetOrder(){
+    this.myForm.reset();
+    this.client = {},
+    this.arrArticles = [];
+    this.arrItemSelected = [];
+    this.store.dispatch(articleAction.unSetSelectedArticles());
+    sessionStorage.removeItem("arrArticles");
+    sessionStorage.removeItem("tempClient");
+
+  }
+
+  checkSessionStorage(){
+    const articles = getDataSS("arrArticles");
+    const client = getDataSS("tempClient");
+    if(client){
+      this.client = client;
+    }
+    if( articles || client){
+      this.openGenericMessage("Existe un pedido abierto!!")
+    }
   }
  
 
@@ -260,6 +251,13 @@ validField( field: string ) {
   return this.myForm.controls[field].errors && this.myForm.controls[field].touched;
 }
 
+openGenericMessage(msg:string){
+  this.dialog.open(GenericMessageComponent, {
+    data: msg,
+    panelClass:"custom-modalbox-NoMoreComponent", 
+  });
+
+}
 
 openGenericMsgAlert(msg : string){
   this.dialog.open(WrongActionMessageComponent, {
@@ -270,15 +268,7 @@ openGenericMsgAlert(msg : string){
 
 }
 
-// openDialogArticle(article : any){
 
-//   this.dialog.open(SelectArticleMessageComponent, {
-//     data: article,
-//     // disableClose: true,
-//     panelClass:"custom-modalbox-NoMoreComponent", 
-//   });
-
-// }
 
 openGenericSuccess(msg : string){
 

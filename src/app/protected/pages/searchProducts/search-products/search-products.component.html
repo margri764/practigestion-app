@@ -1,18 +1,10 @@
 
 <div  fxLayout="row wrap"  fxLayoutAlign="center start" fxFlex="100" >
 
-    <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="background-color: rgb(37, 150, 190); color: white; height: 80px; padding: 10px;">
-
-        <div fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="100" style="margin-top: 5px;" (click)="goBack()">
-            <span class="material-symbols-outlined notranslate cursor" >arrow_back_ios</span>
-            <span class="font fs-5" fxFlex="90">Buscar Productos</span>
-      </div>
     
-    </div> 
-
     <form  fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 25px; width: 100vw;"  autocomplete="off" >
         <mat-form-field  appearance="outline" fxFlex="96" class="font fs-5" >
-            <input type="text" matInput  placeholder="Insertar código"  name="itemSearch"
+            <input type="text" matInput  placeholder="Buscar artículo"  name="itemSearch"
             class="form-control  me-2"    
             [(ngModel)]="itemSearch"
             (input)="teclaPresionada( )" 
@@ -36,7 +28,7 @@
         </div>
                     
         <div fxLayout="row wrap"  fxLayoutAlign="start  center" fxFlex="100" class="font fs-5" *ngFor="let item of suggested , index as i">
-            <a  style="cursor: pointer; margin-top: 10px;" (click)="searchSuggested( item.idArticulo )" fxFlex="100">
+            <a  style="cursor: pointer; margin-top: 10px; color: blue; text-decoration: underline;" (click)="searchSuggested( item.idArticulo )" fxFlex="100">
             {{ item.descripcionLarga | capitalizeFirstLetter}}
             </a>
         </div>

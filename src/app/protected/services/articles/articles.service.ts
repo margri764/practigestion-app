@@ -46,11 +46,11 @@ getArticleById(id : string){
   )
 }
 
-searchProducts( value : string){
-  return this.http.get<any>(`${this.baseUrl}api/articulos/busqueda?f=codigo_interno&q=${value}`)
+searchArticleByDescription( value : string){
+  return this.http.get<any>(`${this.baseUrl}api/articulos/busqueda?f=desc_larga&q=${value}`)
   .pipe(
     map( res =>{ 
-          console.log('desde service searchProducts', res)
+          console.log('desde service searchArticleByDescription', res)
             return res} )
     );
 }
@@ -91,98 +91,7 @@ getPriceListById( id:any ){
   );
 }
 
-getAllOrders( ){
-  return this.http.get<any>(`${this.baseUrl}api/pedidos`)
-.pipe(
-  map( res =>{ 
-        console.log('desde service getAllOrders', res)
-          return res} )
-  );
-}
 
-getOrdersByPtoVenta( id :  any ){
-  return this.http.get<any>(`${this.baseUrl}api/pedidos/${id}`)
-.pipe(
-  map( res =>{ 
-        console.log('desde service getOrdersByPtoVenta', res)
-          return res} )
-  );
-}
-
-
-getSalePointByNumOrder( salePoint :  any, nroOrder : any ){
-  return this.http.get<any>(`${this.baseUrl}api/pedidos/${salePoint}/${nroOrder}`)
-.pipe(
-  map( res =>{ 
-        console.log('desde service getSalePointByNumOrder', res)
-          return res} )
-  );
-}
-
-editOrderBySalePointAndNumOrder( body:any, salePoint : any, nroOrder : any){
-console.log(body);
-  return this.http.put<any>(`${this.baseUrl}api/pedidos/${salePoint}/${nroOrder}`, body)
-.pipe(
-  map( res =>{ 
-              
-        console.log('desde service editOrderBySalePointAndNumOrder', res)
-          return res} )
-  );
-}
-
-
-
-getOrdersPaginator(from : any, to : any ){
-
-  const Pedidos =  [
-    {
-        "idPedido": 62208,
-        "estado": "E",
-        "idAgenda": 2739,
-        "razonSocial": "Ricardo Montereal",
-        "domicilio": "Pehuenches 850",
-        "localidad": "Villa La Angostura",
-        "provincia": "Neuquén",
-        "cp": "8407",
-        "pais": "Argentina",
-        "cuit": 0,
-        "docNro": "27176396305",
-        "ptoVenta": 1,
-        "cbteNro": 1,
-        "fecha": "2023-04-24T14:18:37.000-03:00",
-        "impSubtotal": 15000,
-        "descuentoPorcentaje": 0,
-        "impDescuento": 0,
-        "impTotIva": 2603.30579,
-        "impTotal": 15000,
-        "detalleItems": [
-            {
-                "descripcion": "BOLSA DE PAPAS",
-                "codigoInterno": "50100",
-                "cantidad": 1,
-                "alicIvaPorciento": 21,
-                "impNetoUnidad": 12396.69421,
-                "impSubtotal": 15000,
-                "bonificacionPorciento": 0,
-                "bonificacionImpNetoUni": 0,
-                "bonificacionImpNetoTot": 0,
-                "importeNetoTotal": 12396.69421,
-                "importeIva": 2603.30579,
-                "impTotal": 15000
-            }
-        ]
-    },
-  ]
-
-  // return Pedidos;
-
-  return this.http.get<any>(`${this.baseUrl}api/pedidos?p=${from}&r=${to}`)
-.pipe(
-  map( res =>{ 
-        console.log('desde service getOrdersPaginator', res)
-          return res} )
-  );
-}
 
 
 }

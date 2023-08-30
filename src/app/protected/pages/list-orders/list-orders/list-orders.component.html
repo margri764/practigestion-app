@@ -3,7 +3,7 @@
   <div fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="90" class="whiteframe" style="height: 100%; background-color: white; margin-top: 10px;">
 
     <!-- start menu search -->
-        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; width:100%; margin-top:60px;" >
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; width:100%; margin-top:60px;" *ngIf="!phone">
 
             <!-- PRIMERO -->
             <div style=" display: flex; justify-content: center; flex-wrap: wrap; width: 300px;" class="font" >
@@ -59,19 +59,83 @@
             </div>  
         </div>
     <!-- end menu search -->
+
+        <!-- start menu phone -->
+        <div  fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="100" style="margin-top:60px;" *ngIf="phone" >
+
+            <!-- PRIMERO -->
+            <div fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="97"style=" " class="font" >
+
+                    <div fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="97" class="whiteframe">
+                        <span style="font-size: 1.2em; max-width: 100%;"> Selección Pto Venta</span>
+                        <form [formGroup]="myForm"  style="display: flex; flex-wrap: wrap; justify-content: center center; margin-top: 5px;" >
+                            <mat-form-field  appearance="outline" class="font">
+                                <input type="text" matInput  placeholder="Pto Venta" formControlName="ptoVenta1" required >
+                                <mat-icon matSuffix style="transform:scale(1.7); color: rgb(37, 150, 190); cursor: pointer;" (click)="selectSalePoint()">search</mat-icon>
+                            </mat-form-field>
+                        </form>
+                    </div>
+            </div>    
+
+            <!-- SEGUNDO -->
+
+            <div fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="97" style=" margin-top: 30px;" class="font" >
+                <div fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="97"style=" " class="font"class="whiteframe">
+
+                        <span style="font-size: 1.2em; max-width: 100%;">Selección N° Pedido</span>
+
+                        <form  [formGroup]="myForm2"  style=" width: 450px; display: flex; justify-content: space-between; align-items: center;margin-top: 5px;" > 
+
+                            <mat-form-field class="font" appearance="outline" style="width: 95px;">
+                                <mat-label>Pto venta</mat-label>
+                                <input matInput type="text" formControlName="ptoVenta2" required>
+                            </mat-form-field>
+
+                            <mat-form-field class="font" appearance="outline" style="width: 95px;">
+                                <mat-label>N° pedido</mat-label>
+                                <input matInput type="text" formControlName="nroOrder" required>
+                            </mat-form-field>
+
+                            <mat-icon matSuffix style="transform:scale(1.7); color: rgb(37, 150, 190); margin-bottom: 10px; cursor: pointer;" (click)="getSalePointByNumOrder()">search</mat-icon>
+
+
+                            <!-- <button mat-raised-button  [ngClass]="!send ? 'btnMenuClicked':'btnMenu'" (click)="getSalePointByNumOrder()"  style="height: 50px !important; width: 100px; margin-top: 4px;">
+                                <i class="material-symbols-outlined notranslate">redo</i> 
+                                &nbsp;Buscar
+                            </button> -->
+                        </form>
+                </div>
+            </div>
+
+            <!-- icono -->
+            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" (click)="loadOrders()" style="margin-top: 30px;"> 
+                <div class="mainIcon"  >
+                    <span class="material-symbols-outlined notranslate"> refresh </span>
+                </div>
+                <span class="textMainIcon" fxFlex="100" style="text-align: center;">Listado General </span>
+                
+            </div>  
+        </div>
+    <!-- end menu phone -->
+
+    <!-- start paginator -->
+        <div  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" style="border: 1px solid;" *ngIf=" showOrderFounded || arrOrders.length !== 0 " >
             
-        <mat-paginator #paginator
-        class="demo-paginator"
-        (page)="handlePageEvent($event)"
-        [length]="length"
-        [pageSize]="pageSize"
-        [disabled]="disabled"
-        [showFirstLastButtons]="showFirstLastButtons"
-        [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
-        [hidePageSize]="hidePageSize"
-        [pageIndex]="pageIndex"
-        aria-label="Select page" style="margin-top: 30px;">
-        </mat-paginator>
+            <mat-paginator #paginator
+            class="demo-paginator"
+            (page)="handlePageEvent($event)"
+            [length]="length"
+            [pageSize]="pageSize"
+            [disabled]="disabled" 
+            [showFirstLastButtons]="showFirstLastButtons"
+            [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+            [hidePageSize]="hidePageSize"
+            [pageIndex]="pageIndex"
+            aria-label="Select page" 
+            >
+            <!-- style="margin-top: 30px; width: 90%; border: 1px solid red; align-items: center;" -->
+            </mat-paginator>
+    <!-- end paginator -->
      
     <!-- start order by N° -->
     <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex.xs="100"  fxFlex="80" class="mt-30 whiteframe" *ngIf="showOrderFounded"  >
@@ -97,6 +161,10 @@
                 
                 <div class="icon mr-10"  >
                     <span class="material-symbols-outlined notranslate cursor" style="color: rgb(255, 176, 57);" (click)="editOrder(order)"> edit </span>
+                </div>
+
+                <div class="icon"  >
+                    <span class="material-symbols-outlined notranslate cursor" style="color: rgb(49, 175, 3);" (click)="sendOrder(order)">send</span>
                 </div>
             
             </div>

@@ -6,6 +6,9 @@ import { AppState } from 'src/app/app.reducer';
 import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
 import { AuthService } from 'src/app/protected/services/auth/auth.service';
 import { ErrorService } from 'src/app/protected/services/error/error.service';
+import { OrderService } from 'src/app/protected/services/order/order.service';
+import { GenericMessageComponent } from '../../generic-message/generic-message/generic-message.component';
+import { GenericSuccessComponent } from '../../generic-success/generic-success/generic-success.component';
 
 @Component({
   selector: 'app-edit-order',
@@ -24,6 +27,7 @@ export class EditOrderComponent implements OnInit {
                 private fb : FormBuilder,
                 private store : Store <AppState>,
                 private authService : AuthService,
+                private orderService : OrderService,
                 private articleService : ArticlesService,
                 private dialog : MatDialog,
                 private dialogRef: MatDialogRef<EditOrderComponent>,
@@ -82,19 +86,48 @@ export class EditOrderComponent implements OnInit {
 
     // console.log(cbteNro);
 
-    this.articleService.editOrderBySalePointAndNumOrder(editedData, ptoVenta, cbteNro).subscribe(
+    this.orderService.editOrderBySalePointAndNumOrder(editedData, ptoVenta, cbteNro).subscribe(
       ()=>{
             this.isLoading = false;
-            alert("Pedido actualizado con exito");
             this.articleService.initialStateAfterEditOrder$.emit(true);
-            this.closeComponent(); 
+            this.orderService.getOpenOrders().subscribe(
+              (res)=>{ 
+                if(res){ 
+                        this.openGenericSuccess("Pedido actualizado con exito")
+                      }})
+
+            this.close(); 
       
       })
 
   }
 
-  closeComponent(){
+  close(){
     this.dialogRef.close();
+    this.errorService.closeIsLoading$.emit(true);
   }
+
+  
+  openGenericSuccess(msg : string){
+
+    let width : string = '';
+    let height : string = '';
+
+    if(screen.width >= 800) {
+      width = "400px"
+      height ="450px";
+    }
+
+    this.dialog.open(GenericSuccessComponent, {
+      data: msg,
+      width: `${width}`|| "",
+      height:`${height}`|| "",
+      disableClose: true,
+      panelClass:"custom-modalbox-NoMoreComponent", 
+    });
+  
+  }
+
+
 
 }

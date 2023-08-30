@@ -12,6 +12,8 @@ import { User } from '../../models/user.models';
 import { getDataLS, getDataSS } from '../../Storage';
 import { CookieService } from 'ngx-cookie-service';
 import { ErrorService } from '../../services/error/error.service';
+import { OrderService } from '../../services/order/order.service';
+import { LocalStorageService } from '../../services/localStorage/local-storage.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,7 +34,7 @@ toogle : boolean = false;
 hidden : boolean = false;
 showLabelTempOrder : boolean = false;
 // orders : any [] = [];
-alert! : string | null;
+alert! : any;
 showNoProcessMessage : boolean = false;
 notificationsDone! : boolean;
 login : boolean = false;
@@ -42,7 +44,9 @@ constructor(
               private cookieService : CookieService,
               private errorService : ErrorService,
               private router : Router,
-              private authService : AuthService
+              private authService : AuthService,
+              private orderService : OrderService,
+              private localStorageService : LocalStorageService
   ) { 
 
     
@@ -68,14 +72,20 @@ ngOnInit(): void {
   ).subscribe(({tempOrder})=>{
 
     if(tempOrder.length !==0){
-        this.showLabelTempOrder = true;
-        this.alert= '!';
-    }else{
-        this.alert= '';
+      this.showLabelTempOrder = true;
+      console.log(tempOrder.length);
+      this.alert = tempOrder.length;
     }
   })
 
+  // this.orderService.getOpenOrders().subscribe(
+  //   ({pedidos})=>{
+  //     if(pedidos.length){
+      
+  //     }
+  //   })
 }
+
 
 
 

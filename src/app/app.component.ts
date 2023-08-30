@@ -21,7 +21,10 @@ export class AppComponent implements OnInit {
 
   constructor(
               private localStorageService: LocalStorageService,
-              public router : Router
+              public router : Router,
+              private store : Store <AppState>,
+              private orderService : OrderService
+
   ){
 
         
@@ -37,6 +40,8 @@ export class AppComponent implements OnInit {
    
       }
     });
+
+    this.orderService.getOpenOrders().subscribe();
 
   }
 

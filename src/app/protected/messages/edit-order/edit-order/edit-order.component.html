@@ -1,71 +1,11 @@
-<!-- <div fxLayout="row wrap" fxLayoutAlign="center space-between" style="padding: 10px;" >
 
-    <div  fxLayout="row wrap"  fxLayoutAlign=" center" fxFlex="95" style="height: 60px; background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
-    -moz-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);" class="mt-20 pd-10">
-        <span fxLayout="row wrap" fxLayoutAlign="start center" class="font fs-6" fxFlex="55">Editar Pedido</span>
-    </div>
-            
-    <form  [formGroup]="myForm"  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="95"  style="margin-top: 15px;">     
-    
-        <mat-form-field appearance="outline" fxFlex="97" class="mt-10 font " >		
-            <mat-label>idAgenda </mat-label>
-            <input matInput type="text" required formControlName="idAgenda" >
-        </mat-form-field> 
-     
-    
-         <mat-form-field appearance="outline" fxFlex="97" class="mt-10 font " >		
-             <mat-label>Estado </mat-label>
-             <input matInput type="text" required formControlName="estado">
-         </mat-form-field> 
-         
-         <mat-form-field appearance="outline" fxFlex="97" class="mt-10 font " >		
-            <mat-label>Descuento % </mat-label>
-            <input matInput type="text" required formControlName="descuentoPorcentaje" >
-        </mat-form-field> 
-
-        <div fxLayout="row wrap" fxLayoutAlign="space-between" fxFlex="100" style="padding: 10px;" >
-
-            <mat-form-field appearance="outline" fxFlex="48" class="mt-10 font " >		
-                <mat-label>Cod. Area</mat-label>
-                <input matInput type="text"  formControlName="area">
-            </mat-form-field>
-            <mat-form-field appearance="outline" fxFlex="48" class="mt-10 font " >		
-                <mat-label>Numero</mat-label>
-                <input matInput type="text"  formControlName="phone">
-            </mat-form-field>
-        </div>
-        <mat-form-field appearance="outline" fxFlex="97" class="mt-10 font " >		
-            <mat-label>Dirección</mat-label>
-            <input matInput type="text" formControlName="address">
-        </mat-form-field> 
-
-        <mat-form-field appearance="outline" fxFlex="97" class="mt-10 font " >		
-            <mat-label>Otro campo</mat-label>
-            <input matInput type="text" formControlName="address">
-        </mat-form-field> 
-       
-   </form>
-
-
-    <div  fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="95" >
-        <button mat-raised-button  [ngClass]="!save ? 'btnMenuClicked':'btnMenu'" fxFlex="48" (click)="closeComponent()" >
-            <i class="material-symbols-outlined notranslate"  >redo</i> 
-            &nbsp;Cancelar
-        </button>
-        <button mat-raised-button  [ngClass]="save ? 'btnMenuClicked':'btnMenu'" fxFlex="48" (click)="onSaveForm()">
-            <i class="material-symbols-outlined notranslate">login</i> 
-            &nbsp; Editar
-        </button>
-    </div>
-
-</div>
-   -->
 
 <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  style=" padding: 10px;"> 
 
     <div  fxLayout="row wrap"  fxLayoutAlign=" center" fxFlex="95" style="height: 50px; background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
     -moz-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);" class="mt-20 pd-10">
-        <span fxLayout="row wrap" fxLayoutAlign="start center" class="font fs-6" fxFlex="55">Editar Pedido</span>
+        <span fxLayout="row wrap" fxLayoutAlign="start center" class="font fs-6" fxFlex="70">Editar Pedido</span>
+        <span  class=" material-symbols-outlined notranslate cursor" style=" text-align: end;" fxFlex="30" (click)="close()">close</span>
     </div>
 
     <form [formGroup]="orderForm" fxLayout="row wrap" fxLayoutAlign="centercenter" fxFlex="95" style="margin-top: 30px;" >

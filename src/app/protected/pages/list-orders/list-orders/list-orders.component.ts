@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Pedido } from 'src/app/protected/interfaces/orders-posted';
 import { EditOrderComponent } from 'src/app/protected/messages/edit-order/edit-order/edit-order.component';
 import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
+import { OrderService } from 'src/app/protected/services/order/order.service';
 import { WorkerService } from 'src/app/protected/services/worker/worker.service';
 
 @Component({
@@ -16,21 +17,14 @@ import { WorkerService } from 'src/app/protected/services/worker/worker.service'
 })
 export class ListOrdersComponent implements OnInit {
 
-  // @HostListener('window:scroll', ['$event'])
-  // onScroll(event: any) {
-  //    console.log('d');
-  //   if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
 
-  //     this.loadOrders();
-  //   }
-  // }
 
   @HostListener('window:scroll') onScroll(e: Event): void {
     console.log('dddd');
     const scrollPosition = window.innerHeight + window.scrollY;
     const contentHeight = document.body.offsetHeight;
     if (scrollPosition >= contentHeight - 100 && !this.isLoading) {
-      // this.loadOrders();
+      this.loadOrders();
     }
  }
 
@@ -45,6 +39,7 @@ export class ListOrdersComponent implements OnInit {
     // table
     displayedColumns: string[] = ['id','socialName','items'];
     dataTableActive : any = new MatTableDataSource<any>();
+
     // paginator
     length = 150;
     pageSize = 10;
@@ -71,8 +66,8 @@ export class ListOrdersComponent implements OnInit {
               private fb : FormBuilder,
               private articleService : ArticlesService,
               private dialog : MatDialog,
-              private workerService: WorkerService,
-
+              private orderService : OrderService,
+              
   ) { 
     (screen.width <= 800) ? this.phone = true : this.phone = false;
 
@@ -107,7 +102,7 @@ export class ListOrdersComponent implements OnInit {
     this.arrOrders = [];
     // this.dataTableActive = this.articleService.getOrdersPaginator(this.pageIndex, this.pageSize,)
 
-    this.articleService.getOrdersPaginator(this.pageIndex, this.pageSize).subscribe(
+    this.orderService.getOrdersPaginator(this.pageIndex, this.pageSize).subscribe(
       ({Pedidos})=>{
         this.arrOrders = Pedidos;
         this.isLoading = false;
@@ -128,7 +123,7 @@ export class ListOrdersComponent implements OnInit {
 
       const ptoVenta = this.myForm.get('ptoVenta1')?.value;
 
-      this.articleService.getOrdersByPtoVenta(ptoVenta).subscribe(
+      this.orderService.getOrdersByPtoVenta(ptoVenta).subscribe(
         ({pedidos})=>{
           if(pedidos.length !== 0){
             this.arrOrders = pedidos;
@@ -150,7 +145,7 @@ export class ListOrdersComponent implements OnInit {
     const ptoVenta2 = this.myForm2.get('ptoVenta2')?.value;
     const nroOrder = this.myForm2.get('nroOrder')?.value;
 
-    this.articleService.getSalePointByNumOrder(ptoVenta2, nroOrder).subscribe(
+    this.orderService.getSalePointByNumOrder(ptoVenta2, nroOrder).subscribe(
       ({Pedido})=>{
         if(Pedido){
           this.isLoading = false;
@@ -165,7 +160,7 @@ export class ListOrdersComponent implements OnInit {
 
   loadOrders() {
     this.isLoading= true;
-    this.articleService.getOrdersPaginator(this.pageIndex, this.pageSize,).subscribe(
+    this.orderService.getOrdersPaginator(this.pageIndex, this.pageSize,).subscribe(
     ({pedidos})=>{
       this.arrOrders = pedidos;
       this.isLoading = false
@@ -184,7 +179,7 @@ export class ListOrdersComponent implements OnInit {
       this.isLoading= true;
       // this.dataTableActive = this.articleService.getOrdersPaginator(this.pageIndex, this.pageSize,)
       
-      this.articleService.getOrdersPaginator(this.pageIndex, this.pageSize,).subscribe(
+      this.orderService.getOrdersPaginator(this.pageIndex, this.pageSize,).subscribe(
         ({pedidos})=>{
           this.arrOrders = pedidos;
           this.isLoading = false
@@ -214,6 +209,10 @@ export class ListOrdersComponent implements OnInit {
   }
 
   deleteOrder(order:any){
+
+  }
+
+  sendOrder(order :any){
 
   }
 

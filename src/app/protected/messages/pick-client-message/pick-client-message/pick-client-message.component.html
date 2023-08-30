@@ -1,9 +1,13 @@
-<div  fxLayout="row wrap"  fxLayoutAlign="center start" style="height: 100vh;">
+<div  fxLayout="row wrap"  fxLayoutAlign="center start" fxFlex="100">
 
+    <div  fxLayout="row wrap"  fxLayoutAlign=" center" fxFlex="95" style="height: 60px; background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
+    -moz-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);" class="mt-20 pd-10">
+        <span fxLayout="row wrap" fxLayoutAlign="start center" class="font fs-6" fxFlex="55" fxFlex.xs="100">Seleccionar cliente</span>
+    </div>
 
      <!-- start form -->
      <form  fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 25px;" fxFlex.xs="100" fxFlex="40"  autocomplete="off" >
-        <mat-form-field  appearance="outline" fxFlex="90" class="textMainIcon">
+        <mat-form-field  appearance="outline" fxFlex="90" class="font">
             <input type="text" matInput  placeholder="Buscar Cliente"  name="itemSearch"
             class="form-control  me-2"    
             [(ngModel)]="itemSearch"
@@ -18,7 +22,7 @@
     <!-- start suggested    -->
     <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="center center"  fxFlex="100" *ngIf="mostrarSugerencias" style="padding: 20px;" >
 
-        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex.xs="100" fxFlex="37" class="font whiteframe" style="margin-left: 0px;" >
+        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex.xs="100" fxFlex="37" class="font whiteframe fs-5" style="margin-left: 0px;" >
             <a > Buscar:   {{ itemSearch }}</a>
             <mat-icon (click)="close()" style="cursor: pointer; margin-right: 10px; transform: scale(1.2);" > close</mat-icon>
         </div>
@@ -27,15 +31,15 @@
             <mat-spinner diameter="48"></mat-spinner>
         </div>
                     
-        <div fxLayout="row wrap"  fxLayoutAlign.xs="start center"  fxLayoutAlign="center center" fxFlex="100" class="font " *ngFor="let item of suggested , index as i" >
+        <div fxLayout="row wrap"  fxLayoutAlign.xs="start center"  fxLayoutAlign="center center" fxFlex="100" class="font mb-20" *ngFor="let item of suggested , index as i" >
             
-            <div fxFlex="30"></div>
-            <div fxLayout="row wrap" fxFlex="37">
-                <a  style="cursor: pointer; margin-top: 10px; text-align: start; color: blue; text-decoration: underline;" (click)="searchSuggested( item.id )" fxFlex="100">
+            <div fxFlex="30" fxFlex.xs="0"></div>
+            <div fxLayout="row wrap"  fxFlex="37" fxFlex.xs="90" class="fs-5">
+                <a  style="cursor: pointer; margin-top: 10px; text-align: center; color: blue; text-decoration: underline;" (click)="searchSuggested( item.id )" fxFlex="100">
                 {{ item.archivarComo | capitalizeFirstLetter}}
                 </a>
             </div>
-            <div fxFlex="30"></div>
+            <div fxFlex="30" fxFlex.xs="0"></div>
 
         </div>
     </div>

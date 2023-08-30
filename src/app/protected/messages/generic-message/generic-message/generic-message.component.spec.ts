@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoadingComponent } from './loading.component';
+import { GenericMessageComponent } from './generic-message.component';
 
-describe('LoadingComponent', () => {
-  let component: LoadingComponent;
-  let fixture: ComponentFixture<LoadingComponent>;
+describe('GenericMessageComponent', () => {
+  let component: GenericMessageComponent;
+  let fixture: ComponentFixture<GenericMessageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoadingComponent ]
+      declarations: [ GenericMessageComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LoadingComponent);
+    fixture = TestBed.createComponent(GenericMessageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
