@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Order } from '../../interfaces/order.interface';
 
 @Injectable({
   providedIn: 'root'

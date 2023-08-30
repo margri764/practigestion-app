@@ -14,16 +14,11 @@ export class LoginMessageComponent implements OnInit {
   selection : boolean = false;
   constructor(
                private dialogRef: MatDialogRef<LoginMessageComponent>,
-               private location : Location,
                private router : Router,
-              //  private errorService : ErrorService
               ) { }
 
 ngOnInit(): void {
 
-}
-goBack() {
-  this.location.back();
 }
 
 

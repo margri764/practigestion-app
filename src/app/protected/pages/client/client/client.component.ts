@@ -75,10 +75,6 @@ export class ClientComponent implements OnInit, OnDestroy {
   height : string = '';
   width : string = '';
 
-  toppings = new FormControl('');
-
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
-
   constructor(
               private authService : AuthService,
               private dialog : MatDialog,
@@ -187,81 +183,82 @@ handlePageEvent(e: PageEvent) {
     });
   }
 
-    // search
-    close(){
-      this.mostrarSugerencias = false;
-      this.itemSearch = '';
-      this.suggested = [];
-      this.spinner= false;
-      this.isClientFounded = false;
-      // this.clientFounded = {};
-    }
-  
-    teclaPresionada(){
-  
-      console.log(this.mostrarSugerencias);
-       
-       this.debouncer.next( this.itemSearch );  
-       this.sugerencias(this.itemSearch)
-       if(this.itemSearch == ''){
-         this.suggested=[];
-         this.mostrarSugerencias = false  
-       }
-       if(this.suggested.length === 0) {
-         this.spinner= true;
-       }
-   
-     };
-  
-     sugerencias(value : string){
-        this.spinner = true;
-        this.itemSearch = value;
-        this.mostrarSugerencias = true;  
-        const valueSearch = value.toUpperCase();
-        this.authService.searchClientByName(valueSearch)
-        .subscribe ( ({contactos} )=>{
-          if(contactos.length !== 0){
-            // this.arrArticlesSugested = articulos;
-            this.suggested = contactos.splice(0,10);
-            console.log(this.suggested);
-              this.spinner = false;
-            }else{
-              // this.labelNoArticles = true;
-            }
-          }
-        )
-      }
-   
-    buscar(){
-     this.onEnter.emit( this.itemSearch );
-   
-    }
-  
-    
-  Search( id : any ){
-      this.mostrarSugerencias = true;
-      this.spinner = true;
-      this.fade = false;
-      this.authService.getClientById(id)
-      .subscribe ( ({contacto} )=>{
-        console.log(contacto);
-        if(contacto){
-          this.clientFounded = contacto;
-          this.spinner = false;
-          this.close();
-          this.isClientFounded = true;
-        }else{
-          // this.labelNoArticles = true;
-        }
-      }
-      )
-
+   // search
+   close(){
+    this.mostrarSugerencias = false;
+    this.itemSearch = '';
+    this.suggested = [];
+    this.spinner= false;
+    this.isClientFounded = false;
+    // this.clientFounded = {};
   }
 
-    searchSuggested( id: any ) {
-      this.Search( id );
+  teclaPresionada(){
+
+    console.log(this.mostrarSugerencias);
+     
+     this.debouncer.next( this.itemSearch );  
+     this.sugerencias(this.itemSearch)
+     if(this.itemSearch == ''){
+       this.suggested=[];
+       this.mostrarSugerencias = false  
+     }
+     if(this.suggested.length === 0) {
+       this.spinner= true;
+     }
+ 
+   };
+
+   sugerencias(value : string){
+      this.spinner = true;
+      this.itemSearch = value;
+      this.mostrarSugerencias = true;  
+      const valueSearch = value.toUpperCase();
+      this.authService.searchClientByName(valueSearch)
+      .subscribe ( ({contactos} )=>{
+        if(contactos.length !== 0){
+          // this.arrArticlesSugested = articulos;
+          this.suggested = contactos.splice(0,10);
+          console.log(this.suggested);
+            this.spinner = false;
+          }else{
+            // this.labelNoArticles = true;
+          }
+        }
+      )
     }
-    // search
+ 
+  buscar(){
+   this.onEnter.emit( this.itemSearch );
+ 
+  }
+
+  
+Search( id : any ){
+    this.mostrarSugerencias = true;
+    this.spinner = true;
+    this.fade = false;
+    this.authService.getClientById(id)
+    .subscribe ( ({contacto} )=>{
+      console.log(contacto);
+      if(contacto){
+        this.clientFounded = contacto;
+        this.spinner = false;
+        this.close();
+        this.isClientFounded = true;
+      }else{
+        // this.labelNoArticles = true;
+      }
+    }
+    )
+
+}
+
+  searchSuggested( id: any ) {
+    this.Search( id );
+  }
+  // search
+
 
 
 ngOnDestroy(): void {

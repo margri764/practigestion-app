@@ -1,36 +1,45 @@
 <div  fxLayout="row wrap"  fxLayoutAlign="center start" style="height: 100vh;">
 
 
-     <form  fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 25px; width: 100vw;"  autocomplete="off" >
-        <mat-form-field  appearance="outline" fxFlex="90" class="font fs-5" >
-            <input type="text" matInput  placeholder="Buscar cliente"  name="itemSearch"
+     <!-- start form -->
+     <form  fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 25px;" fxFlex.xs="100" fxFlex="40"  autocomplete="off" >
+        <mat-form-field  appearance="outline" fxFlex="90" class="textMainIcon">
+            <input type="text" matInput  placeholder="Buscar Cliente"  name="itemSearch"
             class="form-control  me-2"    
-            [(ngModel)]="itemSearch">  
-            <mat-icon matSuffix style="transform:scale(1.7); color: red; margin-right: 20px;" (click)="Search( itemSearch)" >search</mat-icon>
+            [(ngModel)]="itemSearch"
+            (input)="teclaPresionada( )" 
+            (onDebounce)="sugerencias( itemSearch )" 
+            (keyup.enter)="Search( itemSearch )" >
+            <mat-icon matSuffix style="transform:scale(1.7); color: rgb(37, 150, 190); margin-right: 20px;" (click)="Search( itemSearch)" >search</mat-icon>
         </mat-form-field>
     </form> 
+    <!-- end form -->
 
+    <!-- start suggested    -->
+    <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="center center"  fxFlex="100" *ngIf="mostrarSugerencias" style="padding: 20px;" >
 
-    <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" *ngIf="spinner">
-        
-        <span  class="font fs-5" style="margin-left: 10px; margin-top: 30px;" fxFlex="100"> Buscando.... </span>
-        
+        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex.xs="100" fxFlex="37" class="font whiteframe" style="margin-left: 0px;" >
+            <a > Buscar:   {{ itemSearch }}</a>
+            <mat-icon (click)="close()" style="cursor: pointer; margin-right: 10px; transform: scale(1.2);" > close</mat-icon>
+        </div>
+            
+        <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" *ngIf="spinner" style="margin-top: 30px;">
+            <mat-spinner diameter="48"></mat-spinner>
+        </div>
+                    
+        <div fxLayout="row wrap"  fxLayoutAlign.xs="start center"  fxLayoutAlign="center center" fxFlex="100" class="font " *ngFor="let item of suggested , index as i" >
+            
+            <div fxFlex="30"></div>
+            <div fxLayout="row wrap" fxFlex="37">
+                <a  style="cursor: pointer; margin-top: 10px; text-align: start; color: blue; text-decoration: underline;" (click)="searchSuggested( item.id )" fxFlex="100">
+                {{ item.archivarComo | capitalizeFirstLetter}}
+                </a>
+            </div>
+            <div fxFlex="30"></div>
+
+        </div>
     </div>
-
-    <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" *ngIf="labelNoFinded">
-        
-        <span  class="font fs-5" style="margin-left: 10px; margin-top: 30px;" fxFlex="100"> No se encontraron coincidencias... </span>
-        
-    </div>
-
-    <!-- start suggested -->
-    <div fxLayout="row wrap"  fxLayoutAlign="start center" style="background-color: rgb(243, 243, 255); margin-bottom: 30px; border-radius: 3px; padding: 10px 0px 10px 20px;" fxFlex="97" *ngFor="let finded of arrClientFinded" class="whiteframe" >
-        
-        <span  class="font fs-5" fxFlex="100" (click)="selectClient(finded)" style="cursor: pointer;"> {{finded.apellido | capitalizeFirstLetter }} &nbsp;{{finded.nombre | capitalizeFirstLetter }}</span>
-        
-    </div>
-    
-    <!-- end suggested -->
+    <!-- end suggested    -->
     
 
     <div fxLayout="row wrap"  fxLayoutAlign="center center" style="background-color: rgb(253, 253, 253); border-radius: 3px; margin-top: 10px; padding: 10px 0px 10px 20px;" fxFlex="97" *ngFor="let client of arrClient" class="whiteframe">
@@ -39,10 +48,41 @@
         
     </div>
     
+      <!-- start result search cards -->
+      <div  fxLayout="row wrap"  fxLayoutAlign="center start"  fxFlex="100" style="margin-top: 40px;" *ngIf="isClientFounded">
+        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 10px; background-color: white;" fxFlex="97" class="whiteframe" >
+
+            <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="background-color: rgb(37, 150, 190); color: white; height: 30px; padding: 5px;">
+                <span  class="font" fxFlex="50" > Código: {{clientFounded.idAgenda }} </span>
+                <span  class="font" fxLayout="row wrap"  fxLayoutAlign="end center" fxFlex="50" > Estado: {{clientFounded.esCliente}} </span>
+        
+            </div>
     
-    <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" *ngIf="!spinner">
-        
-        <!-- <span  class="font fs-5" fxFlex="100" *ngFor="let us of user"> {{us.apellido}} </span> -->
-        
+            <span  class="font mt-20" fxFlex="100" > {{clientFounded.archivarComo| capitalizeFirstLetter }}</span>
+            <span  class="font mt-20" fxFlex="50" > Cuit: {{clientFounded.cuit || 'sin definir' }}</span>
+            <span  class="font mt-20" style="text-align: end;" fxFlex="50" > Tel: {{clientFounded.telefonoCodigoArea}} {{clientFounded.numeroLocal || 'sin definir' }}</span>
+
+            <span  class="font mt-20 " fxFlex="100" > Localidad: {{clientFounded.localidad || 'sin definir' }}</span>
+            
+            <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="100">
+                <!-- <div class="icon mr-10" (click)="deleteClient(clientFounded)" >
+                    <span class="material-symbols-outlined notranslate cursor" style="color: red;"> delete </span>
+                </div>
+                 -->
+                
+                 <div class="icon mr-10"  (click)="selectClient(clientFounded)">
+                    <span class="material-icons notranslate cursor" style="color: rgb(3, 174, 6);"> done </span>
+                </div> 
+
+                <div class="icon"  (click)="close()">
+                    <span class="material-symbols-outlined notranslate cursor" > close </span>
+                </div>
+            </div>
+            
+        </div>
+    
     </div>
+    <!-- end result search cards -->
+    
+    
 </div>

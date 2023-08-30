@@ -7,6 +7,7 @@ import * as authActions from 'src/app/auth.actions'
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ErrorService } from 'src/app/protected/services/error/error.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
@@ -15,26 +16,34 @@ import { ErrorService } from 'src/app/protected/services/error/error.service';
   styleUrls: ['./pick-client-message.component.scss']
 })
 export class PickClientMessageComponent implements OnInit {
+  
+  // start search
+@Output() onDebounce: EventEmitter<string> = new EventEmitter();
+@Output() onEnter   : EventEmitter<string> = new EventEmitter();
+debouncer: Subject<string> = new Subject();
 
-  @Output() onDebounce: EventEmitter<string> = new EventEmitter();
-  @Output() onEnter   : EventEmitter<string> = new EventEmitter();
-  debouncer: Subject<string> = new Subject();
+displayedColumns: string[] = ['action','name','location','province','phone', 'email'];
+dataTableActive : any = new MatTableDataSource<any>();
 
-    // search
-    itemSearch : string = '';
-    mostrarSugerencias: boolean = false;
-    sugested : string= "";
-    suggested : any[] = [];
-    spinner : boolean = false;
-    alert:boolean = false;
-    fade : boolean = false;
-    search : boolean = true;
-    product  : any[] = [];
-    // search
 
-    arrClient : any []=[];
-    arrClientFinded : any []=[];
-    labelNoFinded : boolean = false;
+itemSearch : string = '';
+mostrarSugerencias: boolean = false;
+sugested : string= "";
+suggested : any[] = [];
+spinner : boolean = false;
+fade : boolean = false;
+search : boolean = true;
+product  : any[] = [];
+// end search
+
+contactos : any []=[];
+isLoading : boolean = false;
+arrClient : any []=[];
+clientFounded : any = {};
+isClientFounded : boolean = false;
+labelNoFinded : boolean = false;
+phone : boolean = false;
+
 
   constructor(
               private authService : AuthService,
@@ -52,12 +61,7 @@ export class PickClientMessageComponent implements OnInit {
 
     this.spinner = true;
 
-    // this.authService.getAllClients().subscribe(
-    //   ({contactos})=>{
-    //     console.log(contactos);
-    //      this.arrClient = contactos;
-    //      this.spinner = false;
-    //   })
+
   }
 
   selectClient(client :any){
@@ -68,44 +72,81 @@ export class PickClientMessageComponent implements OnInit {
     },1000)
   }
 
-  close(){
+   // search
+   close(){
     this.mostrarSugerencias = false;
-    this.itemSearch="";
+    this.itemSearch = '';
+    this.suggested = [];
+    this.spinner= false;
+    this.isClientFounded = false;
+    // this.clientFounded = {};
   }
 
+  teclaPresionada(){
+
+    console.log(this.mostrarSugerencias);
+     
+     this.debouncer.next( this.itemSearch );  
+     this.sugerencias(this.itemSearch)
+     if(this.itemSearch == ''){
+       this.suggested=[];
+       this.mostrarSugerencias = false  
+     }
+     if(this.suggested.length === 0) {
+       this.spinner= true;
+     }
+ 
+   };
+
+   sugerencias(value : string){
+      this.spinner = true;
+      this.itemSearch = value;
+      this.mostrarSugerencias = true;  
+      const valueSearch = value.toUpperCase();
+      this.authService.searchClientByName(valueSearch)
+      .subscribe ( ({contactos} )=>{
+        if(contactos.length !== 0){
+          // this.arrArticlesSugested = articulos;
+          this.suggested = contactos.splice(0,10);
+          console.log(this.suggested);
+            this.spinner = false;
+          }else{
+            // this.labelNoArticles = true;
+          }
+        }
+      )
+    }
  
   buscar(){
    this.onEnter.emit( this.itemSearch );
  
   }
 
-   
-   Search( valueSearch : string ){
-    
-     this.mostrarSugerencias = true;
-     this.alert = false;
-     this.spinner = true;
-     this.fade = false;
-     this.labelNoFinded = false;
-
-
-     this.authService.searchClientByName(valueSearch)
-     .subscribe ( ({contactos} )=>{
-      console.log(contactos);
-      
-      this.spinner = false;
-      if(contactos.length !== 0){
-        this.arrClientFinded = contactos
-        // this.user = contactos;
+  
+Search( id : any ){
+    this.mostrarSugerencias = true;
+    this.spinner = true;
+    this.fade = false;
+    this.authService.getClientById(id)
+    .subscribe ( ({contacto} )=>{
+      console.log(contacto);
+      if(contacto){
+        this.clientFounded = contacto;
+        this.spinner = false;
+        this.close();
+        this.isClientFounded = true;
       }else{
-        this.labelNoFinded = true;
+        // this.labelNoArticles = true;
       }
-   
-    })
-  }
-
-    searchSuggested( termino: string ) {
-      this.Search( termino );
     }
+    )
+
+}
+
+  searchSuggested( id: any ) {
+    this.Search( id );
+  }
+  // search
+
  
 }

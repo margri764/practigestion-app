@@ -65,8 +65,6 @@ const base64Credentials = btoa(`${username}:${password}`);
   )
 }
 
-
-
 getToken(){
   return this.token
 }
@@ -74,7 +72,6 @@ getToken(){
 getCookieToken() {
   return this.cookieService.get('token');
 }
-
 
 getAllClients( ){
 
@@ -486,6 +483,7 @@ getClientsPaginator(from : any, to : any){
   );
 
 }
+
 updateClientById( body : User, id:any){
                                         
   return this.http.put<any>(`${this.baseUrl}api/agenda/edit/${id}`, body)

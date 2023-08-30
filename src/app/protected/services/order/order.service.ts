@@ -24,7 +24,7 @@ createOrder(order : Order){
     return this.http.post<any>(`${this.baseUrl}api/pedidos`, order)
   .pipe(
     map( res =>{ 
-          console.log('desde service searchProducts', res)
+          console.log('desde service createOrder', res)
             return res} )
     );
   

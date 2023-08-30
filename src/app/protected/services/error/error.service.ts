@@ -22,13 +22,14 @@ export class ErrorService {
   private baseUrl = environment.baseUrl;
   phone : boolean = false;
   
-  close$ = new BehaviorSubject<boolean>(false) //quiero a ce cierren todos los modals cuando se produce un error de servidor 
-   height : string = '';
-   width : string = '';
+  height : string = '';
+  width : string = '';
   isLoading$ = new BehaviorSubject<boolean>(false) //quiero a ce cierren todos los modals cuando se produce un error de servidor 
+  close$ = new BehaviorSubject<boolean>(false) //quiero a ce cierren todos los modals cuando se produce un error de servidor 
   authDelTempOrder$ : EventEmitter<boolean> = new EventEmitter<boolean>; 
   authDelClient$ : EventEmitter<boolean> = new EventEmitter<boolean>; 
   closeIsLoading$ : EventEmitter<boolean> = new EventEmitter<boolean>; 
+  // closePopUps$ : EventEmitter<boolean> = new EventEmitter<boolean>;
   
   constructor(
               private dialog : MatDialog,
@@ -51,15 +52,15 @@ export class ErrorService {
 
     if (error.status === 401) {
       this.openDialogLogin();
+      this.close$.next(true);
+      this.close$.next(false);
       return of(null);
-      // this.logout().subscribe();
     }
 
     if (error.status === 500 && error.error.message === "El pedido no puede ser editado, se encuentra emitido o cancelado.") {
       alert("El pedido no puede ser editado, se encuentra emitido o cancelado.");
       this.closeIsLoading$.emit(true);
       return of(null);
-      // this.logout().subscribe();
     }
     
     if (error.status === 500) {
@@ -67,8 +68,8 @@ export class ErrorService {
       return of(null);
     }
 
-        // Devuelve un observable que emite el error original
-  return throwError(() => error);
+    // Devuelve un observable que emite el error original
+    return throwError(() => error);
 
   }
 

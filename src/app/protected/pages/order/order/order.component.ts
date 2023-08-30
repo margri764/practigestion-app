@@ -13,6 +13,7 @@ import * as authAction from 'src/app/auth.actions'
 import { GenericSuccessComponent } from 'src/app/protected/messages/generic-success/generic-success/generic-success.component';
 import { LocalStorageService } from 'src/app/protected/services/localStorage/local-storage.service';
 import { Subscription, filter } from 'rxjs';
+import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
 
 
 @Component({
@@ -49,7 +50,7 @@ export class OrderComponent implements OnInit, OnDestroy {
               private store : Store <AppState>,
               private orderService : OrderService,
               private cdRef: ChangeDetectorRef,
-              private localStorageService: LocalStorageService
+              private localStorageService: LocalStorageService,
 
   ) {
     
@@ -88,8 +89,8 @@ export class OrderComponent implements OnInit, OnDestroy {
       comercialName:  [''], 
       phone:  [ ''], 
       cuit:  [ ''], 
-      discount:  [ ''], 
-      ptoVenta:  [ ''], 
+      discount:  [ 0], 
+      ptoVenta:  [ 0], 
     });
     
 
@@ -146,10 +147,10 @@ export class OrderComponent implements OnInit, OnDestroy {
       this.localStorageService.saveStateToLocalStorage(this.arrItemSelected, "arrArticles");
     }
 
-    generateSimpleId() {
-      const timestamp = Date.now(); // Obtén el timestamp actual en milisegundos
-      return `id_${timestamp}`;
-    }
+  generateSimpleId() {
+    const timestamp = Date.now(); // Obtén el timestamp actual en milisegundos
+    return `id_${timestamp}`;
+  }
 
   saveTempOrder(){
 
@@ -241,15 +242,16 @@ export class OrderComponent implements OnInit, OnDestroy {
     const detalleItems = this.createItemsOrder();
     const body : Order ={
         idAgenda : this.client.id,
-        estado :  this.client.estado,
-        ptoVenta: this.client.ptoVenta,
+        estado :  "A",
+        ptoVenta: 1,
         descuentoPorcentaje: this.myForm.get('discount')?.value,
         detalleItems 
 
     }
     // this.tempOrder.push(body);
-
-    // this.orderService.createOrder(body).subscribe((res)=>{console.log(res);})
+    
+console.log(body);
+    this.orderService.createOrder(body).subscribe((res)=>{console.log(res);})
   }
  
 

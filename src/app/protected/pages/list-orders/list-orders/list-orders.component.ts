@@ -46,7 +46,7 @@ export class ListOrdersComponent implements OnInit {
     displayedColumns: string[] = ['id','socialName','items'];
     dataTableActive : any = new MatTableDataSource<any>();
     // paginator
-    length = 50;
+    length = 150;
     pageSize = 10;
     pageIndex = 1;
     pageSizeOptions = [5, 10, 25];
