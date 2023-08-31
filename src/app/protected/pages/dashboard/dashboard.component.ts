@@ -92,12 +92,7 @@ ngOnInit(): void {
       this.login = true;
     })
 
-  // this.orderService.getOpenOrders().subscribe(
-  //   ({pedidos})=>{
-  //     if(pedidos.length){
-      
-  //     }
-  //   })
+  
 }
 
 checkSessionStorage(){

@@ -194,19 +194,30 @@ export class OrderComponent implements OnInit, OnDestroy {
    })
    return tempOrderItem
   }
+confirmE: boolean= false;
+confirmA: boolean= false;
 
   createOrder(saveOrSend : string){
-     this.confirm = true;
+
+
     if ( this.myForm.invalid  ) {
       this.myForm.markAllAsTouched();
-     this.confirm = false;
+       this.confirmE = false;
+       this.confirmA = false;
 
       return;
     }
     if(this.arrItemSelected.length === 0 ){
         this.openGenericMsgAlert('Elegí productos para generar el pedido');
-        this.confirm = false;
+        this.confirmE = false;
+        this.confirmA = false;
         return;
+    }
+
+    if(saveOrSend === "E"){
+      this.confirmE = true;
+    }else{
+      this.confirmA = true;
     }
 
     const detalleItems = this.createItemsOrder();

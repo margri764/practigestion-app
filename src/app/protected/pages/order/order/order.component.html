@@ -70,9 +70,9 @@
     
 
             <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" style="margin-top: 30px;">
-                <button mat-raised-button class="font fs-5" [ngClass]="confirm ? 'btnMenuClicked':'btnMenu'" (click)="createOrder('E')" fxFlex="48">Enviar Pedido</button>
+                <button mat-raised-button class="font fs-5" [ngClass]="confirmE ? 'btnMenuClicked':'btnMenu'" (click)="createOrder('E')" fxFlex="48">Enviar Pedido</button>
 
-                <button mat-raised-button class="font fs-5" [ngClass]="confirm ? 'btnMenuClicked':'btnMenu'" (click)="createOrder('A')" fxFlex="48">Guardar Pedido</button>
+                <button mat-raised-button class="font fs-5" [ngClass]="confirmA ? 'btnMenuClicked':'btnMenu'" (click)="createOrder('A')" fxFlex="48">Guardar Pedido</button>
             </div>
 
         </div>

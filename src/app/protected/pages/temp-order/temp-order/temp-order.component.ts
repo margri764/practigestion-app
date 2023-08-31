@@ -110,7 +110,7 @@ export class TempOrderComponent implements OnInit {
 
   }
 
-  // tengo q cambiar esta logica por el nuevo endpoint!!
+
   sendOrder(order :any){
 
     const ptoVenta = order.ptoVenta;

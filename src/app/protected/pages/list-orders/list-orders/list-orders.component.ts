@@ -6,7 +6,9 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Pedido } from 'src/app/protected/interfaces/orders-posted';
 import { EditOrderComponent } from 'src/app/protected/messages/edit-order/edit-order/edit-order.component';
+import { GenericSuccessComponent } from 'src/app/protected/messages/generic-success/generic-success/generic-success.component';
 import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
+import { ErrorService } from 'src/app/protected/services/error/error.service';
 import { OrderService } from 'src/app/protected/services/order/order.service';
 import { WorkerService } from 'src/app/protected/services/worker/worker.service';
 
@@ -20,11 +22,10 @@ export class ListOrdersComponent implements OnInit {
 
 
   @HostListener('window:scroll') onScroll(e: Event): void {
-    console.log('dddd');
     const scrollPosition = window.innerHeight + window.scrollY;
     const contentHeight = document.body.offsetHeight;
     if (scrollPosition >= contentHeight - 100 && !this.isLoading) {
-      this.loadOrders();
+      // this.loadOrders();
     }
  }
 
@@ -56,10 +57,9 @@ export class ListOrdersComponent implements OnInit {
     myForm2! : FormGroup;
     send :  boolean = false;
     order : any;
-    salePoint : any;
+    salePoint : any [] =[]
+
     showOrderFounded : boolean = false;
-
-
 
 
   constructor(
@@ -67,6 +67,7 @@ export class ListOrdersComponent implements OnInit {
               private articleService : ArticlesService,
               private dialog : MatDialog,
               private orderService : OrderService,
+              private errorService : ErrorService              
               
   ) { 
     (screen.width <= 800) ? this.phone = true : this.phone = false;
@@ -74,16 +75,18 @@ export class ListOrdersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.getSalePoint();
    
-    // despues de editar el pedido balaqueo todo 
+    // despues de editar el pedido blaqueo todo 
       this.articleService.initialStateAfterEditOrder$.subscribe((emitted)=>{
           if(emitted){
-                this.arrOrders = [];
+                // this.arrOrders = [];
+                // this.myForm.reset();
+                // this.myForm2.reset();
+                // this.showOrderFounded = false;
+                // this.order = {};
                 // this.isLoading = false;
-                this.myForm.reset();
-                this.myForm2.reset();
-                this.showOrderFounded = false;
-                this.order = {};
         }});
 
       this.myForm = this.fb.group({
@@ -111,6 +114,16 @@ export class ListOrdersComponent implements OnInit {
       })
   }
 
+  getSalePoint(){
+
+    this.orderService.getSalePoint().subscribe(
+      ({pos})=>{
+          if(pos.length !== 0){
+              this.salePoint = pos
+          }
+      })
+
+  }
   selectSalePoint(){
 
     if ( this.myForm.invalid ) {
@@ -214,8 +227,43 @@ export class ListOrdersComponent implements OnInit {
 
   sendOrder(order :any){
 
+      const ptoVenta = order.ptoVenta;
+      const cbteNro = order.cbteNro;
+      const state = "E"
+      this.isLoading = true;
+      this.orderService.updateOrderState(ptoVenta, cbteNro, state).subscribe(
+        (res)=>{
+          if(res.message){
+            this.orderService.getOpenOrders().subscribe();
+            this.openGenericSuccess('Pedido enviado con éxito!!');
+            this.errorService.closeIsLoading$.emit(true)
+          }
+        }
+      )
+
   }
 
+
+  
+  openGenericSuccess(msg : string){
+
+    let height : string = '';
+    let width : string = '';
+  
+    if(screen.width >= 800) {
+      width = "600px";
+      height = "510px";
+    }
+
+    this.dialog.open(GenericSuccessComponent, {
+      data: msg,
+      width: `${width}`|| "",
+      height:`${height}`|| "",
+      disableClose: true,
+      panelClass:"custom-modalbox-NoMoreComponent", 
+    });
+  
+  }
 
   calculateTotal(detalleItems: any[]): number {
     return detalleItems.reduce((total, item) => total + item.importeNetoTotal, 0);
