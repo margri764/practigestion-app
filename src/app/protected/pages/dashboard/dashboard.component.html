@@ -19,7 +19,8 @@
                 <span  class="font  ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Pedidos realizados</span>
             </a>
 
-            <a  mat-list-item style="margin-top: 20px;" (click)="sidenav.toggle() "routerLink="/listado-articulos">
+            <!-- routerLink="/listado-articulos" -->
+            <a  mat-list-item style="margin-top: 20px;" (click)="sidenav.toggle()"  (click)="openMantainMessage()"  >
                 <div class="menuIcon"  >
                     <span class="material-symbols-outlined notranslate" style=" transform: scale(1.3);color: rgb(135, 135, 135);"> category </span>
                 </div>
@@ -47,7 +48,7 @@
                 <span  class="font  ml-10" style="cursor: pointer; margin-top: 5px; color: rgb(28, 28, 28);"> Lista de precios</span>
             </a>
 
-            <a  mat-list-item style="margin-top: 20px;" (click)="sidenav.toggle()">
+            <a  mat-list-item style="margin-top: 20px;" (click)="sidenav.toggle()" (click)="openMantainMessage()">
                 <div class="menuIcon"  >
                     <span class="material-symbols-outlined notranslate" style=" transform: scale(1.3);color: rgb(135, 135, 135);"> settings</span>
                 </div>
@@ -141,8 +142,8 @@
                 </div>
                 <span fxFlex="100"  class="font " style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Pedidos Abiertos</span>
             </div>  
-            
-            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" fxFlex.xs="48" style="margin-top: 30px;" routerLink="/listado-articulos" >
+            <!-- routerLink="/listado-articulos"  -->
+            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" fxFlex.xs="48" style="margin-top: 30px;" (click)="openMantainMessage()" >
                 <div class="mainIcon" >
                     <span class="material-symbols-outlined notranslate"> category </span>
                 </div>

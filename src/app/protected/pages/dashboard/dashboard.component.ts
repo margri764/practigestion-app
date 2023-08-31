@@ -16,6 +16,7 @@ import { OrderService } from '../../services/order/order.service';
 import { LocalStorageService } from '../../services/localStorage/local-storage.service';
 import { GenericMessageComponent } from '../../messages/generic-message/generic-message/generic-message.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MantainMessageComponent } from '../../messages/maintain-message/mantain-message/mantain-message.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -105,12 +106,41 @@ checkSessionStorage(){
 }
 
 openGenericMessage(msg:string){
+  let width : string = '';
+  let height : string = '';
+
+  if(screen.width >= 800) {
+    width = "400px"
+    height ="450px";
+  }
+
+  
+
   this.dialog.open(GenericMessageComponent, {
+    width: `${width}`|| "",
+    height:`${height}`|| "",
     data: msg,
+    panelClass:"custom-modalbox-NoMoreComponent", 
+  });
+}
+
+openMantainMessage(){
+  let width : string = '';
+  let height : string = '';
+
+  if(screen.width >= 800) {
+    width = "400px"
+    height ="450px";
+  }
+
+  this.dialog.open(MantainMessageComponent, {
+    width: `${width}`|| "",
+    height:`${height}`|| "",
     panelClass:"custom-modalbox-NoMoreComponent", 
   });
 
 }
+
 
 
 logout() {

@@ -62,6 +62,8 @@ import localeEs from '@angular/common/locales/es-AR'; //nombre inventado el AR e
 import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { GenericMessageComponent } from './protected/messages/generic-message/generic-message/generic-message.component';
+import { MantainMessageComponent } from './protected/messages/maintain-message/mantain-message/mantain-message.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 registerLocaleData( localeEs );
 
@@ -100,7 +102,8 @@ registerLocaleData( localeEs );
     ErrorBackendDownComponent,
     HeaderComponent,
     EditOrderComponent,
-    GenericMessageComponent
+    GenericMessageComponent,
+    MantainMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -119,6 +122,12 @@ registerLocaleData( localeEs );
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
+      ServiceWorkerModule.register('ngsw-worker.js', {
+        enabled: environment.production,
+        // Register the ServiceWorker as soon as the application is stable
+        // or after 30 seconds (whichever comes first).
+        registrationStrategy: 'registerWhenStable:30000'
+      }),
   
   ],
   providers: [
