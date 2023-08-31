@@ -13,6 +13,7 @@ import { Store } from '@ngrx/store';
 import { ErrorBackendDownComponent } from '../../messages/error-backend-down/error-backend-down/error-backend-down.component';
 import { Router } from '@angular/router';
 import { getDataLS, getDataSS } from '../../Storage';
+import { WrongActionMessageComponent } from '../../messages/wrong-action-message/wrong-action-message/wrong-action-message.component';
 
 @Injectable({
   providedIn: 'root'
@@ -57,8 +58,15 @@ export class ErrorService {
       return of(null);
     }
 
+    if (error.status === 500 && error.error.message === "Pedido no encontrado"){
+      this.closeIsLoading$.emit(true);
+      this.openGenericMsgAlert(error.error.message);
+      return of(null);
+    }
+
     if (error.status === 500 && error.error.message === "El pedido no puede ser editado, se encuentra emitido o cancelado.") {
-      alert("El pedido no puede ser editado, se encuentra emitido o cancelado.");
+      // alert("El pedido no puede ser editado, se encuentra emitido o cancelado.");
+      this.openGenericMsgAlert(error.error.message);
       this.closeIsLoading$.emit(true);
       return of(null);
     }
@@ -126,5 +134,24 @@ export class ErrorService {
       panelClass:"custom-modalbox-message",
     });
   }
+  openGenericMsgAlert(msg : string){
 
+    let width : string = '';
+    let height : string = '';
+
+    if(screen.width >= 800) {
+      width = "350px"
+      height ="400px";
+    }
+
+    this.dialog.open(WrongActionMessageComponent, {
+      data: msg,
+      width: `${width}`|| "",
+      height:`${height}`|| "",
+      // disableClose: true,
+      panelClass:"custom-modalbox-NoMoreComponent", 
+    });
+  
+  }
+  
  }

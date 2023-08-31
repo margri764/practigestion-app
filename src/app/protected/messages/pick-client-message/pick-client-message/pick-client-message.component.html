@@ -6,7 +6,7 @@
     </div>
 
      <!-- start form -->
-     <form  fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 25px;" fxFlex.xs="100" fxFlex="40"  autocomplete="off" >
+     <form  fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 25px;" fxFlex.xs="100" fxFlex="60"  autocomplete="off" >
         <mat-form-field  appearance="outline" fxFlex="90" class="font">
             <input type="text" matInput  placeholder="Buscar Cliente"  name="itemSearch"
             class="form-control  me-2"    
@@ -22,7 +22,7 @@
     <!-- start suggested    -->
     <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="center center"  fxFlex="100" *ngIf="mostrarSugerencias" style="padding: 20px;" >
 
-        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex.xs="100" fxFlex="37" class="font whiteframe fs-5" style="margin-left: 0px;" >
+        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex.xs="100" fxFlex="60" class="font whiteframe fs-5" style="margin-left: 0px;" >
             <a > Buscar:   {{ itemSearch }}</a>
             <mat-icon (click)="close()" style="cursor: pointer; margin-right: 10px; transform: scale(1.2);" > close</mat-icon>
         </div>
@@ -31,7 +31,7 @@
             <mat-spinner diameter="48"></mat-spinner>
         </div>
                     
-        <div fxLayout="row wrap"  fxLayoutAlign.xs="start center"  fxLayoutAlign="center center" fxFlex="100" class="font mb-20" *ngFor="let item of suggested , index as i" >
+        <div fxLayout="row wrap"  fxLayoutAlign.xs="start center"  fxLayoutAlign="center center" fxFlex="100" class="font mb-20 mt-20" *ngFor="let item of suggested , index as i" >
             
             <div fxFlex="30" fxFlex.xs="0"></div>
             <div fxLayout="row wrap"  fxFlex="37" fxFlex.xs="90" class="fs-5">

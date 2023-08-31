@@ -126,8 +126,18 @@ styleObject(status : boolean) : object {
 
 openGenericSuccess(msg : string){
 
+  let width : string = '';
+  let height : string = '';
+
+  if(screen.width >= 800) {
+    width = "400px"
+    height ="450px";
+  }
+
   this.dialog.open(GenericSuccessComponent, {
     data: msg,
+    width: `${width}`|| "",
+    height:`${height}`|| "",
     disableClose: true,
     panelClass:"custom-modalbox-NoMoreComponent", 
   });

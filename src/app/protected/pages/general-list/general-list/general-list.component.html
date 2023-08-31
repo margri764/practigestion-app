@@ -5,10 +5,13 @@
         <span class="font fs-5">Selecciona la lista de precios. </span>
     </div>
     
+    <!-- <img [src]=off.img alt="oferta" fxFlex="100" [routerLink]="['../view-more/',item.category.name, i]" >
+    let item, index as i -->
+
 
     <div  fxLayout="row wrap"  fxLayoutAlign="center start" FxFlex="100" style="background-color: rgb(241, 241, 241); margin-top: 40px;" *ngIf="arrList.length !== 0" >
         
-        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 10px; background-color: white;" fxFlex="97" class="whiteframe" *ngFor="let list of arrList" (click)="selectList(list.id)">
+        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 10px; background-color: white;" fxFlex="97" class="whiteframe" *ngFor="let list of arrList, let item" [routerLink]="['/listado-precios/listado', list.id]">
     
             <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="background-color: rgb(37, 150, 190); color: white; height: 30px; padding: 5px;">
                 <span  class="font fs-5" fxFlex="50" > Código: {{list.id }} </span>
@@ -18,8 +21,8 @@
        
             <span  class="font fs-5 mt-20" fxFlex="80" > {{list.nombreLista| capitalizeFirstLetter }}</span>
             <div class="icon mt-20" >
-                <span class="material-symbols-outlined notranslate fc-green" *ngIf="list.activa ==1" >done</span> 
-                <span class="material-symbols-outlined notranslate fc-red" *ngIf="list.activa == 0">close</span> 
+                <span class="material-symbols-outlined notranslate fc-green cursor" *ngIf="list.activa ==1" >done</span> 
+                <span class="material-symbols-outlined notranslate fc-red cursor" *ngIf="list.activa == 0">close</span> 
 
             </div>
 

@@ -8,8 +8,8 @@
                 <span class="font fs-5" fxFlex="90">Nuevo Pedido</span>
         </div> -->
         <div fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100">
-                <span class="font fs-6 t-center" fxFlex="50" (click)="selectOption('client')" >Cliente</span>
-                <span class="font fs-6 t-center" fxFlex="50" (click)="selectOption('product')">Productos</span>
+                <span class="font fs-6 t-center cursor" fxFlex="50" (click)="selectOption('client')" >Cliente</span>
+                <span class="font fs-6 t-center cursor" fxFlex="50" (click)="selectOption('product')">Productos</span>
                 <div fxLayout="row wrap"  fxLayoutAlign="center" fxFlex="40" [ngClass]="showClient ? 'selection':'none'" ></div>
                 <div fxLayout="row wrap"  fxLayoutAlign="center" fxFlex="40" [ngClass]="showProduct ? 'selection':'none'"></div>
         </div>
@@ -18,7 +18,7 @@
     
     <ng-container *ngIf="showClient; else showProductTemplate">
         
-      <form  [formGroup]="myForm"  fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100"  class="mt-60 pd-10" >     
+      <form  [formGroup]="myForm"  fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex.xs="100" fxFlex="60" class="mt-60 pd-10" >     
             
           <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
               <mat-label>Fecha</mat-label>
@@ -33,31 +33,31 @@
             <!-- <mat-error *ngIf ="validField ('client')" class="font fs-4"> Campo requerido</mat-error> -->
 
 
-        <div fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="100" *ngIf="client">
+        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex.xs="60" fxFlex.xs="100" *ngIf="client">
 
-                <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
+                <mat-form-field appearance="outline"  fxFlex="48" class="mt-10 font fs-5" >		
                     <mat-label>Razon Social</mat-label>
                     <input matInput type="text" formControlName="comercialName" readonly>
                 </mat-form-field> 
         
 
-                <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
+                <mat-form-field appearance="outline"  fxFlex="48" class="mt-10 font fs-5" >		
                     <mat-label>Telefono</mat-label>
                     <input matInput type="text" formControlName="phone" readonly>
                 </mat-form-field> 
 
                 
-                <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
+                <mat-form-field appearance="outline"  fxFlex="48" class="mt-10 font fs-5" >		
                     <mat-label>Cuit</mat-label>
                     <input matInput type="text" formControlName="cuit" readonly>
                 </mat-form-field> 
 
-                <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
+                <mat-form-field appearance="outline"  fxFlex="48" class="mt-10 font fs-5" >		
                     <mat-label>Descuento (%)</mat-label>
                     <input matInput type="number" formControlName="discount">
                 </mat-form-field> 
 
-                <mat-form-field appearance="outline" floatLabel="always" fxFlex="49" class="mt-10 font fs-5">
+                <mat-form-field appearance="outline" floatLabel="always" fxFlex="48" class="mt-10 font fs-5">
                     <mat-label>Selecciona Punto de venta</mat-label>
                     <mat-select required formControlName="ptoVenta" class="font" >
                                 <mat-option></mat-option>
@@ -65,7 +65,7 @@
                     </mat-select>
                 </mat-form-field>
 
-                <div fxFlex="49"></div>
+                <div fxFlex="48"></div>
             
     
 
@@ -88,7 +88,7 @@
             <span  class="font fs-5" style="margin-left: 10px; margin-top: 30px;" fxFlex="100"> No se encontraron coincidencias... </span>
         </div> -->
 
-        <div fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="97" style="margin-top: 20px; margin-bottom: 30px;">
+        <div fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex.xs="97" fxFlex="40"  style="margin-top: 35px; margin-bottom: 30px;">
                       
             <button mat-raised-button class="font fs-5" style="line-height: 60px; background-color:rgb(188, 210, 202); color: white; font-size: 1.6em;" fxFlex="97" routerLink="/buscar-articulos">Buscar Productos</button>
         </div>

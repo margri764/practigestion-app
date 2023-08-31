@@ -77,20 +77,22 @@ export class ListOrdersComponent implements OnInit {
   ngOnInit(): void {
 
     this.getSalePoint();
+
+    this.errorService.closeIsLoading$.subscribe((emitted)=>{if(emitted){this.isLoading = false}})
    
-    // despues de editar el pedido blaqueo todo 
-      this.articleService.initialStateAfterEditOrder$.subscribe((emitted)=>{
-          if(emitted){
-                // this.arrOrders = [];
-                // this.myForm.reset();
-                // this.myForm2.reset();
-                // this.showOrderFounded = false;
-                // this.order = {};
-                // this.isLoading = false;
-        }});
+    // despues de editar el pedido blaqueo todo ()
+      // this.articleService.initialStateAfterEditOrder$.subscribe((emitted)=>{
+      //     if(emitted){
+      //           this.arrOrders = [];
+      //           this.myForm.reset();
+      //           this.myForm2.reset();
+      //           this.showOrderFounded = false;
+      //           this.order = {};
+      //           this.isLoading = false;
+      //   }});
 
       this.myForm = this.fb.group({
-        ptoVenta1:  [ '',[Validators.required]],
+        ptoVenta1:  [ ''],
       });   
 
       this.myForm2 = this.fb.group({
@@ -99,20 +101,20 @@ export class ListOrdersComponent implements OnInit {
       });   
   }
 
-  getInitialOrders(){
-    this.isLoading = true;
-    this.showOrderFounded = false;
-    this.arrOrders = [];
-    // this.dataTableActive = this.articleService.getOrdersPaginator(this.pageIndex, this.pageSize,)
+  // getInitialOrders(){
+  //   this.isLoading = true;
+  //   this.showOrderFounded = false;
+  //   this.arrOrders = [];
+  //   // this.dataTableActive = this.articleService.getOrdersPaginator(this.pageIndex, this.pageSize,)
 
-    this.orderService.getOrdersPaginator(this.pageIndex, this.pageSize).subscribe(
-      ({Pedidos})=>{
-        this.arrOrders = Pedidos;
-        this.isLoading = false;
-        this.myForm.reset();
-        this.myForm2.reset();
-      })
-  }
+  //   this.orderService.getOrdersPaginator(this.pageIndex, this.pageSize).subscribe(
+  //     ({Pedidos})=>{
+  //       this.arrOrders = Pedidos;
+  //       this.isLoading = false;
+  //       this.myForm.reset();
+  //       this.myForm2.reset();
+  //     })
+  // }
 
   getSalePoint(){
 
@@ -137,10 +139,11 @@ export class ListOrdersComponent implements OnInit {
       const ptoVenta = this.myForm.get('ptoVenta1')?.value;
 
       this.orderService.getOrdersByPtoVenta(ptoVenta).subscribe(
-        ({pedidos})=>{
+        ({pedidos, pagination})=>{
           if(pedidos.length !== 0){
             this.arrOrders = pedidos;
             this.isLoading = false;
+            this.length = pagination.total_reg;
             this.myForm.reset();
           }
         })
@@ -174,9 +177,10 @@ export class ListOrdersComponent implements OnInit {
   loadOrders() {
     this.isLoading= true;
     this.orderService.getOrdersPaginator(this.pageIndex, this.pageSize,).subscribe(
-    ({pedidos})=>{
-      this.arrOrders = pedidos;
-      this.isLoading = false
+      ({pedidos, pagination})=>{
+            this.arrOrders = pedidos;
+            this.isLoading = false;
+            this.length = pagination.total_reg;
     })
   }
 

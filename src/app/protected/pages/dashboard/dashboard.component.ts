@@ -41,6 +41,7 @@ showNoProcessMessage : boolean = false;
 notificationsDone! : boolean;
 login : boolean = false;
 phone : boolean = false;
+
 constructor(
               private store : Store <AppState>,
               private cookieService : CookieService,

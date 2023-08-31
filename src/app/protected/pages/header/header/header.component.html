@@ -1,24 +1,31 @@
     <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" class="header">
        
-        <div fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="50" style="margin-top: 5px;" (click)="navigate()">
+        <div fxLayout="row wrap"  fxLayoutAlign="start center" fxFlex="40" style="margin-top: 5px;" (click)="navigate()" >
                 <span class="material-symbols-outlined notranslate cursor" >arrow_back_ios</span>
                 <span class="font cursor fs-5" fxFlex="80">{{labelHeader}}</span>
         </div>
 
-        <div fxLayout="row wrap"  fxLayoutAlign="end center"  fxFlex="50">
+        <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="60" >
 
-                <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" (click)="accordion.openAll(); visibility()" style="margin-right: 15px;">
-                    <mat-icon class="material-symbols-outlined notranslate" [matBadge]="alert" matBadgeColor="warn" [matBadgeHidden]="hidden"  >notifications</mat-icon>
-                </button>
+                <div fxLayout="row wrap"  fxLayoutAlign="end center"  fxFlex="100" >
 
-                <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" *ngIf="login" [matMenuTriggerFor]="menu" style="margin-right: 15px;">
+                    <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" (click)="accordion.openAll(); visibility()" style="margin-right: 10px;">
+                        <mat-icon class="material-symbols-outlined notranslate" [matBadge]="alert" matBadgeColor="warn" [matBadgeHidden]="hidden">notifications</mat-icon>
+                    </button>
+
+                    <span class="font" >{{user?.nombre}}</span>
+                
+                </div>
+
+                <!-- <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" *ngIf="login" [matMenuTriggerFor]="menu" style="margin-right: 15px;">
                         <span class="material-icons" style="transform: scale(1.2);">account_circle</span>
                 </button>
 
                 <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" routerLink="/login" *ngIf="!login" style="margin-right: 15px;">
                     <span class="material-icons" style="transform: scale(1.2);">login</span>
-            </button>
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            </button> -->
+
+            <!-- <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                 <mat-icon>more_vert</mat-icon>
               </button>
               
@@ -31,7 +38,7 @@
                     <mat-icon>person</mat-icon>
                     <span class="font">Cuenta</span>
                   </button>
-              </mat-menu> 
+              </mat-menu>  -->
            
        </div>
 

@@ -2,7 +2,7 @@ import { AfterViewChecked, ChangeDetectorRef, Component, EventEmitter, Input, On
 import { MatAccordion } from '@angular/material/expansion';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription, filter } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
 import { AuthService } from 'src/app/protected/services/auth/auth.service';
 import { ErrorService } from 'src/app/protected/services/error/error.service';
@@ -21,7 +21,8 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
   panelOpenState = false;
   showLabelTempOrder : boolean = false;
   articleSuscription!: Subscription;
-  alert : string = '';
+  userSubscription!: Subscription;
+  alert! : any;
   toogle : boolean = false;
   @ViewChild(MatAccordion)  accordion!: MatAccordion;
   hidden : boolean = false;
@@ -30,7 +31,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
     
  labelHeader : string = '';
  path : string = '/home';
-
+ user: any | undefined;
 
   constructor(
                private store : Store <AppState>,
@@ -55,19 +56,28 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
 
   ngOnInit(): void {
 
-    // this.articleSuscription = this.store.select('article')
-    // .pipe(
-  
-    // ).subscribe(({tempOrder})=>{
-  
-    //   console.log(tempOrder);
-    //   if(tempOrder.length !==0){
-    //       this.showLabelTempOrder = true;
-    //       this.alert= '!';
-    //   }else{
-    //       this.alert= '';
-    //   }
-    // })
+    this.articleSuscription = this.store.select('article')
+  .pipe(
+    filter( ({tempOrder})=>  tempOrder.length !== 0 ),
+
+  ).subscribe(({tempOrder})=>{
+
+    if(tempOrder.length !==0){
+      this.showLabelTempOrder = true;
+      console.log(tempOrder.length);
+      this.alert = tempOrder.length;
+    }
+  })
+
+  this.userSubscription = this.store.select('auth')
+  .pipe(
+    filter( ({user})=>  user != null && user != undefined),
+  ).subscribe(
+    ({user})=>{
+      this.user = user;
+      this.login = true;
+    })
+
 
     
  }

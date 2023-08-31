@@ -82,8 +82,8 @@ getAllTruePriceList( ){
     );
 }
 
-getPriceListById( id:any ){
-  return this.http.get<any>(`${this.baseUrl}api/precios/${id}`)
+getPriceListById( id:any, from : any, to : any ){
+  return this.http.get<any>(`${this.baseUrl}api/precios/${id}?p=${from}&r=${to}`)
 .pipe(
   map( res =>{ 
         console.log('desde service getPriceListById', res)

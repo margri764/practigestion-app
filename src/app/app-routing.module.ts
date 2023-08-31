@@ -11,6 +11,7 @@ import { TempOrderComponent } from './protected/pages/temp-order/temp-order/temp
 import { ListPriceHomeComponent } from './protected/pages/list-price-home/list-price-home/list-price-home.component';
 import { GeneralListComponent } from './protected/pages/general-list/general-list/general-list.component';
 import { ListOrdersComponent } from './protected/pages/list-orders/list-orders/list-orders.component';
+import { ListByIdComponent } from './protected/pages/list-by-id/list-by-id/list-by-id.component';
 
 
 const routes: Routes = [
@@ -21,12 +22,19 @@ const routes: Routes = [
   {
     path: 'listado-clientes',  component: ClientComponent
   },
+  // {
+  //   path: 'listado-precios/listado',  component: GeneralListComponent
+  // },
+
   {
-    path: 'listado-precios/listado',  component: GeneralListComponent
+    path: 'listado-precios/listado/:id',  component: ListByIdComponent
   },
   {
-    path: 'listado-precios',  component : ListPriceHomeComponent
+    path: 'listado-precios',  component : GeneralListComponent
   },
+  // {
+  //   path: 'listado-precios',  component : ListPriceHomeComponent
+  // },
   {
     path: 'listado-articulos',  component: ArticlesComponent
   },
