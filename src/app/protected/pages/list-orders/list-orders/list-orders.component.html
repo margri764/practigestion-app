@@ -15,7 +15,7 @@
                             <mat-label>Selecciona Punto de venta</mat-label>
                             <mat-select  formControlName="ptoVenta1" class="font" >
                                         <mat-option></mat-option>
-                                        <mat-option *ngFor="let point of salePoint" [value]="point.numero" class="font fs-4" (click)="selectSalePoint()"> {{point.sucursal}} <mat-icon matSuffix style="transform:scale(1.7); color: rgb(37, 150, 190); cursor: pointer; margin-left: 10px;" (click)="selectSalePoint()">search</mat-icon></mat-option>
+                                        <mat-option *ngFor="let point of salePoint" [value]="point.numero" class="font fs-4" > {{point.sucursal}} <mat-icon matSuffix style="transform:scale(1.7); color: rgb(37, 150, 190); cursor: pointer; margin-left: 10px;" (click)="selectSalePoint()">search</mat-icon></mat-option>
                             </mat-select>
                         </mat-form-field>
                      
@@ -53,13 +53,13 @@
             </div>
 
             <!-- icono -->
-            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="27" (click)="loadOrders()"> 
+            <!-- <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="27" (click)="loadOrders()"> 
                 <div class="mainIcon"  >
                     <span class="material-symbols-outlined notranslate"> refresh </span>
                 </div>
                 <span class="textMainIcon" fxFlex="100" style="text-align: center;">Listado General </span>
                 
-            </div>  
+            </div>   -->
         </div>
     <!-- end menu search -->
 
@@ -115,13 +115,13 @@
         </div>
 
         <!-- icono -->
-        <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" (click)="loadOrders()" style="margin-top: 30px;"> 
+        <!-- <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" (click)="loadOrders()" style="margin-top: 30px;"> 
             <div class="mainIcon"  >
                 <span class="material-symbols-outlined notranslate"> refresh </span>
             </div>
             <span class="textMainIcon" fxFlex="100" style="text-align: center;">Listado General </span>
             
-        </div>  
+        </div>   -->
     </div>
     <!-- end menu phone -->
 

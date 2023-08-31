@@ -85,8 +85,11 @@ getAllOrders( ){
   );
 }
 
-getOrdersByPtoVenta( id :  any ){
-  return this.http.get<any>(`${this.baseUrl}api/pedidos/${id}`)
+//  / return this.http.get<any>(`${this.baseUrl}api/precios/${id}?p=${from}&r=${to}`)
+
+getOrdersByPtoVenta( id :  any, from : any, to : any){
+
+  return this.http.get<any>(`${this.baseUrl}api/pedidos/${id}?p=${from}&r=${to}`)
 .pipe(
   map( res =>{ 
         console.log('desde service getOrdersByPtoVenta', res)
@@ -94,15 +97,14 @@ getOrdersByPtoVenta( id :  any ){
   );
 }
 
-
 getSalePointByNumOrder( salePoint :  any, nroOrder : any ){
   return this.http.get<any>(`${this.baseUrl}api/pedidos/${salePoint}/${nroOrder}`)
-.pipe(
-  map( res =>{ 
-        console.log('desde service getSalePointByNumOrder', res)
-          return res} )
-  );
-}
+  .pipe(
+    map( res =>{ 
+      console.log('desde service getSalePointByNumOrder', res)
+      return res} )
+      );
+    }
 
 editOrderBySalePointAndNumOrder( body:any, salePoint : any, nroOrder : any){
 console.log(body);
@@ -116,14 +118,14 @@ console.log(body);
 }
 
 
-getOrdersPaginator(from : any, to : any ){
+// getOrdersPaginator(from : any, to : any ){
 
-  return this.http.get<any>(`${this.baseUrl}api/pedidos?p=${from}&r=${to}`)
-.pipe(
-  map( res =>{ 
-        console.log('desde service getOrdersPaginator', res)
-          return res} )
-  );
-}
+//   return this.http.get<any>(`${this.baseUrl}api/pedidos?p=${from}&r=${to}`)
+// .pipe(
+//   map( res =>{ 
+//         console.log('desde service getOrdersPaginator', res)
+//           return res} )
+//   );
+// }
 
 }

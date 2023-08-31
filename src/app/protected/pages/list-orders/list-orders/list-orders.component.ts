@@ -77,6 +77,7 @@ export class ListOrdersComponent implements OnInit {
   ngOnInit(): void {
 
     this.getSalePoint();
+    
 
     this.errorService.closeIsLoading$.subscribe((emitted)=>{if(emitted){this.isLoading = false}})
    
@@ -136,15 +137,18 @@ export class ListOrdersComponent implements OnInit {
       this.arrOrders = [];
       this.showOrderFounded = false;
 
-      const ptoVenta = this.myForm.get('ptoVenta1')?.value;
+      let ptoVenta = this.myForm.get('ptoVenta1')?.value;
+      let ptoVentaNumber = parseFloat(ptoVenta);
 
-      this.orderService.getOrdersByPtoVenta(ptoVenta).subscribe(
+
+
+      this.orderService.getOrdersByPtoVenta(ptoVentaNumber, this.pageIndex, this.pageSize).subscribe(
         ({pedidos, pagination})=>{
           if(pedidos.length !== 0){
             this.arrOrders = pedidos;
             this.isLoading = false;
             this.length = pagination.total_reg;
-            this.myForm.reset();
+            // this.myForm.reset();
           }
         })
    }
@@ -174,15 +178,15 @@ export class ListOrdersComponent implements OnInit {
    }
  
 
-  loadOrders() {
-    this.isLoading= true;
-    this.orderService.getOrdersPaginator(this.pageIndex, this.pageSize,).subscribe(
-      ({pedidos, pagination})=>{
-            this.arrOrders = pedidos;
-            this.isLoading = false;
-            this.length = pagination.total_reg;
-    })
-  }
+  // loadOrders() {
+  //   this.isLoading= true;
+  //   this.orderService.getOrdersPaginator(this.pageIndex, this.pageSize,).subscribe(
+  //     ({pedidos, pagination})=>{
+  //           this.arrOrders = pedidos;
+  //           this.isLoading = false;
+  //           this.length = pagination.total_reg;
+  //   })
+  // }
 
   handlePageEvent(e: PageEvent) {
     this.pageEvent = e;
@@ -190,16 +194,21 @@ export class ListOrdersComponent implements OnInit {
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
   
-      this.length,
-      this.pageSize, 
-      this.pageIndex;
       this.isLoading= true;
+
+      const ptoVenta = this.myForm.get('ptoVenta1')?.value;
+      let ptoVentaNumber = parseFloat(ptoVenta);
+
       // this.dataTableActive = this.articleService.getOrdersPaginator(this.pageIndex, this.pageSize,)
+
+
       
-      this.orderService.getOrdersPaginator(this.pageIndex, this.pageSize,).subscribe(
-        ({pedidos})=>{
+      this.orderService.getOrdersByPtoVenta(ptoVentaNumber, this.pageIndex, this.pageSize,).subscribe(
+        ({pedidos, pagination})=>{
           this.arrOrders = pedidos;
           this.isLoading = false
+          this.length = pagination.total_reg;
+
         })
   }
   
