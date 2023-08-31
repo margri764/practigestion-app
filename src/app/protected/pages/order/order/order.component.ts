@@ -221,8 +221,12 @@ export class OrderComponent implements OnInit, OnDestroy {
     
 console.log(body);
     this.orderService.createOrder(body).subscribe((res)=>{
-      if(res.msg){
-        this.openGenericMessage('Pedido generado con éxito!!');
+      if(res.msg === "success"){
+        this.openGenericSuccess('Pedido generado con éxito!!');
+        //si el pedido se guardo qu vuelva a cragar las ordenes abiertas
+        if(body.estado === "A"){
+            this.orderService.getOpenOrders().subscribe()
+        }
         this.resetOrder();
       }
     })
@@ -234,6 +238,7 @@ console.log(body);
     this.arrArticles = [];
     this.arrItemSelected = [];
     this.store.dispatch(articleAction.unSetSelectedArticles());
+    this.store.dispatch(authAction.unSetTempClient());
     sessionStorage.removeItem("arrArticles");
     sessionStorage.removeItem("tempClient");
 
@@ -246,7 +251,7 @@ console.log(body);
       this.client = client;
     }
     if( articles.length !== 0 || client){
-      this.openGenericMessage("Existe un pedido incompleto!!")
+      this.openGenericSuccess("Existe un pedido incompleto!!")
     }
   }
  
@@ -256,13 +261,13 @@ validField( field: string ) {
   return this.myForm.controls[field].errors && this.myForm.controls[field].touched;
 }
 
-openGenericMessage(msg:string){
-  this.dialog.open(GenericMessageComponent, {
-    data: msg,
-    panelClass:"custom-modalbox-NoMoreComponent", 
-  });
+// openGenericMessage(msg:string){
+//   this.dialog.open(GenericMessageComponent, {
+//     data: msg,
+//     panelClass:"custom-modalbox-NoMoreComponent", 
+//   });
 
-}
+// }
 
 openGenericMsgAlert(msg : string){
   this.dialog.open(WrongActionMessageComponent, {

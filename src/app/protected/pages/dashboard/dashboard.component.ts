@@ -72,6 +72,7 @@ ngOnInit(): void {
 
   this.articleSuscription = this.store.select('article')
   .pipe(
+    filter( ({tempOrder})=>  tempOrder.length !== 0 ),
 
   ).subscribe(({tempOrder})=>{
 
@@ -102,7 +103,7 @@ ngOnInit(): void {
 checkSessionStorage(){
   const articles = getDataSS("arrArticles");
   const client = getDataSS("tempClient");
-  if( articles.length !== 0 || client){
+  if( (articles && articles.length !== 0 )|| client){
     this.openGenericMessage("Existe un pedido incompleto!!")
   }
 }
