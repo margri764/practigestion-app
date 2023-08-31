@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import * as articleActions from './article.actions';
 import { LocalStorageService } from './protected/services/localStorage/local-storage.service';
 import { getDataLS, getDataSS } from './protected/Storage';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
@@ -23,10 +24,18 @@ export class AppComponent implements OnInit {
               private localStorageService: LocalStorageService,
               public router : Router,
               private store : Store <AppState>,
-              private orderService : OrderService
+              private orderService : OrderService,
+              private cookieService : CookieService
 
   ){
 
+
+    if( getDataLS("logged") && this.cookieService.get('token') && !getDataSS('openOrders')){
+      this.login = true;
+      this.orderService.getOpenOrders().subscribe();
+      // console.log("nod eberia entrar");
+  }
+  console.log('1');
         
 
   }
@@ -41,7 +50,6 @@ export class AppComponent implements OnInit {
       }
     });
 
-    this.orderService.getOpenOrders().subscribe();
 
   }
 

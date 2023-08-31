@@ -14,6 +14,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { ErrorService } from '../../services/error/error.service';
 import { OrderService } from '../../services/order/order.service';
 import { LocalStorageService } from '../../services/localStorage/local-storage.service';
+import { GenericMessageComponent } from '../../messages/generic-message/generic-message/generic-message.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dashboard',
@@ -43,6 +45,7 @@ constructor(
               private store : Store <AppState>,
               private cookieService : CookieService,
               private errorService : ErrorService,
+              private dialog : MatDialog,
               private router : Router,
               private authService : AuthService,
               private orderService : OrderService,
@@ -50,10 +53,11 @@ constructor(
   ) { 
 
     
-  if(getDataSS("logged") === true || getDataLS("logged") == true){
-    this.cookieService.get('token');
-    this.login = true;
-  }
+    if( getDataLS("logged") && this.cookieService.get('token') && !getDataSS('openOrders')){
+      this.orderService.getOpenOrders().subscribe();
+      console.log("nod eberia entrar");
+    }
+
   (screen.width <= 600) ? this.phone = true : this.phone = false;
 
   }
@@ -64,7 +68,7 @@ visibility(){
 
 
 ngOnInit(): void {
-
+  this.checkSessionStorage();
 
   this.articleSuscription = this.store.select('article')
   .pipe(
@@ -78,6 +82,15 @@ ngOnInit(): void {
     }
   })
 
+  this.userSubscription = this.store.select('auth')
+  .pipe(
+    filter( ({user})=>  user != null && user != undefined),
+  ).subscribe(
+    ({user})=>{
+      this.user = user;
+      this.login = true;
+    })
+
   // this.orderService.getOpenOrders().subscribe(
   //   ({pedidos})=>{
   //     if(pedidos.length){
@@ -86,7 +99,21 @@ ngOnInit(): void {
   //   })
 }
 
+checkSessionStorage(){
+  const articles = getDataSS("arrArticles");
+  const client = getDataSS("tempClient");
+  if( articles.length !== 0 || client){
+    this.openGenericMessage("Existe un pedido incompleto!!")
+  }
+}
 
+openGenericMessage(msg:string){
+  this.dialog.open(GenericMessageComponent, {
+    data: msg,
+    panelClass:"custom-modalbox-NoMoreComponent", 
+  });
+
+}
 
 
 logout() {

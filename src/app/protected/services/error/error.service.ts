@@ -81,10 +81,10 @@ export class ErrorService {
                  this.close$.next(true);
                  this.close$.next(false);
                  localStorage.removeItem("logged");
+                 localStorage.removeItem("user");
                  sessionStorage.removeItem("token");
-                 sessionStorage.removeItem("logged");
-                 localStorage.removeItem("logged");
-                 this.cookieService.delete('token')
+                 sessionStorage.removeItem("openOrders");
+                 this.cookieService.delete('token');
                  this.store.dispatch(articleActions.unSetArticles());
                  this.store.dispatch(articleActions.unSetSelectedArticles());
                 //  this.store.dispatch(articleActions.unSetTempOrder());

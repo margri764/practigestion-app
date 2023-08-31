@@ -64,7 +64,7 @@
 
             <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" class=" mt-30" style="color: rgb(44, 44, 44);">
                     
-                <span fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="55" class="font fs-5"> Precio U. &nbsp;<b>${{article.precioCostoConIva || 0 * productQuantity || 0 }} </b> </span>
+                <span fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="55" class="font fs-5"> Precio U. &nbsp;<b>${{article.precioCostoConIva || 0 * productQuantity || 0 | decimalRound}} </b> </span>
                 <!-- counter -->
                 <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="45">
                 
@@ -96,7 +96,7 @@
 
             <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" class="font fs-7 mt-40" >
                 <span fxFlex="50" fxLayoutAlign="start center" > <b>Total</b> </span>
-                <span fxFlex="50" fxLayoutAlign="end"><b>$ {{total}}</b></span>
+                <span fxFlex="50" fxLayoutAlign="end"><b>$ {{total | decimalRound}}</b></span>
             </div>    
 
             <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="97" style="margin-top: 20px;">

@@ -93,7 +93,7 @@
             <button mat-raised-button class="font fs-5" style="line-height: 60px; background-color:rgb(188, 210, 202); color: white; font-size: 1.6em;" fxFlex="97" routerLink="/buscar-articulos">Buscar Productos</button>
         </div>
 
-
+       <!-- start card product -->
         <div  fxLayout="row wrap"  fxLayoutAlign="center start" FxFlex="100" style="background-color: rgb(241, 241, 241);" *ngIf="arrArticles.length !== 0">
         
                 <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="background-color: rgb(243, 243, 255); margin-bottom: 30px;  padding: 10px" fxFlex="97" class="whiteframe" *ngFor="let article of arrArticles">
@@ -106,13 +106,13 @@
                     <span  class="font fs-5 mt-20" fxFlex="100" > {{article.descripcionLarga | capitalizeFirstLetter }}</span>
 
                     <div  fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" style="margin-top: 20px;">
-                        <span  class="font fs-5" fxFlex="50" >  {{article.cantidad }} x {{article.precioCostoConIva}}</span>
+                        <span  class="font fs-5" fxFlex="50" >  {{article.cantidad }} x {{article.precioCostoConIva | decimalRound}} </span>
                         <span  class="font fs-5" style="text-align: end;"  fxFlex="50" >  Bonificación: {{article.bonificacionPorciento }}</span>
                     </div>
 
                     <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" class="font fs-5 mt-40" >
                         <span fxFlex="50" fxLayoutAlign="start center" > <b>Sub Total</b> </span>
-                        <span fxFlex="50" fxLayoutAlign="end"><b>$ {{article.ventaTotal }}</b></span>
+                        <span fxFlex="50" fxLayoutAlign="end"><b>$ {{article.ventaTotal | decimalRound }}</b></span>
                     </div>    
         
                     <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="100" class="mt-20">
@@ -129,9 +129,10 @@
                 
                 <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="97" class="font fs-6 mt-40 whiteframe" style="height: 90px; background-color: white; margin-bottom: 10px;" >
                     <span fxFlex="50" fxLayoutAlign="start center" > <b>Total Pedido</b> </span>
-                    <span fxFlex="50" fxLayoutAlign="end"><b>${{getTotal()}} </b></span>
+                    <span fxFlex="50" fxLayoutAlign="end"><b>${{getTotal() | decimalRound}} </b></span>
                 </div>    
         </div>
+        <!-- end card product -->
          
     </ng-template>
 

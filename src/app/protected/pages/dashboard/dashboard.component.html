@@ -90,13 +90,17 @@
                         <mat-icon class="material-symbols-outlined notranslate" [matBadge]="alert" matBadgeColor="warn" [matBadgeHidden]="hidden">notifications</mat-icon>
                     </button>
 
-                    <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" *ngIf="login">
+                    <!-- <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" *ngIf="!login && !user">
                             <span class="material-icons" style="transform: scale(1.2);">account_circle</span>
-                    </button>
+                    </button> -->
 
-                    <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" routerLink="/login" *ngIf="!login">
+                    <span class="font" style="font-size: 0.8em;">{{user?.nombre}}</span>
+                    <!-- <i class="fa fa-spin fa-sync" style="color: white;" *ngIf="!login"></i> -->
+
+
+                    <!-- <button  mat-mini-fab color="custom-color" aria-label="Example icon button with a delete icon" routerLink="/login" *ngIf="!login">
                         <span class="material-icons" style="transform: scale(1.2);">login</span>
-                </button>
+                </button> -->
 
                   
 

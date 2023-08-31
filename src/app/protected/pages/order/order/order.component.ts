@@ -14,7 +14,7 @@ import { GenericSuccessComponent } from 'src/app/protected/messages/generic-succ
 import { LocalStorageService } from 'src/app/protected/services/localStorage/local-storage.service';
 import { Subscription, filter } from 'rxjs';
 import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
-import { getDataSS } from 'src/app/protected/Storage';
+import { getDataLS, getDataSS } from 'src/app/protected/Storage';
 import { GenericMessageComponent } from 'src/app/protected/messages/generic-message/generic-message/generic-message.component';
 
 
@@ -70,7 +70,7 @@ export class OrderComponent implements OnInit, OnDestroy {
 
    this.getSalePoint();
    this.getTotal();
-   this.checkSessionStorage();
+
 
     this.orderService.changeClientValue.subscribe(
       (emitted) => {
@@ -152,8 +152,13 @@ export class OrderComponent implements OnInit, OnDestroy {
   deleteItem(id:any){
     //elimino el item del array
       this.store.dispatch(articleAction.deleteArticle({ articleId: id}));
+      const tempArticles = getDataSS("arrArticles");
+
+      let updatedArticles = tempArticles.filter((item: { id: any; }) => item.id !== id);
+      console.log(updatedArticles);
+
       //hago el update con el nuevo valor del array
-      this.localStorageService.saveStateToLocalStorage(this.arrItemSelected, "arrArticles");
+      this.localStorageService.saveStateToSessionStorage(updatedArticles, "arrArticles");
     }
 
   generateSimpleId() {
@@ -240,8 +245,8 @@ console.log(body);
     if(client){
       this.client = client;
     }
-    if( articles || client){
-      this.openGenericMessage("Existe un pedido abierto!!")
+    if( articles.length !== 0 || client){
+      this.openGenericMessage("Existe un pedido incompleto!!")
     }
   }
  

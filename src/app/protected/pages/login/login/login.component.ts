@@ -7,7 +7,9 @@ import { AppState } from 'src/app/app.reducer';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/protected/services/auth/auth.service';
-import { saveDataLS, saveDataSS } from 'src/app/protected/Storage';
+import { getDataLS, getDataSS, saveDataLS, saveDataSS } from 'src/app/protected/Storage';
+import { CookieService } from 'ngx-cookie-service';
+import { OrderService } from 'src/app/protected/services/order/order.service';
 
 
 @Component({
@@ -39,9 +41,18 @@ export class LoginComponent implements OnInit, OnDestroy {
                  private store: Store<AppState>,
                  private location : Location,
                  private dialog : MatDialog,
+                 private cookieService : CookieService,
+                 private orderService : OrderService
                 //  private errorService : ErrorService,
                 )
-  {  }
+  {
+    if( getDataLS("logged") && this.cookieService.get('token')){
+      this.orderService.getOpenOrders().subscribe();
+      // this.cookieService.get('token');
+      // this.login = true;
+      this.router.navigateByUrl('/home')
+    }
+    }
     
 
 
@@ -71,11 +82,12 @@ ngOnInit() {
                 console.log(res);
 
               if(res){
-                      saveDataSS('logged', true);
                       
                       if(this.myForm.get('toLStorage')?.value === true){
                         saveDataLS('logged', true);
                       }
+
+                      this.authservice.getUser().subscribe();
 
                       this.router.navigateByUrl('/home')
                      }

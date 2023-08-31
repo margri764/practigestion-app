@@ -11,7 +11,7 @@ import * as articleAction from 'src/app/article.actions'
 import { GenericSuccessComponent } from 'src/app/protected/messages/generic-success/generic-success/generic-success.component';
 import { SelectArticleMessageComponent } from 'src/app/protected/messages/select-article-message/select-article-message/select-article-message.component';
 import { Router } from '@angular/router';
-import { getDataLS, saveDataLS } from 'src/app/protected/Storage';
+import { getDataLS, getDataSS, saveDataLS } from 'src/app/protected/Storage';
 import { LocalStorageService } from 'src/app/protected/services/localStorage/local-storage.service';
 
 
@@ -104,9 +104,13 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     articlesInLStorage.push(fastSelect);
 
     //hago el update en redux y LS 
-    const updatedArr = [...this.arrItemSelected, fastSelect];
+    let updatedArr = [...this.arrItemSelected, fastSelect];
     this.store.dispatch(articleAction.setSelectedArticles({ arrSelectedArticles: updatedArr }));
     this.localStorageService.saveStateToSessionStorage(articlesInLStorage, "arrArticles");
+    //guardo en el ss los articulos temporalmente, el concat lo uso para q no se sobreescriban los datos
+    let tempData = getDataSS("arrArticles");
+    updatedArr.concat(tempData);
+    this.localStorageService.saveStateToSessionStorage(updatedArr, "arrArticles");
     this.openGenericSuccess('1 Producto añadido con éxito')
   }
 

@@ -7,7 +7,7 @@ import { DetalleItem } from 'src/app/protected/interfaces/order.interface';
 import * as articleAction from 'src/app/article.actions'
 import { Subscription, take } from 'rxjs';
 import { GenericSuccessComponent } from '../../generic-success/generic-success/generic-success.component';
-import { getDataLS, saveDataLS } from 'src/app/protected/Storage';
+import { getDataLS, getDataSS, saveDataLS } from 'src/app/protected/Storage';
 import { LocalStorageService } from 'src/app/protected/services/localStorage/local-storage.service';
 import { updateLocale } from 'moment';
 
@@ -74,27 +74,30 @@ totalPurchase(){
 
 selectItem(){
 
-  
+  let updatedArr=[];
 // saco los datos siempre del redux, el localstorage es para poder recuperare el redux en los reloads
   const articleToSave = {
-                      descripcionLarga : this.article.descripcionLarga,
-                      precioCostoConIva: this.article.precioCostoConIva,
-                      cantidad: this.productQuantity,
-                      codigoInterno : this.article.codigoArticulo,
-                      id : this.article.idArticulo,
-                      bonificacionPorciento: this.inputValue || 0,
-                      ventaTotal: this.total 
-  }
+                          descripcionLarga : this.article.descripcionLarga,
+                          precioCostoConIva: this.article.precioCostoConIva,
+                          cantidad: this.productQuantity,
+                          codigoInterno : this.article.codigoArticulo,
+                          id : this.article.idArticulo,
+                          bonificacionPorciento: this.inputValue || 0,
+                          ventaTotal: this.total  
+                       }
 
 
   // obtengo el arrSelectedArticles y hago el update con el nuevo producto
   this.articleSuscription = this.store.select('article')
   .pipe( take(1))
   .subscribe(({arrSelectedArticles}) => {
-    const updatedArr = [...arrSelectedArticles, articleToSave]; //update
+    updatedArr = [...arrSelectedArticles, articleToSave]; //update
     this.store.dispatch(articleAction.setSelectedArticles({ arrSelectedArticles: updatedArr }));
      
-    // guardo en sessin storage la data temporal, solo guardo en el LS los pedidos  
+    // guardo en sessin storage la data temporal, solo guardo en el LS los pedidos
+    // hago el concat para q no se sobreescriban los daots  
+    let tempData = getDataSS("arrArticles");
+    updatedArr.concat(tempData);
     this.localStorageService.saveStateToSessionStorage(updatedArr, "arrArticles");
 
   });
