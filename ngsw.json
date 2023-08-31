@@ -1,0 +1,147 @@
+{
+  "configVersion": 1,
+  "timestamp": 1693508765377,
+  "index": "/practigestion-app/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/practigestion-app/favicon.ico",
+        "/practigestion-app/index.html",
+        "/practigestion-app/main.12737b8ad5dd1bb4.js",
+        "/practigestion-app/manifest.webmanifest",
+        "/practigestion-app/polyfills.18abb9878618be99.js",
+        "/practigestion-app/runtime.e981d4f4803d3d5a.js",
+        "/practigestion-app/styles.2b004191c606840e.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/practigestion-app/BebasNeue-Regular.f8cd6b7d650c1a01.ttf",
+        "/practigestion-app/LuckiestGuy-Regular.944b8438f24ffc2c.ttf",
+        "/practigestion-app/Poppins-Light.8b20023e8f811f53.ttf",
+        "/practigestion-app/assets/Logo PractiGestion.ai",
+        "/practigestion-app/assets/Logo PractiGestion.svg",
+        "/practigestion-app/assets/font/Bebas_Neue/BebasNeue-Regular.ttf",
+        "/practigestion-app/assets/font/Bebas_Neue/OFL.txt",
+        "/practigestion-app/assets/font/Luckiest_Guy/LuckiestGuy-Regular.ttf",
+        "/practigestion-app/assets/font/fontawesome-webfont.ttf",
+        "/practigestion-app/assets/font/poppins/OFL.txt",
+        "/practigestion-app/assets/font/poppins/Poppins-Black.ttf",
+        "/practigestion-app/assets/font/poppins/Poppins-BlackItalic.ttf",
+        "/practigestion-app/assets/font/poppins/Poppins-Bold.ttf",
+        "/practigestion-app/assets/font/poppins/Poppins-BoldItalic.ttf",
+        "/practigestion-app/assets/font/poppins/Poppins-ExtraBold.ttf",
+        "/practigestion-app/assets/font/poppins/Poppins-ExtraBoldItalic.ttf",
+        "/practigestion-app/assets/font/poppins/Poppins-ExtraLight.ttf",
+        "/practigestion-app/assets/font/poppins/Poppins-ExtraLightItalic.ttf",
+        "/practigestion-app/assets/font/poppins/Poppins-Italic.ttf",
+        "/practigestion-app/assets/font/poppins/Poppins-Light.ttf",
+        "/practigestion-app/assets/font/poppins/Poppins-LightItalic.ttf",
+        "/practigestion-app/assets/font/poppins/Poppins-Medium.ttf",
+        "/practigestion-app/assets/font/poppins/Poppins-MediumItalic.ttf",
+        "/practigestion-app/assets/font/poppins/Poppins-Regular.ttf",
+        "/practigestion-app/assets/font/poppins/Poppins-SemiBold.ttf",
+        "/practigestion-app/assets/font/poppins/Poppins-SemiBoldItalic.ttf",
+        "/practigestion-app/assets/font/poppins/Poppins-Thin.ttf",
+        "/practigestion-app/assets/font/poppins/Poppins-ThinItalic.ttf",
+        "/practigestion-app/assets/icons/icon-128x128.png",
+        "/practigestion-app/assets/icons/icon-144x144.png",
+        "/practigestion-app/assets/icons/icon-152x152.png",
+        "/practigestion-app/assets/icons/icon-192x192.png",
+        "/practigestion-app/assets/icons/icon-384x384.png",
+        "/practigestion-app/assets/icons/icon-512x512.png",
+        "/practigestion-app/assets/icons/icon-72x72.png",
+        "/practigestion-app/assets/icons/icon-96x96.png",
+        "/practigestion-app/assets/lock.jpg",
+        "/practigestion-app/assets/logo-favicon.png",
+        "/practigestion-app/assets/logo.jpg",
+        "/practigestion-app/assets/logo.png",
+        "/practigestion-app/fontawesome-webfont.8a7cb27d142e3e19.ttf"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/practigestion-app/BebasNeue-Regular.f8cd6b7d650c1a01.ttf": "8b3aaeb978f3cb5f575860774b50c332338563c1",
+    "/practigestion-app/LuckiestGuy-Regular.944b8438f24ffc2c.ttf": "7701304fb627ae9caa78cd982dce30d99a591296",
+    "/practigestion-app/Poppins-Light.8b20023e8f811f53.ttf": "e247a92158e112f8bf7b638c8d95381d66b00dbb",
+    "/practigestion-app/assets/Logo PractiGestion.ai": "f3fb945256eeafb20b7427e38d3e4440f8e4877f",
+    "/practigestion-app/assets/Logo PractiGestion.svg": "6b00354d1058816ca017b6aa1aaa99abe3531a93",
+    "/practigestion-app/assets/font/Bebas_Neue/BebasNeue-Regular.ttf": "8b3aaeb978f3cb5f575860774b50c332338563c1",
+    "/practigestion-app/assets/font/Bebas_Neue/OFL.txt": "c0c8adf427f0cc64e2a4bb425e4b7938fd889867",
+    "/practigestion-app/assets/font/Luckiest_Guy/LuckiestGuy-Regular.ttf": "7701304fb627ae9caa78cd982dce30d99a591296",
+    "/practigestion-app/assets/font/fontawesome-webfont.ttf": "13b1eab65a983c7a73bc7997c479d66943f7c6cb",
+    "/practigestion-app/assets/font/poppins/OFL.txt": "8d6c34b70e3d638c82d7b5aba3f847f7d6d2c831",
+    "/practigestion-app/assets/font/poppins/Poppins-Black.ttf": "645e04c53c6b5b35bce654a811ebce16af8aa721",
+    "/practigestion-app/assets/font/poppins/Poppins-BlackItalic.ttf": "be4ef2aac7775a4b0179c0ecfce6cea8f7783f63",
+    "/practigestion-app/assets/font/poppins/Poppins-Bold.ttf": "875cf0cecd647bcf22e79d633d868c1b1ec98dfa",
+    "/practigestion-app/assets/font/poppins/Poppins-BoldItalic.ttf": "6de8952ca08d27ee77f57347d2cef4b4e26aa78f",
+    "/practigestion-app/assets/font/poppins/Poppins-ExtraBold.ttf": "4b5c0750f073abd576413a0898d3b95adaf199c8",
+    "/practigestion-app/assets/font/poppins/Poppins-ExtraBoldItalic.ttf": "94d3ee3acdbd00e37a715a25f2b5237666b5b8a3",
+    "/practigestion-app/assets/font/poppins/Poppins-ExtraLight.ttf": "85af6582a7e6155917c605f9d3fed68c02b23b06",
+    "/practigestion-app/assets/font/poppins/Poppins-ExtraLightItalic.ttf": "6fa0418f91032680d2d8fe4843009f2c80faa61d",
+    "/practigestion-app/assets/font/poppins/Poppins-Italic.ttf": "e2bfcd56016c3c915221ef1c5fc1a17b0776eb91",
+    "/practigestion-app/assets/font/poppins/Poppins-Light.ttf": "e247a92158e112f8bf7b638c8d95381d66b00dbb",
+    "/practigestion-app/assets/font/poppins/Poppins-LightItalic.ttf": "f76102b361e705751a83b7b22fe954daf1f27dd4",
+    "/practigestion-app/assets/font/poppins/Poppins-Medium.ttf": "283f21b44efbdbf276ba802be2d949a36bbc4233",
+    "/practigestion-app/assets/font/poppins/Poppins-MediumItalic.ttf": "b592c62fdf88c40cfd0f031bba6423b1d4430472",
+    "/practigestion-app/assets/font/poppins/Poppins-Regular.ttf": "fdd3002e7d814ee47c1c1b8487c72c6bbb3a2d00",
+    "/practigestion-app/assets/font/poppins/Poppins-SemiBold.ttf": "8a4ace9392d06bcb7f8ea2f5169b07e4c383a90d",
+    "/practigestion-app/assets/font/poppins/Poppins-SemiBoldItalic.ttf": "0c8bed0a5942b2388d36b11c115685d9f01700b0",
+    "/practigestion-app/assets/font/poppins/Poppins-Thin.ttf": "09ba4dcd5509c8085bf88c665dcc51cbdfced27b",
+    "/practigestion-app/assets/font/poppins/Poppins-ThinItalic.ttf": "fb8fccca21550e71135f92bbaf8a2e8a12c90465",
+    "/practigestion-app/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/practigestion-app/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/practigestion-app/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/practigestion-app/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/practigestion-app/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/practigestion-app/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/practigestion-app/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/practigestion-app/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/practigestion-app/assets/lock.jpg": "1775a21604a77e6f20558dba969f4eefe377cbca",
+    "/practigestion-app/assets/logo-favicon.png": "c65be48137283a4986e628d34965db5833a8b4a4",
+    "/practigestion-app/assets/logo.jpg": "706b70f61ce9aa6465042cc6400878b246bd30e1",
+    "/practigestion-app/assets/logo.png": "421815e3035d73b16f0a3e1549ff4ff48bcb5d29",
+    "/practigestion-app/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/practigestion-app/fontawesome-webfont.8a7cb27d142e3e19.ttf": "13b1eab65a983c7a73bc7997c479d66943f7c6cb",
+    "/practigestion-app/index.html": "c3e05282997709db6b2d759df7720e5041c6638d",
+    "/practigestion-app/main.12737b8ad5dd1bb4.js": "a2e2999f6557063f08f3539801e5477442c2231a",
+    "/practigestion-app/manifest.webmanifest": "4b2e946a89841cb09aea034c7cb3914d72e85b9c",
+    "/practigestion-app/polyfills.18abb9878618be99.js": "451e8b17c129eea3e018aacbcb1e9d1cb91f5766",
+    "/practigestion-app/runtime.e981d4f4803d3d5a.js": "683072065832bad789f3904790d964413451b7ff",
+    "/practigestion-app/styles.2b004191c606840e.css": "6b6223ee64cb6fa541af3aabdef8a47a5fe99f8f"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
