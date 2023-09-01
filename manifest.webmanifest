@@ -2,7 +2,7 @@
   "name": "practigestion",
   "short_name": "practigestion",
   "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "background_color": "transparent",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
