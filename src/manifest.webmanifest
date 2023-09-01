@@ -1,6 +1,6 @@
 {
-  "name": "practigestion app",
-  "short_name": "practigestion app",
+  "name": "practigestion",
+  "short_name": "practigestion",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
