@@ -20,7 +20,7 @@
       "purpose": "maskable any"
     },
     {
-      "src": "assets/icons/logo-126x126png",
+      "src": "assets/icons/logo-126x126.png",
       "sizes": "128x128",
       "type": "image/png",
       "purpose": "maskable any"
@@ -32,7 +32,7 @@
       "purpose": "maskable any"
     },
     {
-      "src": "assets/icons/logo-153-153.png",
+      "src": "assets/icons/logo-153x153.png",
       "sizes": "152x152",
       "type": "image/png",
       "purpose": "maskable any"

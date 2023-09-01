@@ -49,6 +49,9 @@ const base64Credentials = btoa(`${username}:${password}`);
     Authorization: `Basic ${base64Credentials}`
   };
 
+  const now = new Date();
+  const expirationTime = new Date(now.getTime() + 12 * 60 * 60 * 1000); 
+
   return this.http.get<any>(`${this.baseUrl}api/login`, {headers}) 
   
   .pipe(
@@ -56,7 +59,7 @@ const base64Credentials = btoa(`${username}:${password}`);
                     if(token){
                         this.token = token.token;
                         const user = { username, password} 
-                        this.cookieService.set('token', token.token);
+                        this.cookieService.set('token', token.token, expirationTime);
                     }           
                   console.log("desde login Service: ",token);
               }  
