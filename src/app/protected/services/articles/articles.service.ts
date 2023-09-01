@@ -47,7 +47,8 @@ getArticleById(id : string){
 }
 
 searchArticleByDescription( value : string){
-  return this.http.get<any>(`${this.baseUrl}api/articulos/busqueda?f=desc_larga&q=${value}`)
+  const campo = "desc_larga"
+  return this.http.get<any>(`${this.baseUrl}api/articulos/busqueda?f=${campo}&q=${value}`)
   .pipe(
     map( res =>{ 
           console.log('desde service searchArticleByDescription', res)

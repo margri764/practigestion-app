@@ -22,9 +22,6 @@ const routes: Routes = [
   {
     path: 'listado-clientes',  component: ClientComponent
   },
-  // {
-  //   path: 'listado-precios/listado',  component: GeneralListComponent
-  // },
 
   {
     path: 'listado-precios/listado/:id',  component: ListByIdComponent
@@ -32,9 +29,7 @@ const routes: Routes = [
   {
     path: 'listado-precios',  component : GeneralListComponent
   },
-  // {
-  //   path: 'listado-precios',  component : ListPriceHomeComponent
-  // },
+
   {
     path: 'listado-articulos',  component: ArticlesComponent
   },

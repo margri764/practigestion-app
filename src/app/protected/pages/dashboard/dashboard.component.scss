@@ -11,6 +11,8 @@
   text-align: center;
 
   
+
+  
   box-shadow: -1px 0px 14px -1px rgba(197, 196, 196, 0.45);
   -webkit-box-shadow: -1px 0px 14px -1px rgba(197, 196, 196, 0.45);
    -moz-box-shadow: -1px 0px 14px -1px rgba(197, 196, 196, 0.45);
@@ -32,10 +34,34 @@
   flex: 1 1 auto;
 }
 
+.marginLogo{
+  margin-top: calc(100vh - 60vh);
+}
 
+.logoWidth{
+  width: 350px;
+}
+
+//Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 800px) {
+
+  .logoWidth{
+    width: 250px;
+  }
+  
+}
 
 //Extra small devices (phones, 600px and down) */
 @media only screen and (min-width: 800px) {
+
+  .marginLogo{
+    margin-top: calc(100vh - 35vh);
+  }
+
+  .logoWidth{
+    width: 350px;
+  }
+  
 
   .mainIcon{
     width: 100px;
@@ -88,4 +114,28 @@
   }
 
   
+//Extra small devices (phones, 600px and down) */
+@media only screen and (min-width: 1200px) {
+
+  .marginLogo{
+    margin-top: calc(100vh - 45vh);
+  }
+
+  .logoWidth{
+    width: 300px;
+  }
+}
+
+//Extra small devices (phones, 600px and down) */
+@media only screen and (min-width: 1400px) {
+
+  .marginLogo{
+    margin-top: calc(100vh - 50vh);
+  }
+
+  .logoWidth{
+    width: 300px;
+  }
+}
+
 }

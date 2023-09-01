@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, debounceTime } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
 import { Articulo } from 'src/app/protected/interfaces/articulo.interface';
 import { DetalleItem } from 'src/app/protected/interfaces/order.interface';
@@ -69,6 +69,13 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
 
+    this.debouncer
+    .pipe(debounceTime(400))
+    .subscribe( valor => {
+ 
+      this.sugerencias(valor);
+    });
+
     // this.getProducts();
 
     this.articleSuscription = this.store.select('article')
@@ -132,9 +139,8 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     )
   }
 
-  // search
 
-       // search
+      // search
        close(){
         this.mostrarSugerencias = false;
         this.itemSearch = '';
@@ -143,19 +149,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
       }
     
       teclaPresionada(){
-    
-        console.log(this.mostrarSugerencias);
-         
          this.debouncer.next( this.itemSearch );  
-         this.sugerencias(this.itemSearch)
-         if(this.itemSearch == ''){
-           this.suggested=[];
-           this.mostrarSugerencias = false  
-         }
-         if(this.suggested.length === 0) {
-           this.spinner= true;
-         }
-     
        };
     
        sugerencias(value : string){
@@ -170,18 +164,12 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
               this.suggested = articulos.splice(0,10);
               console.log(this.suggested);
                 this.spinner = false;
-              }else{
-                // this.labelNoArticles = true;
               }
             }
           )
         }
      
-      buscar(){
-       this.onEnter.emit( this.itemSearch );
-     
-      }
-    
+ 
        
        Search( id : any ){
         

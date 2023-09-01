@@ -22,7 +22,7 @@
             
           <mat-form-field appearance="outline"  fxFlex="49" class="mt-10 font fs-5" >		
               <mat-label>Fecha</mat-label>
-              <input matInput type="text" required formControlName="date" readonly>
+              <input matInput type="text" formControlName="date" readonly>
           </mat-form-field> 
 
            
@@ -30,7 +30,6 @@
                 <mat-label>Cliente</mat-label>
                 <input matInput type="text" formControlName="client" (click)="getClient()" >
             </mat-form-field> 
-            <!-- <mat-error *ngIf ="validField ('client')" class="font fs-4"> Campo requerido</mat-error> -->
 
 
         <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex.xs="60" fxFlex.xs="100" *ngIf="client">
@@ -59,7 +58,7 @@
 
                 <mat-form-field appearance="outline" floatLabel="always" fxFlex="48" class="mt-10 font fs-5">
                     <mat-label>Selecciona Punto de venta</mat-label>
-                    <mat-select required formControlName="ptoVenta" class="font" >
+                    <mat-select  formControlName="ptoVenta" class="font" >
                                 <mat-option></mat-option>
                                 <mat-option *ngFor="let point of salePoint" [value]="point.numero" class="font fs-4"> {{point.sucursal}}</mat-option>
                     </mat-select>

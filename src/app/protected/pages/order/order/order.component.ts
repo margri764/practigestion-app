@@ -243,24 +243,29 @@ console.log(body);
     this.orderService.createOrder(body).subscribe((res)=>{
       if(res.msg === "success"){
         this.openGenericSuccess('Pedido generado con éxito!!');
-        //si el pedido se guardo qu vuelva a cragar las ordenes abiertas
+        //si el pedido se guardo qu vuelva a cargar las ordenes abiertas
         if(body.estado === "A"){
             this.orderService.getOpenOrders().subscribe()
-        }
-        this.resetOrder();
+          }
+          this.resetOrder();
       }
     })
   }
 
+
   resetOrder(){
-    this.myForm.reset();
-    this.client = {},
+
+    this.myForm.get('client')?.setValue('');
+    this.myForm.markAsPristine();
+    this.myForm.markAsUntouched();
+    this.client = null,
     this.arrArticles = [];
     this.arrItemSelected = [];
     this.store.dispatch(articleAction.unSetSelectedArticles());
     this.store.dispatch(authAction.unSetTempClient());
     sessionStorage.removeItem("arrArticles");
     sessionStorage.removeItem("tempClient");
+
 
   }
 
@@ -275,11 +280,6 @@ console.log(body);
     }
   }
  
-
-      
-validField( field: string ) {
-  return this.myForm.controls[field].errors && this.myForm.controls[field].touched;
-}
 
 // openGenericMessage(msg:string){
 //   this.dialog.open(GenericMessageComponent, {

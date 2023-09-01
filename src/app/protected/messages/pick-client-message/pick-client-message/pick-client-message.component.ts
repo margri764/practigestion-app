@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subject } from 'rxjs';
+import { Subject, debounceTime, takeUntil } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
 import { AuthService } from 'src/app/protected/services/auth/auth.service';
 import * as authActions from 'src/app/auth.actions'
@@ -23,10 +23,6 @@ export class PickClientMessageComponent implements OnInit {
 @Output() onEnter   : EventEmitter<string> = new EventEmitter();
 debouncer: Subject<string> = new Subject();
 
-displayedColumns: string[] = ['action','name','location','province','phone', 'email'];
-dataTableActive : any = new MatTableDataSource<any>();
-
-
 itemSearch : string = '';
 mostrarSugerencias: boolean = false;
 sugested : string= "";
@@ -36,6 +32,11 @@ fade : boolean = false;
 search : boolean = true;
 product  : any[] = [];
 // end search
+
+displayedColumns: string[] = ['action','name','location','province','phone', 'email'];
+dataTableActive : any = new MatTableDataSource<any>();
+
+
 
 contactos : any []=[];
 isLoading : boolean = false;
@@ -54,9 +55,26 @@ phone : boolean = false;
               private errorService : ErrorService
 
 
-  ) { }
+  ) { 
+
+  }
+
+  onInput(event: any): void {
+    this.debouncer.next(event.target.value);
+  }
+
+
+
 
   ngOnInit(): void {
+
+    this.debouncer
+    .pipe(debounceTime(700))
+    .subscribe( valor => {
+      console.log(valor);
+      this.onDebounce.emit( valor );
+      this.sugerencias(valor);
+    });
 
     this.errorService.close$.subscribe((emited)=>{if(emited)this.dialogRef.close()})
 
@@ -84,21 +102,21 @@ phone : boolean = false;
     // this.clientFounded = {};
   }
 
-  teclaPresionada(){
+  // teclaPresionada(){
 
-    console.log(this.mostrarSugerencias);
+  //   console.log(this.mostrarSugerencias);
      
-     this.debouncer.next( this.itemSearch );  
-     this.sugerencias(this.itemSearch)
-     if(this.itemSearch == ''){
-       this.suggested=[];
-       this.mostrarSugerencias = false  
-     }
-     if(this.suggested.length === 0) {
-       this.spinner= true;
-     }
+  //    this.debouncer.next( this.itemSearch );  
+  //    this.sugerencias(this.itemSearch)
+  //    if(this.itemSearch == ''){
+  //      this.suggested=[];
+  //      this.mostrarSugerencias = false  
+  //    }
+  //    if(this.suggested.length === 0) {
+  //      this.spinner= true;
+  //    }
  
-   };
+  //  };
 
    sugerencias(value : string){
       this.spinner = true;
@@ -119,10 +137,10 @@ phone : boolean = false;
       )
     }
  
-  buscar(){
-   this.onEnter.emit( this.itemSearch );
+  // buscar(){
+  //  this.onEnter.emit( this.itemSearch );
  
-  }
+  // }
 
   
 Search( id : any ){

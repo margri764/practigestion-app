@@ -1,6 +1,6 @@
 <div  fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="100">
 
-  <mat-sidenav-container  fullscreen style="height: 100vh;">
+  <mat-sidenav-container  fullscreen style="height: 100%;">
     
     <mat-sidenav #sidenav mode="push"  [ngStyle]="(phone) ? {'width': '100%'} : {'width': '300px'} "  >
 
@@ -161,9 +161,8 @@
     </div>  
 
 <!-- start logo -->
-    <div fxLayout="row wrap"  fxLayoutAlign="end center"  fxFlex="95" style="margin-top: calc(70vh - 10%)">
-       
-        <img src="assets/logo.png" alt="logo principal" fxFlex="60" fxFlex="20" >
+    <div fxLayout="row wrap"  fxLayoutAlign="end center"  fxFlex="95" class="marginLogo" >
+        <img src="assets/logo.png" alt="logo principal" class="logoWidth" >
     </div> 
 <!--end  logo -->
 

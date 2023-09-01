@@ -8,8 +8,7 @@
             class="form-control  me-2"    
             [(ngModel)]="itemSearch"
             (input)="teclaPresionada( )" 
-            (onDebounce)="sugerencias( itemSearch )" 
-            (keyup.enter)="Search( itemSearch )" >
+            >
             <mat-icon matSuffix style="transform:scale(1.7); color: rgb(37, 150, 190); margin-right: 20px;" (click)="Search( itemSearch)" >search</mat-icon>
         </mat-form-field>
     </form> 
