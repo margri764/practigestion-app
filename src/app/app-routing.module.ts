@@ -12,12 +12,15 @@ import { ListPriceHomeComponent } from './protected/pages/list-price-home/list-p
 import { GeneralListComponent } from './protected/pages/general-list/general-list/general-list.component';
 import { ListOrdersComponent } from './protected/pages/list-orders/list-orders/list-orders.component';
 import { ListByIdComponent } from './protected/pages/list-by-id/list-by-id/list-by-id.component';
+import { RoleGuard } from './protected/guards/role.guard';
 
 
 const routes: Routes = [
   
   {
-    path: 'armar-pedido',  component: OrderComponent
+    path: 'armar-pedido',  component: OrderComponent,
+    canActivate: [RoleGuard ],
+    canLoad: [ RoleGuard],
   },
   {
     path: 'listado-clientes',  component: ClientComponent

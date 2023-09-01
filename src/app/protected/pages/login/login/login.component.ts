@@ -59,13 +59,18 @@ export class LoginComponent implements OnInit, OnDestroy {
 ngOnInit() {
 
         this.myForm = this.fb.group({
-          user:     [ 'administrador', [Validators.required] ],
-          password:  [ 'admin1234', [Validators.required]], 
+          user:     [ 'marcelo', [Validators.required] ],
+          password:  [ '123', [Validators.required]], 
           toLStorage:  [ true ], 
         });
   
       }
 
+      // user:     [ 'julian', [Validators.required] ],
+      // password:  [ 'qwe', [Validators.required]], 
+
+      // user:     [ 'administrador', [Validators.required] ],
+      // password:  [ 'admin1234', [Validators.required]], 
       onSaveForm(){
 
         if ( this.myForm.invalid ) {
@@ -86,10 +91,10 @@ ngOnInit() {
                       if(this.myForm.get('toLStorage')?.value === true){
                         saveDataLS('logged', true);
                       }
-
-                      this.authservice.getUser().subscribe();
-
+                      // si el login es exitoso trae los datos del usuario
+                      this.getUser();
                       this.router.navigateByUrl('/home')
+                    
                      }
                 }
          );   
@@ -99,6 +104,21 @@ ngOnInit() {
 
 validField( field: string ) {
     return this.myForm.controls[field].errors && this.myForm.controls[field].touched;
+}
+
+getUser(){
+  this.authservice.getUser().subscribe( 
+    (res)=>{
+      if(res){
+            this.getAuthorization();
+      }
+    });
+
+                      
+}
+
+getAuthorization(){
+    this.authservice.getAuthorization().subscribe();
 }
 
 

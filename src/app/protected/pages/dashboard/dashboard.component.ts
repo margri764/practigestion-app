@@ -68,9 +68,12 @@ visibility(){
     this.toogle = !this.toogle
 }
 
+isLoading : boolean = false;
 
 ngOnInit(): void {
   this.checkSessionStorage();
+this.isLoading = true;
+
 
   this.articleSuscription = this.store.select('article')
   .pipe(
@@ -84,7 +87,6 @@ ngOnInit(): void {
       this.alert = tempOrder.length;
     }
   })
-
   this.userSubscription = this.store.select('auth')
   .pipe(
     filter( ({user})=>  user != null && user != undefined),
@@ -92,6 +94,7 @@ ngOnInit(): void {
     ({user})=>{
       this.user = user;
       this.login = true;
+      this.isLoading = false;
     })
 
   

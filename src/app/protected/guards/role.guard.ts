@@ -3,9 +3,9 @@ import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, RouterStateSnapsho
 import { Store } from '@ngrx/store';
 import { Observable, filter, map } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { RestrictStaffComponent } from 'src/app/shared/messages/restrict-staff/restrict-staff/restrict-staff.component';
+import { AuthService } from '../services/auth/auth.service';
+// import { RestrictStaffComponent } from 'src/app/shared/messages/restrict-staff/restrict-staff/restrict-staff.component';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +14,10 @@ export class RoleGuard implements CanActivate, CanLoad {
 
 
   openDialogRestrict() {
-   this.dialog.open(RestrictStaffComponent, {
-      disableClose: true,
-      panelClass: "custom-modalbox-message",
-    });
+  //  this.dialog.open(RestrictStaffComponent, {
+  //     disableClose: true,
+  //     panelClass: "custom-modalbox-message",
+  //   });
   }
   constructor( 
               private authService : AuthService,
@@ -28,15 +28,17 @@ export class RoleGuard implements CanActivate, CanLoad {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.store.select('user').pipe(
+    return this.store.select('auth').pipe(
       filter( ({user})=>  user != null && user != undefined),
       map(({ user }) => {
-        if (user.role !== 'CLIENT_ROLE') {
-          this.openDialogRestrict();
-          return false;
-        } else {
-          return true;
-        }
+
+        if(!user?.permisos.includes(2100)){
+          alert("no tenes permiso");
+        return false;
+
+      }
+ 
+        return true;
       })
     );
   }
@@ -44,17 +46,18 @@ export class RoleGuard implements CanActivate, CanLoad {
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
-      return this.store.select('user').pipe(
+      return this.store.select('auth').pipe(
         filter( ({user})=>  user != null && user != undefined),
         map(({ user }) => {
-          if (user.role !== 'CLIENT_ROLE') {
-            this.openDialogRestrict();
+          if(!user?.permisos.includes(2100)){
+              alert("no tenes permiso");
             return false;
-          } else {
-            return true;
+
           }
+     
+            return true;
         })
       );
-    }
 
-}
+      }
+    }

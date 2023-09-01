@@ -1,9 +1,10 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { setTempClient, setUser, unSetTempClient, unSetUser } from './auth.actions';
+import { User } from './protected/models/user.models';
 
 
 export interface Auth {
-    user: any | null; 
+    user: User | null; 
     tempClient: any | null; 
     // staff: Staff | null; 
     // verifyAccount : boolean,
