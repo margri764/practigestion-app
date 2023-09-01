@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1693570478232,
+  "timestamp": 1693570915008,
   "index": "/practigestion-app/index.html",
   "assetGroups": [
     {
@@ -109,7 +109,7 @@
     "/practigestion-app/assets/icons/logo-153x153.png": "dba9bbdf3fef780c07c4c6de4680e3aa95dadde0",
     "/practigestion-app/assets/icons/logo-192x192.png": "238a00e9b830885893fe230c3f3b0ca3f394a23d",
     "/practigestion-app/assets/icons/logo-384x384.png": "acb6255dbff4becd5fe57e65c5c0c4b0d824bf8f",
-    "/practigestion-app/assets/icons/logo-512x512.png": "62c0f41f2d224055abfcfee25ffcc2a8ba474b44",
+    "/practigestion-app/assets/icons/logo-512x512.png": "65c6049ffe355d5fa8cf15c2bf5a8e06ef5fd423",
     "/practigestion-app/assets/icons/logo-72x72.png": "2c23d249d07493e1c9e0d745de72419168f205e6",
     "/practigestion-app/assets/icons/logo-90x90.png": "7aefa890dde9cfc7af03b6edd1e1484855c2bbc1",
     "/practigestion-app/assets/lock.jpg": "1775a21604a77e6f20558dba969f4eefe377cbca",
