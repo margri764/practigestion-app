@@ -72,6 +72,7 @@ visibility(){
 
 ngOnInit(): void {
   this.checkSessionStorage();
+  
 // this.isLoading = true;
 
 

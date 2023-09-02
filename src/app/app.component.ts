@@ -27,10 +27,11 @@ export class AppComponent implements OnInit {
   @HostListener('window:beforeunload')
   doSomething() {
     const userToLS = this.authService.user;
-    if(userToLS !== undefined){
+    if(userToLS !== undefined && userToLS !== null){
       this.localStorageService.saveStateToLocalStorage(userToLS, 'user');
       this.isLoading = true;
-    }else{
+    }
+    else{
       this.localStorageService.saveStateToLocalStorage(this.user, 'user');
       this.isLoading = true;
 
@@ -51,21 +52,20 @@ export class AppComponent implements OnInit {
 
   ){
 
-    const logged = getDataLS("logged");
-    const token = this.cookieService.get('token');
-    const openOrders = getDataSS('openOrders');
+    // const token = this.cookieService.get('token');
+    // const openOrders = getDataSS('openOrders');
 
 
-    if (logged  && token !== undefined &&  openOrders === undefined ) {
-      this.login = true;
-      this.orderService.getOpenOrders().subscribe();
-  }
+  //   if (  openOrders === undefined ) {
+  //     this.login = true;
+  //     this.orderService.getOpenOrders().subscribe();
+  // }
 
   }
 
   ngOnInit(): void {
 
-    setTimeout(()=>{this.localStorageService.loadInitialState();},4000)
+    setTimeout(()=>{this.localStorageService.loadInitialState()})
   
     this.store.select('auth')
     .pipe(

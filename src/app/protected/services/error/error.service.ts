@@ -97,7 +97,7 @@ export class ErrorService {
                  this.store.dispatch(articleActions.unSetSelectedArticles());
                  this.store.dispatch(authActions.unSetTempClient());
                  this.store.dispatch(authActions.unSetUser());
-                 setTimeout(()=>{location.reload()},100)
+                //  setTimeout(()=>{location.reload()},100)
                  this.router.navigateByUrl('login'); 
             
                  

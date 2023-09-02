@@ -18,25 +18,22 @@ export class LocalStorageService {
   }
 
    loadInitialState() {
-    // const storedState = getDataLS("arrArticles");
     const storedState = getDataSS("arrArticles");
     const openOrders = getDataSS("openOrders");
     const user = getDataLS("user");
 
-    if (storedState) {
+    if (storedState !== undefined && storedState !== null) {
       this.store.dispatch(articleAction.setSelectedArticles({ arrSelectedArticles: storedState }));
     }
-    if(openOrders){
+    if(openOrders !== undefined && openOrders !== null){
       this.store.dispatch(articleAction.setTempOrder({ tempOrder: openOrders }));
     }
-    if(user){
+    if(user !== undefined && user !== null){
       this.store.dispatch(authAction.setUser({ user }));
-      setTimeout(()=>{localStorage.removeItem('user');},3000)
+      setTimeout(()=>{localStorage.removeItem('user')},3000)
       
     }
-    // if (tempOrder) {
-    //   this.store.dispatch(articleAction.setTempOrder({ tempOrder: tempOrder }));
-    // }
+ 
   }
 
   saveStateToLocalStorage(dataToSave: any, keyLStorage : string) {

@@ -39,13 +39,17 @@ export class LoginComponent implements OnInit, OnDestroy {
                  private authservice : AuthService,
                  private router: Router,
                  private store: Store<AppState>,
-                 private location : Location,
                  private dialog : MatDialog,
                  private cookieService : CookieService,
                  private orderService : OrderService
                 //  private errorService : ErrorService,
                 )
   {
+    const token = this.cookieService.get('token');
+    const logged = getDataLS('logged')
+    if ( (token !== undefined ||  token !== null) && logged) {
+      this.router.navigateByUrl('/home')
+    }
 
   }
 
@@ -57,10 +61,10 @@ ngOnInit() {
           // password:  [ '123', [Validators.required]], 
           // user:     [ 'administrador', [Validators.required] ],
           // password:  [ 'admin1234', [Validators.required]], 
-          // user:     [ 'julian', [Validators.required] ],
-          // password:  [ 'qwe', [Validators.required]], 
-          user:     [ '', [Validators.required] ],
-          password:  [ '', [Validators.required]],
+          user:     [ 'julian', [Validators.required] ],
+          password:  [ 'qwe', [Validators.required]], 
+          // user:     [ '', [Validators.required] ],
+          // password:  [ '', [Validators.required]],
           toLStorage: [ true ], 
         });
   
@@ -77,8 +81,8 @@ ngOnInit() {
         const username = this.myForm.get('user')?.value;
         const password = this.myForm.get('password')?.value;
         this.authservice.login(username, password).subscribe(
-          (res)=>{
-              if(res){
+          ({token})=>{
+              if(token){
                       
                       if(this.myForm.get('toLStorage')?.value === true){
                         saveDataLS('logged', true);
@@ -102,13 +106,9 @@ getUser(){
                       
 }
 
-
-
-
 togglePasswordVisibility(value : string) : void {
   (value == "password") ? this.passwordVisible = !this.passwordVisible : '';
 }
-
 
 ngOnDestroy(): void {
   
