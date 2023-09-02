@@ -1,4 +1,4 @@
-<div  fxLayout="row wrap"  fxLayoutAlign="center start" fxFlex="100">
+<div  fxLayout="row wrap"  fxLayoutAlign="center start" >
 
     <div  fxLayout="row wrap"  fxLayoutAlign=" center" fxFlex="95" style="height: 60px; background-color: rgb(37, 150, 190); color: white; padding: 10px; border-radius: 4px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
     -moz-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);" class="mt-20 pd-10">
@@ -32,11 +32,12 @@
         <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="space-betweencenter" fxFlex="100" class="font mb-20 " *ngFor="let item of suggested , index as i" >
             
             <!-- <div fxFlex="30" fxFlex.xs="0"></div> -->
-            <div fxLayout="row wrap" fxLayoutAlign="space-between center"  fxFlex="98"  class="fs-4 boxSelection" >
-                <mat-radio-button class="example-margin"  (click)="selectClient( item )"></mat-radio-button>
-                <span  style="cursor: pointer; text-align: start; " (click)="selectClient( item )" fxFlex="90" >
+            <div fxLayout="row wrap" fxLayoutAlign="space-around center"  fxFlex="98"  class="fs-4 boxSelection" >
+                <mat-radio-button class="example-margin"  (click)="selectClient( item )" fxFlex="10"></mat-radio-button>
+                <span  style="cursor: pointer; text-align: start; " (click)="selectClient( item )" fxFlex="70" >
                 {{ item.archivarComo | capitalizeFirstLetter}}
                 </span>
+                <mat-icon (click)="close()" style="cursor: pointer;transform: scale(1.2);" fxFlex="10" > close</mat-icon>
             </div>
             <!-- <div fxFlex="30" fxFlex.xs="0"></div> -->
 

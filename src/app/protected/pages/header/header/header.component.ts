@@ -6,6 +6,7 @@ import { BehaviorSubject, Subscription, filter } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
 import { AuthService } from 'src/app/protected/services/auth/auth.service';
 import { ErrorService } from 'src/app/protected/services/error/error.service';
+import { OrderService } from 'src/app/protected/services/order/order.service';
 
 @Component({
   selector: 'app-header',
@@ -37,7 +38,8 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
                private store : Store <AppState>,
                private errorService : ErrorService,
                private cdRef: ChangeDetectorRef,
-               private router : Router
+               private router : Router,
+               private orderService : OrderService
               //  private authService : AuthService,
               // private dialog : MatDialog,
               // private cookieService : CookieService
@@ -111,6 +113,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
     case '/buscar-articulos':
           this.labelHeader = "Buscar";
           this.path = '/buscar-articulos';
+     
     break;  
 
     case '/armar-pedido':
@@ -140,6 +143,8 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
             break;
           case '/buscar-articulos':
               this.router.navigateByUrl('/armar-pedido');
+              // quiero la opcion de productos cuando salgo de este path y regreso al crear-pedidos
+              this.orderService.selectProductOption$.emit(true);
           break;
                  
           default: this.router.navigateByUrl('/home');

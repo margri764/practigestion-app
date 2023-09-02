@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component,  OnDestroy, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component,  OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
@@ -23,7 +23,7 @@ import { GenericMessageComponent } from 'src/app/protected/messages/generic-mess
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.scss']
 })
-export class OrderComponent implements OnInit, OnDestroy {
+export class OrderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
 
   user : User []=[];
@@ -36,10 +36,9 @@ export class OrderComponent implements OnInit, OnDestroy {
   authSuscription! : Subscription;
   articleSuscription! : Subscription;
   client : any;
-  showClient : boolean = true;
-  showProduct : boolean = false;
-  // labelNoArticles : boolean = false;
-  // isLoading : boolean = false;
+  showClient : boolean = false;
+  showProduct : boolean = true;
+
 
   confirm : boolean = false;
   saleOption : string[] =['Contado, Cuenta Corriente']
@@ -72,15 +71,15 @@ export class OrderComponent implements OnInit, OnDestroy {
    this.getTotal();
 
 
-    this.orderService.changeClientValue.subscribe(
-      (emitted) => {
-        if (emitted === true) {
-            this.showProduct = true;
-            this.showClient = false;
-            this.cdRef.detectChanges(); // Agrega esta línea
-        }
-      }
-    );
+    // this.orderService.changeClientValue.subscribe(
+    //   (emitted) => {
+    //     if (emitted === true) {
+    //         this.showProduct = true;
+    //         this.showClient = false;
+    //         this.cdRef.detectChanges(); /
+    //     }
+    //   }
+    // );
 
     this.myForm = this.fb.group({
       date:     [ this.onlyDate],
@@ -175,18 +174,27 @@ export class OrderComponent implements OnInit, OnDestroy {
     return `id_${timestamp}`;
   }
 
+  ngAfterViewChecked() {
+    // this.showProduct = true;
+    // this.showClient = false;
+    // this.cdRef.detectChanges();
+  }
+
+
   selectOption(option : string){
+
+    console.log(option);
+    
     switch (option) {
+
       case "client":
-        this.showClient = true;
-        this.showProduct = false;
+                  this.showClient = true;
+                  this.showProduct = false;
         break;
         
         case "product":
-          this.showProduct = true;
-          this.showClient = false;
-          console.log('e');
-                    // this.getProducts();
+                this.showProduct = true;
+                this.showClient = false;
         break;
     
       default:

@@ -15,6 +15,7 @@ import * as articleActions from 'src/app/article.actions';
 export class OrderService {
 
   changeClientValue : EventEmitter<boolean> = new EventEmitter<boolean>; // se dispara desde el back de buscar-articulos para q volver a "Productos"
+  selectProductOption$ : EventEmitter<boolean> = new EventEmitter<boolean>; // se dispara desde el buscar-articulos para q volver a "Productos" en /armar-pedido y q no muestre a "Cliente" como esta predeterminado
 
   private baseUrl = environment.baseUrl;
 

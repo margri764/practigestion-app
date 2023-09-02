@@ -10,6 +10,7 @@ import { GenericSuccessComponent } from '../../generic-success/generic-success/g
 import { getDataLS, getDataSS, saveDataLS } from 'src/app/protected/Storage';
 import { LocalStorageService } from 'src/app/protected/services/localStorage/local-storage.service';
 import { updateLocale } from 'moment';
+import { OrderService } from 'src/app/protected/services/order/order.service';
 
 @Component({
   selector: 'app-select-article-message',
@@ -29,7 +30,8 @@ export class SelectArticleMessageComponent implements OnInit, OnDestroy {
                private store : Store <AppState>,
                private dialogRef : MatDialogRef<SelectArticleMessageComponent>,
                private dialog : MatDialog,
-               private localStorageService: LocalStorageService
+               private localStorageService: LocalStorageService,
+               private orderService : OrderService
   ) { }
 
   ngOnDestroy(): void {
@@ -99,6 +101,7 @@ selectItem(){
     let tempData = getDataSS("arrArticles");
     updatedArr.concat(tempData);
     this.localStorageService.saveStateToSessionStorage(updatedArr, "arrArticles");
+    this.orderService.selectProductOption$.emit(true)
 
   });
 

@@ -80,6 +80,16 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
 
+    // despues de seleccionar el articulo con mas opciones como bonificacion, cierro el card de /buscar-pedidos
+    this.orderService.selectProductOption$.subscribe((emmited)=>{
+      if(emmited){
+        setTimeout(()=>{this.isArticleFounded = false},400);
+        this.itemSearchCode = '';
+        this.itemSearch = '';
+      }
+    })
+
+
     this.debouncer
     .pipe(debounceTime(400))
     .subscribe( valor => {
@@ -136,7 +146,11 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     let tempData = getDataSS("arrArticles");
     updatedArr.concat(tempData);
     this.localStorageService.saveStateToSessionStorage(updatedArr, "arrArticles");
-    this.openGenericSuccess('1 Producto añadido con éxito')
+    this.openGenericSuccess('1 Producto añadido con éxito');
+
+    setTimeout(()=>{this.isArticleFounded = false},400);
+    this.itemSearchCode = '';
+    this.itemSearch = '';
   }
 
   getProducts(){
@@ -156,7 +170,6 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
       }
     )
   }
-
 
       // search by description
        close(){
@@ -279,14 +292,6 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     },0)
   }
 
-  styleObject(status : boolean) : object {
- 
-    if(!status){
-      return {'color':'red'};
-    }else{
-      return {'color':'blue'};
-    }
-  }
 
   openGenericSuccess(msg : string){
 
@@ -312,7 +317,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     let height : string = '';
 
     if(screen.width >= 800) {
-      width = "400px"
+      width = "400px";
       height ="450px";
     }
 
