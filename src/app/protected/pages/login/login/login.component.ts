@@ -57,18 +57,15 @@ ngOnInit() {
           // password:  [ '123', [Validators.required]], 
           // user:     [ 'administrador', [Validators.required] ],
           // password:  [ 'admin1234', [Validators.required]], 
-                user:     [ 'julian', [Validators.required] ],
-      password:  [ 'qwe', [Validators.required]], 
-          toLStorage:  [ true ], 
+          // user:     [ 'julian', [Validators.required] ],
+          // password:  [ 'qwe', [Validators.required]], 
+          user:     [ '', [Validators.required] ],
+          password:  [ '', [Validators.required]],
+          toLStorage: [ true ], 
         });
   
       }
 
-      // user:     [ 'julian', [Validators.required] ],
-      // password:  [ 'qwe', [Validators.required]], 
-
-      // user:     [ 'administrador', [Validators.required] ],
-      // password:  [ 'admin1234', [Validators.required]], 
       onSaveForm(){
 
         if ( this.myForm.invalid ) {
@@ -101,7 +98,7 @@ validField( field: string ) {
 }
 
 getUser(){
-  this.authservice.getUser().subscribe((res)=>{if(res){this.router.navigateByUrl('/home');}});
+  this.authservice.getUser().subscribe((res)=>{if(res){this.isLoading=false;this.router.navigateByUrl('/home');}});
                       
 }
 

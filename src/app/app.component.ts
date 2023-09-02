@@ -29,8 +29,10 @@ export class AppComponent implements OnInit {
     const userToLS = this.authService.user;
     if(userToLS !== undefined){
       this.localStorageService.saveStateToLocalStorage(userToLS, 'user');
+      this.isLoading = true;
     }else{
       this.localStorageService.saveStateToLocalStorage(this.user, 'user');
+      this.isLoading = true;
 
     }
 
@@ -67,7 +69,7 @@ export class AppComponent implements OnInit {
   
     this.store.select('auth')
     .pipe(
-      tap(()=>this.isLoading = true),
+      // tap(()=>this.isLoading = true),
       filter( ({user})=>  user != null && user != undefined),
     ).subscribe(
       ({user})=>{
