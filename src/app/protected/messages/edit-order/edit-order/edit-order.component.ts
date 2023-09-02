@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
@@ -9,6 +9,7 @@ import { ErrorService } from 'src/app/protected/services/error/error.service';
 import { OrderService } from 'src/app/protected/services/order/order.service';
 import { GenericMessageComponent } from '../../generic-message/generic-message/generic-message.component';
 import { GenericSuccessComponent } from '../../generic-success/generic-success/generic-success.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-order',
@@ -16,12 +17,15 @@ import { GenericSuccessComponent } from '../../generic-success/generic-success/g
   styleUrls: ['./edit-order.component.scss']
 })
 export class EditOrderComponent implements OnInit {
+  
+  @ViewChild ("top" , {static: true} ) top! : ElementRef;
 
   myForm! : FormGroup;
   save : boolean = false;
   order! : any;
   orderForm!: FormGroup;
   isLoading : boolean = false;
+  addItemSelected : boolean = false;
   
   constructor(
                 private fb : FormBuilder,
@@ -32,14 +36,41 @@ export class EditOrderComponent implements OnInit {
                 private dialog : MatDialog,
                 private dialogRef: MatDialogRef<EditOrderComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any,
-                private errorService : ErrorService
+                private errorService : ErrorService,
+                private router : Router,
+                private cdr: ChangeDetectorRef
   ) { 
 
   }
-
+element : any
     ngOnInit(): void {
 
       this.errorService.closeIsLoading$.subscribe((emitted)=>{if(emitted){this.isLoading = false;}})
+      this.orderService.emitedItem$.subscribe((emitted)=>{
+        if (emitted) {
+          const detalleItemsArray = this.orderForm.get('detalleItems') as FormArray;
+          
+          // Agregar el nuevo elemento a la lista
+          detalleItemsArray.push(this.fb.group({
+            codigoInterno: emitted.codigoInterno,
+            cantidad: emitted.cantidad,
+            bonificacionPorciento: emitted.bonificacionPorciento
+          }));
+        }
+          this.addItemSelected = false;
+
+          this.element = this.top.nativeElement;
+          setTimeout( () => {
+          this.element.scrollIntoView(
+            { alignToTop: true,
+              behavior: "smooth",
+              block: "center",
+            });
+            }, 0);
+
+            this.cdr.detectChanges();
+      
+      })
 
       console.log(this.data);
       this.orderForm = this.fb.group({
@@ -76,35 +107,43 @@ export class EditOrderComponent implements OnInit {
     }
 
   onSaveForm(){
-    // console.log(this.myForm.value);
-    this.isLoading = true;
+
+    // this.isLoading = true;
     const editedData = this.orderForm.value;
-    // console.log(editedData);
+    console.log(editedData);
 
-    const cbteNro = this.data.cbteNro;
-    const ptoVenta = this.data.ptoVenta;
+    // const cbteNro = this.data.cbteNro;
+    // const ptoVenta = this.data.ptoVenta;
 
-    // console.log(cbteNro);
 
-    this.orderService.editOrderBySalePointAndNumOrder(editedData, ptoVenta, cbteNro).subscribe(
-      ()=>{
-            this.isLoading = false;
-            this.articleService.initialStateAfterEditOrder$.emit(true);
-            this.orderService.getOpenOrders().subscribe(
-              (res)=>{ 
-                if(res){ 
-                        this.openGenericSuccess("Pedido actualizado con exito")
-                      }})
+    // this.orderService.editOrderBySalePointAndNumOrder(editedData, ptoVenta, cbteNro).subscribe(
+    //   ()=>{
+    //         this.isLoading = false;
+    //         this.articleService.initialStateAfterEditOrder$.emit(true);
+    //         this.orderService.getOpenOrders().subscribe(
+    //           (res)=>{ 
+    //             if(res){ 
+    //                     this.openGenericSuccess("Pedido actualizado con exito")
+    //                   }})
 
-            this.close(); 
+    //         this.close(); 
       
-      })
+    //   })
 
   }
 
+  deleteOrder(index: number) {
+    const detalleItemsArray = this.orderForm.get('detalleItems') as FormArray;
+    detalleItemsArray.removeAt(index);
+  }
+  
   close(){
     this.dialogRef.close();
     this.errorService.closeIsLoading$.emit(true);
+  }
+
+  addItem(){
+      this.addItemSelected = true;
   }
 
   

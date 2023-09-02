@@ -57,8 +57,7 @@
 
     <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="padding: 20px" fxFlex="100" class="whiteframe" >
         
-            <span  class="font fs-5" fxFlex="49" > Código: {{article.codigoArticulo }} </span>
-            <span  class="font fs-5 mr-5" fxFlex="49" fxLayoutAlign="end"> Estado: &nbsp; <label [ngStyle]="styleObject(article.activo)">{{article.activo | productStatus }}</label></span>
+            <span  class="font fs-5" fxFlex="100" > Código: {{article.codigoArticulo }} </span>
 
             <span  class="font fs-5 mt-20" fxFlex="100" > {{article.descripcionLarga | capitalizeFirstLetter }}</span>
 

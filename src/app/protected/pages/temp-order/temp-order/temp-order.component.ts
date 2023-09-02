@@ -89,7 +89,7 @@ export class TempOrderComponent implements OnInit {
 
     if(screen.width >= 800) {
       width = "900px"
-      height ="500px";
+      height ="700px";
     }
 
     // obtengo primero la orden completa antes de editarla

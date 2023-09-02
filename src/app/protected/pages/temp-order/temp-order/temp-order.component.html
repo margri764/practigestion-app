@@ -1,10 +1,10 @@
 
-<div  fxLayout="row wrap"  fxLayoutAlign="center start" style="height: 100%;">
+<div  fxLayout="row wrap"  fxLayoutAlign="center start" fxFlex="100">
 
 <!-- start cards -->
-   <div  fxLayout="row wrap"  fxLayoutAlign="center start" FxFlex="100" style="margin-top: 40px;" *ngIf="tempOrder.length !== 0">
+   <div  fxLayout="row wrap"  fxLayoutAlign="center start" fxFlex="100" style="margin-top: 40px;" *ngIf="tempOrder.length !== 0">
         
-        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="background-color: rgb(243, 243, 255); margin-bottom: 30px;  padding: 10px" fxFlex.xs="97" fxFlex="70" class="whiteframe" *ngFor="let order of tempOrder">
+        <div fxLayout="row wrap"  fxLayoutAlign="space-between center"  style="background-color: rgb(243, 243, 255); margin-bottom: 30px;  padding: 10px"  fxFlex.xs="95" fxFlex.sm="95" fxFlex="75" class="whiteframe" *ngFor="let order of tempOrder">
 
             <div  fxLayout="row wrap"  fxLayoutAlign="space-around center" fxFlex="100" style="background-color: rgb(37, 150, 190); color: white; height: 30px; padding: 5px;">
                 <span  class="font fs-5" fxFlex="60" >Comp. Nro: {{order.cbteNro  }} </span>

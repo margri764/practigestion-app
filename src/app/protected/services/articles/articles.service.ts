@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
-import { map, tap } from 'rxjs';
+import { Observable, map, tap, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Order } from '../../interfaces/order.interface';
 
@@ -46,9 +46,7 @@ getArticleById(id : string){
   )
 }
 
-searchArticle( field : string, value : any){
-
-  console.log(field, value);
+searchArticle( field : string, value : any) {
 
   return this.http.get<any>(`${this.baseUrl}api/articulos/busqueda?f=${field}&q=${value}`)
   .pipe(

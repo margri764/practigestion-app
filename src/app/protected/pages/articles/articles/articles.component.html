@@ -92,7 +92,6 @@
 
             <div  fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" style="background-color: rgb(37, 150, 190); height: 30px; padding: 5px; color: white;">
                 <span class="font fs-4">id: {{art.idArticulo}}</span>
-                <span class="font fs-4">Estado: <label [ngStyle]="styleObject(art.activo)"> &nbsp; {{art.activo | productStatus}}</label></span>
         
             </div>    
             <span class="font fs-4 mt-20">Descripcion larga: {{art.descripcionLarga | capitalizeFirstLetter}}</span>

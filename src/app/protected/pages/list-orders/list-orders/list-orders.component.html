@@ -3,35 +3,14 @@
   <div fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="90" class="whiteframe" style="height: 100%; background-color: white; margin-top: 10px;">
 
     <!-- start menu search -->
-        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; width:100%; margin-top:60px;" *ngIf="!phone">
-
-            <!-- PRIMERO -->
-            <div style=" display: flex; justify-content: center; flex-wrap: wrap; width: 300px; ;" class="font" >
-                <form  [formGroup]="myForm"  > 
-                    <div style="align-items: center; justify-content: center; width: 250px; height: 150px; margin-top: 10px;" class="whiteframe">
-                        <!-- <span style="font-size: 1.2em; max-width: 100%;"> Selección Pto Venta</span> -->
-
-                        <mat-form-field appearance="outline" floatLabel="always"  style="margin-left: 20px;">
-                            <mat-label>Selecciona Punto de venta</mat-label>
-                            <mat-select  formControlName="ptoVenta1" class="font" >
-                                        <mat-option></mat-option>
-                                        <mat-option *ngFor="let point of salePoint" [value]="point.numero" class="font fs-4" > {{point.sucursal}} <mat-icon matSuffix style="transform:scale(1.7); color: rgb(37, 150, 190); cursor: pointer; margin-left: 10px;" (click)="selectSalePoint()">search</mat-icon></mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                     
-                    </div>
-        
-                </form>
-            </div>    
-                       
-            <!-- SEGUNDO -->
+        <!-- <div style="display: flex; justify-content: space-between; flex-wrap: wrap; width:100%; margin-top:60px;" *ngIf="!phone"> -->
+        <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100">
 
             <div style="display: flex; justify-content: center; flex-wrap: wrap; width: 300px;" class="font" >
 
                 <form  [formGroup]="myForm2"  > 
                     <div style="display: flex; flex-wrap: wrap; justify-content: start; width: 250px; height: 150px; margin-top: 10px; " class="whiteframe">
 
-                        <!-- <span style="font-size: 1.2em; max-width: 100%;">Selección N° Pedido</span> -->
                             <mat-form-field appearance="outline" floatLabel="always" style="width: 180px;">
                                 <mat-label>Selecciona Punto de venta</mat-label>
                                 <mat-select required formControlName="ptoVenta2" class="font" >
@@ -63,67 +42,6 @@
         </div>
     <!-- end menu search -->
 
-    <!-- start menu phone -->
-      
-    <div fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="100" *ngIf="phone">
-
-        <!-- PRIMERO -->
-        <div style=" display: flex; justify-content: center; flex-wrap: wrap; width: 300px; ;" class="font" >
-            <form  [formGroup]="myForm"  > 
-                <div style="align-items: center; justify-content: center; width: 250px; height: 150px; margin-top: 10px;" class="whiteframe">
-                    <!-- <span style="font-size: 1.2em; max-width: 100%;"> Selección Pto Venta</span> -->
-
-                    <mat-form-field appearance="outline" floatLabel="always"  style="margin-left: 20px;">
-                        <mat-label>Selecciona Punto de venta</mat-label>
-                        <mat-select required formControlName="ptoVenta1" class="font" >
-                                    <mat-option></mat-option>
-                                    <mat-option *ngFor="let point of salePoint" [value]="point.numero" class="font fs-4" (click)="selectSalePoint()"> {{point.sucursal}} <mat-icon matSuffix style="transform:scale(1.7); color: rgb(37, 150, 190); cursor: pointer; margin-left: 10px;" (click)="selectSalePoint()">search</mat-icon></mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                 
-                </div>
-    
-            </form>
-        </div>    
-                   
-        <!-- SEGUNDO -->
-
-        <div style="display: flex; justify-content: center; flex-wrap: wrap; width: 300px;" class="font" >
-
-            <form  [formGroup]="myForm2"  > 
-                <div style="display: flex; flex-wrap: wrap; justify-content: start; width: 250px; height: 150px; margin-top: 10px; " class="whiteframe">
-
-                    <!-- <span style="font-size: 1.2em; max-width: 100%;">Selección N° Pedido</span> -->
-                        <mat-form-field appearance="outline" floatLabel="always" style="width: 180px;">
-                            <mat-label>Selecciona Punto de venta</mat-label>
-                            <mat-select required formControlName="ptoVenta2" class="font" >
-                                        <mat-option></mat-option>
-                                        <mat-option *ngFor="let point of salePoint" [value]="point.numero" class="font fs-4"> {{point.sucursal}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-
-                        <div fxLayout="row wrap"  fxLayoutAlign="space-between center">
-                            <mat-form-field class="font" appearance="outline">
-                                <mat-label>N° pedido</mat-label>
-                                <input matInput type="text" formControlName="nroOrder" required>
-                            </mat-form-field>
-
-                            <mat-icon matSuffix style="transform:scale(1.7); color: rgb(37, 150, 190); cursor: pointer; margin-left: 10px;" (click)="getSalePointByNumOrder()">search</mat-icon>
-                        </div>
-                    </div>
-            </form>
-        </div>
-
-        <!-- icono -->
-        <!-- <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" (click)="loadOrders()" style="margin-top: 30px;"> 
-            <div class="mainIcon"  >
-                <span class="material-symbols-outlined notranslate"> refresh </span>
-            </div>
-            <span class="textMainIcon" fxFlex="100" style="text-align: center;">Listado General </span>
-            
-        </div>   -->
-    </div>
-    <!-- end menu phone -->
 
     <!-- start paginator -->
         <div  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  *ngIf=" showOrderFounded || arrOrders.length !== 0 " style="margin-top: 30px;" >

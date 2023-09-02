@@ -65,6 +65,7 @@ import localeEs from '@angular/common/locales/es-AR'; //nombre inventado el AR e
 import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { AddItemComponent } from './protected/add-item/add-item/add-item.component';
 
 registerLocaleData( localeEs );
 
@@ -105,7 +106,8 @@ registerLocaleData( localeEs );
     EditOrderComponent,
     GenericMessageComponent,
     MantainMessageComponent,
-    NoPermissionMessageComponent
+    NoPermissionMessageComponent,
+    AddItemComponent
   ],
   imports: [
     BrowserModule,

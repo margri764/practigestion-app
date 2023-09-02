@@ -27,12 +27,7 @@
     <!-- end search by code -->
 
     <!-- start suggested    -->
-    <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="center center"  fxFlex="80" *ngIf="mostrarSugerencias" style="padding: 20px;" class="whiteframe" >
-
-        <!-- <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex.xs="100" fxFlex.md="80" fxFlex="60" class="font whiteframe fs-5" style="margin-left: 0px;" >
-            <span style="padding: 7px;" > Buscar:   {{ itemSearch }}</span>
-            <mat-icon (click)="close()" style="cursor: pointer; margin-right: 10px; transform: scale(1.2);" > close</mat-icon>
-        </div> -->
+    <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="center center"  fxFlex.xs="99" fxFlex="80" *ngIf="mostrarSugerencias" style="padding: 20px;" class="whiteframe" >
             
         <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" *ngIf="spinner" style="margin-top: 30px;">
             <mat-spinner diameter="48"></mat-spinner>
@@ -40,39 +35,18 @@
                     
         <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="space-betweencenter" fxFlex="100" class="font mb-20 " *ngFor="let item of suggested , index as i" >
             
-            <!-- <div fxFlex="30" fxFlex.xs="0"></div> -->
             <div fxLayout="row wrap" fxLayoutAlign="space-between center"  fxFlex="98"  class="fs-4 boxSelection" >
                 <mat-radio-button class="example-margin"  (click)="searchSuggested( item.idArticulo )"></mat-radio-button>
                 <span  style="cursor: pointer; text-align: start; " (click)="searchSuggested( item.idArticulo )" fxFlex="90" >
                     {{ item.descripcionLarga | capitalizeFirstLetter}}
+                   &nbsp; <b>$  {{ item.precioCosto | decimalRound}}</b>
                 </span>
             </div>
-            <!-- <div fxFlex="30" fxFlex.xs="0"></div> -->
 
         </div>
     </div>
     <!-- end suggested    -->
 
-
-    <!-- start suggested    -->
-    <!-- <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="center center" fxFlex="100" *ngIf="mostrarSugerencias" style="padding: 20px;"  >
-
-        <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex.xs="100" fxFlex="40" class="font fs-5" >
-            <a > Buscar:  &nbsp; {{ itemSearch }}</a>
-            <mat-icon (click)="close()" style="cursor: pointer; margin-right: 10px; transform: scale(1.2);" > close</mat-icon>
-        </div>
-            
-        <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" *ngIf="spinner" style="margin-top: 30px;">
-            <mat-spinner diameter="48"></mat-spinner>
-        </div>
-                    
-        <div fxLayout="row wrap"  fxLayoutAlign.xs="start  center"  fxLayoutAlign="center center" fxFlex="100" class="font fs-5 mt-20" *ngFor="let item of suggested , index as i" >
-            <a  style="cursor: pointer; margin-top: 5px; color: blue; text-decoration: underline;" (click)="searchSuggested( item.idArticulo )" fxFlex.xs="100" fxFlex="40">
-            {{ item.descripcionLarga | capitalizeFirstLetter}}
-            </a>
-        </div>
-    </div> -->
-    <!-- end suggested    -->
 
 
     <!-- start result search cards -->

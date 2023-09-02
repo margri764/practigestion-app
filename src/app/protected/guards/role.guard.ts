@@ -76,12 +76,20 @@ export class RoleGuard implements CanActivate {
          break; 
          case "/listado-pedidos":   
                             if(!user?.permisos.includes(2100)){
-                              this.openDialogNoAuth()
+                              this.openDialogNoAuth(),
+                              alert("no")
                               return false;
                               }
           break; 
 
-          default:   return false
+        //   case "/pedidos-temporales":   
+        //                   if(!user?.permisos.includes(2100)){
+        //                     this.openDialogNoAuth();
+        //                     return false;
+        //                     }
+        //  break; 
+
+          // default:   return false
         }
         return true
 

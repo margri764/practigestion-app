@@ -10,7 +10,7 @@
 
     <form [formGroup]="orderForm" fxLayout="row wrap" fxLayoutAlign="centercenter" fxFlex="95" style="margin-top: 30px;" >
 
-        <div  fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" >
+        <div  fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100" >
 
               <span class="font" style="margin-top: 20px; margin-bottom: 10px; text-align: start; font-size: 1.5em;" fxFlex="100"> <b>Datos Pedido</b></span>
                 <mat-form-field appearance="outline" fxFlex="25" class="mt-10 font " >		
@@ -18,21 +18,27 @@
                     <input matInput type="text" formControlName="idAgenda" readonly>
                 </mat-form-field> 
             
-                <mat-form-field appearance="outline" fxFlex="25" class="mt-10 font " >		
+                <mat-form-field appearance="outline" fxFlex="25" class="mt-10 font ml-10" >		
                     <mat-label>Descuento % </mat-label>
                     <input matInput type="text" formControlName="descuentoPorcentaje" >
                 </mat-form-field> 
 
-                <mat-form-field appearance="outline" fxFlex="25" class="mt-10 font " >		
-                    <mat-label>Estado del pedido</mat-label>
-                    <input matInput type="text" formControlName="estado">
-                </mat-form-field> 
         </div>
-        <span class="font" style="margin-top: 20px; margin-bottom: 10px; text-align: start; font-size: 1.5em;" fxFlex="100"> <b>Items</b></span>
 
-        <div formArrayName="detalleItems" fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" >
-            <div *ngFor="let detalleItem of getDetalleItemsControls(); let i = index" xLayout="row wrap" fxLayoutAlign="center center" fxFlex="95">
-                <div [formGroupName]="i" fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="95" >
+        <div  fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100" >
+
+            <span class="font" style="margin-top: 20px; margin-bottom: 10px; text-align: start; font-size: 1.5em;"> <b>Items</b></span>
+            <div class="icon mr-10"  (click)="addItem()" style="margin-left: 25px;">
+                <span class="material-symbols-outlined notranslate cursor" style="color: red;  transform: scale(1.2);"> add </span>
+            </div>
+        </div>    
+
+        <app-add-item fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" style="margin-top: 20px;" *ngIf="addItemSelected"></app-add-item>
+
+
+        <div formArrayName="detalleItems" fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  style="margin-top: 20px;">
+            <div *ngFor="let detalleItem of getDetalleItemsControls(); let i = index" fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="95">
+                <div [formGroupName]="i" [class.ultimo-elemento]="i === getDetalleItemsControls().length - 1" fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="95" >
 
                     <mat-form-field appearance="outline" fxFlex="25" class="mt-10 font " >		
                         <mat-label>Código Interno: </mat-label>
@@ -48,11 +54,17 @@
                         <mat-label>Bonificación (%): </mat-label>
                         <input matInput type="number" required formControlName="bonificacionPorciento" >
                     </mat-form-field> 
-            
+                  
+                    <div class="icon mr-10"   (click)="deleteOrder(i)" >
+                        <span class="material-symbols-outlined notranslate cursor" style="color: red;"> delete </span>
+                    </div>
+                    
+                    
                 </div>
             </div>
-
+            
         </div>
+
 
         <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="mt-20">
                 <button mat-raised-button  [ngClass]="isLoading? 'btnMenuClicked':'btnMenu'" fxFlex="60" (click)="onSaveForm()">
@@ -60,7 +72,9 @@
                     &nbsp; Editar Orden
                 </button>
         </div>
+        <div #top style="margin-top: 100px;"></div>
     </form>
+    
     
 </div>
 

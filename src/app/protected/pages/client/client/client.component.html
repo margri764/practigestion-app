@@ -42,11 +42,18 @@
     <!-- end suggested    -->
 
     <!-- start select buttons -->
-    <div fxLayout="row wrap" fxLayoutAlign.xs="center center"  fxLayoutAlign="end center" fxFlex="100" >
+    <div fxLayout="row wrap" fxLayoutAlign="end" fxFlex="100">
 
-        <div class="iconContainer" >
+        <div fxLayout="row wrap"  fxLayoutAlign="center"  fxFlex.xs="20" fxFlex="10"  style="margin-right: 5px;" >
+            <div class="mainIcon" (click)="addClient()" >
+                <span class="material-symbols-outlined notranslate"> add </span>
+            </div>
+            <span class="textMainIcon" fxFlex="100" style="text-align: center;">Agregar </span>
+        </div>  
 
-            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex.xs="48" fxFlex="30" >
+        <!-- <div class="iconContainer" > -->
+
+            <!-- <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex.xs="48" fxFlex="30" >
                 <div class="mainIcon" style="display: flex;"  >
                     <span class="material-symbols-outlined notranslate"> refresh </span>
                 </div>
@@ -58,15 +65,10 @@
                     <span class="material-symbols-outlined notranslate"> edit </span>
                 </div>
                 <span class="textMainIcon" fxFlex="100" style="text-align: center;">busqueda</span>
-            </div>  
+            </div>   -->
 
-            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex.xs="48" fxFlex="30"  >
-                <div class="mainIcon" (click)="addClient()" >
-                    <span class="material-symbols-outlined notranslate"> add </span>
-                </div>
-                <span class="textMainIcon" fxFlex="100" style="text-align: center;">Agregar </span>
-            </div>  
-        </div>
+       
+        <!-- </div> -->
     </div>
     <!-- end select buttons -->
 
