@@ -31,6 +31,8 @@ export class LocalStorageService {
     }
     if(user){
       this.store.dispatch(authAction.setUser({ user }));
+      setTimeout(()=>{localStorage.removeItem('user');},3000)
+      
     }
     // if (tempOrder) {
     //   this.store.dispatch(articleAction.setTempOrder({ tempOrder: tempOrder }));

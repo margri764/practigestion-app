@@ -73,15 +73,19 @@ getUser(){
   return this.http.get<any>(`${this.baseUrl}api/usuarios/perfil`) 
   
   .pipe(
-    tap( ({Permisos}) =>{
-                    if(Permisos){
-                        this.user = Permisos;
-                        this.store.dispatch(authActions.setUser({user : Permisos}));
-                        this.localStorageService.saveStateToLocalStorage(Permisos, 'user');
-                
+    tap( ({permisos, perfil }) =>{
+                    console.log(permisos, perfil);
+                    if(permisos){
+                        this.user = perfil;
+                          let auth : any = [];
+                          permisos.map((item:any)=>{auth.push(item.idPermiso)})
+                          const userUpdate = { ...perfil, permisos : auth };
+                          this.store.dispatch(authActions.setUser({user : userUpdate}));
+                          const userToLS = { nombre: perfil.nombre, permisos: auth}
+                          // this.localStorageService.saveStateToLocalStorage(userToLS, 'user');
+                          this.user = userUpdate;
                     }           
-              }  
-    ),            
+        }),            
     map( res =>{ 
       console.log('desde service getUser', res)
         return res} )
@@ -90,32 +94,9 @@ getUser(){
 }
 
 
-//luego del login con el token y obetener los datos del usuario (desde app.component)
-//agrego el arreglo de permisos al objeto user y actualizo el redux, localStorage
-getAuthorization(){
 
-  return this.http.get<any>(`${this.baseUrl}api/usuarios/permisos`) 
-  
-  .pipe(
-    tap( ({Permisos}) =>{
-                    if(Permisos){
-                      let auth : any = [];
-                      Permisos.map((item:any)=>{auth.push(item.idPermiso)})
-                      const userUpdate = { ...this.user, permisos : auth };
-                      this.store.dispatch(authActions.setUser({user : userUpdate}));
-                      this.localStorageService.saveStateToLocalStorage(userUpdate, 'user');
-                      this.user = userUpdate;
-              
-                    }           
-              }  
-    ),            
-    map( res =>{ 
-      console.log('desde service getAuthorization', res)
-        return res} )
-  )
-  
 
-}
+
 
 
 getToken(){

@@ -23,24 +23,34 @@ const routes: Routes = [
     canLoad: [ RoleGuard],
   },
   {
-    path: 'listado-clientes',  component: ClientComponent
+    path: 'listado-clientes',  component: ClientComponent,
+    canActivate: [RoleGuard ],
+    canLoad: [ RoleGuard],
   },
 
   {
     path: 'listado-precios/listado/:id',  component: ListByIdComponent
   },
   {
-    path: 'listado-precios',  component : GeneralListComponent
+    path: 'listado-precios',  component : GeneralListComponent,
+    canActivate: [RoleGuard ],
+    canLoad: [ RoleGuard],
   },
 
   {
-    path: 'listado-articulos',  component: ArticlesComponent
+    path: 'listado-articulos',  component: ArticlesComponent,
+    canActivate: [RoleGuard ],
+    canLoad: [ RoleGuard],
   },
   {
-    path: 'listado-pedidos',  component: ListOrdersComponent
+    path: 'listado-pedidos',  component: ListOrdersComponent,
+    canActivate: [RoleGuard ],
+    canLoad: [ RoleGuard],
   },
   {
-    path: 'pedidos-temporales',  component: TempOrderComponent
+    path: 'pedidos-temporales',  component: TempOrderComponent,
+    canActivate: [RoleGuard ],
+    canLoad: [ RoleGuard],
   },
   {
     path: 'buscar-articulos',  component: SearchProductsComponent
@@ -49,7 +59,9 @@ const routes: Routes = [
     path: 'articulo/:id',  component: ViewMoreArticleComponent
   },
   {
-    path: 'clientes',  component: ClientComponent
+    path: 'clientes',  component: ClientComponent,
+    canActivate: [RoleGuard ],
+    canLoad: [ RoleGuard],
   },
   {
     path: 'login',  component: LoginComponent

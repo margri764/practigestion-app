@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, HostListener, OnInit, Output } from '@angular/core';
 import { AuthService } from './protected/services/auth/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { AppState } from './app.reducer';
@@ -6,8 +6,10 @@ import { OrderService } from './protected/services/order/order.service';
 import { Store } from '@ngrx/store';
 import * as articleActions from './article.actions';
 import { LocalStorageService } from './protected/services/localStorage/local-storage.service';
-import { getDataLS, getDataSS } from './protected/Storage';
+import { getDataLS, getDataSS, saveDataLS } from './protected/Storage';
 import { CookieService } from 'ngx-cookie-service';
+import { filter, tap } from 'rxjs';
+import { User } from './protected/models/user.models';
 
 @Component({
   selector: 'app-root',
@@ -19,29 +21,60 @@ export class AppComponent implements OnInit {
   title = 'practigestion-app';
   @Output () currentUrl : any = '';
   @Output () login : boolean = false;
+   isLoading : boolean = false;
+   user : any;
+
+  @HostListener('window:beforeunload')
+  doSomething() {
+    const userToLS = this.authService.user;
+    if(userToLS !== undefined){
+      this.localStorageService.saveStateToLocalStorage(userToLS, 'user');
+    }else{
+      this.localStorageService.saveStateToLocalStorage(this.user, 'user');
+
+    }
+
+
+  }
+  
+  
 
   constructor(
               private localStorageService: LocalStorageService,
               public router : Router,
               private store : Store <AppState>,
               private orderService : OrderService,
-              private cookieService : CookieService
+              private cookieService : CookieService,
+              private authService : AuthService
 
   ){
 
+    const logged = getDataLS("logged");
+    const token = this.cookieService.get('token');
+    const openOrders = getDataSS('openOrders');
 
-    if( getDataLS("logged") && this.cookieService.get('token') && !getDataSS('openOrders')){
+
+    if (logged  && token !== undefined &&  openOrders === undefined ) {
       this.login = true;
       this.orderService.getOpenOrders().subscribe();
-      // console.log("nod eberia entrar");
   }
-  console.log('1');
-        
 
   }
 
   ngOnInit(): void {
-    this.localStorageService.loadInitialState();
+
+    setTimeout(()=>{this.localStorageService.loadInitialState();},4000)
+  
+    this.store.select('auth')
+    .pipe(
+      tap(()=>this.isLoading = true),
+      filter( ({user})=>  user != null && user != undefined),
+    ).subscribe(
+      ({user})=>{
+        this.user = user;
+        this.isLoading = false;
+      })
+  
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {

@@ -46,21 +46,19 @@ export class LoginComponent implements OnInit, OnDestroy {
                 //  private errorService : ErrorService,
                 )
   {
-    if( getDataLS("logged") && this.cookieService.get('token')){
-      this.orderService.getOpenOrders().subscribe();
-      // this.cookieService.get('token');
-      // this.login = true;
-      this.router.navigateByUrl('/home')
-    }
-    }
-    
+
+  }
 
 
 ngOnInit() {
 
         this.myForm = this.fb.group({
-          user:     [ 'marcelo', [Validators.required] ],
-          password:  [ '123', [Validators.required]], 
+          // user:     [ 'marcelo', [Validators.required] ],
+          // password:  [ '123', [Validators.required]], 
+          // user:     [ 'administrador', [Validators.required] ],
+          // password:  [ 'admin1234', [Validators.required]], 
+                user:     [ 'julian', [Validators.required] ],
+      password:  [ 'qwe', [Validators.required]], 
           toLStorage:  [ true ], 
         });
   
@@ -81,11 +79,8 @@ ngOnInit() {
         this.confirm = true;
         const username = this.myForm.get('user')?.value;
         const password = this.myForm.get('password')?.value;
-        console.log(username, password);
         this.authservice.login(username, password).subscribe(
-          (res:any)=>{
-                console.log(res);
-
+          (res)=>{
               if(res){
                       
                       if(this.myForm.get('toLStorage')?.value === true){
@@ -93,7 +88,6 @@ ngOnInit() {
                       }
                       // si el login es exitoso trae los datos del usuario
                       this.getUser();
-                      this.router.navigateByUrl('/home')
                     
                      }
                 }
@@ -107,19 +101,10 @@ validField( field: string ) {
 }
 
 getUser(){
-  this.authservice.getUser().subscribe( 
-    (res)=>{
-      if(res){
-            this.getAuthorization();
-      }
-    });
-
+  this.authservice.getUser().subscribe((res)=>{if(res){this.router.navigateByUrl('/home');}});
                       
 }
 
-getAuthorization(){
-    this.authservice.getAuthorization().subscribe();
-}
 
 
 

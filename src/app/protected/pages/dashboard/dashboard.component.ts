@@ -42,6 +42,8 @@ showNoProcessMessage : boolean = false;
 notificationsDone! : boolean;
 login : boolean = false;
 phone : boolean = false;
+isLoading : boolean = false;
+
 
 constructor(
               private store : Store <AppState>,
@@ -55,9 +57,8 @@ constructor(
   ) { 
 
     
-    if( getDataLS("logged") && this.cookieService.get('token') && !getDataSS('openOrders')){
+    if( getDataLS("logged") !== undefined && this.cookieService.get('token') !== undefined && getDataSS('openOrders') === undefined){
       this.orderService.getOpenOrders().subscribe();
-      console.log("nod eberia entrar");
     }
 
   (screen.width <= 600) ? this.phone = true : this.phone = false;
@@ -68,11 +69,10 @@ visibility(){
     this.toogle = !this.toogle
 }
 
-isLoading : boolean = false;
 
 ngOnInit(): void {
   this.checkSessionStorage();
-this.isLoading = true;
+// this.isLoading = true;
 
 
   this.articleSuscription = this.store.select('article')
@@ -83,7 +83,6 @@ this.isLoading = true;
 
     if(tempOrder.length !==0){
       this.showLabelTempOrder = true;
-      console.log(tempOrder.length);
       this.alert = tempOrder.length;
     }
   })

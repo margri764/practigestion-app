@@ -64,7 +64,6 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
 
     if(tempOrder.length !==0){
       this.showLabelTempOrder = true;
-      console.log(tempOrder.length);
       this.alert = tempOrder.length;
     }
   })

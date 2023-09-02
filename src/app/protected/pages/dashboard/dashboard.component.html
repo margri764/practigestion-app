@@ -20,7 +20,8 @@
             </a>
 
             <!-- routerLink="/listado-articulos" -->
-            <a  mat-list-item style="margin-top: 20px;" (click)="sidenav.toggle()"  (click)="openMantainMessage()"  >
+            <!-- (click)="openMantainMessage()" -->
+            <a  mat-list-item style="margin-top: 20px;" (click)="sidenav.toggle()"   routerLink="/listado-articulos" >
                 <div class="menuIcon"  >
                     <span class="material-symbols-outlined notranslate" style=" transform: scale(1.3);color: rgb(135, 135, 135);"> category </span>
                 </div>
@@ -139,30 +140,30 @@
 
             <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" fxFlex.xs="48" style="margin-top: 30px;" routerLink="/armar-pedido" >
                 <div class="mainIcon" >
-                    <span class="material-icons notranslate" > shopping_bag </span>
+                    <span class="material-icons notranslate" style="transform: scale(1.3); color: green;"> shopping_bag </span>
                 </div>
-                <span fxFlex="100"  class="font " style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Iniciar Pedido</span>
+                <span fxFlex="100"  class="font fs-4" style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Iniciar Pedido</span>
             </div>  
-
+           
             <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" fxFlex.xs="48" style="margin-top: 30px;" routerLink="/pedidos-temporales" >
                 <div class="mainIcon" >
-                    <span class="material-symbols-outlined notranslate"> shopping_bag </span>
+                    <span class="material-symbols-outlined notranslate" style="transform: scale(1.3);  color:rgb(37, 150, 190)"> shopping_bag </span>
                 </div>
-                <span fxFlex="100"  class="font " style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Pedidos Abiertos</span>
+                <span fxFlex="100"  class="font fs-4" style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Pedidos Abiertos</span>
             </div>  
             <!-- routerLink="/listado-articulos"  -->
             <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" fxFlex.xs="48" style="margin-top: 30px;" (click)="openMantainMessage()" >
                 <div class="mainIcon" >
-                    <span class="material-symbols-outlined notranslate"> category </span>
+                    <span class="material-symbols-outlined notranslate" style="transform: scale(2); color: green;"> category </span>
                 </div>
-                <span fxFlex="100"  class="font " style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Lista Artículos</span>
+                <span fxFlex="100"  class="font fs-4 " style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">Lista Artículos</span>
             </div>  
 
             <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="25" fxFlex.xs="48" style="margin-top: 30px;" (click)="sidenav.toggle()">
                 <div class="mainIcon" >
-                    <span class="material-symbols-outlined notranslate" > add </span>
+                    <span class="material-symbols-outlined notranslate" style="transform: scale(2); color:rgb(37, 150, 190)"> add </span>
                 </div>
-                <span fxFlex="100"  class="font " style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">mas...</span>
+                <span fxFlex="100"  class="font fs-4" style="cursor: pointer; margin-top: 5px; text-align: center; color: rgb(28, 28, 28);">mas...</span>
             </div>  
         </div>
     

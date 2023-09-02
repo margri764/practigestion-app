@@ -64,14 +64,17 @@ getSalePoint(){
 }
 
 getOpenOrders(){
-  return this.http.get<any>(`${this.baseUrl}api/pedidos/abiertos`,)
+  return this.http.get<any>(`${this.baseUrl}api/pedidos/abiertos`)
   .pipe(
     tap( ({pedidos})=>{
-              this.store.dispatch(articleActions.setTempOrder({tempOrder : pedidos}));
-              this.localStorageService.saveStateToSessionStorage(pedidos, 'openOrders')
+              if(pedidos.length !== 0){
+                this.store.dispatch(articleActions.setTempOrder({tempOrder : pedidos}));
+                this.localStorageService.saveStateToSessionStorage(pedidos, 'openOrders')
+              }
+      
     }),
     map( res =>{ 
-          console.log('desde service getOrdersOpen', res)
+          console.log('desde service getOpenOrders', res)
             return res} )
     );
 }

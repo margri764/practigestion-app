@@ -36,6 +36,9 @@ import { ListOrdersComponent } from './protected/pages/list-orders/list-orders/l
 import { ErrorBackendDownComponent } from './protected/messages/error-backend-down/error-backend-down/error-backend-down.component';
 import { HeaderComponent } from './protected/pages/header/header/header.component';
 import { EditOrderComponent } from './protected/messages/edit-order/edit-order/edit-order.component';
+import { GenericMessageComponent } from './protected/messages/generic-message/generic-message/generic-message.component';
+import { MantainMessageComponent } from './protected/messages/maintain-message/mantain-message/mantain-message.component';
+import { NoPermissionMessageComponent } from './protected/messages/no-permission-message/no-permission-message/no-permission-message.component';
 
 
 // services
@@ -61,8 +64,6 @@ import { TwoDecimalPipe } from './protected/pipes/twoDecimal.pipe';
 import localeEs from '@angular/common/locales/es-AR'; //nombre inventado el AR es por Argentina
 import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
-import { GenericMessageComponent } from './protected/messages/generic-message/generic-message/generic-message.component';
-import { MantainMessageComponent } from './protected/messages/maintain-message/mantain-message/mantain-message.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 registerLocaleData( localeEs );
@@ -103,7 +104,8 @@ registerLocaleData( localeEs );
     HeaderComponent,
     EditOrderComponent,
     GenericMessageComponent,
-    MantainMessageComponent
+    MantainMessageComponent,
+    NoPermissionMessageComponent
   ],
   imports: [
     BrowserModule,
