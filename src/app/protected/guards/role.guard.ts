@@ -48,7 +48,7 @@ export class RoleGuard implements CanActivate {
          
         switch (state.url) {
           case "/armar-pedido":   
-                              if(!user?.permisos.includes(2100, 900)){
+                              if(!user?.permisos.includes(900) || !user?.permisos.includes(2100)) {
                                 this.openDialogNoAuth()
                                 return false;
                               }

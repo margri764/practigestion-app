@@ -25,6 +25,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   @Output() onDebounce: EventEmitter<string> = new EventEmitter();
   @Output() onEnter   : EventEmitter<string> = new EventEmitter();
   debouncer: Subject<string> = new Subject();
+  debouncerCode: Subject<string> = new Subject();
   
   authSuscription! : Subscription;
   articleSuscription! : Subscription;
@@ -36,17 +37,27 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   isArticleFounded : boolean = false;
   articleFounded : any = {};
 
-      // search
-      itemSearch : string = '';
-      mostrarSugerencias: boolean = false;
-      sugested : string= "";
-      suggested : any[] = [];
-      spinner : boolean = false;
-      alert:boolean = false;
-      fade : boolean = false;
-      search : boolean = true;
-      product  : any[] = [];
-      // search
+  // search by description
+  itemSearch : string = '';
+  mostrarSugerencias: boolean = false;
+  sugested : string= "";
+  suggested : any[] = [];
+  spinner : boolean = false;
+  alert:boolean = false;
+  search : boolean = true;
+  product  : any[] = [];
+  // search
+
+  // search by code
+  itemSearchCode : string = '';
+  mostrarSugerenciasCode: boolean = false;
+  sugestedCode : string= "";
+  suggestedCode : any[] = [];
+  spinnerCode : boolean = false;
+  alertCode:boolean = false;
+  searchCode : boolean = true;
+  productCode  : any[] = [];
+  // search by code
 
   constructor(
             private articleService :ArticlesService,
@@ -74,6 +85,13 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     .subscribe( valor => {
  
       this.sugerencias(valor);
+    });
+
+    this.debouncerCode
+    .pipe(debounceTime(400))
+    .subscribe( valor => {
+ 
+      this.sugerenciasCode(valor);
     });
 
     // this.getProducts();
@@ -140,7 +158,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   }
 
 
-      // search
+      // search by description
        close(){
         this.mostrarSugerencias = false;
         this.itemSearch = '';
@@ -157,7 +175,8 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
           this.itemSearch = value;
           this.mostrarSugerencias = true;  
           const valueSearch = value.toUpperCase();
-          this.articleService.searchArticleByDescription(valueSearch)
+          const field = "desc_larga";
+          this.articleService.searchArticle(field,valueSearch)
           .subscribe ( ({articulos} )=>{
             if(articulos.length !== 0){
               // this.arrArticlesSugested = articulos;
@@ -169,14 +188,11 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
           )
         }
      
- 
-       
        Search( id : any ){
         
          this.mostrarSugerencias = true;
          this.alert = false;
          this.spinner = true;
-         this.fade = false;
          this.articleService.searchProductById(id)
          .subscribe ( ({articulos} )=>{
             console.log(articulos);
@@ -185,8 +201,6 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
               this.spinner = false;
               this.close();
               this.isArticleFounded = true;
-            }else{
-              // this.labelNoArticles = true;
             }
           }
          )
@@ -197,7 +211,66 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
         console.log(id);
         this.Search( id );
       }
-      // search
+      // search by description
+
+    // search by code
+    closeCode(){
+      this.mostrarSugerencias = false;
+      this.itemSearch = '';
+      this.suggested = [];
+      this.spinner= false;
+    }
+  
+  teclaPresionadaCode(){
+      this.debouncerCode.next( this.itemSearchCode );  
+    };
+  
+    sugerenciasCode(value : string){
+      this.spinner = true;
+      this.itemSearchCode = value;
+      this.mostrarSugerencias = true;  
+      const valueSearch = value.toUpperCase();
+      const field = "codigo_interno";
+      this.articleService.searchArticle(field, valueSearch)
+      .subscribe ( ({articulos} )=>{
+        if(articulos.length !== 0){
+          // this.arrArticlesSugested = articulos;
+          this.suggested = articulos.splice(0,10);
+            this.spinner = false;
+          }
+        }
+      )
+    }
+    
+      SearchCode( id : any ){
+      
+        this.mostrarSugerencias = true;
+        this.alert = false;
+        this.spinner = true;
+        const field = "codigo_interno";
+       this.articleService.searchArticle(field, id)
+        .subscribe ( ({articulos} )=>{
+          console.log(articulos);
+          if(articulos){
+            this.articleFounded = articulos;
+            this.spinner = false;
+            this.closeCode();
+            this.isArticleFounded = true;
+          }else{
+            // this.labelNoArticles = true;
+          }
+        }
+        )
+  
+    }
+  
+    searchSuggestedCode( id: any ) {
+      console.log(id);
+      this.Search( id );
+    }
+    // search by description
+
+
 
   goBack(){
     this.router.navigateByUrl('/armar-pedido')

@@ -1,21 +1,61 @@
 
 <div  fxLayout="row wrap"  fxLayoutAlign="center start" fxFlex="100" >
 
+    <!-- start search by description -->
     
     <form  fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 25px;" fxFlex.xs="100" fxFlex="46"  autocomplete="off" >
         <mat-form-field  appearance="outline" fxFlex="96" class="font fs-5" >
             <input type="text" matInput  placeholder="Buscar artículo"  name="itemSearch"
-            class="form-control  me-2"    
             [(ngModel)]="itemSearch"
             (input)="teclaPresionada( )" 
             >
             <mat-icon matSuffix style="transform:scale(1.7); color: rgb(37, 150, 190); margin-right: 20px;" (click)="Search( itemSearch)" >search</mat-icon>
         </mat-form-field>
     </form> 
+    <!-- end search by description -->
+
+    <!-- start search by code -->
+    <form  fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 25px;" fxFlex.xs="100" fxFlex="46"  autocomplete="off" >
+        <mat-form-field  appearance="outline" fxFlex="96" class="font fs-5" >
+            <input type="text" matInput  placeholder="Buscar artículo por código"  name="itemSearchCode"
+            [(ngModel)]="itemSearchCode"
+            (input)="teclaPresionadaCode( )" 
+            >
+            <mat-icon matSuffix style="transform:scale(1.7); color: rgb(37, 150, 190); margin-right: 20px;" (click)="SearchCode( itemSearchCode)" >search</mat-icon>
+        </mat-form-field>
+    </form> 
+    <!-- end search by code -->
+
+        <!-- start suggested    -->
+        <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="center center"  fxFlex="90" *ngIf="mostrarSugerencias" style="padding: 20px;" class="whiteframe" >
+
+            <!-- <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex.xs="100" fxFlex.md="80" fxFlex="60" class="font whiteframe fs-5" style="margin-left: 0px;" >
+                <span style="padding: 7px;" > Buscar:   {{ itemSearch }}</span>
+                <mat-icon (click)="close()" style="cursor: pointer; margin-right: 10px; transform: scale(1.2);" > close</mat-icon>
+            </div> -->
+                
+            <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" *ngIf="spinner" style="margin-top: 30px;">
+                <mat-spinner diameter="48"></mat-spinner>
+            </div>
+                        
+            <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="space-betweencenter" fxFlex="100" class="font mb-20 " *ngFor="let item of suggested , index as i" >
+                
+                <!-- <div fxFlex="30" fxFlex.xs="0"></div> -->
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center"  fxFlex="98"  class="fs-4 boxSelection" >
+                    <mat-radio-button class="example-margin"  (click)="searchSuggested( item.idArticulo )"></mat-radio-button>
+                    <span  style="cursor: pointer; text-align: start; " (click)="searchSuggested( item.idArticulo )" fxFlex="90" >
+                        {{ item.descripcionLarga | capitalizeFirstLetter}}
+                    </span>
+                </div>
+                <!-- <div fxFlex="30" fxFlex.xs="0"></div> -->
+    
+            </div>
+        </div>
+        <!-- end suggested    -->
     
 
     <!-- start suggested    -->
-    <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="center center" fxFlex="100" *ngIf="mostrarSugerencias" style="padding: 20px;"  >
+    <!-- <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="center center" fxFlex="100" *ngIf="mostrarSugerencias" style="padding: 20px;"  >
 
         <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex.xs="100" fxFlex="40" class="font fs-5" >
             <a > Buscar:  &nbsp; {{ itemSearch }}</a>
@@ -31,16 +71,16 @@
             {{ item.descripcionLarga | capitalizeFirstLetter}}
             </a>
         </div>
-    </div>
+    </div> -->
     <!-- end suggested    -->
 
 
     <!-- start result search cards -->
-    <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 20px 0px 10px 20px; margin-top: 20px;" fxFlex.xs="96" fxFlex="55" *ngIf="isArticleFounded" class="whiteframe" >
+    <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 20px 0px 10px 20px; margin-top: 20px;" fxFlex="90" fxFlex.md="50" *ngIf="isArticleFounded" class="whiteframe" >
         
-        <span  class="font fs-5" fxFlex="49"> Código: {{articleFounded.codigoArticulo }} </span>
+        <span  class="font fs-5" fxFlex="90"> Código: {{articleFounded.codigoArticulo }} </span>
        
-        <span  class="font fs-5 mr-5" fxFlex="49" fxLayoutAlign="end">  Estado: &nbsp; <label [ngStyle]="styleObject(articleFounded.activo)"> {{articleFounded.activo | productStatus }}</label></span>
+        <!-- <span  class="font fs-5 mr-5" fxFlex="49" fxLayoutAlign="end">  Estado: &nbsp; <label [ngStyle]="styleObject(articleFounded.activo)"> {{articleFounded.activo | productStatus }}</label></span> -->
 
         <span  class="font fs-5 mt-20" fxFlex="100" > {{articleFounded.descripcionLarga | capitalizeFirstLetter }}</span>
 
@@ -58,10 +98,9 @@
 
 
     <!-- start cards -->
-    <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 20px 0px 10px 20px; margin-top: 20px;" fxFlex="96" *ngFor="let article of arrArticles" class="whiteframe" >
+    <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="margin-bottom: 30px;  padding: 20px 0px 10px 20px; margin-top: 20px;"  fxFlex="100"  *ngFor="let article of arrArticles" class="whiteframe" >
         
-        <span  class="font fs-5" fxFlex="49" > Código: {{article.codigoArticulo }} </span>
-        <span  class="font fs-5 mr-5" fxFlex="49" fxLayoutAlign="end"> Estado: {{article.activo | productStatus }}</span>
+        <span  class="font fs-5" fxFlex="100" > Código: {{article.codigoArticulo }} </span>
 
         <span  class="font fs-5 mt-20" fxFlex="100" > {{article.descripcionLarga | capitalizeFirstLetter }}</span>
 

@@ -14,6 +14,7 @@ import { ErrorBackendDownComponent } from '../../messages/error-backend-down/err
 import { Router } from '@angular/router';
 import { getDataLS, getDataSS } from '../../Storage';
 import { WrongActionMessageComponent } from '../../messages/wrong-action-message/wrong-action-message/wrong-action-message.component';
+import { NoPermissionMessageComponent } from '../../messages/no-permission-message/no-permission-message/no-permission-message.component';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +59,12 @@ export class ErrorService {
       return of(null);
     }
 
+    if (error.status === 403 && error.error.message === "No Autorizado para esta acción (Forbidden).") {
+      this.openDialogNoAuth();
+      this.close$.next(true);
+      this.close$.next(false);
+      return of(null);
+    }
     if (error.status === 500 && error.error.message === "Pedido no encontrado"){
       this.closeIsLoading$.emit(true);
       this.openGenericMsgAlert(error.error.message);
@@ -152,6 +159,22 @@ export class ErrorService {
       panelClass:"custom-modalbox-NoMoreComponent", 
     });
   
+  }
+
+  openDialogNoAuth() {
+
+    let width = '';
+    let height = '';
+    if(screen.width >= 800) {
+      width = "400px";
+      height ="550px";
+    }
+
+    this.dialog.open(NoPermissionMessageComponent,{
+      width: `${width}`|| "",
+      height:`${height}`|| "",
+      panelClass:"custom-modalbox-message",
+    });
   }
   
  }
