@@ -26,12 +26,15 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:beforeunload')
   doSomething() {
-    const userToLS = this.authService.user;
+    let userUpdate = this.authService.user;
+    let userToLS = {nombre: userUpdate.nombre, permisos: userUpdate.permisos}
+
     if(userToLS !== undefined && userToLS !== null){
       this.localStorageService.saveStateToLocalStorage(userToLS, 'user');
       this.isLoading = true;
     }
     else{
+      // este usuario sale de redux
       this.localStorageService.saveStateToLocalStorage(this.user, 'user');
       this.isLoading = true;
 
@@ -73,7 +76,7 @@ export class AppComponent implements OnInit {
       filter( ({user})=>  user != null && user != undefined),
     ).subscribe(
       ({user})=>{
-        this.user = user;
+        this.user = { nombre:user?.nombre, permisos:user?.permisos} ;
         this.isLoading = false;
       })
   

@@ -30,7 +30,7 @@ export class LocalStorageService {
     }
     if(user !== undefined && user !== null){
       this.store.dispatch(authAction.setUser({ user }));
-      setTimeout(()=>{localStorage.removeItem('user')},3000)
+      // setTimeout(()=>{localStorage.removeItem('user')},3000)
       
     }
  
