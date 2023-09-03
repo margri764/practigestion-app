@@ -44,7 +44,7 @@ login : boolean = false;
 phone : boolean = false;
 isLoading : boolean = false;
 
-
+cookie : boolean= false;
 constructor(
               private store : Store <AppState>,
               private cookieService : CookieService,
@@ -56,10 +56,16 @@ constructor(
               private localStorageService : LocalStorageService
   ) { 
 
-    
-    if( getDataLS("logged") !== undefined && this.cookieService.get('token') !== undefined && getDataSS('openOrders') === undefined){
+    const token = this.cookieService.get('token');
+    // llamo las ordenes desde aca solo si estoy logeado, hay un token y en el SS no las tengo guardadas
+    if( getDataLS("logged") !== undefined && token !== '' && getDataSS('openOrders') === undefined){
       this.orderService.getOpenOrders().subscribe();
     }
+
+    if(token !== ''){ this.cookie = true;}
+
+
+    
 
   (screen.width <= 600) ? this.phone = true : this.phone = false;
 

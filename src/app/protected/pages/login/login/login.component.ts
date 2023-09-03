@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   snapshot : boolean = false;
   isLoading : boolean = false;
   confirm : boolean = false;
+  cookie : boolean = false;
 
     constructor( 
                  private fb: FormBuilder,
@@ -47,9 +48,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   {
     const token = this.cookieService.get('token');
     const logged = getDataLS('logged')
-    if ( (token !== undefined ||  token !== null) && logged) {
+
+    if ( (token !== '') && logged) {
+      console.log("se llama desde aca");
       this.router.navigateByUrl('/home')
     }
+
+    if(token !== ''){ this.cookie = true;}
 
   }
 

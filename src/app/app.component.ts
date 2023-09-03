@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
 
   ){
 
-    // const token = this.cookieService.get('token');
+    const token = this.cookieService.get('token');
     // const openOrders = getDataSS('openOrders');
 
 
