@@ -17,7 +17,7 @@ export class OrderService {
   changeClientValue : EventEmitter<boolean> = new EventEmitter<boolean>; // se dispara desde el back de buscar-articulos para q volver a "Productos"
   selectProductOption$ : EventEmitter<boolean> = new EventEmitter<boolean>; // se dispara desde el buscar-articulos para q volver a "Productos" en /armar-pedido y q no muestre a "Cliente" como esta predeterminado
   emitedItem$ :  EventEmitter<any> = new EventEmitter; // emito desd el add-item un nuevo item se agrega en el edit de los pedidos
-
+  cancelOrNextOpenOrder$ :  EventEmitter<any> = new EventEmitter; // sid ejo una orden abierta, la puedo eleiminar tambien
   private baseUrl = environment.baseUrl;
 
   constructor(  private http : HttpClient,

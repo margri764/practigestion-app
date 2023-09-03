@@ -16,6 +16,7 @@ import { Subscription, filter } from 'rxjs';
 import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
 import { getDataLS, getDataSS } from 'src/app/protected/Storage';
 import { GenericMessageComponent } from 'src/app/protected/messages/generic-message/generic-message/generic-message.component';
+import { AskOpenOrderComponent } from 'src/app/protected/messages/ask-open-order/ask-open-order/ask-open-order.component';
 
 
 @Component({
@@ -277,16 +278,7 @@ console.log(body);
 
   }
 
-  checkSessionStorage(){
-    const articles = getDataSS("arrArticles");
-    const client = getDataSS("tempClient");
-    if(client){
-      this.client = client;
-    }
-    if( articles.length !== 0 || client){
-      this.openGenericSuccess("Existe un pedido incompleto!!")
-    }
-  }
+
  
 
 // openGenericMessage(msg:string){
@@ -327,5 +319,7 @@ openGenericSuccess(msg : string){
   });
 
 }
+
+
 
 }

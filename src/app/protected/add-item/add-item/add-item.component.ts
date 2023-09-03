@@ -211,6 +211,7 @@ export class AddItemComponent implements OnInit {
             console.log(articulos);
             if(articulos){
               this.orderService.emitedItem$.emit(articulos)
+              console.log(articulos);
               console.log('objeto emitido');
               // this.articleFounded = articulos;
               // this.spinner = false;

@@ -101,6 +101,7 @@ export class TempOrderComponent implements OnInit {
                   data: Pedido,
                   width: `${width}`|| "",
                   height:`${height}`|| "",
+                  disableClose : true,
                   panelClass:"custom-modalbox-edit", 
                 });
               }

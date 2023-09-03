@@ -66,6 +66,7 @@ import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AddItemComponent } from './protected/add-item/add-item/add-item.component';
+import { AskOpenOrderComponent } from './protected/messages/ask-open-order/ask-open-order/ask-open-order.component';
 
 registerLocaleData( localeEs );
 
@@ -107,7 +108,8 @@ registerLocaleData( localeEs );
     GenericMessageComponent,
     MantainMessageComponent,
     NoPermissionMessageComponent,
-    AddItemComponent
+    AddItemComponent,
+    AskOpenOrderComponent
   ],
   imports: [
     BrowserModule,

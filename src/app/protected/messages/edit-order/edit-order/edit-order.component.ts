@@ -53,6 +53,7 @@ element : any
           // Agregar el nuevo elemento a la lista
           detalleItemsArray.push(this.fb.group({
             codigoInterno: emitted.codigoInterno,
+            descripcion: emitted.descripcionLarga,
             cantidad: emitted.cantidad,
             bonificacionPorciento: emitted.bonificacionPorciento
           }));
@@ -72,12 +73,13 @@ element : any
       
       })
 
+      // lleno el form
       console.log(this.data);
       this.orderForm = this.fb.group({
-        idAgenda: new FormControl(''),
-        estado: new FormControl(''),
+        razonSocial: new FormControl(''),
         descuentoPorcentaje: new FormControl(''),
-        detalleItems: this.fb.array([]) // Necesitarás tratar esto como un FormArray
+        descripcion: new FormControl(''),
+        detalleItems: this.fb.array([]) 
       });
   
       this.populateForm(this.data); // Llenar el formulario con los datos existentes
@@ -86,15 +88,16 @@ element : any
     populateForm(data: any) {
 
       this.orderForm.patchValue({
-        idAgenda: data.idAgenda,
-        estado: data.estado,
+        razonSocial: data.razonSocial || 'Sin nombre',
         descuentoPorcentaje: data.descuentoPorcentaje,
       });
   
       const detalleItemsArray = this.orderForm.get('detalleItems') as FormArray;
   
       data.detalleItems.forEach((detalleItem: any) => {
+        console.log(detalleItem);
         detalleItemsArray.push(this.fb.group({
+          descripcion: data.descripcion,
           codigoInterno: detalleItem.codigoInterno,
           cantidad: detalleItem.cantidad,
           bonificacionPorciento: detalleItem.bonificacionPorciento

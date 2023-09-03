@@ -17,6 +17,7 @@ import { LocalStorageService } from '../../services/localStorage/local-storage.s
 import { GenericMessageComponent } from '../../messages/generic-message/generic-message/generic-message.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MantainMessageComponent } from '../../messages/maintain-message/mantain-message/mantain-message.component';
+import { AskOpenOrderComponent } from '../../messages/ask-open-order/ask-open-order/ask-open-order.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -109,9 +110,21 @@ ngOnInit(): void {
 checkSessionStorage(){
   const articles = getDataSS("arrArticles");
   const client = getDataSS("tempClient");
-  if( (articles && articles.length !== 0 )|| client){
-    this.openGenericMessage("Existe un pedido incompleto!!")
+
+  if( articles !== undefined || client !== undefined){
+    this.openDialogOpenOrder()
   }
+
+  this.orderService.cancelOrNextOpenOrder$.subscribe(
+    (emmited)=>{
+      if(emmited){
+        sessionStorage.removeItem("arrArticles");
+        sessionStorage.removeItem("tempClient");
+        this.store.dispatch(authActions.unSetTempClient());
+
+      }
+    })
+
 }
 
 openGenericMessage(msg:string){
@@ -150,6 +163,24 @@ openMantainMessage(){
 
 }
 
+openDialogOpenOrder(){
+
+  let width : string = '';
+  let height : string = '';
+
+  if(screen.width >= 800) {
+    width = "400px"
+    height ="450px";
+  }
+
+  this.dialog.open(AskOpenOrderComponent, {
+    width: `${width}`|| "",
+    height:`${height}`|| "",
+    disableClose: true,
+    panelClass:"custom-modalbox-NoMoreComponent", 
+  });
+
+}
 
 
 logout() {

@@ -119,6 +119,7 @@ phone : boolean = false;
   //  };
 
    sugerencias(value : string){
+
       this.spinner = true;
       this.itemSearch = value;
       this.mostrarSugerencias = true;  
@@ -135,6 +136,7 @@ phone : boolean = false;
           }
         }
       )
+    
     }
  
   // buscar(){
@@ -144,6 +146,10 @@ phone : boolean = false;
 
   
 Search( id : any ){
+
+  if(id === ''){
+    return
+  }else{
     this.mostrarSugerencias = true;
     this.spinner = true;
     this.fade = false;
@@ -160,7 +166,7 @@ Search( id : any ){
       }
     }
     )
-
+  }
 }
 
   searchSuggested( id: any ) {

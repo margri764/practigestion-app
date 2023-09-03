@@ -92,13 +92,13 @@ export class ListOrdersComponent implements OnInit {
       //           this.isLoading = false;
       //   }});
 
-      this.myForm = this.fb.group({
-        ptoVenta1:  [ ''],
-      });   
+      // this.myForm = this.fb.group({
+      //   ptoVenta1:  [ ''],
+      // });   
 
-      this.myForm2 = this.fb.group({
-        ptoVenta2:  [ '',[Validators.required]],
-        nroOrder:  [ '',[Validators.required]],
+      this.myForm = this.fb.group({
+        ptoVenta:  [ '' ],
+        nroOrder:  [ '' ],
       });   
   }
 
@@ -127,22 +127,83 @@ export class ListOrdersComponent implements OnInit {
       })
 
   }
-  selectSalePoint(){
 
-    if ( this.myForm.invalid ) {
-      this.myForm.markAllAsTouched();
-      return;
+  // selectSalePoint(){
+
+  //   if ( this.myForm.invalid ) {
+  //     this.myForm.markAllAsTouched();
+  //     return;
+  //   }
+  //     this.isLoading = true;
+  //     this.arrOrders = [];
+  //     this.showOrderFounded = false;
+
+  //     let ptoVenta = this.myForm.get('ptoVenta')?.value;
+  //     let ptoVentaNumber = parseFloat(ptoVenta);
+
+
+
+  //     this.orderService.getOrdersByPtoVenta(ptoVentaNumber, this.pageIndex, this.pageSize).subscribe(
+  //       ({pedidos, pagination})=>{
+  //         if(pedidos.length !== 0){
+  //           this.arrOrders = pedidos;
+  //           this.isLoading = false;
+  //           this.length = pagination.total_reg;
+  //           // this.myForm.reset();
+  //         }
+  //       })
+  //  }
+
+  //  getSalePointByNumOrder(){
+
+  //   if ( this.myForm2.invalid ) {
+  //     this.myForm2.markAllAsTouched();
+  //     return;
+  //   }
+  //   this.showOrderFounded = false;
+  //   this.isLoading = true;
+  //   this.arrOrders = [];
+  //   const ptoVenta2 = this.myForm2.get('ptoVenta2')?.value;
+  //   const nroOrder = this.myForm2.get('nroOrder')?.value;
+
+  //   this.orderService.getSalePointByNumOrder(ptoVenta2, nroOrder).subscribe(
+  //     ({Pedido})=>{
+  //       if(Pedido){
+  //         this.isLoading = false;
+  //         this.order = Pedido;
+  //         this.myForm2.reset();
+  //         this.showOrderFounded = true;
+  //       }
+  //     })
+
+  //  }
+error : string = '';
+   searchOrder(){
+    
+    this.error = '';
+    const ptoVenta = this.myForm.get('ptoVenta')?.value;
+    const nroOrder = this.myForm.get('nroOrder')?.value;
+
+    if(ptoVenta == '' && nroOrder == ''){
+      this.error = "Sebes seleccionar pto de venta y/o n° de pedido"
+      // alert('debes seleccionar pto de venta y/o n° de pedido')
+      return
     }
+
+    if(ptoVenta == '' && nroOrder !== ''){
+      this.error = "Primero debes seleccionar pto de venta"
+      return
+    }
+
+    // solo eligio las ordenes por punto de venta
+    if(ptoVenta !== '' && nroOrder == ''){
+
       this.isLoading = true;
       this.arrOrders = [];
       this.showOrderFounded = false;
 
-      let ptoVenta = this.myForm.get('ptoVenta1')?.value;
-      let ptoVentaNumber = parseFloat(ptoVenta);
-
-
-
-      this.orderService.getOrdersByPtoVenta(ptoVentaNumber, this.pageIndex, this.pageSize).subscribe(
+   
+      this.orderService.getOrdersByPtoVenta(ptoVenta, this.pageIndex, this.pageSize).subscribe(
         ({pedidos, pagination})=>{
           if(pedidos.length !== 0){
             this.arrOrders = pedidos;
@@ -151,31 +212,22 @@ export class ListOrdersComponent implements OnInit {
             // this.myForm.reset();
           }
         })
-   }
+   }else if( ptoVenta !== '' && nroOrder !== '' ){
 
-   getSalePointByNumOrder(){
-
-    if ( this.myForm2.invalid ) {
-      this.myForm2.markAllAsTouched();
-      return;
-    }
     this.showOrderFounded = false;
     this.isLoading = true;
     this.arrOrders = [];
-    const ptoVenta2 = this.myForm2.get('ptoVenta2')?.value;
-    const nroOrder = this.myForm2.get('nroOrder')?.value;
-
-    this.orderService.getSalePointByNumOrder(ptoVenta2, nroOrder).subscribe(
+    this.orderService.getSalePointByNumOrder(ptoVenta, nroOrder).subscribe(
       ({Pedido})=>{
         if(Pedido){
           this.isLoading = false;
           this.order = Pedido;
-          this.myForm2.reset();
           this.showOrderFounded = true;
         }
       })
 
    }
+  }
  
 
   // loadOrders() {
@@ -196,11 +248,8 @@ export class ListOrdersComponent implements OnInit {
   
       this.isLoading= true;
 
-      const ptoVenta = this.myForm.get('ptoVenta1')?.value;
+      const ptoVenta = this.myForm.get('ptoVenta')?.value;
       let ptoVentaNumber = parseFloat(ptoVenta);
-
-      // this.dataTableActive = this.articleService.getOrdersPaginator(this.pageIndex, this.pageSize,)
-
 
       
       this.orderService.getOrdersByPtoVenta(ptoVentaNumber, this.pageIndex, this.pageSize,).subscribe(
@@ -295,6 +344,11 @@ export class ListOrdersComponent implements OnInit {
   }
   
   close(){
-
+    console.log('ff');
+      this.showOrderFounded = false; 
+      this.arrOrders = [];
+      this.myForm.get('ptoVenta')?.setValue('');
+      this.myForm.get('nroOrder')?.setValue('');
+      this.error = '';
   }
 }
