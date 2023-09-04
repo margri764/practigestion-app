@@ -68,8 +68,8 @@ ngOnInit() {
           // password:  [ 'admin1234', [Validators.required]], 
           // user:     [ 'julian', [Validators.required] ],
           // password:  [ 'qwe', [Validators.required]], 
-          // user:     [ '', [Validators.required] ],
-          // password:  [ '', [Validators.required]],
+          user:     [ '', [Validators.required] ],
+          password:  [ '', [Validators.required]],
           toLStorage: [ true ], 
         });
   
