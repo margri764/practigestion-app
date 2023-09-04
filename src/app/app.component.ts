@@ -55,14 +55,15 @@ export class AppComponent implements OnInit {
 
   ){
 
+    // si se borra el user del LS pero tengo la cookie que llame al user del back
     const token = this.cookieService.get('token');
-    // const openOrders = getDataSS('openOrders');
+    const userLS = getDataLS('user');
 
+    if(token !== '' && userLS === undefined){
+      this.authService.getUser().subscribe();
 
-  //   if (  openOrders === undefined ) {
-  //     this.login = true;
-  //     this.orderService.getOpenOrders().subscribe();
-  // }
+    }
+
 
   }
 

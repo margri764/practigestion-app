@@ -36,7 +36,7 @@
 
 
     <!-- start paginator -->
-        <div  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  *ngIf=" showOrderFounded || arrOrders.length !== 0 " style="margin-top: 30px;" >
+        <div  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  *ngIf="arrOrders.length !== 0 " style="margin-top: 30px;" >
             
             <mat-paginator #paginator
             class="demo-paginator"
@@ -58,8 +58,12 @@
     <!-- start order by N° -->
     <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex.xs="99" fxFlex.sm="97" fxFlex="80" class="mt-30 whiteframe" *ngIf="showOrderFounded"  >
 
+       
+
         <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="100" style="margin-top: 30px; margin-bottom: 30px;" >
-            <span class="material-symbols-outlined notranslate cursor" style="margin-right: 10px;" (click)="close()" > close </span>
+            <div class="icon"  (click)="close()">
+                <span class="material-symbols-outlined notranslate cursor"  > close </span>
+            </div>
         </div>
 
         <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="pd-10">
@@ -127,7 +131,9 @@
     <div  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" *ngIf="arrOrders.length !== 0 ">
 
         <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="100" style="margin-top: 30px; margin-bottom: 30px;" >
-            <span class="material-symbols-outlined notranslate cursor" style="margin-right: 10px;" (click)="close()" > close </span>
+            <div class="icon"  (click)="close()">
+                <span class="material-symbols-outlined notranslate cursor"> close </span>
+            </div>
         </div>
 
         
