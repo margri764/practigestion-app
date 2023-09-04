@@ -40,22 +40,22 @@
             <div *ngFor="let detalleItem of getDetalleItemsControls(); let i = index" fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100">
                 <div [formGroupName]="i" [class.ultimo-elemento]="i === getDetalleItemsControls().length - 1" fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" >
 
-                    <mat-form-field appearance="outline" fxFlex="20" class="mt-10 font " >		
+                    <mat-form-field appearance="outline" fxFlex="60" class="mt-10 font " >		
                         <mat-label>Nombre: </mat-label>
                         <input matInput type="number"  formControlName="descripcion"  readonly>
                     </mat-form-field> 
 
-                    <mat-form-field appearance="outline" fxFlex="17" class="mt-10 font " >		
+                    <mat-form-field appearance="outline" fxFlex="30" class="mt-10 font " >		
                         <mat-label>Cód. Interno: </mat-label>
                         <input matInput type="number"  formControlName="codigoInterno"  readonly>
                     </mat-form-field> 
 
-                    <mat-form-field appearance="outline" fxFlex="17" class="mt-10 font " >		
+                    <mat-form-field appearance="outline" fxFlex="25" class="mt-10 font " >		
                         <mat-label>Cantidad: </mat-label>
                         <input matInput type="number" required formControlName="cantidad" >
                     </mat-form-field> 
 
-                    <mat-form-field appearance="outline" fxFlex="17" class="mt-10 font " >		
+                    <mat-form-field appearance="outline" fxFlex="25" class="mt-10 font " >		
                         <mat-label>Bonificación (%): </mat-label>
                         <input matInput type="number" required formControlName="bonificacionPorciento" >
                     </mat-form-field> 

@@ -67,6 +67,7 @@ import { environment } from 'src/environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AddItemComponent } from './protected/add-item/add-item/add-item.component';
 import { AskOpenOrderComponent } from './protected/messages/ask-open-order/ask-open-order/ask-open-order.component';
+import { AskSendOrderComponent } from './protected/messages/ask-send-order/ask-send-order/ask-send-order.component';
 
 registerLocaleData( localeEs );
 
@@ -109,7 +110,8 @@ registerLocaleData( localeEs );
     MantainMessageComponent,
     NoPermissionMessageComponent,
     AddItemComponent,
-    AskOpenOrderComponent
+    AskOpenOrderComponent,
+    AskSendOrderComponent
   ],
   imports: [
     BrowserModule,

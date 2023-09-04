@@ -18,6 +18,7 @@ export class OrderService {
   selectProductOption$ : EventEmitter<boolean> = new EventEmitter<boolean>; // se dispara desde el buscar-articulos para q volver a "Productos" en /armar-pedido y q no muestre a "Cliente" como esta predeterminado
   emitedItem$ :  EventEmitter<any> = new EventEmitter; // emito desd el add-item un nuevo item se agrega en el edit de los pedidos
   cancelOrNextOpenOrder$ :  EventEmitter<any> = new EventEmitter; // sid ejo una orden abierta, la puedo eleiminar tambien
+  cancelOrNextSendOrder$ :  EventEmitter<any> = new EventEmitter; // desde el tempOrder pregunto si quiere enviar la orden
   private baseUrl = environment.baseUrl;
 
   constructor(  private http : HttpClient,
@@ -69,10 +70,14 @@ getOpenOrders(){
   return this.http.get<any>(`${this.baseUrl}api/pedidos/abiertos`)
   .pipe(
     tap( ({pedidos})=>{
-              if(pedidos.length !== 0){
-                this.store.dispatch(articleActions.setTempOrder({tempOrder : pedidos}));
-                this.localStorageService.saveStateToSessionStorage(pedidos, 'openOrders')
-              }
+                if(pedidos.length !== 0){
+                  this.store.dispatch(articleActions.setTempOrder({tempOrder : pedidos}));
+                  this.localStorageService.saveStateToSessionStorage(pedidos, 'openOrders');
+                }else{
+                  sessionStorage.removeItem('openOrders')
+                  // this.localStorageService.saveStateToSessionStorage(undefined, 'openOrders');
+                  this.store.dispatch(articleActions.unSetTempOrder());
+                }
       
     }),
     map( res =>{ 

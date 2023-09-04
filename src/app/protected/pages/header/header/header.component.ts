@@ -58,19 +58,17 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
 
   ngOnInit(): void {
 
-    this.articleSuscription = this.store.select('article')
+   this.store.select('article')
   .pipe(
     filter( ({tempOrder})=>  tempOrder.length !== 0 ),
 
   ).subscribe(({tempOrder})=>{
 
-    if(tempOrder.length !==0){
       this.showLabelTempOrder = true;
       this.alert = tempOrder.length;
-    }
   })
 
-  this.userSubscription = this.store.select('auth')
+ this.store.select('auth')
   .pipe(
     filter( ({user})=>  user != null && user != undefined),
   ).subscribe(

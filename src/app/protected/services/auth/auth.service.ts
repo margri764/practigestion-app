@@ -74,7 +74,6 @@ getUser(){
   
   .pipe(
     tap( ({permisos, perfil }) =>{
-                    console.log(permisos, perfil);
                     if(permisos){
                         this.user = perfil;
                           let auth : any = [];

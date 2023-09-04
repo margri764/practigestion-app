@@ -58,13 +58,11 @@ constructor(
   ) { 
 
     const token = this.cookieService.get('token');
+    const openOrders = getDataSS('openOrders');
     // llamo las ordenes desde aca solo si estoy logeado, hay un token y en el SS no las tengo guardadas
-    if( getDataLS("logged") !== undefined && token !== '' && getDataSS('openOrders') === undefined){
+    if( getDataLS("logged") !== undefined && token !== '' &&  openOrders === undefined){
       this.orderService.getOpenOrders().subscribe();
     }
-
-    if(token !== ''){ this.cookie = true;}
-
 
     
 
@@ -108,8 +106,10 @@ ngOnInit(): void {
 }
 
 checkSessionStorage(){
+
   const articles = getDataSS("arrArticles");
   const client = getDataSS("tempClient");
+
 
   if( articles !== undefined || client !== undefined){
     this.openDialogOpenOrder()

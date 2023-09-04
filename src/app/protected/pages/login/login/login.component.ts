@@ -46,15 +46,14 @@ export class LoginComponent implements OnInit, OnDestroy {
                 //  private errorService : ErrorService,
                 )
   {
-    const token = this.cookieService.get('token');
-    const logged = getDataLS('logged')
+    // const token = this.cookieService.get('token');
+    // const logged = getDataLS('logged')
 
-    if ( (token !== '') && logged) {
-      console.log("se llama desde aca");
-      this.router.navigateByUrl('/home')
-    }
+    // if ( (token !== '') && logged) {
+    //   console.log("se llama desde aca");
+    //   this.router.navigateByUrl('/home')
+    // }
 
-    if(token !== ''){ this.cookie = true;}
 
   }
 

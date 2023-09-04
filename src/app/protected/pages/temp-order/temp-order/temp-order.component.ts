@@ -13,6 +13,7 @@ import { Order } from 'src/app/protected/interfaces/order.interface';
 import { GenericMessageComponent } from 'src/app/protected/messages/generic-message/generic-message/generic-message.component';
 import { WrongActionMessageComponent } from 'src/app/protected/messages/wrong-action-message/wrong-action-message/wrong-action-message.component';
 import { GenericSuccessComponent } from 'src/app/protected/messages/generic-success/generic-success/generic-success.component';
+import { AskSendOrderComponent } from 'src/app/protected/messages/ask-send-order/ask-send-order/ask-send-order.component';
 
 @Component({
   selector: 'app-temp-order',
@@ -114,20 +115,50 @@ export class TempOrderComponent implements OnInit {
 
   sendOrder(order :any){
 
-    const ptoVenta = order.ptoVenta;
-    const cbteNro = order.cbteNro;
-    const state = "E"
-    this.isLoading = true;
-    this.orderService.updateOrderState(ptoVenta, cbteNro, state).subscribe(
-      (res)=>{
-        if(res.message){
-          this.orderService.getOpenOrders().subscribe();
-          this.openGenericSuccess('Pedido enviado con éxito!!');
-          this.errorService.closeIsLoading$.emit(true)
-        }
-      }
-    )
+    this.openDialogSendOrder();
+
+    this.orderService.cancelOrNextSendOrder$.subscribe(
+      (emitted)=>{
+
+        if(emitted){
+          
+            const ptoVenta = order.ptoVenta;
+            const cbteNro = order.cbteNro;
+            const state = "E"
+            this.isLoading = true;
+
+            this.orderService.updateOrderState(ptoVenta, cbteNro, state).subscribe(
+              (res)=>{
+                if(res.message){
+                  this.orderService.getOpenOrders().subscribe();
+                  this.openGenericSuccess('Pedido enviado con éxito!!');
+                  this.isLoading = false;
+
+                  this.errorService.closeIsLoading$.emit(true)
+                              }
+                    }
+            )}
+      })
    
+  }
+
+  openDialogSendOrder(){
+
+    let width : string = '';
+    let height : string = '';
+  
+    if(screen.width >= 800) {
+      width = "400px"
+      height ="450px";
+    }
+  
+    this.dialog.open(AskSendOrderComponent, {
+      width: `${width}`|| "",
+      height:`${height}`|| "",
+      disableClose: true,
+      panelClass:"custom-modalbox-NoMoreComponent", 
+    });
+  
   }
 
 

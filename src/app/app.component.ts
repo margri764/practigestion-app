@@ -40,7 +40,6 @@ export class AppComponent implements OnInit {
 
     }
 
-
   }
   
   
@@ -58,7 +57,6 @@ export class AppComponent implements OnInit {
     // si se borra el user del LS pero tengo la cookie que llame al user del back
     const token = this.cookieService.get('token');
     const userLS = getDataLS('user');
-
     if(token !== '' && userLS === undefined){
       this.authService.getUser().subscribe();
 
@@ -69,7 +67,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
 
-    setTimeout(()=>{this.localStorageService.loadInitialState()})
+   this.localStorageService.loadInitialState();
   
     this.store.select('auth')
     .pipe(

@@ -21,6 +21,8 @@ export class LocalStorageService {
     const storedState = getDataSS("arrArticles");
     const openOrders = getDataSS("openOrders");
     const user = getDataLS("user");
+     console.log(openOrders);
+    console.log(storedState);
 
     if (storedState !== undefined && storedState !== null) {
       this.store.dispatch(articleAction.setSelectedArticles({ arrSelectedArticles: storedState }));
@@ -30,7 +32,6 @@ export class LocalStorageService {
     }
     if(user !== undefined && user !== null){
       this.store.dispatch(authAction.setUser({ user }));
-      // setTimeout(()=>{localStorage.removeItem('user')},3000)
       
     }
  
