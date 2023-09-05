@@ -44,7 +44,7 @@ export class RoleGuard implements CanActivate {
     return this.store.select('auth').pipe(
       filter( ({user})=>  user != null && user != undefined),
       map(({ user }) => {
-        console.log(state.url);
+        // console.log(state.url);
          
         switch (state.url) {
           case "/armar-pedido":   

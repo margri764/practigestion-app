@@ -46,14 +46,15 @@ element : any
     ngOnInit(): void {
 
       this.errorService.closeIsLoading$.subscribe((emitted)=>{if(emitted){this.isLoading = false;}})
+
       this.orderService.emitedItem$.subscribe((emitted)=>{
         if (emitted) {
           const detalleItemsArray = this.orderForm.get('detalleItems') as FormArray;
           
           // Agregar el nuevo elemento a la lista
           detalleItemsArray.push(this.fb.group({
+            descripcion: emitted.descripcionLarga,
             codigoInterno: emitted.codigoInterno,
-            descripcion: emitted.descripcion,
             cantidad: emitted.cantidad,
             bonificacionPorciento: emitted.bonificacionPorciento
           }));
@@ -98,8 +99,8 @@ element : any
         console.log(detalleItem);
         detalleItemsArray.push(this.fb.group({
           descripcion: detalleItem.descripcion,
-          codigoInterno: detalleItem.codigoInterno,
           cantidad: detalleItem.cantidad,
+          codigoInterno: detalleItem.codigoInterno,
           bonificacionPorciento: detalleItem.bonificacionPorciento
         }));
       });
@@ -112,7 +113,16 @@ element : any
   onSaveForm(){
 
     // this.isLoading = true;
-    const editedData = this.orderForm.value;
+    let tempOrder = this.orderForm.value;
+
+    const editedData = {
+              idAgenda: this.data.idAgenda,
+              estado : this.data.estado,
+              descuentoPorcentaje : tempOrder.descuentoPorcentaje,
+              detalleItems : tempOrder.detalleItems
+
+    }
+
     console.log(editedData);
 
     const cbteNro = this.data.cbteNro;

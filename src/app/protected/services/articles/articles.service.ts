@@ -94,5 +94,36 @@ getPriceListById( id:any, from : any, to : any ){
 }
 
 
+getArtListPriceByDesc( idListaPrecios : number, value : string ){
+
+  const descripcion = 'descripcion';
+  console.log(idListaPrecios, value);
+  return this.http.get<any>(`${this.baseUrl}api/precios/${idListaPrecios}/${descripcion}/${value}`)
+.pipe(
+  map( res =>{ 
+        console.log('desde service getArtListPriceByDesc', res)
+          return res} )
+  );
+
+}
+
+getArtListPriceByCode( idListaPrecios : number, codeInt : any ){
+
+  const code = 'codigo';
+  let tempCode = codeInt.toString()
+  console.log(idListaPrecios, codeInt);
+  return this.http.get<any>(`${this.baseUrl}api/precios/${idListaPrecios}/${code}/${tempCode}`)
+.pipe(
+  map( res =>{ 
+        console.log('desde service getArtListPriceByDesc', res)
+          return res} )
+  );
+
+}
+
+
+
+
+
 
 }

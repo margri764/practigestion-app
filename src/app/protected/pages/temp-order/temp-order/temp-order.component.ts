@@ -126,6 +126,7 @@ export class TempOrderComponent implements OnInit {
             const cbteNro = order.cbteNro;
             const state = "E"
             this.isLoading = true;
+            console.log('');
 
             this.orderService.updateOrderState(ptoVenta, cbteNro, state).subscribe(
               (res)=>{

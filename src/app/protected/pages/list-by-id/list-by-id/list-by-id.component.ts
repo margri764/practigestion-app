@@ -60,6 +60,8 @@ export class ListByIdComponent implements OnInit {
               console.log(precios);
               this.arrArticles = precios;
               this.isLoading = false;
+              // this.length = precios.total_reg;
+
         }
               
       }
@@ -81,8 +83,10 @@ export class ListByIdComponent implements OnInit {
       // this.orderService.getOrdersPaginator(this.pageIndex, this.pageSize,).subscribe(
         this.artcicleService.getPriceListById(this.id, this.pageIndex, this.pageSize).subscribe(
         ({precios})=>{
+          console.log(precios);
           this.arrArticles = precios;
           this.isLoading = false;
+          // this.length = precios.total_reg;
 
         })
   }

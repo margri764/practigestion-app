@@ -102,7 +102,7 @@
                     <span  class="font fs-5 mt-20" fxFlex="100" > {{article.descripcionLarga | capitalizeFirstLetter }}</span>
 
                     <div  fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" style="margin-top: 20px;">
-                        <span  class="font fs-5" fxFlex="50" >  {{article.cantidad }} x {{article.precioCostoConIva | decimalRound}} </span>
+                        <span  class="font fs-5" fxFlex="50" >  {{article.cantidad }} x $ {{article.precioBrutoFinal | decimalRound}} </span>
                         <span  class="font fs-5" style="text-align: end;"  fxFlex="50" >  Bonificación: {{article.bonificacionPorciento }}</span>
                     </div>
 

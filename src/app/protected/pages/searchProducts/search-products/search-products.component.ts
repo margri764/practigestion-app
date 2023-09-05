@@ -101,14 +101,22 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     //para las busquedas
     this.myForm.get('itemSearch')?.valueChanges.subscribe(newValue => {
       this.itemSearch = newValue;
+
+      const option = this.myForm.get('searchOption')?.value;
       if(this.itemSearch !== null){
-        this.teclaPresionada();
+
+            if( option === "Por descripción"){
+                 this.teclaPresionada();
+            }else{
+              return
+            }
       }
     });
 
     this.debouncer
     .pipe(debounceTime(400))
     .subscribe( valor => {
+
       this.sugerencias(valor);
     });
 
@@ -125,19 +133,19 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   }
 
 
-  fastSelect( article :  Articulo){
+  fastSelect( article :  any){
 
     let articlesInLStorage = getDataLS("arrArticles");
 
     // creo el objeto para guarda en ls y redux, tiene propiedades para mostrar en el front y otras para el BD
     const fastSelect = {
                         descripcionLarga : article.descripcionLarga,
-                        precioCostoConIva: article.precioCostoConIva,
+                        precioBrutoFinal: article.precioBrutoFinal,
                         cantidad: 1,
                         codigoInterno : article.codigoInterno,
                         id : article.idArticulo,
                         bonificacionPorciento: 0,
-                        ventaTotal: (1 * article.precioCostoConIva) 
+                        ventaTotal: (1 * article.precioBrutoFinal) 
     }
 
     if(articlesInLStorage == undefined){
@@ -162,23 +170,23 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   }
 
 
-  getProducts(){
-    this.labelNoArticles= false;
-    this.isLoading = true;
-    this.articleService.getAllArticles().subscribe(
-      ({articulos})=>{
-        console.log(articulos);
-        this.isLoading = false;
-        if(articulos.length !== 0){
-            this.arrArticles = articulos;
-        }else{
-          this.labelNoArticles = true;
+  // getProducts(){
+  //   this.labelNoArticles= false;
+  //   this.isLoading = true;
+  //   this.articleService.getAllArticles().subscribe(
+  //     ({articulos})=>{
+  //       console.log(articulos);
+  //       this.isLoading = false;
+  //       if(articulos.length !== 0){
+  //           this.arrArticles = articulos;
+  //       }else{
+  //         this.labelNoArticles = true;
   
-        }
+  //       }
   
-      }
-    )
-  }
+  //     }
+  //   )
+  // }
 
   close(){
     this.mostrarSugerencias = false;
@@ -195,35 +203,79 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     };
     
   sugerencias(value : string){
+
+    let tempClient : any;
+
+    if(getDataSS("tempClient" ) !== undefined){
+     tempClient = getDataSS("tempClient")
+    }
+
     this.spinner = true;
     this.itemSearch = value;
     this.mostrarSugerencias = true;  
     const option = this.myForm.get('searchOption')?.value;
-    let field;
     if( option === "Por descripción"){
-        field = "desc_larga";
-    }else{
-        field = "codigo_interno";
+      this.articleService.getArtListPriceByDesc(tempClient.idListaPrecios, value)
+      .subscribe ( ({precios} )=>{
+        console.log(precios);
+        if(precios.length !== 0){
+          this.suggested = precios;
+            this.spinner = false;
+            }else{
+            this.spinner = false;
+            this.mostrarSugerencias = false
+            this.noMatches = true;
+          }
+        }
+      )
     }
-    this.articleService.searchArticle(field, value)
-    .subscribe ( ({articulos} )=>{
-      if(articulos.length !== 0){
-        this.suggested = articulos;
+  
+    }
+
+  
+    // este codigo no trabaja con el debounce (puse un condicional en el debouncer) es el enter de la lupa
+
+  searchByCode(){
+
+    const option = this.myForm.get('searchOption')?.value;
+    const itemSearch = this.myForm.get('itemSearch')?.value;
+    if( option === "Por descripción" || itemSearch === ''){
+        return
+    }else{    
+      let tempClient : any;
+
+      if(getDataSS("tempClient" ) !== undefined){
+      tempClient = getDataSS("tempClient")
+      }
+
+      console.log(tempClient.idListaPrecios, itemSearch);
+      this.articleService.getArtListPriceByCode(tempClient.idListaPrecios, itemSearch)
+      .subscribe ( ({precio} )=>{
+        if(precio){
+          this.articleFounded = precio;
           this.spinner = false;
-          }else{
-          this.spinner = false;
-          this.mostrarSugerencias = false
-          this.noMatches = true;
+          this.isArticleFounded = true;
+          this.mostrarSugerencias = false;
+          this.itemSearch = '';
+          this.suggested = [];
+
         }
       }
     )
   }
+  }
      
   Search( item : any ){
-      this.articleService.searchProductById(item.idArticulo)
-        .subscribe ( ({articulos} )=>{
-          if(articulos){
-            this.articleFounded = articulos;
+    let tempClient : any;
+
+    if(getDataSS("tempClient" ) !== undefined){
+     tempClient = getDataSS("tempClient")
+    }
+    // this.articleService.searchProductById(item.idArticulo)
+    this.articleService.getArtListPriceByCode(tempClient.idListaPrecios, item.codigoInterno)
+        .subscribe ( ({precio} )=>{
+          if(precio){
+            this.articleFounded = precio;
             this.spinner = false;
             this.isArticleFounded = true;
             this.mostrarSugerencias = false;

@@ -208,7 +208,6 @@ export class AddItemComponent implements OnInit {
          this.spinner = true;
          this.articleService.searchProductById(id)
          .subscribe ( ({articulos} )=>{
-            console.log(articulos);
             if(articulos){
               this.orderService.emitedItem$.emit(articulos)
               console.log(articulos);

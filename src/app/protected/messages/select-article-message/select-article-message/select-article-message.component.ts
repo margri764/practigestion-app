@@ -63,13 +63,13 @@ decrement( ){
 totalPurchase(){
 
   if(this.inputValue > 0){
-    const priceBonus = this.article.precioCostoConIva * this.inputValue;
-    const result = this.article.precioCostoConIva - priceBonus / 100;
+    const priceBonus = this.article.precioBrutoFinal * this.inputValue;
+    const result = this.article.precioBrutoFinal - priceBonus / 100;
     this.total = (this.productQuantity * result) ;
     return this.total;
   }
 
-  this.total = (this.productQuantity * this.article.precioCostoConIva) ;
+  this.total = (this.productQuantity * this.article.precioBrutoFinal) ;
   return this.total;
 
 }
@@ -80,9 +80,9 @@ selectItem(){
 // saco los datos siempre del redux, el localstorage es para poder recuperare el redux en los reloads
   const articleToSave = {
                           descripcionLarga : this.article.descripcionLarga,
-                          precioCostoConIva: this.article.precioCostoConIva,
+                          precioBrutoFinal: this.article.precioBrutoFinal,
                           cantidad: this.productQuantity,
-                          codigoInterno : this.article.codigoArticulo,
+                          codigoInterno : this.article.codigoInterno,
                           id : this.article.idArticulo,
                           bonificacionPorciento: this.inputValue || 0,
                           ventaTotal: this.total  

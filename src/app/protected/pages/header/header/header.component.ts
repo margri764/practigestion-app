@@ -61,12 +61,16 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
 
    this.store.select('article')
   .pipe(
-    filter( ({tempOrder})=>  tempOrder.length !== 0 ),
+    // filter( ({tempOrder})=>  tempOrder.length !== 0 ),
 
   ).subscribe(({tempOrder})=>{
-
-      this.showLabelTempOrder = true;
-      this.alert = tempOrder.length;
+      if(tempOrder.length !== 0){
+        this.showLabelTempOrder = true;
+        this.alert = tempOrder.length;
+      }else{
+        this.alert = ''
+      }
+   
   })
 
  this.store.select('auth')
