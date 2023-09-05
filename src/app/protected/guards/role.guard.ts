@@ -48,50 +48,58 @@ export class RoleGuard implements CanActivate {
          
         switch (state.url) {
           case "/armar-pedido":   
-                              if(!user?.permisos.includes(900) || !user?.permisos.includes(2100)) {
+                              if(!user?.permisos.includes(2100)) {
                                 this.openDialogNoAuth()
                                 return false;
                               }
-          break;          
+                               return true;
 
           case "/listado-clientes":   
                             if(!user?.permisos.includes(900)){
                               this.openDialogNoAuth()
                               return false;
                             }
-          break;   
-          
+                            return true;
+
           case "/listado-articulos":   
                             if(!user?.permisos.includes(1200)){
                               this.openDialogNoAuth()
                               return false;
                             }
-          break; 
+                            return true;
 
           case "/listado-precios":   
                             if(!user?.permisos.includes(700)){
                               this.openDialogNoAuth()
                               return false;
                              }
-         break; 
+                            return true;
+
          case "/listado-pedidos":   
                             if(!user?.permisos.includes(2100)){
-                              this.openDialogNoAuth(),
-                              alert("no")
+                              this.openDialogNoAuth();
                               return false;
                               }
-          break; 
+                            return true;
 
-        //   case "/pedidos-temporales":   
-        //                   if(!user?.permisos.includes(2100)){
-        //                     this.openDialogNoAuth();
-        //                     return false;
-        //                     }
-        //  break; 
+          case "/pedidos-temporales":   
+                          if(!user?.permisos.includes(2100)){
+                            this.openDialogNoAuth();
+                            return false;
+                            }
+                          return true;
 
-          // default:   return false
+         case "/buscar-articulos":   
+                          if(!user?.permisos.includes(1200)){
+                            this.openDialogNoAuth();
+                            return false;
+                            }
+                          return true;
+
         }
-        return true
+
+        this.openDialogNoAuth();
+        return false
 
  
       })

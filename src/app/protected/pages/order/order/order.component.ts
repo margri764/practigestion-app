@@ -13,10 +13,7 @@ import * as authAction from 'src/app/auth.actions'
 import { GenericSuccessComponent } from 'src/app/protected/messages/generic-success/generic-success/generic-success.component';
 import { LocalStorageService } from 'src/app/protected/services/localStorage/local-storage.service';
 import { Subscription, filter } from 'rxjs';
-import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
-import { getDataLS, getDataSS } from 'src/app/protected/Storage';
-import { GenericMessageComponent } from 'src/app/protected/messages/generic-message/generic-message/generic-message.component';
-import { AskOpenOrderComponent } from 'src/app/protected/messages/ask-open-order/ask-open-order/ask-open-order.component';
+import {getDataSS } from 'src/app/protected/Storage';
 
 
 @Component({
@@ -184,7 +181,6 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   selectOption(option : string){
 
-    console.log(option);
     
     switch (option) {
 

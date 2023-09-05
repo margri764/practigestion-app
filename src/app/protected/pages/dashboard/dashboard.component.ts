@@ -121,6 +121,7 @@ checkSessionStorage(){
         sessionStorage.removeItem("arrArticles");
         sessionStorage.removeItem("tempClient");
         this.store.dispatch(authActions.unSetTempClient());
+        this.store.dispatch(articleActions.unSetSelectedArticles());
 
       }
     })

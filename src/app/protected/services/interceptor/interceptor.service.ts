@@ -48,7 +48,7 @@ if(req.url.includes("api/login")){
    token = this.authService.getCookieToken()
  }
 
-  console.log(token);
+  // console.log(token);
   const headers = new HttpHeaders({
     'Authorization': `Bearer ${token}`,
   });

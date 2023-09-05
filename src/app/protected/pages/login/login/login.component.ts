@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/protected/services/auth/auth.service';
 import { getDataLS, getDataSS, saveDataLS, saveDataSS } from 'src/app/protected/Storage';
 import { CookieService } from 'ngx-cookie-service';
 import { OrderService } from 'src/app/protected/services/order/order.service';
+import { ErrorService } from 'src/app/protected/services/error/error.service';
 
 
 @Component({
@@ -34,52 +35,54 @@ export class LoginComponent implements OnInit, OnDestroy {
   isLoading : boolean = false;
   confirm : boolean = false;
   cookie : boolean = false;
+  showLabelInvalidCredential : boolean = false;
+
 
     constructor( 
                  private fb: FormBuilder,
                  private authservice : AuthService,
                  private router: Router,
+                 private errorService : ErrorService,
                  private store: Store<AppState>,
                  private dialog : MatDialog,
                  private cookieService : CookieService,
                  private orderService : OrderService
-                //  private errorService : ErrorService,
                 )
   {
-    // const token = this.cookieService.get('token');
-    // const logged = getDataLS('logged')
+    const token = this.cookieService.get('token');
+    const logged = getDataLS('logged')
 
-    // if ( (token !== '') && logged) {
-    //   console.log("se llama desde aca");
-    //   this.router.navigateByUrl('/home')
-    // }
+    if ( (token !== '') && logged) {
+      this.router.navigateByUrl('/home')
+    }
 
 
   }
 
-
 ngOnInit() {
 
-        this.myForm = this.fb.group({
-          // user:     [ 'marcelo', [Validators.required] ],
-          // password:  [ '123', [Validators.required]], 
-          // user:     [ 'administrador', [Validators.required] ],
-          // password:  [ 'admin1234', [Validators.required]], 
-          // user:     [ 'julian', [Validators.required] ],
-          // password:  [ 'qwe', [Validators.required]], 
-          user:     [ '', [Validators.required] ],
-          password:  [ '', [Validators.required]],
-          toLStorage: [ true ], 
-        });
+  this.errorService.labelInvalidCredential$.subscribe((emmited)=>{if(emmited){this.showLabelInvalidCredential = true; this.isLoading = false}});
+  this.myForm = this.fb.group({
+    // user:     [ 'marcelo', [Validators.required] ],
+    // password:  [ '123', [Validators.required]], 
+    // user:     [ 'administrador', [Validators.required] ],
+    // password:  [ 'admin1234', [Validators.required]], 
+    // user:     [ 'julian', [Validators.required] ],
+    // password:  [ 'qwe', [Validators.required]], 
+    user:     [ '', [Validators.required] ],
+    password:  [ '', [Validators.required]],
+    toLStorage: [ true ], 
+  });
   
-      }
+}
 
-      onSaveForm(){
+ onSaveForm(){
 
         if ( this.myForm.invalid ) {
           this.myForm.markAllAsTouched();
           return;
         }
+        this.showLabelInvalidCredential = false;
         this.isLoading = true;
         this.confirm = true;
         const username = this.myForm.get('user')?.value;
@@ -98,7 +101,7 @@ ngOnInit() {
                 }
          );   
 
-    }  
+ }  
 
 
 validField( field: string ) {

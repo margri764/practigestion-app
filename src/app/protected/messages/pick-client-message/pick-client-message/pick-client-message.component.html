@@ -17,21 +17,24 @@
     </form> 
     <!-- end form -->
 
-    <!-- start suggested    -->
-    <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="center center"  fxFlex="90" *ngIf="mostrarSugerencias" style="padding: 20px;" class="whiteframe" >
+      <!-- no user   -->
+      <div fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="100" *ngIf="noMatches" style="padding: 20px;" class="whiteframe" >
+        
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center"  fxFlex="98"  class="fs-4 boxSelection" >
+            <span class="font fs-4" style="color: red; text-align: center; width: 100%;">Sin coincidencias...</span>
+        </div> 
+     </div>
 
-        <!-- <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex.xs="100" fxFlex.md="80" fxFlex="60" class="font whiteframe fs-5" style="margin-left: 0px;" >
-            <span style="padding: 7px;" > Buscar:   {{ itemSearch }}</span>
-            <mat-icon (click)="close()" style="cursor: pointer; margin-right: 10px; transform: scale(1.2);" > close</mat-icon>
-        </div> -->
-            
+
+    <!-- start suggested    -->
+    <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="center center"  fxFlex="90" *ngIf="mostrarSugerencias" style="padding: 20px;" class="whiteframe" >  
+
         <div fxLayout="row wrap"  fxLayoutAlign="center center"  fxFlex="100" *ngIf="spinner" style="margin-top: 30px;">
             <mat-spinner diameter="48"></mat-spinner>
         </div>
                     
         <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="space-betweencenter" fxFlex="100" class="font mb-20 " *ngFor="let item of suggested , index as i" >
             
-            <!-- <div fxFlex="30" fxFlex.xs="0"></div> -->
             <div fxLayout="row wrap" fxLayoutAlign="space-around center"  fxFlex="98"  class="fs-4 boxSelection" >
                 <mat-radio-button class="example-margin"  (click)="selectClient( item )" fxFlex="10"></mat-radio-button>
                 <span  style="cursor: pointer; text-align: start; " (click)="selectClient( item )" fxFlex="70" >
@@ -39,7 +42,6 @@
                 </span>
                 <mat-icon (click)="close()" style="cursor: pointer;transform: scale(1.2);" fxFlex="10" > close</mat-icon>
             </div>
-            <!-- <div fxFlex="30" fxFlex.xs="0"></div> -->
 
         </div>
     </div>

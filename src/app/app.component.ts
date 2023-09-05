@@ -26,19 +26,19 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:beforeunload')
   doSomething() {
-    let userUpdate = this.authService.user;
-    let userToLS = {nombre: userUpdate.nombre, permisos: userUpdate.permisos}
 
-    if(userToLS !== undefined && userToLS !== null){
-      this.localStorageService.saveStateToLocalStorage(userToLS, 'user');
-      this.isLoading = true;
-    }
-    else{
-      // este usuario sale de redux
-      this.localStorageService.saveStateToLocalStorage(this.user, 'user');
-      this.isLoading = true;
+    // let userUpdate = this.authService.user;
+    // let userToLS = {nombre: userUpdate.nombre, permisos: userUpdate.permisos}
 
-    }
+    // if(userToLS !== undefined && userToLS !== null){
+    //   this.localStorageService.saveStateToLocalStorage(userToLS, 'user');
+    // }
+    // else{
+    //   // este usuario sale de redux
+    //   this.localStorageService.saveStateToLocalStorage(this.user, 'user');
+    //   this.isLoading = true;
+
+    // }
 
   }
   
@@ -53,6 +53,7 @@ export class AppComponent implements OnInit {
               private authService : AuthService
 
   ){
+    
 
     // si se borra el user del LS pero tengo la cookie que llame al user del back
     const token = this.cookieService.get('token');
@@ -68,6 +69,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
 
    this.localStorageService.loadInitialState();
+   this.isLoading = true;
   
     this.store.select('auth')
     .pipe(

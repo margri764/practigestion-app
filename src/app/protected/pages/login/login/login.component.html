@@ -41,8 +41,9 @@
               <mat-label  class="font " style="margin-right:0px;"> Recordarme</mat-label> &nbsp;
               <mat-slide-toggle formControlName="toLStorage" [checked]="true" ></mat-slide-toggle>
           </div>
-      
       </div>
+
+      <span class="font fs-5" style="color: red; border: 1px solid red; border-radius: 7px; padding: 10px; text-align: center; margin-top: 30px;" *ngIf="showLabelInvalidCredential"> Credenciales Incorrectas</span>
       
       <button type="button" fxLayout="row wrap" fxLayoutAlign="center center" [ngClass]="confirm ? 'btnMenuClicked':'btnMenu'" style="margin-top: 80px; margin-bottom: 40px;" fxFlex="90"  (click)="onSaveForm()">  Ingresar
       </button>

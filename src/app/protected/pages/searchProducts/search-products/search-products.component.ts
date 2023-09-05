@@ -13,6 +13,7 @@ import { SelectArticleMessageComponent } from 'src/app/protected/messages/select
 import { Router } from '@angular/router';
 import { getDataLS, getDataSS, saveDataLS } from 'src/app/protected/Storage';
 import { LocalStorageService } from 'src/app/protected/services/localStorage/local-storage.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -36,6 +37,11 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   isLoading : boolean = false;
   isArticleFounded : boolean = false;
   articleFounded : any = {};
+  noMatches : boolean = false;
+  myForm! : FormGroup;
+
+  searchOptions : string [] = ["Por descripción", "Por código"]
+
 
   // search by description
   itemSearch : string = '';
@@ -65,12 +71,19 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
             private store : Store <AppState>,
             private orderService : OrderService,
             private router : Router,
-            private localStorageService: LocalStorageService
+            private localStorageService: LocalStorageService,
+            private fb : FormBuilder,
 
-  ) { }
+
+  ) { 
+
+    this.myForm = this.fb.group({
+      itemSearch:  [ '',  ],
+      searchOption:  [ '', ],
+    });   
+  }
 
   ngOnDestroy() {
-    // Aquí cancela tus suscripciones
     if (this.authSuscription) {
       this.authSuscription.unsubscribe();
     }
@@ -78,33 +91,28 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
       this.articleSuscription.unsubscribe();
     }
   }
+
   ngOnInit(): void {
 
     // despues de seleccionar el articulo con mas opciones como bonificacion, cierro el card de /buscar-pedidos
-    this.orderService.selectProductOption$.subscribe((emmited)=>{
-      if(emmited){
-        setTimeout(()=>{this.isArticleFounded = false},400);
-        this.itemSearchCode = '';
-        this.itemSearch = '';
-      }
+    this.orderService.selectProductOption$.subscribe((emmited)=>{ if(emmited){this.close()}
     })
 
+    //para las busquedas
+    this.myForm.get('itemSearch')?.valueChanges.subscribe(newValue => {
+      this.itemSearch = newValue;
+      if(this.itemSearch !== null){
+        this.teclaPresionada();
+      }
+    });
 
     this.debouncer
     .pipe(debounceTime(400))
     .subscribe( valor => {
- 
       this.sugerencias(valor);
     });
 
-    this.debouncerCode
-    .pipe(debounceTime(400))
-    .subscribe( valor => {
- 
-      this.sugerenciasCode(valor);
-    });
-
-    // this.getProducts();
+  
 
     this.articleSuscription = this.store.select('article')
     .pipe(
@@ -126,7 +134,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
                         descripcionLarga : article.descripcionLarga,
                         precioCostoConIva: article.precioCostoConIva,
                         cantidad: 1,
-                        codigoInterno : article.codigoArticulo,
+                        codigoInterno : article.codigoInterno,
                         id : article.idArticulo,
                         bonificacionPorciento: 0,
                         ventaTotal: (1 * article.precioCostoConIva) 
@@ -147,11 +155,12 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     updatedArr.concat(tempData);
     this.localStorageService.saveStateToSessionStorage(updatedArr, "arrArticles");
     this.openGenericSuccess('1 Producto añadido con éxito');
+    this.close();
 
-    setTimeout(()=>{this.isArticleFounded = false},400);
-    this.itemSearchCode = '';
-    this.itemSearch = '';
+
+
   }
+
 
   getProducts(){
     this.labelNoArticles= false;
@@ -171,119 +180,64 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     )
   }
 
-      // search by description
-       close(){
-        this.mostrarSugerencias = false;
-        this.itemSearch = '';
-        this.suggested = [];
-        this.spinner= false;
-      }
+  close(){
+    this.mostrarSugerencias = false;
+    this.itemSearch = '';
+    this.suggested = [];
+    this.spinner= false;
+    this.myForm.reset();
+    this.isArticleFounded = false;
+  }
     
-      teclaPresionada(){
-         this.debouncer.next( this.itemSearch );  
-       };
-    
-       sugerencias(value : string){
-          this.spinner = true;
-          this.itemSearch = value;
-          this.mostrarSugerencias = true;  
-          const valueSearch = value.toUpperCase();
-          const field = "desc_larga";
-          this.articleService.searchArticle(field,valueSearch)
-          .subscribe ( ({articulos} )=>{
-            if(articulos.length !== 0){
-              // this.arrArticlesSugested = articulos;
-              this.suggested = articulos.splice(0,10);
-              console.log(this.suggested);
-                this.spinner = false;
-              }
-            }
-          )
-        }
-     
-       Search( id : any ){
-        
-         this.mostrarSugerencias = true;
-         this.alert = false;
-         this.spinner = true;
-         this.articleService.searchProductById(id)
-         .subscribe ( ({articulos} )=>{
-            console.log(articulos);
-            if(articulos){
-              this.articleFounded = articulos;
-              this.spinner = false;
-              this.close();
-              this.isArticleFounded = true;
-            }
-          }
-         )
-    
-      }
-    
-      searchSuggested( id: any ) {
-        console.log(id);
-        this.Search( id );
-      }
-      // search by description
-
-    // search by code
-    closeCode(){
-      this.mostrarSugerencias = false;
-      this.itemSearch = '';
-      this.suggested = [];
-      this.spinner= false;
-    }
-  
-  teclaPresionadaCode(){
-      this.debouncerCode.next( this.itemSearchCode );  
+  teclaPresionada(){
+    this.noMatches = false;
+      this.debouncer.next( this.itemSearch );  
     };
-  
-    sugerenciasCode(value : string){
-      this.spinner = true;
-      this.itemSearchCode = value;
-      this.mostrarSugerencias = true;  
-      const valueSearch = value.toUpperCase();
-      const field = "codigo_interno";
-      this.articleService.searchArticle(field, valueSearch)
-      .subscribe ( ({articulos} )=>{
-        if(articulos.length !== 0){
-          // this.arrArticlesSugested = articulos;
-          this.suggested = articulos.splice(0,10);
-            this.spinner = false;
-          }
-        }
-      )
-    }
     
-      SearchCode( id : any ){
-      
-        this.mostrarSugerencias = true;
-        this.alert = false;
-        this.spinner = true;
-        const field = "codigo_interno";
-       this.articleService.searchArticle(field, id)
+  sugerencias(value : string){
+    this.spinner = true;
+    this.itemSearch = value;
+    this.mostrarSugerencias = true;  
+    const option = this.myForm.get('searchOption')?.value;
+    let field;
+    if( option === "Por descripción"){
+        field = "desc_larga";
+    }else{
+        field = "codigo_interno";
+    }
+    this.articleService.searchArticle(field, value)
+    .subscribe ( ({articulos} )=>{
+      if(articulos.length !== 0){
+        this.suggested = articulos;
+          this.spinner = false;
+          }else{
+          this.spinner = false;
+          this.mostrarSugerencias = false
+          this.noMatches = true;
+        }
+      }
+    )
+  }
+     
+  Search( item : any ){
+      this.articleService.searchProductById(item.idArticulo)
         .subscribe ( ({articulos} )=>{
-          console.log(articulos);
           if(articulos){
             this.articleFounded = articulos;
             this.spinner = false;
-            this.closeCode();
             this.isArticleFounded = true;
-          }else{
-            // this.labelNoArticles = true;
+            this.mostrarSugerencias = false;
+            this.itemSearch = '';
+            this.suggested = [];
+
           }
         }
         )
-  
-    }
-  
-    searchSuggestedCode( id: any ) {
-      console.log(id);
-      this.Search( id );
-    }
-    // search by description
+}
 
-
+searchSuggested( item: any ) {
+  this.Search( item );
+}
 
   goBack(){
     this.router.navigateByUrl('/armar-pedido')
@@ -317,8 +271,8 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     let height : string = '';
 
     if(screen.width >= 800) {
-      width = "400px";
-      height ="450px";
+      width = "430px";
+      height ="470px";
     }
 
     this.dialog.open(SelectArticleMessageComponent, {

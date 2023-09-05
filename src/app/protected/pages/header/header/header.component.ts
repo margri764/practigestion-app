@@ -58,6 +58,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
 
   ngOnInit(): void {
 
+
    this.store.select('article')
   .pipe(
     filter( ({tempOrder})=>  tempOrder.length !== 0 ),
@@ -122,8 +123,9 @@ export class HeaderComponent implements OnInit, AfterViewChecked{
       this.labelHeader = "Lista Precios";
      break; 
 
-
-
+     case '/configuraciones':
+      this.labelHeader = "Configuraciones";
+     break; 
   
     default:  this.labelHeader = "";
     break;

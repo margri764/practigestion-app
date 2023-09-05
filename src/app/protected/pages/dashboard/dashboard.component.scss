@@ -34,9 +34,6 @@
   flex: 1 1 auto;
 }
 
-.marginLogo{
-  margin-top: calc(100vh - 60vh);
-}
 
 .logoWidth{
   width: 350px;
@@ -54,9 +51,6 @@
 //Extra small devices (phones, 600px and down) */
 @media only screen and (min-width: 800px) {
 
-  .marginLogo{
-    margin-top: calc(100vh - 35vh);
-  }
 
   .logoWidth{
     width: 350px;
@@ -117,10 +111,6 @@
 //Extra small devices (phones, 600px and down) */
 @media only screen and (min-width: 1200px) {
 
-  .marginLogo{
-    margin-top: calc(100vh - 45vh);
-  }
-
   .logoWidth{
     width: 300px;
   }
@@ -128,10 +118,6 @@
 
 //Extra small devices (phones, 600px and down) */
 @media only screen and (min-width: 1400px) {
-
-  .marginLogo{
-    margin-top: calc(100vh - 50vh);
-  }
 
   .logoWidth{
     width: 300px;

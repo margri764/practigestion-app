@@ -68,6 +68,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { AddItemComponent } from './protected/add-item/add-item/add-item.component';
 import { AskOpenOrderComponent } from './protected/messages/ask-open-order/ask-open-order/ask-open-order.component';
 import { AskSendOrderComponent } from './protected/messages/ask-send-order/ask-send-order/ask-send-order.component';
+import { SettingsComponent } from './pages/settings/settings/settings.component';
 
 registerLocaleData( localeEs );
 
@@ -111,7 +112,8 @@ registerLocaleData( localeEs );
     NoPermissionMessageComponent,
     AddItemComponent,
     AskOpenOrderComponent,
-    AskSendOrderComponent
+    AskSendOrderComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,7 @@ import { GeneralListComponent } from './protected/pages/general-list/general-lis
 import { ListOrdersComponent } from './protected/pages/list-orders/list-orders/list-orders.component';
 import { ListByIdComponent } from './protected/pages/list-by-id/list-by-id/list-by-id.component';
 import { RoleGuard } from './protected/guards/role.guard';
+import { SettingsComponent } from './pages/settings/settings/settings.component';
 
 
 const routes: Routes = [
@@ -53,10 +54,16 @@ const routes: Routes = [
     canLoad: [ RoleGuard],
   },
   {
-    path: 'buscar-articulos',  component: SearchProductsComponent
+    path: 'buscar-articulos',  component: SearchProductsComponent,
+    canActivate: [RoleGuard ],
+    canLoad: [ RoleGuard],
   },
   {
     path: 'articulo/:id',  component: ViewMoreArticleComponent
+  },
+
+  {
+    path: 'configuraciones',  component: SettingsComponent
   },
   {
     path: 'clientes',  component: ClientComponent,

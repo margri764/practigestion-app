@@ -36,8 +36,6 @@ product  : any[] = [];
 displayedColumns: string[] = ['action','name','location','province','phone', 'email'];
 dataTableActive : any = new MatTableDataSource<any>();
 
-
-
 contactos : any []=[];
 isLoading : boolean = false;
 arrClient : any []=[];
@@ -45,6 +43,7 @@ clientFounded : any = {};
 isClientFounded : boolean = false;
 labelNoFinded : boolean = false;
 phone : boolean = false;
+noMatches : boolean = false;
 
 
   constructor(
@@ -71,9 +70,9 @@ phone : boolean = false;
     this.debouncer
     .pipe(debounceTime(700))
     .subscribe( valor => {
-      console.log(valor);
       this.onDebounce.emit( valor );
       this.sugerencias(valor);
+      this.noMatches = false;
     });
 
     this.errorService.close$.subscribe((emited)=>{if(emited)this.dialogRef.close()})
@@ -99,24 +98,8 @@ phone : boolean = false;
     this.suggested = [];
     this.spinner= false;
     this.isClientFounded = false;
-    // this.clientFounded = {};
   }
 
-  // teclaPresionada(){
-
-  //   console.log(this.mostrarSugerencias);
-     
-  //    this.debouncer.next( this.itemSearch );  
-  //    this.sugerencias(this.itemSearch)
-  //    if(this.itemSearch == ''){
-  //      this.suggested=[];
-  //      this.mostrarSugerencias = false  
-  //    }
-  //    if(this.suggested.length === 0) {
-  //      this.spinner= true;
-  //    }
- 
-  //  };
 
    sugerencias(value : string){
 
@@ -127,23 +110,19 @@ phone : boolean = false;
       this.authService.searchClientByName(valueSearch)
       .subscribe ( ({contactos} )=>{
         if(contactos.length !== 0){
-          // this.arrArticlesSugested = articulos;
           this.suggested = contactos.splice(0,10);
           console.log(this.suggested);
             this.spinner = false;
           }else{
-            // this.labelNoArticles = true;
+            this.spinner = false;
+            this.mostrarSugerencias = false
+            this.noMatches = true;
           }
         }
       )
     
     }
  
-  // buscar(){
-  //  this.onEnter.emit( this.itemSearch );
- 
-  // }
-
   
 Search( id : any ){
 

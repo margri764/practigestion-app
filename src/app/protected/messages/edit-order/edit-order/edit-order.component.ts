@@ -53,7 +53,7 @@ element : any
           // Agregar el nuevo elemento a la lista
           detalleItemsArray.push(this.fb.group({
             codigoInterno: emitted.codigoInterno,
-            descripcion: emitted.descripcionLarga,
+            descripcion: emitted.descripcion,
             cantidad: emitted.cantidad,
             bonificacionPorciento: emitted.bonificacionPorciento
           }));
@@ -97,7 +97,7 @@ element : any
       data.detalleItems.forEach((detalleItem: any) => {
         console.log(detalleItem);
         detalleItemsArray.push(this.fb.group({
-          descripcion: data.descripcion,
+          descripcion: detalleItem.descripcion,
           codigoInterno: detalleItem.codigoInterno,
           cantidad: detalleItem.cantidad,
           bonificacionPorciento: detalleItem.bonificacionPorciento
@@ -115,23 +115,23 @@ element : any
     const editedData = this.orderForm.value;
     console.log(editedData);
 
-    // const cbteNro = this.data.cbteNro;
-    // const ptoVenta = this.data.ptoVenta;
+    const cbteNro = this.data.cbteNro;
+    const ptoVenta = this.data.ptoVenta;
 
 
-    // this.orderService.editOrderBySalePointAndNumOrder(editedData, ptoVenta, cbteNro).subscribe(
-    //   ()=>{
-    //         this.isLoading = false;
-    //         this.articleService.initialStateAfterEditOrder$.emit(true);
-    //         this.orderService.getOpenOrders().subscribe(
-    //           (res)=>{ 
-    //             if(res){ 
-    //                     this.openGenericSuccess("Pedido actualizado con exito")
-    //                   }})
+    this.orderService.editOrderBySalePointAndNumOrder(editedData, ptoVenta, cbteNro).subscribe(
+      ()=>{
+            this.isLoading = false;
+            this.articleService.initialStateAfterEditOrder$.emit(true);
+            this.orderService.getOpenOrders().subscribe(
+              (res)=>{ 
+                if(res){ 
+                        this.openGenericSuccess("Pedido actualizado con exito")
+                      }})
 
-    //         this.close(); 
+            this.close(); 
       
-    //   })
+      })
 
   }
 

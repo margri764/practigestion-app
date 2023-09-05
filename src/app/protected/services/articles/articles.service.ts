@@ -51,7 +51,7 @@ searchArticle( field : string, value : any) {
   return this.http.get<any>(`${this.baseUrl}api/articulos/busqueda?f=${field}&q=${value}`)
   .pipe(
     map( res =>{ 
-          console.log('desde service searchArticleByDescription', res)
+          console.log('desde service searchArticle', res)
             return res} )
     );
 }
