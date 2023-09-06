@@ -12,8 +12,7 @@ export class DecimalRound implements PipeTransform {
   }
  
   transform( value: number) : any {
-    
- 
+    console.log(value); 
     let valueRound;
     valueRound = Math.round(value);
     return valueRound;

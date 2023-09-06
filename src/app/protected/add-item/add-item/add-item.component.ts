@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Subject, Subscription, debounceTime } from 'rxjs';
@@ -13,6 +13,9 @@ import { SelectArticleMessageComponent } from 'src/app/protected/messages/select
 import { Router } from '@angular/router';
 import { getDataLS, getDataSS, saveDataLS } from 'src/app/protected/Storage';
 import { LocalStorageService } from 'src/app/protected/services/localStorage/local-storage.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth.service';
+import { ErrorService } from '../../services/error/error.service';
 
 
 @Component({
@@ -21,11 +24,11 @@ import { LocalStorageService } from 'src/app/protected/services/localStorage/loc
   styleUrls: ['./add-item.component.scss']
 })
 export class AddItemComponent implements OnInit {
-
+  
+  @Input() item : any;
   @Output() onDebounce: EventEmitter<string> = new EventEmitter();
   @Output() onEnter   : EventEmitter<string> = new EventEmitter();
   debouncer: Subject<string> = new Subject();
-  debouncerCode: Subject<string> = new Subject();
   
   authSuscription! : Subscription;
   articleSuscription! : Subscription;
@@ -48,16 +51,10 @@ export class AddItemComponent implements OnInit {
   product  : any[] = [];
   // search
 
-  // search by code
-  itemSearchCode : string = '';
-  mostrarSugerenciasCode: boolean = false;
-  sugestedCode : string= "";
-  suggestedCode : any[] = [];
-  spinnerCode : boolean = false;
-  alertCode:boolean = false;
-  searchCode : boolean = true;
-  productCode  : any[] = [];
-  // search by code
+  noMatch : boolean = false;
+
+  myForm! : FormGroup;
+  searchOptions : string [] = ["Por descripción", "Por código"]
 
   constructor(
             private articleService :ArticlesService,
@@ -65,9 +62,19 @@ export class AddItemComponent implements OnInit {
             private store : Store <AppState>,
             private orderService : OrderService,
             private router : Router,
-            private localStorageService: LocalStorageService
+            private localStorageService: LocalStorageService,
+            private fb : FormBuilder,
+            private authService : AuthService,
+            private errorService : ErrorService
 
-  ) { }
+
+  ) {
+
+    this.myForm = this.fb.group({
+      itemSearch:  [ '',  ],
+      searchOption:  [ '', ],
+    });   
+   }
 
   ngOnDestroy() {
     // Aquí cancela tus suscripciones
@@ -78,17 +85,42 @@ export class AddItemComponent implements OnInit {
       this.articleSuscription.unsubscribe();
     }
   }
+
+  idListaPrecios : any;
   ngOnInit(): void {
 
-    // despues de seleccionar el articulo con mas opciones como bonificacion, cierro el card de /buscar-pedidos
-    this.orderService.selectProductOption$.subscribe((emmited)=>{
-      if(emmited){
-        setTimeout(()=>{this.isArticleFounded = false},400);
-        this.itemSearchCode = '';
-        this.itemSearch = '';
-      }
-    })
+    // // despues de seleccionar el articulo con mas opciones como bonificacion, cierro el card de /buscar-pedidos
+    // this.orderService.selectProductOption$.subscribe((emmited)=>{
+    //   if(emmited){
+    //     setTimeout(()=>{this.isArticleFounded = false},400);
+    //     this.itemSearchCode = '';
+    //     this.itemSearch = '';
+    //   }
+    // })
 
+    this.errorService.labelInvalidCode$.subscribe((emmited)=>{if(emmited){this.noMatch = true}})
+
+    this.errorService.closeIsLoading$.subscribe((emitted)=>{if(emitted){this.isLoading = false}})
+
+    // obtengo el idLista de precios del cliente de la orden
+  this.authService.getClientById(this.item.idAgenda).subscribe(({contacto})=>{
+    this.idListaPrecios = contacto.idListaPrecios;
+  })
+    
+    //para las busquedas
+      this.myForm.get('itemSearch')?.valueChanges.subscribe(newValue => {
+        this.itemSearch = newValue;
+  
+        const option = this.myForm.get('searchOption')?.value;
+        if(this.itemSearch !== null){
+  
+              if( option === "Por descripción"){
+                   this.teclaPresionada();
+              }else{
+                return
+              }
+        }
+      });
 
     this.debouncer
     .pipe(debounceTime(400))
@@ -96,15 +128,6 @@ export class AddItemComponent implements OnInit {
  
       this.sugerencias(valor);
     });
-
-    this.debouncerCode
-    .pipe(debounceTime(400))
-    .subscribe( valor => {
- 
-      this.sugerenciasCode(valor);
-    });
-
-    // this.getProducts();
 
     this.articleSuscription = this.store.select('article')
     .pipe(
@@ -117,62 +140,63 @@ export class AddItemComponent implements OnInit {
   }
 
 
-  fastSelect( article :  Articulo){
+  // fastSelect( article :  Articulo){
 
-    let articlesInLStorage = getDataLS("arrArticles");
+  //   let articlesInLStorage = getDataLS("arrArticles");
 
-    // creo el objeto para guarda en ls y redux, tiene propiedades para mostrar en el front y otras para el BD
-    const fastSelect = {
-                        descripcionLarga : article.descripcionLarga,
-                        precioCostoConIva: article.precioCostoConIva,
-                        cantidad: 1,
-                        codigoInterno : article.codigoArticulo,
-                        id : article.idArticulo,
-                        bonificacionPorciento: 0,
-                        ventaTotal: (1 * article.precioCostoConIva) 
-    }
+  //   // creo el objeto para guarda en ls y redux, tiene propiedades para mostrar en el front y otras para el BD
+  //   const fastSelect = {
+  //                       descripcionLarga : article.descripcionLarga,
+  //                       precioCostoConIva: article.precioCostoConIva,
+  //                       cantidad: 1,
+  //                       codigoInterno : article.codigoArticulo,
+  //                       id : article.idArticulo,
+  //                       bonificacionPorciento: 0,
+  //                       ventaTotal: (1 * article.precioCostoConIva) 
+  //   }
 
-    if(articlesInLStorage == undefined){
-      articlesInLStorage = [];
-    }
+  //   if(articlesInLStorage == undefined){
+  //     articlesInLStorage = [];
+  //   }
 
-    articlesInLStorage.push(fastSelect);
+  //   articlesInLStorage.push(fastSelect);
 
-    //hago el update en redux y LS 
-    let updatedArr = [...this.arrItemSelected, fastSelect];
-    this.store.dispatch(articleAction.setSelectedArticles({ arrSelectedArticles: updatedArr }));
-    this.localStorageService.saveStateToSessionStorage(articlesInLStorage, "arrArticles");
-    //guardo en el ss los articulos temporalmente, el concat lo uso para q no se sobreescriban los datos
-    let tempData = getDataSS("arrArticles");
-    updatedArr.concat(tempData);
-    this.localStorageService.saveStateToSessionStorage(updatedArr, "arrArticles");
-    this.openGenericSuccess('1 Producto añadido con éxito');
+  //   //hago el update en redux y LS 
+  //   let updatedArr = [...this.arrItemSelected, fastSelect];
+  //   this.store.dispatch(articleAction.setSelectedArticles({ arrSelectedArticles: updatedArr }));
+  //   this.localStorageService.saveStateToSessionStorage(articlesInLStorage, "arrArticles");
+  //   //guardo en el ss los articulos temporalmente, el concat lo uso para q no se sobreescriban los datos
+  //   let tempData = getDataSS("arrArticles");
+  //   updatedArr.concat(tempData);
+  //   this.localStorageService.saveStateToSessionStorage(updatedArr, "arrArticles");
+  //   this.openGenericSuccess('1 Producto añadido con éxito');
 
-    setTimeout(()=>{this.isArticleFounded = false},400);
-    this.itemSearchCode = '';
-    this.itemSearch = '';
-  }
+  //   setTimeout(()=>{this.isArticleFounded = false},400);
+  //   this.itemSearchCode = '';
+  //   this.itemSearch = '';
+  // }
 
-  getProducts(){
-    this.labelNoArticles= false;
-    this.isLoading = true;
-    this.articleService.getAllArticles().subscribe(
-      ({articulos})=>{
-        console.log(articulos);
-        this.isLoading = false;
-        if(articulos.length !== 0){
-            this.arrArticles = articulos;
-        }else{
-          this.labelNoArticles = true;
+  // getProducts(){
+  //   this.labelNoArticles= false;
+  //   this.isLoading = true;
+  //   this.articleService.getAllArticles().subscribe(
+  //     ({articulos})=>{
+  //       console.log(articulos);
+  //       this.isLoading = false;
+  //       if(articulos.length !== 0){
+  //           this.arrArticles = articulos;
+  //       }else{
+  //         this.labelNoArticles = true;
   
-        }
+  //       }
   
-      }
-    )
-  }
+  //     }
+  //   )
+  // }
 
       // search by description
-       close(){
+       
+      close(){
         this.mostrarSugerencias = false;
         this.itemSearch = '';
         this.suggested = [];
@@ -180,119 +204,84 @@ export class AddItemComponent implements OnInit {
       }
     
       teclaPresionada(){
+         this.noMatch = false;
          this.debouncer.next( this.itemSearch );  
        };
     
        sugerencias(value : string){
-          this.spinner = true;
-          this.itemSearch = value;
-          this.mostrarSugerencias = true;  
-          const valueSearch = value.toUpperCase();
-          const field = "desc_larga";
-          this.articleService.searchArticle(field,valueSearch)
-          .subscribe ( ({articulos} )=>{
-            if(articulos.length !== 0){
-              // this.arrArticlesSugested = articulos;
-              this.suggested = articulos.splice(0,10);
-              console.log(this.suggested);
+
+        this.spinner = true;
+        this.itemSearch = value;
+        this.mostrarSugerencias = true;  
+        const option = this.myForm.get('searchOption')?.value;
+        if( option === "Por descripción"){
+          this.articleService.getArtListPriceByDesc(this.idListaPrecios, value)
+          .subscribe ( ({precios} )=>{
+            console.log(precios);
+            if(precios.length !== 0){
+              this.suggested = precios;
                 this.spinner = false;
+                }else{
+                this.spinner = false;
+                this.mostrarSugerencias = false
+                this.noMatch = true;
               }
             }
           )
         }
-     
-       Search( id : any ){
-        
-         this.mostrarSugerencias = true;
-         this.alert = false;
-         this.spinner = true;
-         this.articleService.searchProductById(id)
-         .subscribe ( ({articulos} )=>{
-            if(articulos){
-              this.orderService.emitedItem$.emit(articulos)
-              console.log(articulos);
-              console.log('objeto emitido');
-              // this.articleFounded = articulos;
-              // this.spinner = false;
-              // this.close();
-              // this.isArticleFounded = true;
-            }
-          }
-         )
-    
-      }
-    
-      searchSuggested( id: any ) {
-        console.log(id);
-        this.Search( id );
-      }
-      // search by description
-
-    // search by code
-    closeCode(){
-      this.mostrarSugerencias = false;
-      this.itemSearch = '';
-      this.suggested = [];
-      this.spinner= false;
-    }
-  
-  teclaPresionadaCode(){
-      this.debouncerCode.next( this.itemSearchCode );  
-    };
-  
-    sugerenciasCode(value : string){
-      this.spinner = true;
-      this.itemSearchCode = value;
-      this.mostrarSugerencias = true;  
-      const valueSearch = value.toUpperCase();
-      const field = "codigo_interno";
-      this.articleService.searchArticle(field, valueSearch)
-      .subscribe ( ({articulos} )=>{
-        if(articulos.length !== 0){
-          // this.arrArticlesSugested = articulos;
-          this.suggested = articulos.splice(0,10);
-            this.spinner = false;
-          }
-        }
-      )
-    }
-    
-      SearchCode( id : any ){
       
-        this.mostrarSugerencias = true;
-        this.alert = false;
-        this.spinner = true;
-        const field = "codigo_interno";
-       this.articleService.searchArticle(field, id)
-        .subscribe ( ({articulos} )=>{
-          console.log(articulos);
-          if(articulos){
-            this.articleFounded = articulos;
+        }
+     
+         
+    // este codigo no trabaja con el debounce (puse un condicional en el debouncer) es el enter de la lupa
+  searchByCode(){
+    this.noMatch = false;
+    this.isLoading = true;
+    const option = this.myForm.get('searchOption')?.value;
+    const itemSearch = this.myForm.get('itemSearch')?.value;
+    if( option === "Por descripción" || itemSearch === ''){
+        return
+    }else{    
+
+      this.articleService.getArtListPriceByCode(this.idListaPrecios, itemSearch)
+      .subscribe ( ({precio} )=>{
+        if(precio){
+          this.orderService.emitedItem$.emit(precio);
+          this.articleFounded = precio;
+          this.spinner = false;
+          this.isLoading = false;
+          this.isArticleFounded = true;
+          this.mostrarSugerencias = false;
+          this.itemSearch = '';
+          this.suggested = [];
+
+        }
+      }
+    )
+  }
+  }
+     
+  Search( codigoInterno: any ){
+    this.articleService.getArtListPriceByCode(this.idListaPrecios, codigoInterno)
+        .subscribe ( ({precio} )=>{
+          if(precio){
+            this.orderService.emitedItem$.emit(precio);
+            this.articleFounded = precio;
             this.spinner = false;
-            this.closeCode();
             this.isArticleFounded = true;
-          }else{
-            // this.labelNoArticles = true;
+            this.mostrarSugerencias = false;
+            this.itemSearch = '';
+            this.suggested = [];
+
           }
         }
         )
-  
-    }
-  
-    searchSuggestedCode( id: any ) {
-      console.log(id);
-      this.Search( id );
-    }
-    // search by description
-
-
-
-  goBack(){
-    this.router.navigateByUrl('/armar-pedido')
-    setTimeout(()=>{
-      this.orderService.changeClientValue.emit(true);
-    },0)
-  }
+}
+    
+searchSuggested( item: any ) {
+  this.Search( item );
+}
+    
 
 
   openGenericSuccess(msg : string){
@@ -314,6 +303,7 @@ export class AddItemComponent implements OnInit {
     });
   
   }
+
   openDialogArticle(article : any){
     let width : string = '';
     let height : string = '';

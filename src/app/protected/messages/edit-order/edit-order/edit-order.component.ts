@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 export class EditOrderComponent implements OnInit {
   
   @ViewChild ("top" , {static: true} ) top! : ElementRef;
+  @Output() item : any;  
 
   myForm! : FormGroup;
   save : boolean = false;
@@ -26,6 +27,9 @@ export class EditOrderComponent implements OnInit {
   orderForm!: FormGroup;
   isLoading : boolean = false;
   addItemSelected : boolean = false;
+  element : any;
+  confirm : boolean = false;
+
   
   constructor(
                 private fb : FormBuilder,
@@ -42,7 +46,6 @@ export class EditOrderComponent implements OnInit {
   ) { 
 
   }
-element : any
     ngOnInit(): void {
 
       this.errorService.closeIsLoading$.subscribe((emitted)=>{if(emitted){this.isLoading = false;}})
@@ -110,7 +113,18 @@ element : any
       return (this.orderForm.get('detalleItems') as FormArray).controls;
     }
 
+    validField( field: string ) {
+      return this.myForm.controls[field].errors && this.myForm.controls[field].touched;
+  }
+
   onSaveForm(){
+
+    if ( this.orderForm.invalid ) {
+      this.orderForm.markAllAsTouched();
+      return;
+    }
+
+    this.confirm = true;
 
     // this.isLoading = true;
     let tempOrder = this.orderForm.value;
@@ -157,6 +171,7 @@ element : any
 
   addItem(){
       this.addItemSelected = true;
+      this.item = this.data;
   }
 
   

@@ -10,6 +10,7 @@ import { getDataLS, getDataSS, saveDataLS } from './protected/Storage';
 import { CookieService } from 'ngx-cookie-service';
 import { filter, tap } from 'rxjs';
 import { User } from './protected/models/user.models';
+import { ErrorService } from './protected/services/error/error.service';
 
 @Component({
   selector: 'app-root',
@@ -50,7 +51,8 @@ export class AppComponent implements OnInit {
               private store : Store <AppState>,
               private orderService : OrderService,
               private cookieService : CookieService,
-              private authService : AuthService
+              private authService : AuthService,
+              private errorService : ErrorService
 
   ){
     
@@ -70,6 +72,7 @@ export class AppComponent implements OnInit {
 
    this.localStorageService.loadInitialState();
    this.isLoading = true;
+   this.errorService.closeIsLoading$.subscribe((emmited)=>{if(emmited){this.isLoading = false}})
   
     this.store.select('auth')
     .pipe(

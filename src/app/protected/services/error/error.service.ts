@@ -64,6 +64,7 @@ export class ErrorService {
       this.openDialogNoAuth();
       this.close$.next(true);
       this.close$.next(false);
+      this.closeIsLoading$.emit(true);
       return of(null);
     }
     if (error.status === 500 && error.error.message === "Pedido no encontrado"){
@@ -81,11 +82,13 @@ export class ErrorService {
 
     if (error.status === 500 && error.error.message === "Codigo no encontrado") {
       this.labelInvalidCode$.emit(true);
+      this.closeIsLoading$.emit(true);
       return of(null);
     }
     
     if (error.status === 500) {
       this.openDialogBackendDown();
+      this.closeIsLoading$.emit(true);
       return of(null);
     }
 

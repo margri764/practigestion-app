@@ -102,13 +102,13 @@
                     <span  class="font fs-5 mt-20" fxFlex="100" > {{article.descripcionLarga | capitalizeFirstLetter }}</span>
 
                     <div  fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" style="margin-top: 20px;">
-                        <span  class="font fs-5" fxFlex="50" >  {{article.cantidad }} x $ {{article.precioBrutoFinal | decimalRound}} </span>
+                        <span  class="font fs-5" fxFlex="50" >  {{article.cantidad }} x  {{article.precioBrutoFinal | currency:'$':'symbol':'1.2-2'}} </span>
                         <span  class="font fs-5" style="text-align: end;"  fxFlex="50" >  Bonificación: {{article.bonificacionPorciento }}</span>
                     </div>
 
                     <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" class="font fs-5 mt-40" >
                         <span fxFlex="50" fxLayoutAlign="start center" > <b>Sub Total</b> </span>
-                        <span fxFlex="50" fxLayoutAlign="end"><b>$ {{article.ventaTotal | decimalRound }}</b></span>
+                        <span fxFlex="50" fxLayoutAlign="end"><b> {{article.ventaTotal | currency:'$':'symbol':'1.2-2' }}</b></span>
                     </div>    
         
                     <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="100" class="mt-20">

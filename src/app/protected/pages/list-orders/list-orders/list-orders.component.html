@@ -114,9 +114,9 @@
                             <span class="font ">  {{description.cantidad}} &nbsp; x &nbsp;{{description.descripcion | capitalizeFirstLetter}}</span>
                             <span class="font "> <b>Cod.</b> {{description.codigoInterno}} </span>
                         </div>    
-                        <span class="font  mt-10"> <b>Sub-Total:</b> $ {{description.importeNetoTotal | decimalRound}}</span>
+                        <span class="font  mt-10"> <b>Sub-Total:</b>  {{description.importeNetoTotal | currency:'$':'symbol':'1.2-2'}}</span>
                     </div>   
-                        <span class="font  mt-10" style="text-align: end;" fxFlex="100"> <b>Total:</b> $ {{ calculateTotal(order.detalleItems) | decimalRound }} </span>
+                        <span class="font  mt-10" style="text-align: end;" fxFlex="100"> <b>Total:</b>  {{ calculateTotal(order.detalleItems) | currency:'$':'symbol':'1.2-2' }} </span>
                     </div>    
   
                   

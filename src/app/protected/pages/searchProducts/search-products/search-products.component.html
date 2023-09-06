@@ -27,7 +27,6 @@
         <span class="font fs-5" style="color: red; border-radius: 7px; padding: 20px; margin-top: 20px; border: 1px solid red;" *ngIf="noMatch">Sin coincidencias</span>
 
      </div>
-
     <!-- end menu search -->
 
     <!-- no items    -->
@@ -51,7 +50,7 @@
                 <mat-radio-button class="example-margin"  (click)="searchSuggested( item )"></mat-radio-button>
                 <span  style="cursor: pointer; text-align: start; " (click)="searchSuggested( item)" fxFlex="90" >
                     {{ item.descripcionLarga | capitalizeFirstLetter}}
-                   &nbsp; <b>$  {{ item.precioBrutoFinal | decimalRound}}</b>
+                   &nbsp; <b> {{ item.precioBrutoFinal | currency:'$':'symbol':'1.2-2'}}</b>
                 </span>
             </div>
 

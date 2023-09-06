@@ -239,7 +239,6 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
 
   
     // este codigo no trabaja con el debounce (puse un condicional en el debouncer) es el enter de la lupa
-
   searchByCode(){
     this.noMatch = false;
     const option = this.myForm.get('searchOption')?.value;

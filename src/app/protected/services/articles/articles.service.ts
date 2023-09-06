@@ -94,7 +94,7 @@ getPriceListById( id:any, from : any, to : any ){
 }
 
 
-getArtListPriceByDesc( idListaPrecios : number, value : string ){
+getArtListPriceByDesc( idListaPrecios : any, value : string ){
 
   const descripcion = 'descripcion';
   console.log(idListaPrecios, value);
@@ -107,11 +107,11 @@ getArtListPriceByDesc( idListaPrecios : number, value : string ){
 
 }
 
-getArtListPriceByCode( idListaPrecios : number, codeInt : any ){
+getArtListPriceByCode( idListaPrecios : any, codeInt : any ){
 
+  console.log(idListaPrecios, codeInt);
   const code = 'codigo';
   let tempCode = codeInt.toString()
-  console.log(idListaPrecios, codeInt);
   return this.http.get<any>(`${this.baseUrl}api/precios/${idListaPrecios}/${code}/${tempCode}`)
 .pipe(
   map( res =>{ 

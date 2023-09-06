@@ -33,7 +33,7 @@
             </div>
         </div>    
 
-        <app-add-item fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" style="margin-top: 20px;" *ngIf="addItemSelected"></app-add-item>
+        <app-add-item fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" style="margin-top: 20px;" *ngIf="addItemSelected" [item]="item"></app-add-item>
 
 
         <div formArrayName="detalleItems" fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  style="margin-top: 20px;">
@@ -72,7 +72,7 @@
 
 
         <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="mt-20">
-                <button mat-raised-button  [ngClass]="isLoading? 'btnMenuClicked':'btnMenu'" fxFlex="60" (click)="onSaveForm()">
+                <button mat-raised-button  [ngClass]="confirm ? 'btnMenuClicked':'btnMenu'" fxFlex="60" (click)="onSaveForm()">
                     <i class="material-symbols-outlined notranslate" style="transform: scale(1.3);">edit</i> 
                     &nbsp; Editar Orden
                 </button>

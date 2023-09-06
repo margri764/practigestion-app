@@ -62,8 +62,7 @@
             <span  class="font fs-5 mt-20" fxFlex="100" > {{article.descripcionLarga | capitalizeFirstLetter }}</span>
 
             <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" class=" mt-30" style="color: rgb(44, 44, 44);">
-                    
-                <span fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="55" class="font fs-5"> Precio U. &nbsp;<b>${{article.precioCostoConIva || 0 * productQuantity || 0 | decimalRound}} </b> </span>
+                <span fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="55" class="font fs-5"> Precio U. &nbsp;<b>{{article.precioBrutoFinal || 0 * productQuantity || 0 | currency:'$':'symbol':'1.2-2'}} </b> </span>
                 <!-- counter -->
                 <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="45">
                 
@@ -95,7 +94,7 @@
 
             <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" class="font fs-7 mt-40" >
                 <span fxFlex="50" fxLayoutAlign="start center" > <b>Total</b> </span>
-                <span fxFlex="50" fxLayoutAlign="end"><b>$ {{total | decimalRound}}</b></span>
+                <span fxFlex="50" fxLayoutAlign="end"><b>{{total | currency:'$':'symbol':'1.2-2'}}</b></span>
             </div>    
 
             <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="97" style="margin-top: 20px;">
