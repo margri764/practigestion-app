@@ -32,7 +32,7 @@ export class ErrorService {
   authDelClient$ : EventEmitter<boolean> = new EventEmitter<boolean>; 
   closeIsLoading$ : EventEmitter<boolean> = new EventEmitter<boolean>; 
   labelInvalidCredential$ : EventEmitter<boolean> = new EventEmitter<boolean>; 
-  // closePopUps$ : EventEmitter<boolean> = new EventEmitter<boolean>;
+  labelInvalidCode$ : EventEmitter<boolean> = new EventEmitter<boolean>; // en las
   
   constructor(
               private dialog : MatDialog,
@@ -76,6 +76,11 @@ export class ErrorService {
       // alert("El pedido no puede ser editado, se encuentra emitido o cancelado.");
       this.openGenericMsgAlert(error.error.message);
       this.closeIsLoading$.emit(true);
+      return of(null);
+    }
+
+    if (error.status === 500 && error.error.message === "Codigo no encontrado") {
+      this.labelInvalidCode$.emit(true);
       return of(null);
     }
     

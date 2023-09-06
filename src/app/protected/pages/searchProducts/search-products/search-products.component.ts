@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { getDataLS, getDataSS, saveDataLS } from 'src/app/protected/Storage';
 import { LocalStorageService } from 'src/app/protected/services/localStorage/local-storage.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ErrorService } from 'src/app/protected/services/error/error.service';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   articleFounded : any = {};
   noMatches : boolean = false;
   myForm! : FormGroup;
+  noMatch : boolean = false;
 
   searchOptions : string [] = ["Por descripción", "Por código"]
 
@@ -73,6 +75,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
             private router : Router,
             private localStorageService: LocalStorageService,
             private fb : FormBuilder,
+            private errorService : ErrorService
 
 
   ) { 
@@ -93,6 +96,8 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    this.errorService.labelInvalidCode$.subscribe((emmited)=>{if(emmited){this.noMatch = true;}})
 
     // despues de seleccionar el articulo con mas opciones como bonificacion, cierro el card de /buscar-pedidos
     this.orderService.selectProductOption$.subscribe((emmited)=>{ if(emmited){this.close()}
@@ -236,7 +241,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     // este codigo no trabaja con el debounce (puse un condicional en el debouncer) es el enter de la lupa
 
   searchByCode(){
-
+    this.noMatch = false;
     const option = this.myForm.get('searchOption')?.value;
     const itemSearch = this.myForm.get('itemSearch')?.value;
     if( option === "Por descripción" || itemSearch === ''){

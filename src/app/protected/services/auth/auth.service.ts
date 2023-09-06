@@ -86,7 +86,7 @@ getUser(){
                     }           
         }),            
     map( res =>{ 
-      console.log('desde service getUser', res)
+      // console.log('desde service getUser', res)
         return res} )
   )
   

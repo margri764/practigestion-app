@@ -136,6 +136,7 @@ Search( id : any ){
     .subscribe ( ({contacto} )=>{
       console.log(contacto);
       if(contacto){
+        this.store.dispatch(authActions.setTempClient({client: contacto}))
         this.clientFounded = contacto;
         this.spinner = false;
         this.close();

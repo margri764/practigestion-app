@@ -24,7 +24,7 @@ export const unSetSelectedArticles = createAction('[Articles] unSetSelectedArtic
 export const unSetTempOrder = createAction('[Articles] unSetTempOrder');
 export const deleteArticle = createAction(
     '[Articles] Delete Article',
-    props<{ articleId: number }>()
+    props<{ articleId: string }>()
   );
 
   export const deleteTempOrder = createAction(

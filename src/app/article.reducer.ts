@@ -37,7 +37,7 @@ const _articleReducer = createReducer(initialState,
       })),
 
       on(deleteArticle, (state, { articleId }) => {
-        let updatedArticles = state.arrSelectedArticles.filter(item => item.id !== articleId);
+        let updatedArticles = state.arrSelectedArticles.filter(item => item.codigoInterno !== articleId);
         return { ...state, arrSelectedArticles: updatedArticles };
     }),
 

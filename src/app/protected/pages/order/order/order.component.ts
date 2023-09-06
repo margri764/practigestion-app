@@ -21,7 +21,7 @@ import {getDataSS } from 'src/app/protected/Storage';
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.scss']
 })
-export class OrderComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class OrderComponent implements OnInit, OnDestroy {
 
 
   user : User []=[];
@@ -34,9 +34,10 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewChecked {
   authSuscription! : Subscription;
   articleSuscription! : Subscription;
   client : any;
-  showClient : boolean = false;
-  showProduct : boolean = true;
-
+  showClient : boolean = true;
+  showProduct : boolean = false;
+  confirmE: boolean= false;
+  confirmA: boolean= false;
 
   confirm : boolean = false;
   saleOption : string[] =['Contado, Cuenta Corriente']
@@ -58,9 +59,8 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewChecked {
      if (this.authSuscription) {
       this.authSuscription.unsubscribe();
     }
-    // if (this.articleSuscription) {
-    //   this.articleSuscription.unsubscribe();
-    // }
+  
+
   }
 
   ngOnInit(): void {
@@ -68,16 +68,6 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewChecked {
    this.getSalePoint();
    this.getTotal();
 
-
-    // this.orderService.changeClientValue.subscribe(
-    //   (emitted) => {
-    //     if (emitted === true) {
-    //         this.showProduct = true;
-    //         this.showClient = false;
-    //         this.cdRef.detectChanges(); /
-    //     }
-    //   }
-    // );
 
     this.myForm = this.fb.group({
       date:     [ this.onlyDate],
@@ -96,6 +86,7 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewChecked {
       ).subscribe(
       ({tempClient})=>{
           this.client = tempClient;
+          console.log(this.client);
           const fullName = `${tempClient.nombre} ${tempClient.apellido}`
           const phone = `${tempClient.telefonoCodigoArea} ${tempClient.numeroLocal}`
           const comercialName = `${tempClient.razonSocial}`
@@ -114,10 +105,15 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewChecked {
       ).subscribe(({arrSelectedArticles})=>{
         this.arrItemSelected = arrSelectedArticles; //este es el pedido q se envia a BD
         this.arrArticles = arrSelectedArticles; // este se muestra en el front con otras propiedades
-       
+        // cuando vuelvo de los productos quiero q se muestre la opcion de productos
+       if( this.arrArticles.length !==0 && this.client){
+          this.showProduct = true;
+          this.showClient = false;
+       }
       })
  
   }
+
 
   getSalePoint(){
 
@@ -155,30 +151,21 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewChecked {
     });
   }
 
-  deleteItem(id:any){
+  deleteItem(codigoInterno : string){
+
+    console.log(codigoInterno);
     //elimino el item del array
-      this.store.dispatch(articleAction.deleteArticle({ articleId: id}));
+      this.store.dispatch(articleAction.deleteArticle({ articleId: codigoInterno}));
       const tempArticles = getDataSS("arrArticles");
 
-      let updatedArticles = tempArticles.filter((item: { id: any; }) => item.id !== id);
-      console.log(updatedArticles);
+      let updatedArticles = tempArticles.filter((item: any) => item.codigoInterno !== codigoInterno);
 
       //hago el update con el nuevo valor del array
       this.localStorageService.saveStateToSessionStorage(updatedArticles, "arrArticles");
     }
 
-  generateSimpleId() {
-    const timestamp = Date.now(); // Obtén el timestamp actual en milisegundos
-    return `id_${timestamp}`;
-  }
 
-  ngAfterViewChecked() {
-    // this.showProduct = true;
-    // this.showClient = false;
-    // this.cdRef.detectChanges();
-  }
-
-
+// para elegir un producto si o si necesito tener un cliente seleccionado
   selectOption(option : string){
 
     
@@ -190,8 +177,12 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewChecked {
         break;
         
         case "product":
-                this.showProduct = true;
-                this.showClient = false;
+                  if(!this.client){
+                      this.openGenericMsgAlert('Seleccionar un cliente');
+                    return
+                  }
+                  this.showProduct = true;
+                  this.showClient = false;
         break;
     
       default:
@@ -208,8 +199,7 @@ export class OrderComponent implements OnInit, OnDestroy, AfterViewChecked {
    })
    return tempOrderItem
   }
-confirmE: boolean= false;
-confirmA: boolean= false;
+
 
   createOrder(saveOrSend : string){
 
