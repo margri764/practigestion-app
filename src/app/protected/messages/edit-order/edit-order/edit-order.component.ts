@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 })
 export class EditOrderComponent implements OnInit {
   
-  @ViewChild ("top" , {static: true} ) top! : ElementRef;
+  // @ViewChild ("top" , {static: true} ) top! : ElementRef;
   @Output() item : any;  
 
   myForm! : FormGroup;
@@ -64,14 +64,14 @@ export class EditOrderComponent implements OnInit {
         }
           this.addItemSelected = false;
 
-          this.element = this.top.nativeElement;
-          setTimeout( () => {
-          this.element.scrollIntoView(
-            { alignToTop: true,
-              behavior: "smooth",
-              block: "center",
-            });
-            }, 0);
+          // this.element = this.top.nativeElement;
+          // setTimeout( () => {
+          // this.element.scrollIntoView(
+          //   { alignToTop: true,
+          //     behavior: "smooth",
+          //     block: "center",
+          //   });
+          //   }, 0);
 
             this.cdr.detectChanges();
       

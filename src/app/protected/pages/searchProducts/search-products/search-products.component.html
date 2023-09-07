@@ -43,18 +43,25 @@
             <mat-spinner diameter="48"></mat-spinner>
         </div>
                     
-        <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="space-betweencenter" fxFlex="100" class="font mb-20 mt-10 " *ngFor="let item of suggested , index as i" >
+        <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="space-between center" fxFlex="100" class="font mb-20 mt-10 " *ngFor="let item of suggested , index as i" >
             
             <div fxLayout="row wrap" fxLayoutAlign="space-between center"  fxFlex="98"  class="fs-4 boxSelection" >
-                <mat-checkbox class="example-margin" (click)="searchSuggested( item )"></mat-checkbox>
-                <!-- <mat-radio-button class="example-margin"  (click)="searchSuggested( item )"></mat-radio-button> -->
-                <span  style="cursor: pointer; text-align: start; " (click)="searchSuggested( item)" fxFlex="90" >
-                    {{ item.descripcionLarga | capitalizeFirstLetter}}
-                   &nbsp; <b> {{ item.precioBrutoFinal | currency:'$':'symbol':'1.2-2'}}</b>
-                </span>
+
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center"  fxFlex="70" >
+                    <mat-checkbox class="example-margin" (click)="searchSuggested( item)"></mat-checkbox>
+
+                    <!-- <mat-radio-button class="example-margin"  (click)="searchSuggested( item )"></mat-radio-button> -->
+                    <span  style="cursor: pointer; text-align: start; " (click)="searchSuggested( item)" fxFlex="90" >
+                        {{ item.descripcionLarga | capitalizeFirstLetter}}
+                    &nbsp; <b> {{ item.precioBrutoFinal | currency:'$':'symbol':'1.2-2'}}</b>
+                    </span>
+                </div>    
+
             </div>
 
         </div>
+
+  
     </div>
     <!-- end suggested    -->
 
@@ -81,5 +88,5 @@
    </div>
     <!-- end result search cards -->
 
-  
+ 
 </div> 
