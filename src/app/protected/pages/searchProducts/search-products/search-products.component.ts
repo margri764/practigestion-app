@@ -298,6 +298,24 @@ searchSuggested( item: any ) {
   this.Search( item );
 }
 
+// new search
+productQuantity : number = 1;
+showIncrementer : boolean = false;
+decrement(){
+
+}
+
+increment(){}
+
+selectItem( item:any ){
+  console.log(item);
+  this.showIncrementer = !this.showIncrementer;
+}
+
+// new search
+
+
+
   goBack(){
     this.router.navigateByUrl('/armar-pedido')
     setTimeout(()=>{

@@ -43,18 +43,65 @@
             <mat-spinner diameter="48"></mat-spinner>
         </div>
                     
-        <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="space-betweencenter" fxFlex="100" class="font mb-20 mt-10 " *ngFor="let item of suggested , index as i" >
+        <div fxLayout="row wrap"  fxLayoutAlign.xs="start center" fxLayoutAlign="space-between center" fxFlex="100" class="font mb-20 mt-10 " *ngFor="let item of suggested , index as i" >
             
             <div fxLayout="row wrap" fxLayoutAlign="space-between center"  fxFlex="98"  class="fs-4 boxSelection" >
-                <mat-checkbox class="example-margin" (click)="searchSuggested( item )"></mat-checkbox>
-                <!-- <mat-radio-button class="example-margin"  (click)="searchSuggested( item )"></mat-radio-button> -->
-                <span  style="cursor: pointer; text-align: start; " (click)="searchSuggested( item)" fxFlex="90" >
-                    {{ item.descripcionLarga | capitalizeFirstLetter}}
-                   &nbsp; <b> {{ item.precioBrutoFinal | currency:'$':'symbol':'1.2-2'}}</b>
-                </span>
+
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center"  fxFlex="70" >
+                    <mat-checkbox class="example-margin" (click)="selectItem( item )"></mat-checkbox>
+
+                    <!-- <mat-radio-button class="example-margin"  (click)="searchSuggested( item )"></mat-radio-button> -->
+                    <span  style="cursor: pointer; text-align: start; " (click)="searchSuggested( item)" fxFlex="90" >
+                        {{ item.descripcionLarga | capitalizeFirstLetter}}
+                    &nbsp; <b> {{ item.precioBrutoFinal | currency:'$':'symbol':'1.2-2'}}</b>
+                    </span>
+                </div>    
+
+              <!-- counter -->
+                <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="30" *ngIf="showIncrementer">
+                
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center"  class="incrementer">
+                    
+                            <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="15" (click)="decrement()" >
+                                    <i class="material-symbols-outlined notranslate cursor">remove</i>
+                            </div>
+                        
+                            <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="20">
+                                <span class="font fs-4">{{productQuantity}}</span>
+                            </div>
+                        
+                            <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="15" (click)="increment()">
+                                    <i class="material-symbols-outlined notranslate cursor">add</i>
+                            </div>
+                    </div>
+                
+                </div>
+              <!-- end counter -->
+
+              <div fxLayout="row wrap" fxLayoutAlign="space-between center"   *ngIf="!showIncrementer">
+                <span class="font fs-3" style="border: 1px solid rgb(187, 187, 187); opacity: 0.8; border-radius: 7px; padding: 10px;">Agregar</span>
+              </div>
+              
             </div>
 
+
+            
+
         </div>
+
+        <!-- start label list-product -->
+        <!-- <div  fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"> -->
+        <div fxLayout="row wrap"  fxLayoutAlign="space-between center"fxFlex="100" class="header" style="margin-top: 60px; border-radius: 5px;" >
+        
+            <span class="font fs-3" fxFlex="60"> 1 Producto agregado</span>
+            <div fxLayout="row wrap"  fxLayoutAlign="end center" fxFlex="40" >
+                <span class="font fs-3 mr-10"> Siguiente</span>
+                <span class="material-symbols-outlined notranslate" style="transform: scale(2); color: white;"> chevron_right</span>
+            </div>
+        </div>
+        <!-- </div> -->
+         <!-- end label list-product -->
+  
     </div>
     <!-- end suggested    -->
 
@@ -81,5 +128,5 @@
    </div>
     <!-- end result search cards -->
 
-  
+ 
 </div> 
