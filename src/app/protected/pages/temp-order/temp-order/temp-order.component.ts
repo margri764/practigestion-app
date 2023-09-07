@@ -51,12 +51,22 @@ export class TempOrderComponent implements OnInit {
 
   deleteOrder(order:any){
 
+    let width : string = '';
+    let height : string = '';
+  
+    if(screen.width >= 800) {
+      width = "400px"
+      height ="550px";
+    }
+
     const ptoVenta = order.ptoVenta;
     const cbteNro = order.cbteNro;
     const state = "C"
 
     this.dialog.open(AskTempOrderComponent, {
-      panelClass:"custom-modalbox-messsage",
+      panelClass:"custom-modalbox-NoMoreComponent",
+      width: `${width}`|| "",
+      height:`${height}`|| "",
     });
 
     this.errorService.authDelTempOrder$.pipe(

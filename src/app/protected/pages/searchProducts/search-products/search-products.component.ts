@@ -41,6 +41,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   noMatches : boolean = false;
   myForm! : FormGroup;
   noMatch : boolean = false;
+  defaultValue : string = "Por descripción";
 
   searchOptions : string [] = ["Por descripción", "Por código"]
 
@@ -82,7 +83,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
 
     this.myForm = this.fb.group({
       itemSearch:  [ '',  ],
-      searchOption:  [ '', ],
+      searchOption:  [ this.defaultValue ],
     });   
   }
 
@@ -262,7 +263,8 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
           this.mostrarSugerencias = false;
           this.itemSearch = '';
           this.suggested = [];
-
+        }else{
+          this.noMatch = true;
         }
       }
     )
@@ -285,7 +287,8 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
             this.mostrarSugerencias = false;
             this.itemSearch = '';
             this.suggested = [];
-
+          }else{
+            this.noMatch = true;
           }
         }
         )

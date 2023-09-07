@@ -52,7 +52,6 @@ const base64Credentials = btoa(`${username}:${password}`);
 
   const now = new Date();
   const expirationTime = new Date(now.getTime() + 12 * 60 * 60 * 1000); 
-
   return this.http.get<any>(`${this.baseUrl}api/login`, {headers}) 
   
   .pipe(
@@ -81,7 +80,7 @@ getUser(){
                           const userUpdate = { ...perfil, permisos : auth };
                           this.store.dispatch(authActions.setUser({user : userUpdate}));
                           const userToLS = { nombre: perfil.nombre, permisos: auth}
-                          // this.localStorageService.saveStateToLocalStorage(userToLS, 'user');
+                          this.localStorageService.saveStateToLocalStorage(userToLS, 'user');
                           this.user = userUpdate;
                     }           
         }),            
@@ -91,10 +90,6 @@ getUser(){
   )
   
 }
-
-
-
-
 
 
 

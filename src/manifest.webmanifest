@@ -4,6 +4,8 @@
   "theme_color": "#1976d2",
   "background_color": "#FFFFFF",
   "display": "standalone",
+  "updateMode": "prefetch", 
+  "version": "1.2.5",
   "scope": "./",
   "start_url": "./",
   "icons": [

@@ -10,7 +10,7 @@
     
                         <mat-form-field appearance="outline" floatLabel="always">
                             <mat-label class="font fs-4">seleccion</mat-label>
-                            <mat-select  formControlName="searchOption" class="font" >
+                            <mat-select  formControlName="searchOption" class="font" [value]="defaultValue" >
                                         <mat-option value=""></mat-option>
                                         <mat-option *ngFor="let option of searchOptions" [value]="option" class="font fs-4"> {{option}}</mat-option>
                                     </mat-select>

@@ -2,7 +2,7 @@
 
     <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" >
 
-            <span class="material-symbols-outlined notranslate" style="text-align: end; width: 100%; margin-top: 20px; cursor: pointer; transform: scale(1.1); margin-right: 15px;" (click)="action('close')">close</span>
+
 
             <img src="assets/lock.jpg" alt="" fxFlex.xs="100" fxFlex="60">
 
@@ -13,7 +13,7 @@
 
             <div  fxLayout="row wrap"  fxLayoutAlign="center center" fxFlex="100" class="mb-10">
             
-                <button  [ngClass]="selection ? 'btnMenuClicked':'btnMenu'" fxFlex="83" (click)="action('login')" >
+                <button  [ngClass]="selection ? 'btnMenuClicked':'btnMenu'" fxFlex="90" (click)="action()" >
                     <i class="material-symbols-outlined notranslate" style="transform: scale(1.3);">login</i> 
                     &nbsp; Acceder
                 </button>

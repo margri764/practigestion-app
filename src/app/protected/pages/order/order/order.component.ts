@@ -178,7 +178,7 @@ export class OrderComponent implements OnInit, OnDestroy {
         
         case "product":
                   if(!this.client){
-                      this.openGenericMsgAlert('Seleccionar un cliente');
+                      this.openGenericMsgAlert('Primero debes seleccionar un cliente');
                     return
                   }
                   this.showProduct = true;
@@ -276,9 +276,18 @@ console.log(body);
 // }
 
 openGenericMsgAlert(msg : string){
+  
+  let width : string = '';
+  let height : string = '';
+
+  if(screen.width >= 800) {
+    width = "400px"
+    height ="450px";
+  }
   this.dialog.open(WrongActionMessageComponent, {
     data: msg,
-    // disableClose: true,
+    width: `${width}`|| "",
+    height:`${height}`|| "",
     panelClass:"custom-modalbox-NoMoreComponent", 
   });
 

@@ -90,7 +90,7 @@ export class RoleGuard implements CanActivate {
                           return true;
 
          case "/buscar-articulos":   
-                          if(!user?.permisos.includes(1200)){
+                          if(!user?.permisos.includes(700)){
                             this.openDialogNoAuth();
                             return false;
                             }

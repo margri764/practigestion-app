@@ -53,10 +53,27 @@ export class ErrorService {
     //   // this.launchMaintenance();
     // }
 
+    if (error.status === 401 && error.error.message === "Token expired") {
+      localStorage.removeItem('logged');
+      this.cookieService.delete('token');
+      setTimeout(()=>{
+        this.openDialogLogin();
+      },500)
+      
+      
+      // this.close$.next(true);
+      // this.close$.next(false);
+      // this.closeIsLoading$.emit(true);
+      return of(null);
+    }
+
     if (error.status === 401) {
+        console.log('aca no deberia entrar');
       this.openDialogLogin();
+      this.logout();
       this.close$.next(true);
       this.close$.next(false);
+      // this.closeIsLoading$.emit(true);
       return of(null);
     }
 

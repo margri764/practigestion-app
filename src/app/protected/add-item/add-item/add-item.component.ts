@@ -52,6 +52,7 @@ export class AddItemComponent implements OnInit {
   // search
 
   noMatch : boolean = false;
+  defaultValue : string = 'Por descripción';
 
   myForm! : FormGroup;
   searchOptions : string [] = ["Por descripción", "Por código"]
@@ -72,7 +73,7 @@ export class AddItemComponent implements OnInit {
 
     this.myForm = this.fb.group({
       itemSearch:  [ '',  ],
-      searchOption:  [ '', ],
+      searchOption:  [ this.defaultValue ],
     });   
    }
 

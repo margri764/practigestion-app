@@ -71,6 +71,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
 
    this.localStorageService.loadInitialState();
+   
    this.isLoading = true;
    this.errorService.closeIsLoading$.subscribe((emmited)=>{if(emmited){this.isLoading = false}})
   
