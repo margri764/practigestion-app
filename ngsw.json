@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1693971592370,
+  "timestamp": 1694049041176,
   "index": "/practigestion-app/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/practigestion-app/favicon.ico",
         "/practigestion-app/index.html",
-        "/practigestion-app/main.9c220017a21f8df4.js",
+        "/practigestion-app/main.b289edc992c6fb99.js",
         "/practigestion-app/manifest.webmanifest",
         "/practigestion-app/polyfills.18abb9878618be99.js",
         "/practigestion-app/runtime.e981d4f4803d3d5a.js",
@@ -120,9 +120,9 @@
     "/practigestion-app/assets/qr-practi-gestion.png": "7609e9e765a791bc49fcfcfbe4d8fa049d116762",
     "/practigestion-app/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
     "/practigestion-app/fontawesome-webfont.8a7cb27d142e3e19.ttf": "13b1eab65a983c7a73bc7997c479d66943f7c6cb",
-    "/practigestion-app/index.html": "5357d349cc6f42225458ec33e7776ce65ef68c01",
-    "/practigestion-app/main.9c220017a21f8df4.js": "d8b4819fe0ae23b321b717f0149ed2842b7e1d3f",
-    "/practigestion-app/manifest.webmanifest": "484daa6eb16148172a76e35f4db0db498c707242",
+    "/practigestion-app/index.html": "8b3baf187b71c5d736552d3815586b7f99e665aa",
+    "/practigestion-app/main.b289edc992c6fb99.js": "fe68d8dee8633b4b0bd0a34594346ced6e97819c",
+    "/practigestion-app/manifest.webmanifest": "3fb03c27de0f17158f488cdd677ae973d180d43b",
     "/practigestion-app/polyfills.18abb9878618be99.js": "451e8b17c129eea3e018aacbcb1e9d1cb91f5766",
     "/practigestion-app/runtime.e981d4f4803d3d5a.js": "683072065832bad789f3904790d964413451b7ff",
     "/practigestion-app/styles.3dc04d7a021fdee4.css": "a4de90a9bbfc4bb08264d8519cf0acf9f6de4a1b"
