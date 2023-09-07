@@ -5,7 +5,7 @@
   "background_color": "#FFFFFF",
   "display": "standalone",
   "updateMode": "prefetch", 
-  "version": "1.2.5",
+  "version": "1.2.6",
   "scope": "./",
   "start_url": "./",
   "icons": [
