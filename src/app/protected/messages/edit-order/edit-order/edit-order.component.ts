@@ -55,7 +55,7 @@ export class EditOrderComponent implements OnInit {
           const detalleItemsArray = this.orderForm.get('detalleItems') as FormArray;
           
           // Agregar el nuevo elemento a la lista
-          detalleItemsArray.push(this.fb.group({
+          detalleItemsArray.insert(0,this.fb.group({
             descripcion: emitted.descripcionLarga,
             codigoInterno: emitted.codigoInterno,
             cantidad: emitted.cantidad,
@@ -158,10 +158,19 @@ export class EditOrderComponent implements OnInit {
       })
 
   }
+deletedItem : string = ''
+delItem : boolean = false;
 
-  deleteOrder(index: number) {
+  deleteOrder(detalleItem : any, index: number) {
+    this.deletedItem = detalleItem.value.descripcion;
     const detalleItemsArray = this.orderForm.get('detalleItems') as FormArray;
     detalleItemsArray.removeAt(index);
+    // this.deletedItem = "sss";
+    this.delItem = true;
+    setTimeout(()=>{
+      this.deletedItem = '';
+      this.delItem = false;
+    },1800)
   }
   
   close(){

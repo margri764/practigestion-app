@@ -1,6 +1,6 @@
 
 
-<div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  style=" padding: 10px;"> 
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  style="padding: 30px;"> 
 
     <div  fxLayout="row wrap"  fxLayoutAlign=" center" fxFlex="100" style="height: 50px; background-color: rgb(37, 150, 190); color: white; padding: 10px; box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75); -webkit-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);
     -moz-box-shadow: 0px 6px 5px 0px rgba(140,139,139,0.75);" class="mt-20 pd-10">
@@ -38,7 +38,7 @@
 
         <div formArrayName="detalleItems" fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100"  style="margin-top: 20px;">
             <div *ngFor="let detalleItem of getDetalleItemsControls(); let i = index" fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100">
-                <div [formGroupName]="i" [class.ultimo-elemento]="i === getDetalleItemsControls().length - 1" fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" >
+                <div [formGroupName]="i" fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="100" >
 
                     <mat-form-field appearance="outline" fxFlex="60" class="mt-10 font " >		
                         <mat-label>Nombre: </mat-label>
@@ -56,11 +56,11 @@
                     </mat-form-field> 
 
                     <mat-form-field appearance="outline" fxFlex="25" class="mt-10 font " >		
-                        <mat-label>Bonificación (%): </mat-label>
+                        <mat-label>Bonif. (%): </mat-label>
                         <input matInput type="number" required formControlName="bonificacionPorciento" >
                     </mat-form-field> 
                   
-                    <div class="icon mr-10"   (click)="deleteOrder(i)" >
+                    <div class="icon mr-10"   (click)="deleteOrder(detalleItem,i)" >
                         <span class="material-symbols-outlined notranslate cursor" style="color: red;"> delete </span>
                     </div>
                     
@@ -72,7 +72,7 @@
 
 
         <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" class="mt-20">
-                <button mat-raised-button  [ngClass]="confirm ? 'btnMenuClicked':'btnMenu'" fxFlex="60" (click)="onSaveForm()">
+                <button mat-raised-button  [ngClass]="confirm ? 'btnMenuClicked':'btnMenu'" fxFlex="90" (click)="onSaveForm()">
                     <i class="material-symbols-outlined notranslate" style="transform: scale(1.3);">edit</i> 
                     &nbsp; Editar Orden
                 </button>
@@ -82,6 +82,13 @@
     
     
 </div>
+
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" style="position:fixed; left: 30%; top: 50%;">
+    
+    <span class="font fs-5" style="width: 100%; text-align: center; border: 1px solid red; padding: 20px; border-radius: 7px; color: white; background-color: red;" *ngIf="delItem">Item {{deletedItem | capitalizeFirstLetter}} eliminado.</span>
+</div>
+
+
 
 <div *ngIf="isLoading" style="margin-top: 30px;" class="loading-overlay">
     <mat-spinner diameter="80"></mat-spinner>

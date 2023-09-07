@@ -75,8 +75,8 @@ export class OrderComponent implements OnInit, OnDestroy {
       comercialName:  [''], 
       phone:  [ ''], 
       cuit:  [ ''], 
-      discount:  [ 0], 
-      ptoVenta:  [ '' ,[Validators.required]], 
+      discount:  [ 0, [Validators.required, Validators.min(0), Validators.max(99) ]], 
+      ptoVenta:  [ '',[Validators.required]], 
     });
     
 
