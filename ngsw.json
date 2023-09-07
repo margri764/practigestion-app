@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1694055978252,
+  "timestamp": 1694056068082,
   "index": "/practigestion-app/index.html",
   "assetGroups": [
     {
@@ -122,7 +122,7 @@
     "/practigestion-app/fontawesome-webfont.8a7cb27d142e3e19.ttf": "13b1eab65a983c7a73bc7997c479d66943f7c6cb",
     "/practigestion-app/index.html": "517d531135e8e386e73d994b9d86dedfe9646081",
     "/practigestion-app/main.f6b256ad41247304.js": "d8d418e7499c8f8ab8cc075bab55303768f2f9dd",
-    "/practigestion-app/manifest.webmanifest": "3fb03c27de0f17158f488cdd677ae973d180d43b",
+    "/practigestion-app/manifest.webmanifest": "59013a1b9578fc15d516fb13f5422ba3cc5079eb",
     "/practigestion-app/polyfills.18abb9878618be99.js": "451e8b17c129eea3e018aacbcb1e9d1cb91f5766",
     "/practigestion-app/runtime.e981d4f4803d3d5a.js": "683072065832bad789f3904790d964413451b7ff",
     "/practigestion-app/styles.3dc04d7a021fdee4.css": "a4de90a9bbfc4bb08264d8519cf0acf9f6de4a1b"
