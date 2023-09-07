@@ -1,0 +1,93 @@
+
+<div fxLayout="row wrap" fxLayoutAlign="center" >
+  
+ <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100" style="margin-bottom: 30px;" >
+      
+
+
+            
+  <form  [formGroup]="myForm"  fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="95"  style="margin-top: 15px;" >     
+    <mat-progress-bar mode="determinate" [value]="progressValue" color="accent" class="progress" *ngIf="isSubmitting" ></mat-progress-bar>
+    
+    <div fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="100">
+        <img [src]="imgSrc" fxFlex="50" (click)="fileUploader.click()">
+
+         <input type="file" class="form-control"  accept="image/*"  (change)="showPreview( $event)" #fileUploader style="display: none; border: 1px solid;" fxFlex="50" >    
+
+        <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="30" class="mt-15">
+        
+            <div (click)="pausePlayItem('pause')" *ngIf="!isPaused" class="mr-10">
+                <div class="icon" >
+                    <span class="material-symbols-outlined notranslate" style="color: rgb(255, 176, 57);"> pause </span>
+                </div>
+            </div>
+            
+            <div (click)="pausePlayItem('play')" *ngIf="isPaused" class="mr-10">
+                <div class="icon" >
+                    <span class="material-symbols-outlined notranslate" style="color: blue; transform: scale(1.5)"> play_arrow </span>
+                </div>
+            </div>
+
+            <div  (click)="deleteItem()"  class="mr-10 mt-10">
+                <div class="icon" >
+                    <span class="material-symbols-outlined notranslate" style="color: red;"> delete </span>
+                </div>
+            </div>
+        </div>
+     </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="100" >
+            
+        <mat-form-field appearance="outline" fxFlex="97" class="mt-10 font fs-5">		
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text"  formControlName="name">
+        </mat-form-field> 
+        <mat-error  *ngIf ="validField ('name')" class="font fs-4
+        ">Maximo 40 caracteres, recuerde que en "comentarios" puede agregar contenido <span (click)="launchDetails()" style="color: red; line-height: 1.5em;" class="font fs-5"> <b>Detalle</b> </span> </mat-error> 
+        
+        <mat-form-field appearance="outline" fxFlex="97" class="mt-10 font fs-5" >		
+        <mat-label>Precio</mat-label>
+        <input matInput type="number"  [value]="myForm.get('price')?.value | rounds" #price (change)="getPriceValue($event)" >
+        </mat-form-field> 
+
+
+        <mat-form-field appearance="outline" fxFlex="97" class="mt-10 font fs-5" >		
+            <mat-label>Stock</mat-label>
+            <input matInput type="text"  formControlName="stockQuantity">
+        </mat-form-field> 
+        <mat-error  *ngIf="validField ('stockQuantity')" class="font fs-4">Campo requerido. Solo se permiten valores mayores a 0.</mat-error>
+
+
+        <mat-form-field appearance="outline" fxFlex="97" class="mt-10 font fs-5">
+            <mat-label>Comentarios</mat-label>
+            <textarea matInput rows="3" formControlName="comment">          
+            </textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="97" class="mt-10 font fs-5">
+            <mat-label>Ingredientes</mat-label>
+            <textarea matInput rows="3" formControlName="ingredients" >          
+            </textarea>
+        </mat-form-field>
+    </div>
+  </form>
+
+<!-- save button -->
+  <div  fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="97" class="mb-20" >
+     <button mat-raised-button  [ngClass]="!save ? 'btnMenuClicked':'btnMenu'" fxFlex="48" (click)="closeComponent()" >
+         <i class="material-symbols-outlined notranslate" style="transform: scale(1.4);" >redo</i> 
+         &nbsp;Cancelar
+        </button>
+        <button mat-raised-button  [ngClass]="save ? 'btnMenuClicked':'btnMenu'" fxFlex="48" (click)="onSaveForm()">
+            <i class="material-symbols-outlined notranslate" style="transform: scale(1.4);">save</i> 
+            &nbsp; Guardar
+        </button>
+ </div>
+ <!-- end save button -->
+
+</div>
+
+</div>
+
+
+  

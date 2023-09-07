@@ -1,0 +1,131 @@
+
+
+
+
+
+.container {
+    width: calc(100vw - 10px);
+    height: calc(100vh - 400px);
+    overflow: auto;
+    font-size: 1.8em;
+    font-family: 'poppins-light'; 
+  }
+
+table {
+  width: 100%;
+  font-size: 0.8em;
+  font-family: 'poppins-light'; 
+}
+
+th.mat-column-name, td.mat-column-name {
+    padding-left: 8px;
+    width: 30%;
+    cursor: pointer;
+    text-align: start;
+  }
+
+.mat-column-email {
+
+  width: 20%;
+  cursor: pointer;
+  text-align: start;
+  padding-left: 5px;
+}
+
+.mat-column-phone {
+  width: 20%;
+  cursor: pointer;
+  text-align: start;
+  padding-left: 10px;
+}
+
+.mat-column-role {
+  width: 20%;
+  cursor: pointer;
+  text-align: start;
+  padding-left: 10px;
+
+}
+
+.non-class{
+  opacity: 0;
+}
+
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+color: #f3b304;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-label {
+color: #f3b304;
+}
+
+.loadingIcon{
+font-size: 1.3em;
+font-family: 'poppins-light';
+}
+
+.fastFoodIcon, .loadingIcon {
+animation: opaco 1.2s ease-in-out forwards;
+animation-iteration-count: 20; 
+color: rgb(176, 176, 176);
+}
+
+.fastFoodIcon {
+font-size: 250px;
+}
+
+.vanishSelection {
+-webkit-animation: opaco 1s;  
+}
+
+@keyframes opaco {
+0% {
+opacity:0;
+}
+45% {
+opacity:0.8;
+}
+55% {
+opacity:0.9;
+}
+100% {
+opacity:1;
+}
+
+}
+
+.grayLayer{
+ -webkit-filter: grayscale(1);
+ filter: gray;
+ filter: grayscale(1);
+}
+
+
+
+
+
+.pausedStaff{
+
+  color: rgb(186, 186, 186);
+  font-weight: 400;
+}
+
+.add{
+  color: white;
+  width: 80px;
+  height: 80px;
+  border-radius: 100px;
+}
+.add mat-icon{
+  transform: scale(2);
+}
+
+
+//Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 360px) {
+.container {
+  height: calc(100vh - 300px);
+
+}
+}

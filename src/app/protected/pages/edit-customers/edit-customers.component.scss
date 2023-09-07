@@ -1,0 +1,44 @@
+.whiteFrame{
+    border-radius: 7px;
+
+    box-shadow: -1px 4px 14px -2px rgba(179, 179, 179, 0.55);
+    -webkit-box-shadow: -1px 4px 14px -2px rgba(179, 179, 179,0.55);
+    -moz-box-shadow: -1px 4px 14px -2px rgba(179, 179, 179,0.55);
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: #f3b304;
+  }
+  
+  ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-label {
+    color: #f3b304;
+  }
+
+
+  .icon{
+    width: 35px;
+    height: 35px;
+    border-radius: 200px;
+    border: 1px solid rgb(217, 217, 217);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.history{
+    width: 42px;
+    height: 39px;
+    border-radius: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.goTop{
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    opacity: 0.7;
+}

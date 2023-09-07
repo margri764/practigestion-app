@@ -9,8 +9,6 @@ export const setArticles = createAction('[Articles] setArticles',
 export const setSelectedArticles = createAction('[Articles] setSelectedArticles',
 props<{ arrSelectedArticles : DetalleItem [] }>());
 
-
-
 export const setTempOrder= createAction('[Articles] setTempOrder',
 props<{ tempOrder : any [] }>());
 
@@ -24,7 +22,7 @@ export const unSetSelectedArticles = createAction('[Articles] unSetSelectedArtic
 export const unSetTempOrder = createAction('[Articles] unSetTempOrder');
 export const deleteArticle = createAction(
     '[Articles] Delete Article',
-    props<{ articleId: string }>()
+    props<{ articleId: number }>()
   );
 
   export const deleteTempOrder = createAction(

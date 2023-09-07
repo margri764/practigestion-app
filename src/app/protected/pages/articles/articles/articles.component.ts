@@ -130,8 +130,7 @@ dataTableActive : any = new MatTableDataSource<any>();
           this.itemSearch = value;
           this.mostrarSugerencias = true;  
           const valueSearch = value.toUpperCase();
-          const field = "desc_larga";
-          this.articleService.searchArticle(field, valueSearch)
+          this.articleService.searchProducts(valueSearch)
           .subscribe ( ({articulos} )=>{
             if(articulos.length !== 0){
               // this.arrArticlesSugested = articulos;

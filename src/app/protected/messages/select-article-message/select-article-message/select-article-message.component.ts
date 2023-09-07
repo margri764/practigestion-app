@@ -7,10 +7,9 @@ import { DetalleItem } from 'src/app/protected/interfaces/order.interface';
 import * as articleAction from 'src/app/article.actions'
 import { Subscription, take } from 'rxjs';
 import { GenericSuccessComponent } from '../../generic-success/generic-success/generic-success.component';
-import { getDataLS, getDataSS, saveDataLS } from 'src/app/protected/Storage';
+import { getDataLS, saveDataLS } from 'src/app/protected/Storage';
 import { LocalStorageService } from 'src/app/protected/services/localStorage/local-storage.service';
 import { updateLocale } from 'moment';
-import { OrderService } from 'src/app/protected/services/order/order.service';
 
 @Component({
   selector: 'app-select-article-message',
@@ -30,8 +29,7 @@ export class SelectArticleMessageComponent implements OnInit, OnDestroy {
                private store : Store <AppState>,
                private dialogRef : MatDialogRef<SelectArticleMessageComponent>,
                private dialog : MatDialog,
-               private localStorageService: LocalStorageService,
-               private orderService : OrderService
+               private localStorageService: LocalStorageService
   ) { }
 
   ngOnDestroy(): void {
@@ -63,45 +61,41 @@ decrement( ){
 totalPurchase(){
 
   if(this.inputValue > 0){
-    const priceBonus = this.article.precioBrutoFinal * this.inputValue;
-    const result = this.article.precioBrutoFinal - priceBonus / 100;
+    const priceBonus = this.article.precioCostoConIva * this.inputValue;
+    const result = this.article.precioCostoConIva - priceBonus / 100;
     this.total = (this.productQuantity * result) ;
     return this.total;
   }
 
-  this.total = (this.productQuantity * this.article.precioBrutoFinal) ;
+  this.total = (this.productQuantity * this.article.precioCostoConIva) ;
   return this.total;
 
 }
 
 selectItem(){
 
-  let updatedArr=[];
+  
 // saco los datos siempre del redux, el localstorage es para poder recuperare el redux en los reloads
   const articleToSave = {
-                          descripcionLarga : this.article.descripcionLarga,
-                          precioBrutoFinal: this.article.precioBrutoFinal,
-                          cantidad: this.productQuantity,
-                          codigoInterno : this.article.codigoInterno,
-                          id : this.article.idArticulo,
-                          bonificacionPorciento: this.inputValue || 0,
-                          ventaTotal: this.total  
-                       }
+                      descripcionLarga : this.article.descripcionLarga,
+                      precioCostoConIva: this.article.precioCostoConIva,
+                      cantidad: this.productQuantity,
+                      codigoInterno : this.article.codigoArticulo,
+                      id : this.article.idArticulo,
+                      bonificacionPorciento: this.inputValue || 0,
+                      ventaTotal: this.total 
+  }
 
 
   // obtengo el arrSelectedArticles y hago el update con el nuevo producto
   this.articleSuscription = this.store.select('article')
   .pipe( take(1))
   .subscribe(({arrSelectedArticles}) => {
-    updatedArr = [...arrSelectedArticles, articleToSave]; //update
+    const updatedArr = [...arrSelectedArticles, articleToSave]; //update
     this.store.dispatch(articleAction.setSelectedArticles({ arrSelectedArticles: updatedArr }));
      
-    // guardo en sessin storage la data temporal, solo guardo en el LS los pedidos
-    // hago el concat para q no se sobreescriban los daots  
-    let tempData = getDataSS("arrArticles");
-    updatedArr.concat(tempData);
+    // guardo en sessin storage la data temporal, solo guardo en el LS los pedidos  
     this.localStorageService.saveStateToSessionStorage(updatedArr, "arrArticles");
-    this.orderService.selectProductOption$.emit(true)
 
   });
 
@@ -129,18 +123,8 @@ styleObject(status : boolean) : object {
 
 openGenericSuccess(msg : string){
 
-  let width : string = '';
-  let height : string = '';
-
-  if(screen.width >= 800) {
-    width = "400px"
-    height ="450px";
-  }
-
   this.dialog.open(GenericSuccessComponent, {
     data: msg,
-    width: `${width}`|| "",
-    height:`${height}`|| "",
     disableClose: true,
     panelClass:"custom-modalbox-NoMoreComponent", 
   });

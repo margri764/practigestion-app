@@ -1,9 +1,6 @@
 export const getDataLS = (key: string): any | undefined => {
   try {
-
     const serializedData = localStorage.getItem(key);
-
- 
     if (serializedData === null) {
       return undefined;
     }
@@ -37,8 +34,7 @@ export const saveDataSS = (key: string, data: any): void | undefined => {
 export const getDataSS = (key: string): any | undefined => {
   try {
     const serializedData = sessionStorage.getItem(key);
-    // console.log(serializedData);
-    if (serializedData === null || serializedData === undefined  ) {
+    if (serializedData === null) {
       return undefined;
     }
     return JSON.parse(serializedData);

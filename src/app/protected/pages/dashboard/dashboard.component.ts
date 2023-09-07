@@ -12,12 +12,6 @@ import { User } from '../../models/user.models';
 import { getDataLS, getDataSS } from '../../Storage';
 import { CookieService } from 'ngx-cookie-service';
 import { ErrorService } from '../../services/error/error.service';
-import { OrderService } from '../../services/order/order.service';
-import { LocalStorageService } from '../../services/localStorage/local-storage.service';
-import { GenericMessageComponent } from '../../messages/generic-message/generic-message/generic-message.component';
-import { MatDialog } from '@angular/material/dialog';
-import { MantainMessageComponent } from '../../messages/maintain-message/mantain-message/mantain-message.component';
-import { AskOpenOrderComponent } from '../../messages/ask-open-order/ask-open-order/ask-open-order.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -38,34 +32,24 @@ toogle : boolean = false;
 hidden : boolean = false;
 showLabelTempOrder : boolean = false;
 // orders : any [] = [];
-alert! : any;
+alert! : string | null;
 showNoProcessMessage : boolean = false;
 notificationsDone! : boolean;
 login : boolean = false;
 phone : boolean = false;
-isLoading : boolean = false;
-
-cookie : boolean= false;
 constructor(
               private store : Store <AppState>,
               private cookieService : CookieService,
               private errorService : ErrorService,
-              private dialog : MatDialog,
               private router : Router,
-              private authService : AuthService,
-              private orderService : OrderService,
-              private localStorageService : LocalStorageService
+              private authService : AuthService
   ) { 
 
-    const token = this.cookieService.get('token');
-    const openOrders = getDataSS('openOrders');
-    // llamo las ordenes desde aca solo si estoy logeado, hay un token y en el SS no las tengo guardadas
-    if( getDataLS("logged") !== undefined && token !== '' &&  openOrders === undefined){
-      this.orderService.getOpenOrders().subscribe();
-    }
-
     
-
+  if(getDataSS("logged") === true || getDataLS("logged") == true){
+    this.cookieService.get('token');
+    this.login = true;
+  }
   (screen.width <= 600) ? this.phone = true : this.phone = false;
 
   }
@@ -76,112 +60,23 @@ visibility(){
 
 
 ngOnInit(): void {
-  this.checkSessionStorage();
-  
-// this.isLoading = true;
 
 
   this.articleSuscription = this.store.select('article')
   .pipe(
-    filter( ({tempOrder})=>  tempOrder.length !== 0 ),
 
   ).subscribe(({tempOrder})=>{
 
     if(tempOrder.length !==0){
-      this.showLabelTempOrder = true;
-      this.alert = tempOrder.length;
+        this.showLabelTempOrder = true;
+        this.alert= '!';
+    }else{
+        this.alert= '';
     }
   })
-  this.userSubscription = this.store.select('auth')
-  .pipe(
-    filter( ({user})=>  user != null && user != undefined),
-  ).subscribe(
-    ({user})=>{
-      this.user = user;
-      this.login = true;
-      this.isLoading = false;
-    })
-
-  
-}
-
-checkSessionStorage(){
-
-  const articles = getDataSS("arrArticles");
-  const client = getDataSS("tempClient");
-
-
-  if( articles !== undefined || client !== undefined){
-    this.openDialogOpenOrder()
-  }
-
-  this.orderService.cancelOrNextOpenOrder$.subscribe(
-    (emmited)=>{
-      if(emmited){
-        sessionStorage.removeItem("arrArticles");
-        sessionStorage.removeItem("tempClient");
-        this.store.dispatch(authActions.unSetTempClient());
-        this.store.dispatch(articleActions.unSetSelectedArticles());
-
-      }
-    })
 
 }
 
-openGenericMessage(msg:string){
-  let width : string = '';
-  let height : string = '';
-
-  if(screen.width >= 800) {
-    width = "400px"
-    height ="450px";
-  }
-
-  
-
-  this.dialog.open(GenericMessageComponent, {
-    width: `${width}`|| "",
-    height:`${height}`|| "",
-    data: msg,
-    panelClass:"custom-modalbox-NoMoreComponent", 
-  });
-}
-
-openMantainMessage(){
-  let width : string = '';
-  let height : string = '';
-
-  if(screen.width >= 800) {
-    width = "400px"
-    height ="450px";
-  }
-
-  this.dialog.open(MantainMessageComponent, {
-    width: `${width}`|| "",
-    height:`${height}`|| "",
-    panelClass:"custom-modalbox-NoMoreComponent", 
-  });
-
-}
-
-openDialogOpenOrder(){
-
-  let width : string = '';
-  let height : string = '';
-
-  if(screen.width >= 800) {
-    width = "400px"
-    height ="450px";
-  }
-
-  this.dialog.open(AskOpenOrderComponent, {
-    width: `${width}`|| "",
-    height:`${height}`|| "",
-    disableClose: true,
-    panelClass:"custom-modalbox-NoMoreComponent", 
-  });
-
-}
 
 
 logout() {

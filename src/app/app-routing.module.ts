@@ -11,64 +11,39 @@ import { TempOrderComponent } from './protected/pages/temp-order/temp-order/temp
 import { ListPriceHomeComponent } from './protected/pages/list-price-home/list-price-home/list-price-home.component';
 import { GeneralListComponent } from './protected/pages/general-list/general-list/general-list.component';
 import { ListOrdersComponent } from './protected/pages/list-orders/list-orders/list-orders.component';
-import { ListByIdComponent } from './protected/pages/list-by-id/list-by-id/list-by-id.component';
-import { RoleGuard } from './protected/guards/role.guard';
-import { SettingsComponent } from './pages/settings/settings/settings.component';
 
 
 const routes: Routes = [
   
   {
-    path: 'armar-pedido',  component: OrderComponent,
-    canActivate: [RoleGuard ],
-    canLoad: [ RoleGuard],
+    path: 'armar-pedido',  component: OrderComponent
   },
   {
-    path: 'listado-clientes',  component: ClientComponent,
-    canActivate: [RoleGuard ],
-    canLoad: [ RoleGuard],
-  },
-
-  {
-    path: 'listado-precios/listado/:id',  component: ListByIdComponent
+    path: 'listado-clientes',  component: ClientComponent
   },
   {
-    path: 'listado-precios',  component : GeneralListComponent,
-    canActivate: [RoleGuard ],
-    canLoad: [ RoleGuard],
-  },
-
-  {
-    path: 'listado-articulos',  component: ArticlesComponent,
-    canActivate: [RoleGuard ],
-    canLoad: [ RoleGuard],
+    path: 'lista-precios/listado',  component: GeneralListComponent
   },
   {
-    path: 'listado-pedidos',  component: ListOrdersComponent,
-    canActivate: [RoleGuard ],
-    canLoad: [ RoleGuard],
+    path: 'lista-precios',  component : ListPriceHomeComponent
   },
   {
-    path: 'pedidos-temporales',  component: TempOrderComponent,
-    canActivate: [RoleGuard ],
-    canLoad: [ RoleGuard],
+    path: 'listado-articulos',  component: ArticlesComponent
   },
   {
-    path: 'buscar-articulos',  component: SearchProductsComponent,
-    canActivate: [RoleGuard ],
-    canLoad: [ RoleGuard],
+    path: 'listado-pedidos',  component: ListOrdersComponent
+  },
+  {
+    path: 'pedidos-temporales',  component: TempOrderComponent
+  },
+  {
+    path: 'buscar-articulos',  component: SearchProductsComponent
   },
   {
     path: 'articulo/:id',  component: ViewMoreArticleComponent
   },
-
   {
-    path: 'configuraciones',  component: SettingsComponent
-  },
-  {
-    path: 'clientes',  component: ClientComponent,
-    canActivate: [RoleGuard ],
-    canLoad: [ RoleGuard],
+    path: 'clientes',  component: ClientComponent
   },
   {
     path: 'login',  component: LoginComponent
@@ -78,10 +53,10 @@ const routes: Routes = [
   },
  
   {
-    path: "", redirectTo: "login", pathMatch: 'full'
+    path: "", redirectTo: "home", pathMatch: 'full'
   },
   {
-    path: '**',    redirectTo: 'login'
+    path: '**',    redirectTo: 'home'
   },
 
 ];

@@ -1,5 +1,4 @@
 export interface Articulo {
-    precioBrutoFinal: any;
     idCategoria: number;
     idRubro: number;
     idSector: number;

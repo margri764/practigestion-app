@@ -23,10 +23,10 @@ export class AskDelClientComponent implements OnInit {
 
   closeComponent(){
     this.dialogRef.close();
+
   }
 
   continue(){
-    this.confirm = true;
     this.errorService.authDelClient$.emit(true),
     setTimeout( ()=>{
       this.dialogRef.close();

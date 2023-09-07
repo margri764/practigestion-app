@@ -57,27 +57,29 @@
 
     <div fxLayout="row wrap"  fxLayoutAlign="space-between center" style="padding: 20px" fxFlex="100" class="whiteframe" >
         
-            <span  class="font fs-5" fxFlex="100" > Código: {{article.codigoArticulo }} </span>
+            <span  class="font fs-5" fxFlex="49" > Código: {{article.codigoArticulo }} </span>
+            <span  class="font fs-5 mr-5" fxFlex="49" fxLayoutAlign="end"> Estado: &nbsp; <label [ngStyle]="styleObject(article.activo)">{{article.activo | productStatus }}</label></span>
 
             <span  class="font fs-5 mt-20" fxFlex="100" > {{article.descripcionLarga | capitalizeFirstLetter }}</span>
 
             <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" class=" mt-30" style="color: rgb(44, 44, 44);">
-                <span fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="55" class="font fs-5"> Precio U. &nbsp;<b>{{article.precioBrutoFinal || 0 * productQuantity || 0 | currency:'$':'symbol':'1.2-2'}} </b> </span>
+                    
+                <span fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="55" class="font fs-5"> Precio U. &nbsp;<b>${{article.precioCostoConIva || 0 * productQuantity || 0 }} </b> </span>
                 <!-- counter -->
                 <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="45">
                 
                     <div fxLayout="row wrap" fxLayoutAlign="space-between center"  class="incrementer">
                 
                         <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="15" (click)="decrement()" >
-                                <i class="material-symbols-outlined notranslate cursor">remove</i>
+                                <i class="material-symbols-outlined notranslate">remove</i>
                         </div>
                     
                         <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="20">
-                            <span class="font fs-5">{{productQuantity}}</span>
+                            <span style="font-size: 4vw;">{{productQuantity}}</span>
                         </div>
                     
                         <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="15" (click)="increment()">
-                                <i class="material-symbols-outlined notranslate cursor">add</i>
+                                <i class="material-symbols-outlined notranslate">add</i>
                         </div>
                 </div>
             
@@ -86,7 +88,7 @@
 
                <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" class="mt-20"> 
                
-                     <span fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="50" class="font fs-5"> Bonif. (%)</span>
+                     <span fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="50" class="font fs-5"> Bonificación</span>
                      <input type="number" [(ngModel)]="inputValue" class="font fs-5 customInput" pattern="[0-9]*" (blur)="totalPurchase()"> 
 
                </div>
@@ -94,7 +96,7 @@
 
             <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" class="font fs-7 mt-40" >
                 <span fxFlex="50" fxLayoutAlign="start center" > <b>Total</b> </span>
-                <span fxFlex="50" fxLayoutAlign="end"><b>{{total | currency:'$':'symbol':'1.2-2'}}</b></span>
+                <span fxFlex="50" fxLayoutAlign="end"><b>$ {{total}}</b></span>
             </div>    
 
             <div fxLayout="row wrap"  fxLayoutAlign="space-between center" fxFlex="97" style="margin-top: 20px;">

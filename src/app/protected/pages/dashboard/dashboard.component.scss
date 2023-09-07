@@ -11,8 +11,6 @@
   text-align: center;
 
   
-
-  
   box-shadow: -1px 0px 14px -1px rgba(197, 196, 196, 0.45);
   -webkit-box-shadow: -1px 0px 14px -1px rgba(197, 196, 196, 0.45);
    -moz-box-shadow: -1px 0px 14px -1px rgba(197, 196, 196, 0.45);
@@ -35,27 +33,9 @@
 }
 
 
-.logoWidth{
-  width: 350px;
-}
-
-//Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 800px) {
-
-  .logoWidth{
-    width: 250px;
-  }
-  
-}
 
 //Extra small devices (phones, 600px and down) */
 @media only screen and (min-width: 800px) {
-
-
-  .logoWidth{
-    width: 350px;
-  }
-  
 
   .mainIcon{
     width: 100px;
@@ -68,7 +48,7 @@
     text-align: center;
     border: 0px solid rgb(188, 210, 202);
     background-color: rgb(235, 235, 235);
-    transition: all 0.3s ease 0s;
+    transition: all 0.2s ease 0s;
 
     box-shadow: 0px 0px 0px 0px rgba(82,82,82,0.75);
     -webkit-box-shadow: 0px 0px 0px 0px rgba(82,82,82,0.75);
@@ -77,13 +57,13 @@
       .material-icons{
         transform: scale(1.7);
         color: rgb(37, 150, 190);
-        transition: all 0.3s ease 0s;
+        transition: all 0.2s ease 0s;
 
       }
       .material-symbols-outlined {
         transform: scale(1.7);
         color: rgb(37, 150, 190);
-        transition: all 0.3s ease 0s;
+        transition: all 0.2s ease 0s;
 
       }
   
@@ -95,6 +75,9 @@
       transition: all 0.2s ease 0s;
       background-color: white;
 
+      box-shadow: 0px 0px 8px 1px rgba(82,82,82,0.75);
+      -webkit-box-shadow: 0px 0px 8px 1px rgba(82,82,82,0.75);
+      -moz-box-shadow: 0px 0px 8px 1px rgba(82,82,82,0.75);
 
         .material-icons{
           transform: scale(1.9);
@@ -108,20 +91,4 @@
   }
 
   
-//Extra small devices (phones, 600px and down) */
-@media only screen and (min-width: 1200px) {
-
-  .logoWidth{
-    width: 300px;
-  }
-}
-
-//Extra small devices (phones, 600px and down) */
-@media only screen and (min-width: 1400px) {
-
-  .logoWidth{
-    width: 300px;
-  }
-}
-
 }

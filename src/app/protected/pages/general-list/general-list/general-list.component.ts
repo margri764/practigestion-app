@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { PriceList } from 'src/app/protected/interfaces/list.interface';
+import { LoadingComponent } from 'src/app/protected/messages/loading/loading/loading.component';
 import { ArticlesService } from 'src/app/protected/services/articles/articles.service';
 import { ErrorService } from 'src/app/protected/services/error/error.service';
 import { ListByIdComponent } from '../../list-by-id/list-by-id/list-by-id.component';
@@ -19,12 +20,12 @@ export class GeneralListComponent implements OnInit {
               private articleService : ArticlesService,
               private errorService : ErrorService,
               private dialog : MatDialog,
-              // private _bottomSheet : MatBottomSheet
+              private _bottomSheet : MatBottomSheet
   ) { }
 
   ngOnInit(): void {
 
-    // this.errorService.close$.subscribe(  (emitted)=>{if(emitted)this._bottomSheet.dismiss()})
+    this.errorService.close$.subscribe(  (emitted)=>{if(emitted)this._bottomSheet.dismiss()})
     this.getAllTruePriceList();
   }
 
@@ -41,13 +42,13 @@ export class GeneralListComponent implements OnInit {
       })
   }
 
-  // selectList( id: any) {
+  selectList( id: any) {
 
-  //   this._bottomSheet.open(ListByIdComponent,{
-  //     data: id,
-  //     disableClose: true,
-  //     })
-  // }
+    this._bottomSheet.open(ListByIdComponent,{
+      data: id,
+      disableClose: true,
+      })
+  }
 
 
 

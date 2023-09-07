@@ -32,7 +32,6 @@ export class User {
             public esContacto: number,
             public observaciones: string ,
             public id: number,
-            public permisos : number [],
         )
         {}
   

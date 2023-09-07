@@ -28,17 +28,12 @@ import { EditArticleComponent } from './protected/pages/edit-article/edit-articl
 import { ListPriceHomeComponent } from './protected/pages/list-price-home/list-price-home/list-price-home.component';
 import { GeneralListComponent } from './protected/pages/general-list/general-list/general-list.component';
 import { LoginMessageComponent } from './protected/messages/login-message/login-message/login-message.component';
+import { LoadingComponent } from './protected/messages/loading/loading/loading.component';
 import { ListByIdComponent } from './protected/pages/list-by-id/list-by-id/list-by-id.component';
 import { AskTempOrderComponent } from './protected/messages/ask-temp-order/ask-temp-order/ask-temp-order.component';
 import { FooterComponent } from './protected/pages/footer/footer/footer.component';
 import { AskDelClientComponent } from './protected/messages/ask-del-client/ask-del-client/ask-del-client.component';
 import { ListOrdersComponent } from './protected/pages/list-orders/list-orders/list-orders.component';
-import { ErrorBackendDownComponent } from './protected/messages/error-backend-down/error-backend-down/error-backend-down.component';
-import { HeaderComponent } from './protected/pages/header/header/header.component';
-import { EditOrderComponent } from './protected/messages/edit-order/edit-order/edit-order.component';
-import { GenericMessageComponent } from './protected/messages/generic-message/generic-message/generic-message.component';
-import { MantainMessageComponent } from './protected/messages/maintain-message/mantain-message/mantain-message.component';
-import { NoPermissionMessageComponent } from './protected/messages/no-permission-message/no-permission-message/no-permission-message.component';
 
 
 // services
@@ -64,12 +59,6 @@ import { TwoDecimalPipe } from './protected/pipes/twoDecimal.pipe';
 import localeEs from '@angular/common/locales/es-AR'; //nombre inventado el AR es por Argentina
 import { registerLocaleData } from '@angular/common';
 import { environment } from 'src/environments/environment';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { AddItemComponent } from './protected/add-item/add-item/add-item.component';
-import { AskOpenOrderComponent } from './protected/messages/ask-open-order/ask-open-order/ask-open-order.component';
-import { AskSendOrderComponent } from './protected/messages/ask-send-order/ask-send-order/ask-send-order.component';
-import { SettingsComponent } from './pages/settings/settings/settings.component';
-
 registerLocaleData( localeEs );
 
 
@@ -82,6 +71,7 @@ registerLocaleData( localeEs );
     ClientComponent,
     LoginComponent,
     ArticlesComponent,
+    ViewMoreArticleComponent,
     PickClientMessageComponent,
     CapitalizeFirstLetterPipe,
     SelectArticleMessageComponent,
@@ -96,6 +86,7 @@ registerLocaleData( localeEs );
     ListPriceHomeComponent,
     GeneralListComponent,
     LoginMessageComponent,
+    LoadingComponent,
     ListByIdComponent,
     AskTempOrderComponent,
     FooterComponent,
@@ -103,17 +94,7 @@ registerLocaleData( localeEs );
     ListOrdersComponent,
     PriceRound,
     GetTotalItems,
-    TwoDecimalPipe,
-    ErrorBackendDownComponent,
-    HeaderComponent,
-    EditOrderComponent,
-    GenericMessageComponent,
-    MantainMessageComponent,
-    NoPermissionMessageComponent,
-    AddItemComponent,
-    AskOpenOrderComponent,
-    AskSendOrderComponent,
-    SettingsComponent
+    TwoDecimalPipe
   ],
   imports: [
     BrowserModule,
@@ -132,12 +113,6 @@ registerLocaleData( localeEs );
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
-      ServiceWorkerModule.register('ngsw-worker.js', {
-        enabled: environment.production,
-        // Register the ServiceWorker as soon as the application is stable
-        // or after 30 seconds (whichever comes first).
-        registrationStrategy: 'registerWhenStable:30000'
-      }),
   
   ],
   providers: [

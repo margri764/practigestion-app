@@ -1,0 +1,63 @@
+.whiteFrame{
+    border-radius: 15px;
+
+    box-shadow: 0px 2px 5px 0px rgba(166, 166, 166, 0.75);
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(166, 166, 166,0.75);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(166, 166, 166,0.75);
+}
+
+.days > div {
+    font-size: 2em;
+    font-family: 'poppins-light'; 
+    align-items: center;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+}
+
+.notHour{
+    opacity: 0.7;
+    color: gray;
+    font-size: 1.3em;
+}
+
+.hour{
+    font-size: 1.3em;
+}
+
+.add{
+    color: white;
+    width: 80px;
+    height: 80px;
+    border-radius: 100px;
+}
+.add mat-icon{
+    transform: scale(2);
+}
+
+.icon{
+    width: 40px;
+    height: 40px;
+    border-radius: 200px;
+    border: 1px solid rgb(217, 217, 217);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+
+  //Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 360px) {
+    .notHour{
+        font-size: 1.1em;
+    }
+    
+    .hour{
+        font-size: 1.1em;
+    }
+    
+    
+}
+  
+

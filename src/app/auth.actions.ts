@@ -9,8 +9,6 @@ export const setTempClient = createAction( '[Auth] setTempClient',
     props<{ client: any }>()
 );
 
-
-
 /************************** UNSET *******************************/
 export const unSetUser = createAction('[Auth] unSetUser');
 export const unSetTempClient = createAction('[Auth] unSetTempClient');
